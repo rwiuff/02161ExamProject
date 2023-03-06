@@ -1,4 +1,6 @@
 # 02161 Exam Project
 Exam Project for DTU course 02161 Software Engineering 1
-## Report
-Can be found as [G13.pdf](Report/G13.pdf).
+## Reports
+Requirements and Design kan be found as [G13ReqDes.pdf](RequirementsAndDesign/G13ReqDes.pdf)
+
+Implementation and Test can be found as [G13ImpTest.pdf](ImplementationAndTest/G13ImpTest.pdf).
