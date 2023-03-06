@@ -149,11 +149,10 @@
 \usepackage{minted}
 \setminted{fontsize=\small,
            linenos=true}
-\usemintedstyle{monokai}
+\usemintedstyle{tango}
 \renewcommand{\listoflistingscaption}{Listings}
-\definecolor{bg}{cmyk}{.04, .08, .0, .9}
-\newcommand{\im}[3]{\inputminted[bgcolor=bg, linenos=true, python3=true, firstline=#2, lastline=#3]{python}{#1}}
-\newcommand{\java}[3]{\inputminted[bgcolor=bg, linenos=true, firstline=#2, lastline=#3]{java}{#1}}
+\newcommand{\im}[3]{\inputminted[linenos=true, python3=true, firstline=#2, lastline=#3]{python}{#1}}
+\newcommand{\java}[3]{\inputminted[linenos=true, firstline=#2, lastline=#3]{java}{#1}}
 \usepackage{dirtree}
 
 %Definitions and new commands
