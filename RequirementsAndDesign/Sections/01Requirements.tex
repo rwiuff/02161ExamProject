@@ -4,22 +4,21 @@
 \subsection{Ordliste}
 \begin{table}[H]
     \centering
-    \caption{Liste over gloser brugt i dette projekt og disses beskrivelser.}\label{tbl:gloser}
-    \begin{tblr}{width = \textwidth, colspec={Q[l, font = \bfseries, wd = .2\textwidth]Q[l, wd = .7\textwidth]}}
-        \toprule
-        Aktivitet         & En opgave med tilknyttet varighed, medarbejdere kan deltage i at udføre.                                            \\
-        Faste aktiviteter & Aktiviteter der ikke kan pålægges et projekt. F.eks. ferie, sygdom, kurser.                                         \\
-        Projekt aktivitet &                                                                                                                     \\
-        Projekt           & Samling af aktiviteter, enten internt (dvs. at projektet er Softwarehuset A/S' eget) eller eksternt (for en kunde). \\
-        Medarbejder       & Alias udviklingsmedarbejder; de som står for udviklingen af softwareløsninger til kunder.                           \\
-        Kunde             &                                                                                                                     \\
-        Projektleder      & En medarbejder valgt blandt udviklingsmedarbejdere                                                                  \\
-        Softwarehuset A/S & Kunden til softwareløsningen                                                                                        \\
-        Medarbejder ID    & Initialer på 4 bogstaver. F.eks. huba                                                                               \\
-        Projektnumre      & Har formen årstal og et løbenummer. F.eks. 22001                                                                    \\
-        Varighed          & En aktivitets fastlagte antal timer                                                                                 \\
-        Arbejdstid        & Mængde tid i inkrementer af halve timer, brugt på en aktivitet                                                      \\
-        \bottomrule
+    % \caption{Liste over gloser brugt i dette projekt og disses beskrivelser.}\label{tbl:gloser}
+    \begin{tblr}{width = \textwidth, colspec={Q[l, font = \bfseries, wd = .17\textwidth]Q[l, wd = .73\textwidth]}}
+        % \toprule
+        Medarbejder       & En medarbejder er en person ansat i Softwarehuset A/S, som er tildelt aktiviteter. En medarbejder kan udføre aktiviteter og registrere arbejdstid brugt på aktiviteter, uagtet om medarbejderen er tilknyttet aktiviteten. Hver medarbejder har et medarbejder ID. \\
+        Projekt aktivitet & En delopgave af et projekt. Hver aktivitet er tilknyttet en medarbejder.                                                                                                                                                                                           \\
+        Faste aktiviteter & Aktiviteter der ikke kan pålægges et projekt. F.eks. ferie, sygdom, kurser.                                                                                                                                                                                        \\
+        Projekt           & Udviklingsarbejde udført for en kunde (eksternt) eller for Softwarehuset A/S (internt). Et projekt administreres af en projektleder og er inddelt i aktiviteter. Hvert projekt har et projektnummer.                                                               \\
+        Kunde             & En ekstern entitet som bestiller og er modtager af projekter.                                                                                                                                                                                                      \\
+        Projektleder      & En medarbejder der har ret til at oprette og tildele aktiviteter for et givent projekt.                                                                                                                                                                            \\
+        Softwarehuset A/S & Entitet som er modtager af et projekt, hvis projektet er internt.                                                                                                                                                                                                  \\
+        Medarbejder ID    & Identifikation for hver enkelt medarbejder. Består af fire bogstaver. To første fra fornavn efterfulgt af to første fra efternavn. F.eks. RAWI.                                                                                                                    \\
+        Projektnumer      & Identifikation for hvert enkelt projekt. Har formen årstal efterfulgt af et fireciffret løbenummer. F.eks. 23001                                                                                                                                                   \\
+        Varighed          & En aktivitets fastlagte antal hele timer.                                                                                                                                                                                                                          \\
+        Arbejdstid        & Mængde tid i inkrementer af halve timer, brugt på en aktivitet. Kan registreres af den medarbejder som har brugt arbejdstid på en given aktivitet.                                                                                                                 \\
+        % \bottomrule
     \end{tblr}
 \end{table}
 \subsection{Use case diagrams}
@@ -76,7 +75,7 @@ Bruger
 %     And the machine returns the rest money
 %     And the vending machine remembers its earnings
 %     ...
-    
+
 % \end{verbatim}
 \begin{listing}[H]
     \centering
