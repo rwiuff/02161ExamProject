@@ -18,6 +18,7 @@
 \subsection{Use case diagrams}
 
 \subsubsection{Projektstyring} 
+
 \begin{figure}[ht]
     \centering
     \includegraphics{diagrams/guest_project}
@@ -45,6 +46,11 @@
 \subsection{Detaljerede use cases}
 
 \subsection{Opret projekt}
+
+
+\Large{Kaspers udkast af use case}
+
+\normalsize
 \underline{Navn} \\
 Opret projekt
 
@@ -54,12 +60,18 @@ Der kan oprettes projekter
 \underline{Aktør} \\
 Bruger
 
+\begin{figure}
+    \centering
+    \includegraphics{RequirementsAndDesign/diagrams/Timeregistrering og projektstyring.png}
+    \caption{Det her var et forsøg på at lave et use-case diagram med alle actors tilstede. Der er muligvis også flere use-cases end nødvendig, men de her er stillet af opgaven, som fremgår af projektbeskrivelsen. Ikke nødvendigvis det mest overskuelige use-case diagram, men en fordel ved denne er - selvom det er en mindre detalje - at man får en enkel use-case relation med, nemlig <<extend>>. (Mathies)}
+    \label{AlleActorsPåEnGang}
+\end{figure}
 
 \underline{Cucumber feature 1}
 \begin{verbatim}
 Feature: Buy fruit
-    Description: A user buys fruit...
-    Actors: User
+Description: A user buys fruit...
+Actors: User
 
 Scenario: Buy a fruit with enough money
     Given the vending machine has fruits
@@ -68,4 +80,5 @@ Scenario: Buy a fruit with enough money
     And the machine returns the rest money
     And the vending machine remembers its earnings
     ...
+    
 \end{verbatim}
