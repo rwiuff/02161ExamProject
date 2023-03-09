@@ -146,11 +146,12 @@
 \usepackage{silence}
 \usepackage[square, longnamesfirst, numbers]{natbib}
 \usepackage{empheq}
-\usepackage[outputdir=../]{minted}
+% \usepackage[outputdir=../]{minted} % Overleaf minted buildpath fix
+\usepackage[newfloat]{minted}
 \setminted{fontsize=\small,
            linenos=true}
 \usemintedstyle{tango}
-\renewcommand{\listoflistingscaption}{Listings}
+\SetupFloatingEnvironment{listing}{listname=Listings}
 \newcommand{\im}[3]{\inputminted[linenos=true, python3=true, firstline=#2, lastline=#3]{python}{#1}}
 \newcommand{\java}[3]{\inputminted[linenos=true, firstline=#2, lastline=#3]{java}{#1}}
 \usepackage{dirtree}
