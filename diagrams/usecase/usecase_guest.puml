@@ -3,21 +3,32 @@
 left to right direction
 
 actor "Gæst" as guest
+actor "Medarbejder" as worker 
+actor "Projektleder" as leader
+
 
 package "Projektstyring & tidsregistrering" {
 
     package "Projektstyring" {
         usecase "Opret projekt" as create_project
+        usecase "Tilknyt medarbejder til projekt" as assign_project_user
+        usecase "Tilknyt projektleder til projekt" as assign_project_leader
+        usecase "Se overblik over projekt" as view_project_overview
     }
     
     package "Brugeradministration" {
         usecase "Opret medarbejder" as create_worker
-        usecase "Tilknyt medarbejder til projekt" as assign_project_user
-        usecase "Tilknyt projektleder til projekt" as assign_project_leader
+        usecase "Login som medarbjder" as login
+        usecase "Log-ud som medarbejder" as logout
     }
 
     package "Aktivitetshåndtering" {
         usecase "Opret aktivitet til projekter" as create_project_activity
+    }
+
+    package "Tidsregistrering" {
+        usecase "Registrer brugt tid på aktivitet" as register_activity_time
+
     }
     
 }
@@ -27,5 +38,13 @@ guest --> create_project_activity
 guest --> assign_project_user
 guest --> assign_project_leader
 guest --> create_worker
+guest --> login
+
+worker --> register_activity_time
+worker --> logout
+
+leader --> view_project_overview 
+
+worker --> leader
 
 @enduml
