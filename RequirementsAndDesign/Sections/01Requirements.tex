@@ -1,0 +1,96 @@
+% !TeX root = ..\rapport_13_1.tex
+\section{Kravspecifikation}
+\subsection{Indledning}
+\subsection{Ordliste}
+\begin{table}[H]
+    \centering
+    % \caption{Liste over gloser brugt i dette projekt og disses beskrivelser.}\label{tbl:gloser}
+    \begin{tblr}{width = \textwidth, colspec={Q[l, font = \bfseries, wd = .17\textwidth]Q[l, wd = .73\textwidth]}}
+        % \toprule
+        Medarbejder       & En medarbejder er en person ansat i Softwarehuset A/S, som er tildelt aktiviteter. En medarbejder kan udføre aktiviteter og registrere arbejdstid brugt på aktiviteter, uagtet om medarbejderen er tilknyttet aktiviteten. Hver medarbejder har et medarbejder ID. \\
+        Projekt aktivitet & En delopgave af et projekt. Hver aktivitet er tilknyttet en medarbejder.                                                                                                                                                                                           \\
+        Faste aktiviteter & Aktiviteter der ikke kan pålægges et projekt. F.eks. ferie, sygdom, kurser.                                                                                                                                                                                        \\
+        Projekt           & Udviklingsarbejde udført for en kunde (eksternt) eller for Softwarehuset A/S (internt). Et projekt administreres af en projektleder og er inddelt i aktiviteter. Hvert projekt har et projektnummer.                                                               \\
+        Kunde             & En ekstern entitet som bestiller og er modtager af projekter.                                                                                                                                                                                                      \\
+        Projektleder      & En medarbejder der har ret til at oprette og tildele aktiviteter for et givent projekt.                                                                                                                                                                            \\
+        Softwarehuset A/S & Entitet som er modtager af et projekt, hvis projektet er internt.                                                                                                                                                                                                  \\
+        Medarbejder ID    & Identifikation for hver enkelt medarbejder. Består af fire bogstaver. To første fra fornavn efterfulgt af to første fra efternavn. F.eks. RAWI.                                                                                                                    \\
+        Projektnumer      & Identifikation for hvert enkelt projekt. Har formen årstal efterfulgt af et fireciffret løbenummer. F.eks. 23001                                                                                                                                                   \\
+        Varighed          & En aktivitets fastlagte antal hele timer.                                                                                                                                                                                                                          \\
+        Arbejdstid        & Mængde tid i inkrementer af halve timer, brugt på en aktivitet. Kan registreres af den medarbejder som har brugt arbejdstid på en given aktivitet.                                                                                                                 \\
+        % \bottomrule
+    \end{tblr}
+\end{table}
+\subsection{Use case diagrams}
+\subsubsection{Projektstyring}
+
+\begin{figure}[H]
+    \centering
+    \caption{Use case: Projektstyring}\label{fig:Projektstyring}
+    \includegraphics[width=.3\textwidth]{Diagrams/guest_project}
+\end{figure}
+
+\subsubsection{Aktivitetshåndtering}
+
+\begin{figure}[H]
+    \centering
+    \caption{Use case: Aktivitetshåndtering}\label{fig:Aktivitetshaandtering}
+    \includegraphics[width=.3\textwidth]{Diagrams/guest_activity}
+\end{figure}
+
+\subsubsection{Bruger administration}
+
+\begin{figure}[H]
+    \centering
+    \caption{Use case: Bruger administration}\label{fig:BrugerAdmin}
+    \includegraphics[width=.3\textwidth]{Diagrams/guest_users}
+\end{figure}
+
+\subsection{Detaljerede use cases}
+\subsection{Opret projekt}
+\Large{Kaspers udkast af use case}\newline
+\normalsize
+\emph{Navn}\newline
+Opret projekt\newline
+\emph{Beskrivelse}\newline
+Der kan oprettes projekter\newline
+\emph{Aktør}\newline
+Bruger
+\begin{figure}[H]
+    \centering
+    \caption{Det her var et forsøg på at lave et use-case diagram med alle actors tilstede. Der er muligvis også flere use-cases end nødvendig, men de her er stillet af opgaven, som fremgår af projektbeskrivelsen. Ikke nødvendigvis det mest overskuelige use-case diagram, men en fordel ved denne er - selvom det er en mindre detalje - at man får en enkel use-case relation med, nemlig <<extend>>. (Mathies)}\label{fig:AlleActorsPaaEnGang}
+    \includegraphics[width=.7\textwidth]{Diagrams/Timeregistrering og projektstyring.png}
+\end{figure}
+
+% \emph{Cucumber feature 1}
+% \begin{verbatim}
+% Feature: Buy fruit
+% Description: A user buys fruit...
+% Actors: User
+
+% Scenario: Buy a fruit with enough money
+%     Given the vending machine has fruits
+%     When the user enters enough mone for a fruit
+%     And the user selects a fruit
+%     And the machine returns the rest money
+%     And the vending machine remembers its earnings
+%     ...
+
+% \end{verbatim}
+\begin{listing}[H]
+    \centering
+    \caption{Cucumber feature 1}\label{lst:feature1}
+    \begin{minted}{gherkin}
+    Feature: Buy fruit
+    Description: A user buys fruit...
+    Actors: User
+    
+    Scenario: Buy a fruit with enough money
+        Given the vending machine has fruits
+        When the user enters enough mone for a fruit
+        And the user selects a fruit
+        And the machine returns the rest money
+        And the vending machine remembers its earnings
+        ...
+    \end{minted}
+\end{listing}

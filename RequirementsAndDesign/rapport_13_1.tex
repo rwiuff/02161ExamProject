@@ -146,14 +146,14 @@
 \usepackage{silence}
 \usepackage[square, longnamesfirst, numbers]{natbib}
 \usepackage{empheq}
-\usepackage{minted}
+\usepackage[newfloat, outputdir=../]{minted} % Overleaf minted buildpath fix
+% \usepackage[newfloat]{minted}
 \setminted{fontsize=\small,
            linenos=true}
-\usemintedstyle{monokai}
-\renewcommand{\listoflistingscaption}{Listings}
-\definecolor{bg}{cmyk}{.04, .08, .0, .9}
-\newcommand{\im}[3]{\inputminted[bgcolor=bg, linenos=true, python3=true, firstline=#2, lastline=#3]{python}{#1}}
-\newcommand{\java}[3]{\inputminted[bgcolor=bg, linenos=true, firstline=#2, lastline=#3]{java}{#1}}
+\usemintedstyle{tango}
+\SetupFloatingEnvironment{listing}{listname=Listings}
+\newcommand{\im}[3]{\inputminted[linenos=true, python3=true, firstline=#2, lastline=#3]{python}{#1}}
+\newcommand{\java}[3]{\inputminted[linenos=true, firstline=#2, lastline=#3]{java}{#1}}
 \usepackage{dirtree}
 
 %Definitions and new commands
@@ -199,7 +199,7 @@
 \preauthor{\begin{center}
     \large \lineskip 0.5em%
     \begin{tabular}[t]{r}}
-\author{\textbf{Afleverinsgruppe 13:} \lb \lb \authOne \ \textbf{\SIDOne} \lb \authTwo \ \textbf{\SIDTwo} \lb \authThree \ \textbf{\SIDThree} \lb \authFour \ \textbf{\SIDFour} \lb \href{https://github.com/rwiuff/02161ExamProject}{\color{DTUred}github.com/rwiuff/02161ExamProject} \github{https://github.com/rwiuff/02161ExamProject}}
+\author{\textbf{Afleveringsgruppe 13:} \lb \lb \authOne \ \textbf{\SIDOne} \lb \authTwo \ \textbf{\SIDTwo} \lb \authThree \ \textbf{\SIDThree} \lb \authFour \ \textbf{\SIDFour} \lb \href{https://github.com/rwiuff/02161ExamProject}{\color{DTUred}github.com/rwiuff/02161ExamProject} \github{https://github.com/rwiuff/02161ExamProject}}
 \postauthor{\end{tabular}\par\end{center}}
 \date{\handin}
 \maketitle
@@ -211,9 +211,8 @@
 \thispagestyle{empty}
 \newpage
 \setcounter{page}{1}
-
-\section{Overskrift}
-
+\input{Sections/01Requirements}
+\input{Sections/02Design}
 %Bibliography herunder:
 %\newpage
 
