@@ -45,6 +45,5 @@ worker --> logout
 
 leader --> view_project_overview 
 
-worker --> leader
 
 @enduml
