@@ -75,7 +75,6 @@
 \usepackage[final]{pdfpages}
 \usepackage{array}
 \usepackage{multirow}
-\usepackage{dcolumn}
 \usepackage{fontawesome}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
@@ -167,7 +166,6 @@
 \usepackage{titling}
 \definecolor{DTUred}{cmyk}{0, .91, .72, .23}
 \definecolor{FMNgrey}{cmyk}{.73,.43,.53,.38}
-\newcolumntype{a}{>{\columncolor{gray}}c}
 %Use letters insted of numbers in section numbering
 % \renewcommand{\thesection}{\Alph{section}}
 % \renewcommand{\thesubsection}{\Alph{subsection}}
@@ -209,6 +207,7 @@
 \tableofcontents
 \addtocontents{toc}{~\hfill\textbf{Side}\par}
 \thispagestyle{empty}
+\setcounter{page}{0}
 \newpage
 \setcounter{page}{1}
 
@@ -228,7 +227,6 @@
 \listoftables
 %\newpage
 \listoflistings
-\addcontentsline{toc}{section}{Listings}
 %Appendicer herunder:
 
 %\input{Appendix.tex}

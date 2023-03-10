@@ -7,7 +7,7 @@
 
 %Author(s), Course variables
 \newcommand{\titl}{Kravspecifikation \& Programdesign}
-\newcommand{\handin}{Indsæt dato}
+\newcommand{\handin}{19. marts 2023}
 \newcommand{\authOne}{Rasmus Wiuff}
 \newcommand{\authTwo}{Mathies Henriksen}
 \newcommand{\authThree}{Max-Emil Scotten}
@@ -75,7 +75,6 @@
 \usepackage[final]{pdfpages}
 \usepackage{array}
 \usepackage{multirow}
-\usepackage{dcolumn}
 \usepackage{fontawesome}
 \usepackage{tikz}
 \usetikzlibrary{positioning}
@@ -146,8 +145,8 @@
 \usepackage{silence}
 \usepackage[square, longnamesfirst, numbers]{natbib}
 \usepackage{empheq}
-\usepackage[newfloat, outputdir=../]{minted} % Overleaf minted buildpath fix
-% \usepackage[newfloat]{minted}
+% \usepackage[newfloat, outputdir=../]{minted} % Overleaf minted buildpath fix
+\usepackage[newfloat]{minted}
 \setminted{fontsize=\small,
            linenos=true}
 \usemintedstyle{tango}
@@ -167,7 +166,6 @@
 \usepackage{titling}
 \definecolor{DTUred}{cmyk}{0, .91, .72, .23}
 \definecolor{FMNgrey}{cmyk}{.73,.43,.53,.38}
-\newcolumntype{a}{>{\columncolor{gray}}c}
 %Use letters insted of numbers in section numbering
 % \renewcommand{\thesection}{\Alph{section}}
 % \renewcommand{\thesubsection}{\Alph{subsection}}
@@ -209,6 +207,7 @@
 \tableofcontents
 \addtocontents{toc}{~\hfill\textbf{Side}\par}
 \thispagestyle{empty}
+\setcounter{page}{0}
 \newpage
 \setcounter{page}{1}
 \input{Sections/01Requirements}
@@ -227,7 +226,6 @@
 \listoftables
 %\newpage
 \listoflistings
-\addcontentsline{toc}{section}{Listings}
 %Appendicer herunder:
 
 %\input{Appendix.tex}
