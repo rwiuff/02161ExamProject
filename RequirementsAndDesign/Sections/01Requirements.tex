@@ -83,7 +83,7 @@ Scenario: 1. Register an employee
 
 Scenario: 2. Employee already exist
     Given a guest is logged in
-    And the application has registered an employee with first name "Michael" last name "Laudrup" initials "mila"
+    And the application has a registered employee with first name "Michael" last name "Laudrup" initials "mila"
     And there is an employee with first name "Michael" last name "Laudrup" initials "mila"
     When the user registers the employee
     Then the error message "Medarbejder med initialer "mila" ekisisterer allerede" is given
@@ -204,7 +204,7 @@ Scenario: 1d. A project can be an internal project
     When the user sets the project as an internal project
     Then the project is an internal project
 
-Scenario: 1d. A project can have a start week
+Scenario: 1e. A project can have a start week
     Given an employee is logged in
     And a project exist in the application with title "Projektplanlægning" projectnumber 23001
     When the user sets the start week to 2304
@@ -417,7 +417,7 @@ Scenario: An employee appoints himself as project manager on a project where the
 #ALTERNATIVE SCENARIOS
 Scenario: An employee appoints himself as project manager on a project where there is already one.
     Given The user is logged in as "mila"
-    And There is a project manager on the project that is not the user
+    And There is a project manager on the project with title "Project" in the collection of projects that is not the user
     When The employee appoints himself as a project manager
     Then A PositionAlreadyFilledException is thrown
 
