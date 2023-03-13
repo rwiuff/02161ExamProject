@@ -409,23 +409,23 @@ Background:
 
 #MAIN SCENARIOS
 Scenario: An employee appoints himself as project manager on a project where there is not already one.
-    Given: The user is logged in as "mila"
-    And: There is no project manager for the project with title "Video game"
-    When: The employee appoints himself as a project manager
-    Then: The employee is project manager on the project
+    Given The user is logged in as "mila"
+    And There is no project manager for the project with title "Video game"
+    When The employee appoints himself as a project manager
+    Then The employee is project manager on the project
 
 #ALTERNATIVE SCENARIOS
 Scenario: An employee appoints himself as project manager on a project where there is already one.
-    Given: The user is logged in as "mila"
-    And: There is a project manager on the project
-    When: The employee appoints himself as a project manager
-    Then: A PositionAlreadyFilledException is thrown
+    Given The user is logged in as "mila"
+    And There is a project manager on the project
+    When The employee appoints himself as a project manager
+    Then A PositionAlreadyFilledException is thrown
 
 Scenario: An employee appoints himself as project manager on a project that does not exist
     Given: A user is logged in as "mila"
-    And: A project with title "Not A Project" does not exist in the collection of projects
-    When: The employee appoints himself as a project manager
-    Then: A NoSuchProjectException is thrown
+    And A project with title "Not A Project" does not exist in the collection of projects
+    When The employee appoints himself as a project manager
+    Then A NoSuchProjectException is thrown
     \end{minted}
 \end{listing}
 
