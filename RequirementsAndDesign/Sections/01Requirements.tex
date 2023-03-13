@@ -274,7 +274,7 @@ Scenario: 1f. Same start and end week is allowed
 \subsection{Opret projekt aktivitet for projekt uden projektleder} 
 \begin{listing}[H]
     \centering
-    \caption{Use case: Opret projekt aktivitet for projekt uden projektleder} \label{lst:usecase_regular_activity}
+    \caption{Use case: Opret projekt aktivitet for projekt uden projektleder} \label{lst:usecase_project_activity_no_leader}
     \begin{minted}[breaklines]{gherkin}  
 Feature: Creating a project activity for project without projectleader
 Description: An employee creates a project activity for a project without a projectleader
@@ -361,7 +361,7 @@ Scenario: 4b. A end week needs to be after or same as start week
 \subsection{Opret projekt aktivitet for projekt med projektleder} 
 \begin{listing}[H]
     \centering
-    \caption{Use case: Opret projekt aktivitet for projekt med projektleder} \label{lst:usecase_regular_activity}
+    \caption{Use case: Opret projekt aktivitet for projekt med projektleder} \label{lst:usecase_project_activity_with_leader}
     \begin{minted}[breaklines]{gherkin}  
 Feature: Creating a project activity for project with assigned projectleader
 Description: An projectleader creates a project activity for a project
@@ -555,9 +555,9 @@ Scenario: No registered worktime exists
     \centering
     \caption{Use case: Se og rediger i registreret arbejdstid på aktivitet}\label{lst:usecase_oversigt_over_registreret_arbejdstid_pr_aktivitet}
     \begin{minted}[breaklines]{gherkin}  
-    Feature: View summary of registered worktime pr. activity
-    Description: ...
-    Actors: Project manager
+Feature: View summary of registered worktime pr. activity
+Description: ...
+Actors: Project manager
 
 #BACKGROUND
 Background: 
@@ -582,69 +582,101 @@ Scenario:
     And there is an employee in the application with the name {Lars Svendsen} and initials {lasv}
     And employee {Lars Svendsen} is assigned the project {Video Game} as project manager
     When {Lars Svendsen} wishes to view a summary of the worktime for the project {Web development}
-    Then an error message "No activites is created for this project"
+    Then an error message "No activites are created for this project"
 
     \end{minted}
 \end{listing}
 
-\subsubsection{Anfør budgetteret tid til løsning af aktivitet}
+\subsection{Anfør budgetteret tid til løsning af aktivitet}
 \begin{listing}[H]
     \centering
     \caption{Cucumber feature 1}\label{lst:feature1}
     \begin{minted}[breaklines]{gherkin}
-    Feature: Buy fruit
-    Description: A user buys fruit...
-    Actors: User
-        
-    Scenario: Buy a fruit with enough money
-        Given the vending machine has fruits
-        When the user enters enough mone for a fruit
-        And the user selects a fruit
-        And the machine returns the rest money
-        And the vending machine remembers its earnings
-        ...
+Feature: Set timebudget regular activity
+Description: Project leader assigns the timebugdet for a given activity
+Actors: Project manager
+
+#MAIN SCENARIO
+Scenario: Project manager assigns a timebudget
+    Given there is an employee in the application with first name {Michael} last name {Laudrup} and initials {mila}
+    And a project with title {Video game} projectnumber {23001} exists in the application
+    And employee {mila} is assigned the project {Video Game} as project manager
+    And an activity with the title {Graphics design} exists within the project {Video Game}
+    And the user is logged in as {mila}
+    And the user assigns a timebudget of {32} hours to the activity {Graphics design}
+    Then the activity {Graphics design} has a timebudget of {32} hours
+
+#ALTERNATIVE SCENARIOS
+Scenario: Employee assigns timebuget
+    Given there is an employee in the application with first name {Michael} last name {Laudrup} and initials {mila}
+    And a project with title {Video game} projectnumber {23001} exists in the application
+    And an activity with the title {Graphics design} exists within the project {Video Game}
+    And the user is logged in as {mila}
+    And the user assigns a timebudget of {32} hours to the activity {Graphics design}
+    Then the activity {Graphics design} returns error message "Only project managers can assign timebudgets"
     \end{minted}
 \end{listing}
-\FloatBarrier
-\subsubsection{Tilknyt medarbejdere til projekt}
+\subsection{Tilknyt medarbejdere til projekt}
 \begin{listing}[H]
     \centering
     \caption{Cucumber feature 1}\label{lst:feature1}
     \begin{minted}[breaklines]{gherkin}
-    Feature: Buy fruit
-    Description: A user buys fruit...
-    Actors: User
-        
-    Scenario: Buy a fruit with enough money
-        Given the vending machine has fruits
-        When the user enters enough mone for a fruit
-        And the user selects a fruit
-        And the machine returns the rest money
-        And the vending machine remembers its earnings
-        ...
+Feature: Assign employees onto projekt
+Description: Project leader assigns emplyees for a projekt
+Actors: Project manager
+
+#MAIN SCENARIO
+Scenario: Project manager assigns an employee
+    Given there is an employee in the application with first name {Michael} last name {Laudrup} and initials {mila}
+    And a project with title {Video game} projectnumber {23001} exists in the application
+    And employee {mila} is assigned the project {Video Game} as project manager
+    And the user is logged in as {mila}
+    And there is an employee in the application with first name {Brian} last name {Laudrup} and initials {brla}
+    And {mila} assigns {brla} to the project {Video Game}
+    Then the employee {brla} is assigned to project {Video Game}
+
+#ALTERNATIVE SCENARIOS
+Scenario: Employee assigns employee to project
+    Given there is an employee in the application with first name {Michael} last name {Laudrup} and initials {mila}
+    And a project with title {Video game} projectnumber {23001} exists in the application
+    And the user is logged in as {mila}
+    And there is an employee in the application with first name {Brian} last name {Laudrup} and initials {brla}
+    And {mila} assigns {brla} to the project {Video Game}
+    Then the project {Video Game} returns error message "Only project managers can assign employees"
+
+Scenario: Employee doesnt exist
+    Given there is an employee in the application with first name {Michael} last name {Laudrup} and initials {mila}
+    And a project with title {Video game} projectnumber {23001} exists in the application
+    And employee {mila} is assigned the project {Video Game} as project manager
+    And the user is logged in as {mila}
+    And {mila} assigns {brla} to the project {Video Game}
+    Then the project {Video Game} returns error message "Employee not found"
     \end{minted}
 \end{listing}
-\FloatBarrier
-\subsubsection{Se forventet restarbejde på projekt}
-\FloatBarrier
+\subsection{Se forventet restarbejde på projekt}
 \begin{listing}[H]
     \centering
     \caption{Cucumber feature 1}\label{lst:feature1}
     \begin{minted}[breaklines]{gherkin}
-    Feature: Buy fruit
-    Description: A user buys fruit...
-    Actors: User
-        
-    Scenario: Buy a fruit with enough money
-        Given the vending machine has fruits
-        When the user enters enough mone for a fruit
-        And the user selects a fruit
-        And the machine returns the rest money
-        And the vending machine remembers its earnings
-        ...
+Feature: Get reamining activity progress
+Description: Project leader gets remaining time on activity
+Actors: Project manager
+
+#MAIN SCENARIO
+Scenario: Project manager gets remaining time on activity
+    Given there is an employee in the application with first name {Michael} last name {Laudrup} and initials {mila}
+    And a project with title {Video game} projectnumber {23001} exists in the application
+    And employee {mila} is assigned the project {Video Game} as project manager
+    And an activity with the title {Graphics design} exists within the project {Video Game}
+    And the user is logged in as {mila}
+    And the user assigns a timebudget of {32} hours to the activity {Graphics design}
+    And there is an employee in the application with first name {Brian} last name {Laudrup} and initials {brla}
+    And the user sets the timebudget 50 hours on project activity with title {Graphic design} on project 23001
+    And the user registers worktime 6 hours to project activity with title {Graphics design} in project 23001
+    When the project manager gets remaining time on {Graphics design}
+    Then the activity returns 44 hours
     \end{minted}
 \end{listing}
-\FloatBarrier
 \subsection{EKSEMPLER}
 
 \begin{listing}[H]
