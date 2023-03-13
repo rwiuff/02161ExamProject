@@ -43,33 +43,33 @@ Denne del af eksamensopgaven dokumenterer vores planlægningsproces, der skal ti
     \centering
     \caption{Todo usecases}
     \begin{tabular}{ll}
-        Use case                                                        & Tildelt \\
+        Use case                                                        & Tildelt      \\
         \midrule
-        Opret Medarbejder                                               & Kasper  \\
-        Log in                                                          & Kasper  \\
-        Log ud                                                          & Kasper  \\
-        Opret projekt                                                   & Kasper  \\
-        Opret fast aktivitet                                            & Kasper  \\
-        Opret Aktivitet for projekt uden projektleder                   & Max (Kasper)     \\
-        Opret Aktivitet for projekt med projektleder                    & Kasper        \\
-        FORSLAG: Registrer arbejdstid på projekt aktivitet              & Kasper  \\
-        FORSLAG: Se egen registreret arbejdstid på projekt aktiviteter  & Kasper  \\
-        Påtag projektleder stilling                                     & Max     \\
-        Se og rediger i registreret arbejdstid på aktivitet             & Mathies \\
-        Se oversigt over arbejdstid pr. aktivitet og projekt            & Mathies \\
-        Anfør budgetteret tid til løsning af aktivitet                  &         \\
-        Tilknyt medarbejdere til projekt                                &         \\
-        Se forventet restarbejde på projekt                             &         \\
+        Opret Medarbejder                                               & Kasper       \\
+        Log in                                                          & Kasper       \\
+        Log ud                                                          & Kasper       \\
+        Opret projekt                                                   & Kasper       \\
+        Opret fast aktivitet                                            & Kasper       \\
+        Opret Aktivitet for projekt uden projektleder                   & Max (Kasper) \\
+        Opret Aktivitet for projekt med projektleder                    & Kasper       \\
+        FORSLAG: Registrer arbejdstid på projekt aktivitet              & Kasper       \\
+        FORSLAG: Se egen registreret arbejdstid på projekt aktiviteter  & Kasper       \\
+        Påtag projektleder stilling                                     & Max          \\
+        Se og rediger i registreret arbejdstid på aktivitet             & Mathies      \\
+        Se oversigt over arbejdstid pr. aktivitet og projekt            & Mathies      \\
+        Anfør budgetteret tid til løsning af aktivitet                  & Wiuff        \\
+        Tilknyt medarbejdere til projekt                                & Wiuff        \\
+        Se forventet restarbejde på projekt                              & Wiuff        \\
     \end{tabular}
 \end{table}
 
 
 \subsection{Detaljerede use cases}
-\subsection{Opret medarbejder} 
+\subsection{Opret medarbejder}
 \begin{listing}[H]
     \centering
     \caption{Use case: Opret medarbejder}\label{lst:usecase_register_employee}
-    \begin{minted}{gherkin}  
+    \begin{minted}[breaklines]{gherkin}  
 Feature: Register employee
 Description: A new employee is added to the application
 Actors: Guest
@@ -115,7 +115,7 @@ Scenario: 2a. Employees with same name can be registered
 \begin{listing}[H]
     \centering
     \caption{Use case: Medarbejder log in}\label{lst:usecase_login}
-    \begin{minted}{gherkin}  
+    \begin{minted}[breaklines]{gherkin}  
 Feature: Employees can login
 Description: An employee logs in to the application
 Actors: employee
@@ -145,7 +145,7 @@ Scenario: 1a. Login is case insensitive
 \begin{listing}[H]
     \centering
     \caption{Use case: Medarbejder log ud}\label{lst:usecase_logout}
-    \begin{minted}{gherkin}  
+    \begin{minted}[breaklines]{gherkin}  
 Feature: Employees can log out
 Description: An employee logs out of the application
 Actors: employee
@@ -165,7 +165,7 @@ Scenario: 1. Logout
 \begin{listing}[H]
     \centering
     \caption{Use case: Opret projekt}\label{lst:usecase_create_project}
-    \begin{minted}{gherkin}  
+    \begin{minted}[breaklines]{gherkin}  
 Feature: Creating a project
 Description: An employee creates a project in the application
 Actors: employee
@@ -218,7 +218,7 @@ Scenario: 1d. A project can have a start week
 \begin{listing}[H]
     \centering
     \caption{Use case: Opret fast aktivitet}\label{lst:usecase_regular_activity}
-    \begin{minted}{gherkin}  
+    \begin{minted}[breaklines]{gherkin}  
 Feature: Creating a regular activity
 Description: An employee creates a regular activity in the application
 Actors: employee
@@ -275,7 +275,7 @@ Scenario: 1f. Same start and end week is allowed
 \begin{listing}[H]
     \centering
     \caption{Use case: Opret projekt aktivitet for projekt uden projektleder} \label{lst:usecase_regular_activity}
-    \begin{minted}{gherkin}  
+    \begin{minted}[breaklines]{gherkin}  
 Feature: Creating a project activity for project without projectleader
 Description: An employee creates a project activity for a project without a projectleader
 Actors: employee
@@ -362,7 +362,7 @@ Scenario: 4b. A end week needs to be after or same as start week
 \begin{listing}[H]
     \centering
     \caption{Use case: Opret projekt aktivitet for projekt med projektleder} \label{lst:usecase_regular_activity}
-    \begin{minted}{gherkin}  
+    \begin{minted}[breaklines]{gherkin}  
 Feature: Creating a project activity for project with assigned projectleader
 Description: An projectleader creates a project activity for a project
 Actors: employee, projectleader
@@ -398,7 +398,7 @@ Scenario: 1a. A employee is not able to create a project activity
 \begin{listing}[H]
     \centering
     \caption{Use case: Medarbejder udpeger sig som projektleder} \label{lst:usecase_bliv_projektleder}
-    \begin{minted}{gherkin}  
+    \begin{minted}[breaklines]{gherkin}  
 Feature: Take on the role of project manager
 Description: An employee can, when there is not already one, appoint themselves as project manager.
 Actors: Employees
@@ -430,7 +430,7 @@ Scenario: An employee appoints himself as project manager on a project that does
 \begin{listing}[H]
     \centering
     \caption{Use case: Registrer arbejdstid på projekt aktivitet} \label{lst:usecase_register_worktime_projectactivity}
-    \begin{minted}{gherkin}  
+    \begin{minted}[breaklines]{gherkin}  
 # !!! FORSLAG !!! (kasper)
 Feature: Register worktime on project activity
 Description: An employee registers worktime to a project activity.
@@ -468,7 +468,7 @@ Scenario: 1.b Project activity not found
 \begin{listing}[H]
     \centering
     \caption{Use case: Se registreret arbejdstid på projekt aktivitet} \label{lst:usecase_view_worktime_projectactivity}
-    \begin{minted}{gherkin}  
+    \begin{minted}[breaklines]{gherkin}  
 # !!! FORSLAG !!! (kasper)
 Feature: View worktime on project activity
 Description: An employee registers worktime to a project activity.
@@ -512,7 +512,7 @@ Scenario: 2a. Guests is unable to get a total of worktime registrations for a pr
 \begin{listing}[H]
     \centering
     \caption{Use case: Se og rediger i registreret arbejdstid på aktivitet}\label{lst:usecase_se_og_rediger_i_registreret_arbejdstid_paa_aktivitet}
-    \begin{minted}{gherkin}  
+    \begin{minted}[breaklines]{gherkin}  
 Feature: View and edit registered worktime on activity
 Description: It should be possible for an employee to view the amount of worktime used on any activity.
 Furthermore, the employee should be able to edit the registered worktime. 
@@ -554,7 +554,7 @@ Scenario: No registered worktime exists
 \begin{listing}[H]
     \centering
     \caption{Use case: Se og rediger i registreret arbejdstid på aktivitet}\label{lst:usecase_oversigt_over_registreret_arbejdstid_pr_aktivitet}
-    \begin{minted}{gherkin}  
+    \begin{minted}[breaklines]{gherkin}  
     Feature: View summary of registered worktime pr. activity
     Description: ...
     Actors: Project manager
@@ -584,18 +584,73 @@ Scenario:
     When {Lars Svendsen} wishes to view a summary of the worktime for the project {Web development}
     Then an error message "No activites is created for this project"
 
-
     \end{minted}
 \end{listing}
 
-
-
+\subsubsection{Anfør budgetteret tid til løsning af aktivitet}
+\begin{listing}[H]
+    \centering
+    \caption{Cucumber feature 1}\label{lst:feature1}
+    \begin{minted}[breaklines]{gherkin}
+    Feature: Buy fruit
+    Description: A user buys fruit...
+    Actors: User
+        
+    Scenario: Buy a fruit with enough money
+        Given the vending machine has fruits
+        When the user enters enough mone for a fruit
+        And the user selects a fruit
+        And the machine returns the rest money
+        And the vending machine remembers its earnings
+        ...
+    \end{minted}
+\end{listing}
+\FloatBarrier
+\subsubsection{Tilknyt medarbejdere til projekt}
+\begin{listing}[H]
+    \centering
+    \caption{Cucumber feature 1}\label{lst:feature1}
+    \begin{minted}[breaklines]{gherkin}
+    Feature: Buy fruit
+    Description: A user buys fruit...
+    Actors: User
+        
+    Scenario: Buy a fruit with enough money
+        Given the vending machine has fruits
+        When the user enters enough mone for a fruit
+        And the user selects a fruit
+        And the machine returns the rest money
+        And the vending machine remembers its earnings
+        ...
+    \end{minted}
+\end{listing}
+\FloatBarrier
+\subsubsection{Se forventet restarbejde på projekt}
+\FloatBarrier
+\begin{listing}[H]
+    \centering
+    \caption{Cucumber feature 1}\label{lst:feature1}
+    \begin{minted}[breaklines]{gherkin}
+    Feature: Buy fruit
+    Description: A user buys fruit...
+    Actors: User
+        
+    Scenario: Buy a fruit with enough money
+        Given the vending machine has fruits
+        When the user enters enough mone for a fruit
+        And the user selects a fruit
+        And the machine returns the rest money
+        And the vending machine remembers its earnings
+        ...
+    \end{minted}
+\end{listing}
+\FloatBarrier
 \subsection{EKSEMPLER}
 
 \begin{listing}[H]
     \centering
     \caption{Cucumber feature 1}\label{lst:feature1}
-    \begin{minted}{gherkin}
+    \begin{minted}[breaklines]{gherkin}
     Feature: Buy fruit
     Description: A user buys fruit...
     Actors: User
@@ -613,7 +668,7 @@ Scenario:
 \begin{listing}[H]
     \centering
     \caption{Cucumber feature 2}\label{lst:feature2}
-    \begin{minted}{gherkin}
+    \begin{minted}[breaklines]{gherkin}
     Feature: Buy fruit
     Description: A user buys fruit...
     Actors: User
