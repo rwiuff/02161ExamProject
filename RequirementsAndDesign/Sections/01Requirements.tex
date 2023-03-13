@@ -109,7 +109,7 @@ Scenario: 2a. Employees with same name can be registered
     Then an employee with first name "Michael" last name "Laudrup" initials "milb" exists in the application
     \end{minted}
 \end{listing}
-\subsubsection{Log in} 
+\subsubsection{Log in}
 \begin{listing}[H]
     \centering
     \caption{Use case: Medarbejder log in}\label{lst:usecase_login}
@@ -698,12 +698,18 @@ Scenario: Project manager gets remaining time on activity
     \end{minted}
 \end{listing}
 \subsection{Diskussion: Kravspecifikation}
-#Uklarhed i oplæg, valg og afgrænsninger
-#
-- Oprettelse af medarbejdere som gæst/admin
-- Tekst baseret UI, vi har fokus på business logik, og levere noget til kunden hurtigt der virker. K.I.S.S
-- 
-
-# Faglige overvejelser
-- Abstractions og compositions unødvendige da java har garbage collector
+\textbf{Uklarhed i oplæg, valg og afgrænsninger}
+\begin{itemize}
+    \item Oprettelse af medarbejdere som gæst/admin
+    \item Tekst baseret UI, vi har fokus på business logik, og levere noget til kunden hurtigt der virker. \todo{Nice}K.I.S.S
+    \item Flere medarbejdere med samme navn 
+\end{itemize}
+\textbf{Oplægsmæssige overvejelser}
+\begin{itemize}
+    \item 
+\end{itemize}
+\textbf{Faglige overvejelser}
+\begin{itemize}
+    \item Abstractions og compositions unødvendige da java har garbage collector
+\end{itemize}
 
