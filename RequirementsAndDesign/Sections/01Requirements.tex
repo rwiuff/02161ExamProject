@@ -77,14 +77,14 @@ Actors: Guest
 #MAIN SCENARIOS
 Scenario: 1. Register an employee
     Given a guest is logged in
-    And there is a employee with first name "Michael" last name "Laudrup" initials "mila"  
+    And there is an employee with first name "Michael" last name "Laudrup" initials "mila"  
     When the user registers the employee
     Then an employee with first name "Michael" last name "Laudrup" initials "mila" exists in the application
 
 Scenario: 2. Employee already exist
     Given a guest is logged in
-    And there is an employee in the application with first name "Michael" last name "Laudrup" initials "mila"
-    And there is a employe with first name "Michael" last name "Laudrup" initials "mila"  
+    And the application has registered an employee with first name "Michael" last name "Laudrup" initials "mila"
+    And there is an employee with first name "Michael" last name "Laudrup" initials "mila"
     When the user registers the employee
     Then the error message "Medarbejder med initialer "mila" ekisisterer allerede" is given
 
@@ -417,12 +417,12 @@ Scenario: An employee appoints himself as project manager on a project where the
 #ALTERNATIVE SCENARIOS
 Scenario: An employee appoints himself as project manager on a project where there is already one.
     Given The user is logged in as "mila"
-    And There is a project manager on the project
+    And There is a project manager on the project that is not the user
     When The employee appoints himself as a project manager
     Then A PositionAlreadyFilledException is thrown
 
 Scenario: An employee appoints himself as project manager on a project that does not exist
-    Given: A user is logged in as "mila"
+    Given: The user is logged in as "mila"
     And A project with title "Not A Project" does not exist in the collection of projects
     When The employee appoints himself as a project manager
     Then A NoSuchProjectException is thrown
