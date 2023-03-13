@@ -179,9 +179,6 @@ Scenario: 1. Creating a project
     Then a project with title "Projektplanlægning" projectnumber 23001 exists in the application
 
 
-
-
-
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A guest is not able to create a project
     Given a guest is logged in
@@ -293,7 +290,7 @@ Background:
 Scenario: 1. Creating a project activity
     Given the user is logged in as "mila"
     And there is a project activity with title "Graphic design"  
-    When the user creates the project activity in the application 
+    When the user assigns the project activity to project 23001 
     Then the project 23001 has a project activity with title "Graphic design" 
 
 Scenario: 2. A timebudget can be added to a project activity
@@ -410,6 +407,7 @@ Actors: Employees
 #BACKGROUND
 Background:
     Given there is an employee in the application with first name "Michael" last name "Laudrup" initials "mila"
+    And a project with title "Video game" projectnumber 23001 exists in the application
 
 #MAIN SCENARIOS
 Scenario: An employee appoints himself as project manager on a project where there is not already one.
@@ -421,7 +419,7 @@ Scenario: An employee appoints himself as project manager on a project where the
 #ALTERNATIVE SCENARIOS
 Scenario: An employee appoints himself as project manager on a project where there is already one.
     Given The user is logged in as "mila"
-    And There is a project manager on the project with title "Project" in the collection of projects that is not the user
+    And There is a project manager on the project with title "Video game" in the collection of projects that is not the user
     When The employee appoints himself as a project manager
     Then A PositionAlreadyFilledException is thrown
 
