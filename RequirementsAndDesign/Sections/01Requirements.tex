@@ -5,7 +5,7 @@ Denne del af eksamensopgaven dokumenterer vores planlægningsproces, der skal ti
 \subsection{Ordliste}
 \begin{table}[H]
     \centering
-    \setlength{\extrarowheight}{4pt}
+    \setlength{\extrarowheight}{8pt}
     \begin{tabular}{>{\bfseries}l p{0.73\textwidth}}
         Medarbejder & \textit{[Employee]} En medarbejder er en person ansat i Softwarehuset A/S, som er tildelt aktiviteter. En medarbejder kan udføre aktiviteter og registrere arbejdstid brugt på aktiviteter, uagtet om medarbejderen er tilknyttet aktiviteten. Hver medarbejder har et medarbejder ID. \\
         
@@ -50,7 +50,7 @@ Denne del af eksamensopgaven dokumenterer vores planlægningsproces, der skal ti
         Log ud                                                          & Kasper       \\
         Opret projekt                                                   & Kasper       \\
         Opret fast aktivitet                                            & Kasper       \\
-        Opret Aktivitet for projekt uden projektleder                   & Max (Kasper) \\
+        Opret Aktivitet for projekt uden projektleder                   & Max           \\
         Opret Aktivitet for projekt med projektleder                    & Kasper       \\
         FORSLAG: Registrer arbejdstid på projekt aktivitet              & Kasper       \\
         FORSLAG: Se egen registreret arbejdstid på projekt aktiviteter  & Kasper       \\
@@ -66,7 +66,7 @@ Denne del af eksamensopgaven dokumenterer vores planlægningsproces, der skal ti
 
 \subsection{Detaljerede use cases}
 \subsubsection{Opret medarbejder}
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Use case: Opret medarbejder}\label{lst:usecase_register_employee}
     \begin{minted}[breaklines]{gherkin}  
@@ -110,7 +110,7 @@ Scenario: 2a. Employees with same name can be registered
     \end{minted}
 \end{listing}
 \subsubsection{Log in}
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Use case: Medarbejder log in}\label{lst:usecase_login}
     \begin{minted}[breaklines]{gherkin}  
@@ -139,7 +139,7 @@ Scenario: 1a. Login is case insensitive
     \end{minted}
 \end{listing}
 \subsubsection{Log ud} 
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Use case: Medarbejder log ud}\label{lst:usecase_logout}
     \begin{minted}[breaklines]{gherkin}  
@@ -158,7 +158,7 @@ Scenario: 1. Logout
     \end{minted}
 \end{listing}
 \subsubsection{Opret projekt} 
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Use case: Opret projekt}\label{lst:usecase_create_project}
     \begin{minted}[breaklines]{gherkin}  
@@ -208,7 +208,7 @@ Scenario: 1e. A project can have a start week
     \end{minted}
 \end{listing}
 \subsubsection{Opret fast aktivitet} 
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Use case: Opret fast aktivitet}\label{lst:usecase_regular_activity}
     \begin{minted}[breaklines]{gherkin}  
@@ -262,7 +262,7 @@ Scenario: 1f. Same start and end week is allowed
     \end{minted}
 \end{listing}
 \subsubsection{Opret projekt aktivitet for projekt uden projektleder}
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Use case: Opret projekt aktivitet for projekt uden projektleder. Fortsætter på \cref{lst:usecase_project_activity_no_leader_2}} \label{lst:usecase_project_activity_no_leader}
     \begin{minted}[breaklines]{gherkin}  
@@ -301,7 +301,7 @@ Scenario: 4. A end week can be set to a project activity
     Then the project activity with title "Graphic design" on project 23001 has end week 2304
     \end{minted}
 \end{listing}
-\begin{listing}[H]
+\begin{listing}
 \centering
     \caption{Fortsat fra \cref{lst:usecase_project_activity_no_leader}. Use case: Opret projekt aktivitet for projekt uden projektleder} \label{lst:usecase_project_activity_no_leader_2}
 \begin{minted}[breaklines, firstnumber=34]{gherkin}
@@ -351,7 +351,7 @@ Scenario: 4b. A end week needs to be after or same as start week
     \end{minted}
 \end{listing}
 \subsubsection{Opret projekt aktivitet for projekt med projektleder} 
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Use case: Opret projekt aktivitet for projekt med projektleder} \label{lst:usecase_project_activity_with_leader}
     \begin{minted}[breaklines]{gherkin}  
@@ -386,7 +386,7 @@ Scenario: 1a. A employee is not able to create a project activity
     \end{minted}
 \end{listing}
 \subsubsection{Påtag projektlederstilling} 
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Use case: Medarbejder udpeger sig som projektleder} \label{lst:usecase_bliv_projektleder}
     \begin{minted}[breaklines]{gherkin}  
@@ -421,7 +421,7 @@ Scenario: An employee appoints himself as project manager on a project that does
     \end{minted}
 \end{listing}
 \subsubsection{Registrer arbejdstid på projekt aktivitet !!! FORSLAG !!!}
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Use case: Registrer arbejdstid på projekt aktivitet} \label{lst:usecase_register_worktime_projectactivity}
     \begin{minted}[breaklines]{gherkin}  
@@ -457,7 +457,7 @@ Scenario: 1.b Project activity not found
     \end{minted}
 \end{listing}
 \subsubsection{Se registreret arbejdstid på projekt aktivitet !!! FORSLAG !!!}
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Use case: Se registreret arbejdstid på projekt aktivitet} \label{lst:usecase_view_worktime_projectactivity}
     \begin{minted}[breaklines]{gherkin}  
@@ -498,7 +498,7 @@ Scenario: 2a. Guests is unable to get a total of worktime registrations for a pr
     \end{minted}
 \end{listing}
 \subsubsection{Se og rediger i registreret arbejdstid på aktivitet}
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Use case: Se og rediger i registreret arbejdstid på aktivitet}\label{lst:usecase_se_og_rediger_i_registreret_arbejdstid_paa_aktivitet}
     \begin{minted}[breaklines]{gherkin}  
@@ -538,7 +538,7 @@ Scenario: No registered worktime exists
     \end{minted}
 \end{listing}
 \subsubsection{Se oversigt over registreret arbejdstid pr. aktivitet}
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Use case: Se og rediger i registreret arbejdstid på aktivitet}\label{lst:usecase_oversigt_over_registreret_arbejdstid_pr_aktivitet}
     \begin{minted}[breaklines]{gherkin}  
@@ -602,7 +602,7 @@ Scenario: Employee assigns timebuget
     \end{minted}
 \end{listing}
 \subsubsection{Tilknyt medarbejdere til projekt}
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Tilknyt medarbejder}\label{lst:assign_employ}
     \begin{minted}[breaklines]{gherkin}
@@ -639,7 +639,7 @@ Scenario: Employee doesnt exist
     \end{minted}
 \end{listing}
 \subsubsection{Se forventet restarbejde på projekt}
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Hent restarbejde}\label{lst:remainingTime}
     \begin{minted}[breaklines]{gherkin}
