@@ -488,39 +488,91 @@ Scenario: 2a. Guests is unable to get a total of worktime registrations for a pr
     \centering
     \caption{Use case: Se og rediger i registreret arbejdstid på aktivitet}\label{lst:usecase_se_og_rediger_i_registreret_arbejdstid_paa_aktivitet}
     \begin{minted}[breaklines]{gherkin}  
-Feature: View and edit registered worktime on activity
-Description: It should be possible for an employee to view the amount of worktime used on any activity.
-Furthermore, the employee should be able to edit the registered worktime. 
-Actors: employee
+Feature: View and edit registered worktime on project activity
+    Description: An employee wishes to view or edit registered worktime on an activity
+    Actors: employee and guest
 
 #BACKGROUND
 Background:
-    Given there is an employee in the application with first name "Michael" last name "Laudrup" and initials "mila"
-    And a project with title "Video game" exists in the application
-    And an activity with the title "Graphics design" exists within the project "Video Game"
-    And 24 hours of worktime registered on "Graphics Design" within "Video game" for "Michael Laudrup"
+    Given there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila"
+    And a project with title "Video game" and projectnumber 23001 exists in the application
+    And an activity "Graphics design" exists within the project "Video Game"
+    And the employee with initials "mila" has registered 6 hours of worktime to the activity "Graphics design" in project 23001
+    And the employee with initials "mila" has registered 10 hours of worktime to the activity "Graphics design" in project 23001
 
 #MAIN SCENARIOS
-Scenario: View registered worktime on activity
-    Given the employee "Michael Laudrup" wishes to view registered worktime
-    And a project menu option "Video game" is chosen
-    When the activity menu option "Graphics Design" is chosen
-    Then the text "24 hours of registered worktime" appears
+Scenario: 1. An employee can view a list of worktime registrations for an activity
+    Given the user is logged in as "mila"
+    When the list of worktime registrations is requested for the activity "Graphics design" in project 23001
+    Then a list containing 2 items with the values 6 and 10 is returned
 
-Scenario: Edit registered worktime on activity
-    Given the employee "Michael Laudrup" wishes to edit registered worktime
-    And a project menu option "Video game" is chosen
-    And the activity menu option "Graphics Design" is chosen
-    When the registered worktime is changed to 48 hours
-    Then the registered worktime for "Graphics design" within "Video game" for "Michael Laudrup" is 48 hours
+Scenario: 2. An employee can view the total amount of registered worktime for an activity
+    Given the user is logged in as "mila"
+    When the total amount of registered worktime is requested for the activity "Graphics design" in project 23001
+    Then 16 hours is returned
+
+Scenario: 3. An employee can edit the total amount of registered worktime for an activity
+    Given the user is logged in as "mila"
+    And the user edits the total amount of registered worktime to 18 hours for the activity "Graphics design" in project 23001
+    When the total amount of registered worktime is requested for the activity "Graphics design" in project 23001
+    Then 18 hours is returned
+
+Scenario: 4. An employee can edit individual worktime registrations for an activity
+    Given the user is logged in as "mila"
+    And the user edits the first registered worktime registration to 7 hours for the activity "Graphics design" in project 23001
+    When the list of worktime registrations is requested for the activity "Graphics design" in project 23001
+    Then a list containing 2 items with the values 7 and 10 hours is returned
 
 #ALTERNATIVE SCENARIOS
-Scenario: No registered worktime exists
-    Given an activity with the title "Animation" exists within the project "Video Game"
-    And the employee "Michael Laudrup" wishes to view the reigstered worktime
-    And a project menu option "Video Game" is chose
-    When the activity menu option "Animation" is chosen
-    Then the text "No worktime is registered on this activity"
+Scenario: 1a. Guests are unable to view the list of worktime registrations for an activity
+    Given a guest is logged in
+    When the list of worktime registrations is requested for the activity "Graphics design" in project 23001
+    Then the error message "Login kræves" is given
+
+Scenario: 2a. Guests are unable to view the total amount of registered worktime for an activity
+    Given a guest is logged in
+    When the total amount of registered worktime is requested for the project activity "Graphics design" in project 23001
+    Then the error message "Login kræves" is given
+    \end{minted}
+\end{listing}\newpage
+\begin{listing}
+    \centering
+    \caption{Use case: Se og rediger i registreret arbejdstid på aktivitet}\label{lst:usecase_oversigt_over_registreret_arbejdstid_pr_aktivitet_2}
+    \begin{minted}
+    [breaklines, firstnumber=46]{gherkin}
+Scenario: 3a. Guests are unable to edit the total amount of registered worktime for an activity
+    Given a guest is logged in
+    When the user edits the first registered worktime registration to 7 hours for the activity "Graphics design" in project 23001
+    Then the error message "Login kræves" is given
+
+Scenario: 4a. Guests are unable to edit individual worktime registrations for an activity
+    Given a guest is logged in
+    When the user edits the total amount of registered for the activity "Graphics design" in project 23001
+    Then the error message "Login kræves" is given
+
+Scenario: 1b. An employee wishes to view the list of worktime registrations for an activity with no worktime registered
+    Given the user is logged in as "mila"
+    And an activity "Implement physics" exists within the project "Video Game"
+    When the list of worktime registrations is requested for the activity "Implement physics" in project 23001
+    Then the error message "Ingen arbejdstid er registreret for denne aktivitet endnu" is given
+
+Scenario: 2b. An employee wishes to view the total amount of registered worktime for an activity with no registered worktime
+    Given the user is logged in as "mila"
+    And an activity "Implement physics" exists within the project "Video Game"
+    When the the total amount of registered worktime is requested for the activity "Implement physics" in project 23001
+    Then the error message "Ingen arbejdstid er registreret for denne aktivitet endnu" is given
+
+Scenario: 3b. An employee wishes to edit the total amount of registered worktime for an activity with no registered worktime
+    Given the user is logged in as "mila"
+    And an activity "Implement physics" exists within the project "Video Game"
+    When the user edits the total amount of registered worktime to 18 hours for the activity "Implement physics" in project 23001
+    Then the error message "Ingen arbejdstid er registreret for denne aktivitet endnu" is given
+
+Scenario: 4b. An employee wishes to edit individual worktime registrations for an activity with no registered worktime
+    Given the user is logged in as "mila"
+    And an activity "Implement physics" exists within the project "Video Game"
+    When the user edits the first registered worktime registration to 7 hours for the activity "Implement physics" in project 23001
+    Then the error message "Ingen arbejdstid er registreret for denne aktivitet endnu"
     \end{minted}
 \end{listing}\newpage
 \textbf{Se oversigt over registreret arbejdstid pr. aktivitet}
@@ -529,33 +581,37 @@ Scenario: No registered worktime exists
     \caption{Use case: Se og rediger i registreret arbejdstid på aktivitet}\label{lst:usecase_oversigt_over_registreret_arbejdstid_pr_aktivitet}
     \begin{minted}[breaklines]{gherkin}  
 Feature: View summary of registered worktime pr. activity
-Description: ...
-Actors: Project manager
+    Description: A project manager can view a summary of registered worktime pr. activity
+    Actors: Project leader and employee
 
 #BACKGROUND
 Background: 
-    Given there is an employee in the application with first name "Michael" last name "Laudrup" and initials "mila"
+    Given there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila"
+    And there is an employee in the application with first name "Lars", last name "Svendsen" and initials "lasv"
     And a project with title "Video game" exists in the application
-    And multiple activities with registered worktime for "Michael Laudrup" exists
+    And employee "lasv" is assigned the project "Video Game" as project leader
+    And multiple activities with registered worktime for "mila" exists within the project "Video game"
 
 #MAIN SCENARIO
-Scenario: No activites created for project
-    Given there is an employee in the application with the name "Lars Svendsen" and initials "lasv"
+Scenario: 1. The project leader can view a summary of registered worktime pr. activity
+    Given the user is logged in as "lasv"
     And employee "Lars Svendsen" is assigned the project "Video Game" as project manager
-    When "Lars Svendsen" wishes to view a summary of the worktime for the project "Video game"
-    Then a summary of worktime for all the activites under the project "Video game" is shown
+    When "lasv" wishes to view a summary of the worktime for the project "Video game"
+    Then a summary of registered worktime pr. activity under the project "Video game" is shown
 
 #ALTERNATIVE SCENARIO
-Scenario:  
-    When "Michael Laudrup" wishes to view a summary of the worktime for the project "Video game"
-    Then the error message "Only the project manager can access this feature" appears
+Scenario: 1a. An employee recieves an error message when attempting to view the summary of registered worktime
+    When "mila" wishes to view a summary of the worktime for the project "Video game"
+    Then the error message "Kun projektlederen kan tilgå oversigten af arbejdstid for projektet" is given
 
-Scenario: 
+Scenario: 1b. A project leader can only view the summary of registered worktime for the project of which the person is assigned to
     Given a project with title "Web development" exists in the application
-    And there is an employee in the application with the name "Lars Svendsen" and initials "lasv"
-    And employee "Lars Svendsen" is assigned the project "Video Game" as project manager
-    When "Lars Svendsen" wishes to view a summary of the worktime for the project "Web development"
-    Then an error message "No activites are created for this project"
+    When "lasv" wishes to view a summary of the worktime for the project "Web development"
+    Then an error message "Kun projektlederen kan tilgå oversigten af arbejdstid for projektet" is given
+
+Scenario: 1c. The project leader recieves an error message if no worktime has been registered
+    When "lasv" wishes to view a summary of the worktime for the project "Video game"
+    Then the error message "Ingen arbejdstid er registreret under dette projekt endnu" is given
     \end{minted}
 \end{listing}\newpage
 \textbf{Anfør budgetteret tid til løsning af aktivitet}
