@@ -274,7 +274,7 @@ Scenario: 3. A start week can be set to a project activity
     Then the project activity with the title "Graphics design" and project number 23001 has start week 2304
 
 Scenario: 4. An end week can be set to a project activity
-    Given the user is logged in as "mila"
+    Given the user logs in using initials "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
     When the user sets the end week to 2304 on the project activity with title "Graphics design" on the project with project number 23001
     Then the project activity with title "Graphics design" and project number 23001 has end week 2304
@@ -287,12 +287,11 @@ Scenario: 4. An end week can be set to a project activity
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A guest is not able to create a project activity
     Given guest is logged in
-    And there is a project activity with the title "Graphics design"  
-    When the user creates the project activity in the application 
+    When the user assigns the project activity "Graphics design" to project 23001
     Then the error message "Login krævet" is given
 
 Scenario: 1b. A project activity title is unique in a project
-    Given the user is logged in as "mila"
+    Given the user logs in using initials "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
     And there is a project activity with the title "Graphics design"  
     When the user creates the project activity in the application 
