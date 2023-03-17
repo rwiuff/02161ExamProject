@@ -84,6 +84,7 @@ Scenario: 1b. Initials is required to register an employee
 
 Scenario: 2a. Employees with same name can be registered
     Given guest is logged in
+    And the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
     And there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila"
     And there is an employee with first name "Michael", last name "Laudrup" and initials "milb" 
     When the user registers the employee
