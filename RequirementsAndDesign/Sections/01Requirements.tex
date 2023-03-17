@@ -41,15 +41,14 @@ Denne del af eksamensopgaven dokumenterer vores planlægningsproces, der skal ti
         Opret Aktivitet for projekt uden projektleder                  & \cref{lst:usecase_project_activity_no_leader,lst:usecase_project_activity_no_leader_2} \\
         Opret Aktivitet for projekt med projektleder                   & \cref{lst:usecase_project_activity_with_leader}                                        \\
         Påtag projektleder stilling                                    & \cref{lst:usecase_bliv_projektleder}                                                   \\
-        FORSLAG: Registrer arbejdstid på projekt aktivitet             & \cref{lst:usecase_register_worktime_projectactivity}                                   \\
-        FORSLAG: Se egen registreret arbejdstid på projekt aktiviteter & \cref{lst:usecase_view_worktime_projectactivity}                                       \\
+        FORSLAG: Registrer arbejdstid på projekt aktivitet             & \cref{lst:usecase_register_worktime_projectactivity}                                         \\
         Se og rediger i registreret arbejdstid på aktivitet            & \cref{lst:usecase_se_og_rediger_i_registreret_arbejdstid_paa_aktivitet}                \\
         Se oversigt over arbejdstid pr. aktivitet og projekt           & \cref{lst:usecase_oversigt_over_registreret_arbejdstid_pr_aktivitet}                   \\
         Anfør budgetteret tid til løsning af aktivitet                 & \cref{lst:budget_time}                                                                 \\
         Tilknyt medarbejdere til projekt                               & \cref{lst:assign_employ}                                                               \\
         Se forventet restarbejde på projekt                            & \cref{lst:remainingTime}                                                               \\
     \end{tabular}
-\end{table}\newpage
+\end{table}
 \subsection{Detaljerede use cases}
 \textbf{Opret medarbejder}
 \begin{listing}[H]
@@ -72,29 +71,29 @@ Scenario: 2. Employee already exist
     And the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
     And there is an employee with first name "Michael", last name "Laudrup" and initials "mila"
     When the user registers the employee
-    Then the error message "Medarbejder med initialer "mila" ekisisterer allerede" is given
+    Then the error message "Medarbejder med initialer mila ekisisterer allerede" is given
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A name is required to register an employee
     Given a guest is logged in
-    And there is a employe with name "" initials "mila"  
+    And there is an employee with name "" initials "mila"  
     When the user registers the employee
     Then the error message "Et navn mangler" is given
 
 Scenario: 1b. Initials is required to register an employee
     Given a guest is logged in
-    And there is a employe with first name "Michael", last name "Laudrup" and initials ""
+    And there is an employee with first name "Michael", last name "Laudrup" and initials ""
     When the user registers the employee
     Then the error message "Initialer mangler" is given
 
 Scenario: 2a. Employees with same name can be registered
     Given a guest is logged in
     And there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila"
-    And there is a employe with first name "Michael", last name "Laudrup" and initials "milb" 
+    And there is an employee with first name "Michael", last name "Laudrup" and initials "milb" 
     When the user registers the employee
     Then an employee with first name "Michael", last name "Laudrup" and initials "milu" exists in the application
     \end{minted}
-\end{listing}\newpage
+\end{listing}
 \textbf{Log in}
 \begin{listing}[H]
     \centering
@@ -109,7 +108,7 @@ Scenario: 1. Login using initials
     Given a guest is logged in
     And there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila" 
     When the user logs in using initials "mila" 
-    Then the user is logged in as an employee with first name "Michael" last name "Laudrup" initials "mila" 
+    Then the user is logged in as an employee with first name "Michael", last name "Laudrup" initials "mila" 
 
 Scenario: 2. Employee does not exist
     Given a guest is logged in
@@ -135,15 +134,11 @@ Actors: employee
 
 #MAIN SCENARIOS
 Scenario: 1. Logout
-    Given a employee is logged in
+    Given an employee is logged in
     When the user logs out
     Then the user is logged in as a guest
-
-#ALTERNATIVE SCENARIOS
-...
-    
     \end{minted}
-\end{listing}\newpage
+\end{listing}
 \textbf{Opret projekt}
 \begin{listing}[H]
     \centering
@@ -155,11 +150,11 @@ Actors: employee
 
 #MAIN SCENARIOS
 Scenario: 1. Creating a project
-    Given a employee is logged in
+    Given an employee is logged in
     And the year is 2023
     And there is a project with title "Projektplanlægning" 
     When the user creates the project in the application 
-    Then a project with title "Projektplanlægning", project number 23001 exists in the application
+    Then a project with title "Projektplanlægning" with project number 23001 exists in the application
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A guest is not able to create a project
@@ -175,15 +170,15 @@ Scenario: 1b. A title is required to create a project
     When the user creates the project in the application 
     Then the error message "En titel mangler" is given
 
-Scenario: 1c. An employee can self assign as projectleader on a project
+Scenario: 1c. An employee can self assign as project leader on a project
     Given an employee is logged in
-    And a project exist in the application with title "Projektplanlægning" project number 23001
-    When the user takes the role as projectleader on project 23001
-    Then the user is the projectleader on project 23001
+    And a project with title "Projektplanlægning" with project number 23001 exists in the application
+    When the user takes the role as project leader on project 23001
+    Then the user is the project leader on project 23001
 
 Scenario: 1d. A project can be an internal project
     Given an employee is logged in
-    And a project exist in the application with title "Projektplanlægning" project number 23001
+    And a project exists in the application with title "Projektplanlægning" project number 23001
     When the user sets the project as an internal project
     Then the project is an internal project
 
@@ -193,7 +188,7 @@ Scenario: 1e. A project can have a start week
     When the user sets the start week to 2304
     Then the project has start week 2304
     \end{minted}
-\end{listing}\newpage
+\end{listing}
 \textbf{Opret fast aktivitet}
 \begin{listing}[H]
     \centering
@@ -206,48 +201,48 @@ Actors: employee
 #MAIN SCENARIOS
 Scenario: 1. Creating a regular activity
     Given an employee is logged in
-    And there is a regular activity with title "Ferie" start week 2304 end week 2306 
+    And there is a regular activity with title "Ferie", start week 2304 end week 2306 
     When the user creates the regular activity in the application 
-    Then the user has a regular activity with title "Ferie" start week 2304 end week 2306
+    Then the user has a regular activity with title "Ferie", start week 2304 and end week 2306
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A guest is not able to create a regular activity
     Given a guest is logged in
-    And there is a regular activity with title "Ferie" start week 2304 end week 2306   
+    And there is a regular activity with title "Ferie", start week 2304 and end week 2306   
     When the user creates the regular activity in the application 
     Then the error message "Kun medarbejdere kan oprette en fast aktivitet" is given
 
 Scenario: 1b. A title is required to create a regular activity
     Given an employee is logged in
-    And there is a regular activity with title "" start week 2304 end week 2306 
+    And there is a regular activity with title "", start week 2304 and end week 2306 
     When the user creates the regular activity in the application 
     Then the error message "En titel mangler" is given
 
 Scenario: 1c. A start week is required to create a regular activity
     Given an employee is logged in
-    And there is a regular activity with title "Ferie" start week "" end week 2306 
+    And there is a regular activity with title "Ferie", start week "" and end week 2306 
     When the user creates the regular activity in the application 
     Then the error message "En start uge mangler" is given
 
 Scenario: 1d. An end week is required to create a regular activity
     Given an employee is logged in
-    And there is a regular activity with title "Ferie" start week 2304 end week "" 
+    And there is a regular activity with title "Ferie", start week 2304 and end week "" 
     When the user creates the regular activity in the application 
     Then the error message "En slut uge mangler" is given
 
 Scenario: 1e. Start week needs to be before end week
     Given an employee is logged in
-    And there is a regular activity with title "Ferie" start week 2306 end week 2304 
+    And there is a regular activity with title "Ferie", start week 2306 and end week 2304 
     When the user creates the regular activity in the application 
     Then the error message "Start uge skal være før slut uge" is given
 
 Scenario: 1f. Same start and end week is allowed
     Given an employee is logged in
-    And there is a regular activity with title "Ferie" start week 2306 end week 2306 
+    And there is a regular activity with title "Ferie", start week 2306 and end week 2306 
     When the user creates the regular activity in the application 
-    Then the user has a regular activity with title "Ferie" start week 2306 end week 2306
+    Then the user has a regular activity with title "Ferie", start week 2306 and end week 2306
     \end{minted}
-\end{listing}\newpage
+\end{listing}
 \textbf{Opret projekt aktivitet for projekt uden projektleder}
 \begin{listing}[H]
     \centering
@@ -260,32 +255,32 @@ Actors: employee
 #BACKGROUND
 Background:
     Given there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila"
-    And a project with title "Video game", project number 23001 exists in the application
+    And a project with title "Video game" and project number 23001 exists in the application
 
 #MAIN SCENARIOS
 Scenario: 1. Creating a project activity
     Given the user is logged in as "mila"
-    And there is a project activity with the title "Graphic design"  
+    And there is a project activity with the title "Graphics design"  
     When the user assigns the project activity to project 23001 
-    Then the project with the project number 23001 has a project activity titled "Graphic design" 
+    Then the project with the project number 23001 has a project activity titled "Graphics design" 
 
 Scenario: 2. A time budget can be added to a project activity
     Given the user is logged in as "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the time budget to 50 hours on the project activity with the title "Graphic design" and project number 23001
-    Then the project activity with the title "Graphic design", project number 23001, has a time budget of 50 hours 
+    When the user sets the time budget to 50 hours on the project activity with the title "Graphics design" and project number 23001
+    Then the project activity with the title "Graphics design" and project number 23001 has a time budget of 50 hours 
 
 Scenario: 3. A start week can be set to a project activity
     Given the user is logged in as "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the start week to 2304 on the project activity with the title "Graphic design" on the project with project number 23001
-    Then the project activity with the title "Graphic design", project number 23001 has start week 2304
+    When the user sets the start week to 2304 on the project activity with the title "Graphics design" on the project with project number 23001
+    Then the project activity with the title "Graphics design" and project number 23001 has start week 2304
 
 Scenario: 4. An end week can be set to a project activity
     Given the user is logged in as "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the end week to 2304 on the project activity with title "Graphic design" on the project with project number 23001
-    Then the project activity with title "Graphic design", project number 23001 has end week 2304
+    When the user sets the end week to 2304 on the project activity with title "Graphics design" on the project with project number 23001
+    Then the project activity with title "Graphics design" and project number 23001 has end week 2304
     \end{minted}
 \end{listing}
 \begin{listing}[H]
@@ -295,48 +290,48 @@ Scenario: 4. An end week can be set to a project activity
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A guest is not able to create a project activity
     Given a guest is logged in
-    And there is a project activity with the title "Graphic design"  
+    And there is a project activity with the title "Graphics design"  
     When the user creates the project activity in the application 
     Then the error message "Login krævet" is given
 
 Scenario: 1b. A project activity title is unique in a project
     Given the user is logged in as "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    And there is a project activity with the title "Graphic design"  
+    And there is a project activity with the title "Graphics design"  
     When the user creates the project activity in the application 
     Then the error message "Projekt aktivitet findes allerede" is given
 
 Scenario: 2a. A guest is not able to set a time budget on a project activity
     Given a guest is logged in
     And an activity with the title "Graphics design" exists within the project 23001
-    When the user sets the time budget to 50 hours on the project activity with the title "Graphic design", project number 23001
+    When the user sets the time budget to 50 hours on the project activity with the title "Graphics design" and project number 23001
     Then the error message "Login krævet" is given
 
 Scenario: 3a. A guest is not able to set a start week on a project activity
     Given the user is logged in as "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the start week to 2304 on the project activity with the title "Graphic design", project number 23001
+    When the user sets the start week to 2304 on the project activity with the title "Graphics design" and project number 23001
     Then the error message "Login krævet" is given
 
 Scenario: 3b. A start week needs to be before or the same as the end week
     Given the user is logged in as "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the start week to 2304, the end week to 2303 on the project activity with the title "Graphic design" on the project with project number 23001
+    When the user sets the start week to 2304 and the end week to 2303 on the project activity with the title "Graphics design" on the project with project number 23001
     Then the error message "Starttid skal være før eller ens med sluttid" is given
 
 Scenario: 4a. A guest is not able to set an end week on a project activity
     Given the user is logged in as "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the end week to 2304 on project activity with the title "Graphic design" on the project with project number 23001
+    When the user sets the end week to 2304 on project activity with the title "Graphics design" on the project with project number 23001
     Then the error message "Login krævet" is given
 
 Scenario: 4b. An end week needs to be after or same as start week
     Given the user is logged in as "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the start week to 2304, end week to 2303 on the project activity with the title "Graphic design" on the project with project number 23001
+    When the user sets the start week to 2304 and end week to 2303 on the project activity with the title "Graphics design" on the project with project number 23001
     Then the error message "Start tid skal være før eller ens med sluttid" is given
     \end{minted}
-\end{listing}\newpage
+\end{listing}
 \textbf{Opret projekt aktivitet for projekt med projektleder}
 \begin{listing}[H]
     \centering
@@ -355,23 +350,23 @@ Background:
 #MAIN SCENARIOS
 Scenario: 1. A project leader can create a project activity
     Given the user is logged in as "mefr"
-    And there is a project activity with the title "Graphic design"  
+    And there is a project activity with the title "Graphics design"  
     When the user creates the project activity in the application 
-    Then the project with project number 23001 has a project activity with title "Graphic design" 
+    Then the project with project number 23001 has a project activity with title "Graphics design" 
 
 ... (flere tests ligesom for projekt uden projektleder)
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. An employee is not able to create a project activity
     Given the user is logged in as "mila"
-    And there is a project activity with the title "Graphic design"  
+    And there is a project activity with the title "Graphics design"  
     When the user creates the project activity in the application 
     Then the error message "Kun projektlederen kan redigere denne projekt aktivitet" is given
     
 ... (flere tests ligesom for projekt uden projektleder)
 
     \end{minted}
-\end{listing}\newpage
+\end{listing}
 \textbf{Påtag projektlederstilling}
 \begin{listing}[H]
     \centering
@@ -406,7 +401,7 @@ Scenario: 1b. An employee appoints himself as project leader on a project that d
     When the employee appoints himself as a project leader
     Then the error message "Projektet kunne ikke findes i samlingen af projekter" is given
     \end{minted}
-\end{listing}\newpage
+\end{listing}
 \textbf{Registrer arbejdstid på projekt aktivitet}
 \begin{listing}[H]
     \centering
@@ -419,14 +414,14 @@ Actors: employee
 #BACKGROUND
 Background:
     Given there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila"
-    And a project with title "Video game", project number 23001 exists in the application
+    And a project with title "Video game" and project number 23001 exists in the application
     And an activity with the title "Graphics design" exists within the project titled "Video Game"
     And the user is logged in as "mila"
 
 #MAIN SCENARIOS
 Scenario: 1. Register work time on project activity
     When the user registers a work time of 6 hours to the project activity with title "Graphics design" in the project with project number 23001
-    Then the user has 6 hours of registered work time on the project activity with title "Graphics design", project number 23001
+    Then the user has 6 hours of registered work time on the project activity with title "Graphics design" and project number 23001
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1.a Register worktime in half-hour increments
@@ -441,48 +436,7 @@ Scenario: 1.c Project activity not found
     When the user registers a work time of 6 hours to the project activity with title "Regndans" in the project with project number 23001
     Then the error message "Ukendt projekt aktivitet" is given 
     \end{minted}
-\end{listing}\newpage
-\textbf{Se registreret arbejdstid på projekt aktivitet !!! FORSLAG !!!}
-\begin{listing}[H]
-    \centering
-    \caption{Use case: Se registreret arbejdstid på projekt aktivitet} \label{lst:usecase_view_worktime_projectactivity}
-    \begin{minted}[breaklines]{gherkin}  
-# !!! FORSLAG !!! (kasper)
-Feature: View work time on a project activity
-Description: An employee registers work time on a project activity.
-Actors: employee
-
-#BACKGROUND
-Background:
-    Given there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila"
-    And a project with the title "Video game", project number of 23001 exists in the application
-    And an activity with the title "Graphics design" exists within the project titled "Video Game"
-    And the employee with initials "mila" has registered a work time of 6 hours on the project activity with title "Graphics design" in the project with project number 23001
-    And the employee with initials "mila" has registered a work time of 10 hours to the project activity with title "Graphics design" in the project with project number 23001
-
-#MAIN SCENARIOS
-Scenario: 1. Employee can get a list of work time registrations for a project activity
-    Given the user is logged in as "mila"
-    When a list of registered work time registrations is requested for the activity titled "Graphics design" in the project with project number 23001
-    Then a list with 2 items is returned
-
-Scenario: 2. Employee can get a total of work time registrations for a project activity
-    Given the user is logged in as "mila"
-    When a total of registered work time is requested for the activity titled "Graphics design" in the project with project number 23001
-    Then 16 hours is returned
-
-#ALTERNATIVE SCENARIOS
-Scenario: 1a. Guests is unable to get a list of work time registrations for a project activity
-    Given a guest is logged in
-    When a list of registered work time registrations is requested for the activity titled "Graphics design" in the project with project number 23001
-    Then the error message "Login kræves" is given
-
-Scenario: 2a. Guests is unable to get a total of work time registrations for a project activity
-    Given a guest is logged in
-    When a total of registered work time is requested for the activity titled "Graphics design" in the project with project number 23001
-    Then the error message "Login kræves" is given
-    \end{minted}
-\end{listing}\newpage
+\end{listing}
 \textbf{Se og rediger i registreret arbejdstid på aktivitet}
 \begin{listing}[H]
     \centering
@@ -528,18 +482,18 @@ Scenario: 1a. Guests are unable to view the list of work time registrations for 
     Given a guest is logged in
     When the list of work time registrations is requested for the activity titled "Graphics design" in the project with project number 23001
     Then the error message "Login kræves" is given
-
-Scenario: 2a. Guests are unable to view the total amount of registered work time for an activity
-    Given a guest is logged in
-    When the total amount of registered work time is requested for the project activity titled "Graphics design" in the project with project number 23001
-    Then the error message "Login kræves" is given
     \end{minted}
-\end{listing}\newpage
+\end{listing}
 \begin{listing}
     \centering
     \caption{Use case: Se og rediger i registreret arbejdstid på aktivitet}\label{lst:usecase_oversigt_over_registreret_arbejdstid_pr_aktivitet_2}
     \begin{minted}
-    [breaklines, firstnumber=46]{gherkin}
+    [breaklines, firstnumber=41]{gherkin}
+
+    Scenario: 2a. Guests are unable to view the total amount of registered work time for an activity
+    Given a guest is logged in
+    When the total amount of registered work time is requested for the project activity titled "Graphics design" in the project with project number 23001
+    Then the error message "Login kræves" is given
 Scenario: 3a. Guests are unable to edit the total amount of registered work time for an activity
     Given a guest is logged in
     When the user edits the first registered work time registration to 7 hours for the activity titled "Graphics design" in the project with project number 23001
@@ -574,15 +528,15 @@ Scenario: 4b. An employee wishes to edit individual work time registrations for 
     When the user edits the first registered work time registration to 7 hours for the activity titled "Implement physics" in the project with project number 23001
     Then the error message "Ingen arbejdstid er registreret for denne aktivitet endnu"
     \end{minted}
-\end{listing}\newpage
+\end{listing}
 \textbf{Se oversigt over registreret arbejdstid pr. aktivitet}
-\begin{listing}[H]
+\begin{listing}
     \centering
     \caption{Use case: Se og rediger i registreret arbejdstid på aktivitet}\label{lst:usecase_oversigt_over_registreret_arbejdstid_pr_aktivitet}
     \begin{minted}[breaklines]{gherkin}  
 Feature: View summary of registered work time pr. activity
-    Description: A project leader can view a summary of registered work time pr. activity
-    Actors: Project leader and employee
+Description: A project leader can view a summary of registered work time per activity
+Actors: Project leader and employee
 
 #BACKGROUND
 Background: 
@@ -613,7 +567,7 @@ Scenario: 1c. The project leader recieves an error message if no work time has b
     When "lasv" wishes to view a summary of the worktime for the project "Video game"
     Then the error message "Ingen arbejdstid er registreret under dette projekt endnu" is given
     \end{minted}
-\end{listing}\newpage
+\end{listing}
 \textbf{Anfør budgetteret tid til løsning af aktivitet}
 \begin{listing}[H]
     \centering
@@ -642,7 +596,7 @@ Scenario: Employee assigns time buget
     And the user assigns a time budget of "32" hours to the activity titled "Graphics design"
     Then the activity titled "Graphics design" returns the error message "Only project managers can assign timebudgets"
     \end{minted}
-\end{listing}\newpage
+\end{listing}
 \textbf{Tilknyt medarbejdere til projekt}
 \begin{listing}[H]
     \centering
@@ -650,7 +604,7 @@ Scenario: Employee assigns time buget
     \begin{minted}[breaklines]{gherkin}
 Feature: Assign employees onto project
 Description: Project leader assigns emplyees for a project
-Actors: Project manager
+Actors: Project leader
 
 #MAIN SCENARIO
 Scenario: Project manager assigns an employee
@@ -679,7 +633,7 @@ Scenario: Employee doesn't exist
     And "mila" assigns "brla" to the project titled "Video Game"
     Then the project titled "Video Game" returns the error message "Employee not found"
     \end{minted}
-\end{listing}\newpage
+\end{listing}
 \textbf{Se forventet restarbejde på projekt}
 \begin{listing}[H]
     \centering
@@ -724,7 +678,7 @@ Oplægget har ingen krav til bruger interface, men derimod rigeligt med krav til
 {\color{red}
     \begin{itemize}
         \item Oprettelse af medarbejdere som gæst/admin
-        \item Tekst baseret UI, vi har fokus på business logik, og levere noget til kunden hurtigt der virker. \todo{Nice}K.I.S.S
+        \item Tekst baseret UI, vi har fokus på business logik, og levere noget til kunden hurtigt der virker.
         \item Flere medarbejdere med samme navn
     \end{itemize}
     \textbf{Oplægsmæssige overvejelser}
