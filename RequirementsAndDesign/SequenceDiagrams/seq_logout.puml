@@ -1,0 +1,12 @@
+@startuml
+actor "Guest" as guest
+participant "MainController" as app
+
+guest -> app : logout()
+activate app
+
+app -> app : setUser(null)
+
+return success
+
+@enduml

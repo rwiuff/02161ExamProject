@@ -1,0 +1,20 @@
+@startuml
+actor "Guest" as guest
+participant "MainController" as app
+participant "Employee manager" as em
+
+guest -> app : login(initials)
+activate app
+
+
+app -> em : findEmployee(initials)
+activate em
+em --> guest : "Ukendt medarbejder"
+return Employee 
+
+app -> app : setUser(Employee)
+
+
+return success
+
+@enduml
