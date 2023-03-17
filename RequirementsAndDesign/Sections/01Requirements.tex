@@ -53,8 +53,13 @@ Denne del af eksamensopgaven dokumenterer vores planlægningsproces, der skal ti
 \textbf{Opret medarbejder}
 \begin{figure}[H]
     \centering
-    \caption{Sekvensdiagram: Opret medarbejder}\label{fig:sequence_register_employee}
+    \caption{Sekvensdiagram: Opret medarbejder}\label{fig:sequence_register_employee1}
     \includegraphics[width = .75\textwidth]{Diagrams/seq_register_employee.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \caption{Sekvensdiagram: Opret medarbejder (et andet forslag)}\label{fig:sequence_register_employee2}
+    \includegraphics[width = 1\textwidth]{RequirementsAndDesign/Diagrams/Register Employee.png}
 \end{figure}
 \begin{listing}[H]
     \centering
@@ -80,7 +85,7 @@ Scenario: 2. Employee already exist
 Scenario: 1a. First and last name is required to register an employee
     Given guest is logged in
     When the user registers an employee with first name "", last name "" and initials "mila"
-    Then the error message "For- og efternavn mangler" is given
+    Then the error message "For- og/eller efternavn mangler" is given
 
 Scenario: 1b. Initials is required to register an employee
     Given guest is logged in
@@ -405,7 +410,6 @@ Background:
 #MAIN SCENARIOS
 Scenario: 1. An employee can appoint themselves as project leader
     Given the user is logged in as "mila"
-    And there is no project leader for the project with the title "Video game"
     When the employee appoints himself as a project leader
     Then the employee is the project leader on the project
 
@@ -418,8 +422,7 @@ Scenario: 1a. An employee appoints himself as project leader on a project where 
 
 Scenario: 1b. An employee appoints himself as project leader on a project that does not exist
     Given the user is logged in as "mila"
-    And a project with the title "Not A Project" does not exist in the collection of projects
-    When the employee appoints himself as a project leader
+    When the employee appoints himself as a project leader on the project with project number 23002
     Then the error message "Projektet kunne ikke findes i samlingen af projekter" is given
     \end{minted}
 \end{listing}
