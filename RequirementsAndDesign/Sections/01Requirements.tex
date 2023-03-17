@@ -51,6 +51,11 @@ Denne del af eksamensopgaven dokumenterer vores planlægningsproces, der skal ti
 \end{table}
 \subsection{Detaljerede use cases}
 \textbf{Opret medarbejder}
+\begin{figure}[H]
+    \centering
+    \caption{Sekvensdiagram: Opret medarbejder}\label{fig:sequence_register_employee}
+    \includegraphics[width = .75\textwidth]{Diagrams/seq_register_employee.png}
+\end{figure}
 \begin{listing}[H]
     \centering
     \caption{Use case: Opret medarbejder}\label{lst:usecase_register_employee}
@@ -72,27 +77,29 @@ Scenario: 2. Employee already exist
     Then the error message "Medarbejder med initialer mila ekisisterer allerede" is given
 
 #ALTERNATIVE SCENARIOS
-Scenario: 1a. A name is required to register an employee
-    Given a guest is logged in
-    And there is an employee with name "" initials "mila"  
-    When the user registers the employee
-    Then the error message "Et navn mangler" is given
+Scenario: 1a. First and last name is required to register an employee
+    Given guest is logged in
+    When the user registers an employee with first name "", last name "" and initials "mila"
+    Then the error message "For- og efternavn mangler" is given
 
 Scenario: 1b. Initials is required to register an employee
-    Given a guest is logged in
-    And there is an employee with first name "Michael", last name "Laudrup" and initials ""
-    When the user registers the employee
+    Given guest is logged in
+    When the user registers the employee an employee with first name "Michael", last name "Laudrup" and initials ""
     Then the error message "Initialer mangler" is given
 
 Scenario: 2a. Employees with same name can be registered
-    Given a guest is logged in
-    And there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila"
-    And there is an employee with first name "Michael", last name "Laudrup" and initials "milb" 
-    When the user registers the employee
-    Then an employee with first name "Michael", last name "Laudrup" and initials "milu" exists in the application
+    Given guest is logged in
+    And the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    When the user registers an employee with first name "Michael", last name "Laudrup" and initials "milb"
+    Then an employee with first name "Michael", last name "Laudrup" and initials "milb" exists in the application
     \end{minted}
 \end{listing}
 \textbf{Log in}
+\begin{figure}[H]
+    \centering
+    \caption{Sekvensdiagram: Medarbejder login}\label{fig:sequence_login}
+    \includegraphics[width = .45\textwidth]{Diagrams/seq_login.png}
+\end{figure}
 \begin{listing}[H]
     \centering
     \caption{Use case: Medarbejder log in}\label{lst:usecase_login}
@@ -104,24 +111,29 @@ Actors: employee
 #MAIN SCENARIOS
 Scenario: 1. Login using initials
     Given guest is logged in
-    And there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila" 
+    And the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
     When the user logs in using initials "mila" 
-    Then the user is logged in as an employee with first name "Michael", last name "Laudrup" initials "mila" 
+    Then the user with initials "mila" is logged in as an employee
 
 Scenario: 2. Employee does not exist
-    Given a guest is logged in
+    Given guest is logged in
     When the user logs in using initials "mila" 
-    Then the error message "Ukendt medarbejder" is given 
+    Then the error message "Ukendt medarbejder" is given
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. Login is case insensitive
-    Given a guest is logged in
-    And there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila" 
+    Given guest is logged in
+    And the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
     When the user logs in using initials "MiLa" 
-    Then the user is logged in as an employee with first name "Michael" last name "Laudrup" initials "mila" 
+    Then the user with initials "mila" is logged in as an employee
     \end{minted}
 \end{listing}
 \textbf{Log ud}
+\begin{figure}[H]
+    \centering
+    \caption{Sekvensdiagram: Medarbejder log ud}\label{fig:sequence_logout}
+    \includegraphics[width = .25\textwidth]{Diagrams/seq_logout.png}
+\end{figure}
 \begin{listing}[H]
     \centering
     \caption{Use case: Medarbejder log ud}\label{lst:usecase_logout}
@@ -132,9 +144,10 @@ Actors: employee
 
 #MAIN SCENARIOS
 Scenario: 1. Logout
-    Given an employee is logged in
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user with initials "mila" is logged in as an employee
     When the user logs out
-    Then the user is logged in as a guest
+    Then guest is logged in
     \end{minted}
 \end{listing}
 \textbf{Opret projekt}
@@ -148,41 +161,44 @@ Actors: employee
 
 #MAIN SCENARIOS
 Scenario: 1. Creating a project
-    Given an employee is logged in
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user with initials "mila" is logged in as an employee
     And the year is 2023
-    And there is a project with title "Projektplanlægning" 
-    When the user creates the project in the application 
+    When the user creates a project with title "Projektplanlægning" 
     Then a project with title "Projektplanlægning" with project number 23001 exists in the application
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A guest is not able to create a project
-    Given a guest is logged in
+    Given guest is logged in
     And the year is 2023
-    And there is a project with title "Projektplanlægning"  
-    When the user creates the project in the application 
+    When the user creates a project with title "Projektplanlægning" 
     Then the error message "Kun medarbejdere kan oprette et projekt" is given
 
 Scenario: 1b. A title is required to create a project
-    Given an employee is logged in
-    And there is a project with title ""  
-    When the user creates the project in the application 
-    Then the error message "En titel mangler" is given
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila"
+    When the user creates a project with title ""
+    Then the error message "En projekttitel mangler" is given
 
 Scenario: 1c. An employee can self assign as project leader on a project
-    Given an employee is logged in
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila"
     And a project with title "Projektplanlægning" with project number 23001 exists in the application
-    When the user takes the role as project leader on project 23001
-    Then the user is the project leader on project 23001
+    And project 23001 has no project leader assigned
+    When the "mila" takes the role as project leader on project 23001
+    Then "mila" is the project leader on project 23001
 
 Scenario: 1d. A project can be an internal project
-    Given an employee is logged in
-    And a project exists in the application with title "Projektplanlægning" project number 23001
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila"
+    And a project with title "Projektplanlægning" with project number 23001 exists in the application
     When the user sets the project as an internal project
     Then the project is an internal project
 
 Scenario: 1e. A project can have a start week
-    Given an employee is logged in
-    And a project exist in the application with title "Projektplanlægning" project number 23001
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila"
+    And a project with title "Projektplanlægning" with project number 23001 exists in the application
     When the user sets the start week to 2304
     Then the project has start week 2304
     \end{minted}
@@ -198,47 +214,46 @@ Actors: employee
 
 #MAIN SCENARIOS
 Scenario: 1. Creating a regular activity
-    Given an employee is logged in
-    And there is a regular activity with title "Ferie", start week 2304 end week 2306 
-    When the user creates the regular activity in the application 
-    Then the user has a regular activity with title "Ferie", start week 2304 and end week 2306
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila" 
+    When the user creates the regular activity "Ferie" with start week 2304 and end week 2306
+    Then the user has a regular activity with title "Ferie" with start week 2304 and end week 2306
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A guest is not able to create a regular activity
-    Given a guest is logged in
-    And there is a regular activity with title "Ferie", start week 2304 and end week 2306   
-    When the user creates the regular activity in the application 
+    Given guest is logged in
+    When the user creates the regular activity "Ferie" with start week 2304 and end week 2306
     Then the error message "Kun medarbejdere kan oprette en fast aktivitet" is given
 
 Scenario: 1b. A title is required to create a regular activity
-    Given an employee is logged in
-    And there is a regular activity with title "", start week 2304 and end week 2306 
-    When the user creates the regular activity in the application 
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila"
+    When the user creates the regular activity "" with start week 2304 and end week 2306
     Then the error message "En titel mangler" is given
 
 Scenario: 1c. A start week is required to create a regular activity
-    Given an employee is logged in
-    And there is a regular activity with title "Ferie", start week "" and end week 2306 
-    When the user creates the regular activity in the application 
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila"
+    When the user creates the regular activity "Ferie" with start week "" and end week 2306
     Then the error message "En start uge mangler" is given
 
 Scenario: 1d. An end week is required to create a regular activity
-    Given an employee is logged in
-    And there is a regular activity with title "Ferie", start week 2304 and end week "" 
-    When the user creates the regular activity in the application 
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila"
+    When the user creates the regular activity "Ferie" with start week 2304 and end week ""
     Then the error message "En slut uge mangler" is given
 
 Scenario: 1e. Start week needs to be before end week
-    Given an employee is logged in
-    And there is a regular activity with title "Ferie", start week 2306 and end week 2304 
-    When the user creates the regular activity in the application 
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila"
+    When the user creates the regular activity "Ferie" with start week 2304 and end week 2303
     Then the error message "Start uge skal være før slut uge" is given
 
 Scenario: 1f. Same start and end week is allowed
-    Given an employee is logged in
-    And there is a regular activity with title "Ferie", start week 2306 and end week 2306 
-    When the user creates the regular activity in the application 
-    Then the user has a regular activity with title "Ferie", start week 2306 and end week 2306
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila"
+    When the user creates the regular activity "Ferie" with start week 2304 and end week 2304
+    Then the user has a regular activity with title "Ferie" with start week 2304 and end week 2304
     \end{minted}
 \end{listing}
 \textbf{Opret projekt aktivitet for projekt uden projektleder}
@@ -252,30 +267,29 @@ Actors: employee
 
 #BACKGROUND
 Background:
-    Given there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila"
-    And a project with title "Video game" and project number 23001 exists in the application
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And a project with title "Video Game" with project number 23001 exists in the application
 
 #MAIN SCENARIOS
 Scenario: 1. Creating a project activity
-    Given the user is logged in as "mila"
-    And there is a project activity with the title "Graphics design"  
-    When the user assigns the project activity to project 23001 
-    Then the project with the project number 23001 has a project activity titled "Graphics design" 
+    Given the user logs in using initials "mila"
+    When the user assigns the project activity "Graphics design" to project 23001
+    Then the project with the project number 23001 has a project activity titled "Graphics design"
 
 Scenario: 2. A time budget can be added to a project activity
-    Given the user is logged in as "mila"
+    Given the user logs in using initials "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
     When the user sets the time budget to 50 hours on the project activity with the title "Graphics design" and project number 23001
-    Then the project activity with the title "Graphics design" and project number 23001 has a time budget of 50 hours 
+    Then the project activity with the title "Graphics design" and project number 23001 has a time budget of 50 hours
 
 Scenario: 3. A start week can be set to a project activity
-    Given the user is logged in as "mila"
+    Given the user logs in using initials "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the start week to 2304 on the project activity with the title "Graphics design" on the project with project number 23001
+    When the user sets the start week to 2304 on the project activity with title "Graphics design" on the project with project number 23001
     Then the project activity with the title "Graphics design" and project number 23001 has start week 2304
 
 Scenario: 4. An end week can be set to a project activity
-    Given the user is logged in as "mila"
+    Given the user logs in using initials "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
     When the user sets the end week to 2304 on the project activity with title "Graphics design" on the project with project number 23001
     Then the project activity with title "Graphics design" and project number 23001 has end week 2304
@@ -287,34 +301,33 @@ Scenario: 4. An end week can be set to a project activity
     \begin{minted}[breaklines, firstnumber=34]{gherkin}
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A guest is not able to create a project activity
-    Given a guest is logged in
-    And there is a project activity with the title "Graphics design"  
-    When the user creates the project activity in the application 
+    Given guest is logged in
+    When the user assigns the project activity "Graphics design" to project 23001
     Then the error message "Login krævet" is given
 
 Scenario: 1b. A project activity title is unique in a project
-    Given the user is logged in as "mila"
+    Given the user logs in using initials "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    And there is a project activity with the title "Graphics design"  
-    When the user creates the project activity in the application 
+    When the user assigns the project activity "Graphics design" to project 23001
     Then the error message "Projekt aktivitet findes allerede" is given
 
 Scenario: 2a. A guest is not able to set a time budget on a project activity
-    Given a guest is logged in
+    Given guest is logged in
     And an activity with the title "Graphics design" exists within the project 23001
     When the user sets the time budget to 50 hours on the project activity with the title "Graphics design" and project number 23001
     Then the error message "Login krævet" is given
 
 Scenario: 3a. A guest is not able to set a start week on a project activity
-    Given the user is logged in as "mila"
+    Given guest is logged in
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the start week to 2304 on the project activity with the title "Graphics design" and project number 23001
+    When the user sets the start week to 2304 on the project activity with title "Graphics design" and project number 23001
     Then the error message "Login krævet" is given
 
 Scenario: 3b. A start week needs to be before or the same as the end week
-    Given the user is logged in as "mila"
+    Given the user logs in using initials "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the start week to 2304 and the end week to 2303 on the project activity with the title "Graphics design" on the project with project number 23001
+    When the user sets the start week to 2304 on the project activity with title "Graphics design" on the project with project number 23001
+    And the user sets the end week to 2304 on the project activity with title "Graphics design" on the project with project number 23001
     Then the error message "Starttid skal være før eller ens med sluttid" is given
 
 Scenario: 4a. A guest is not able to set an end week on a project activity
@@ -477,7 +490,7 @@ Scenario: 4. An employee can edit individual work time registrations for an acti
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. Guests are unable to view the list of work time registrations for an activity
-    Given a guest is logged in
+    Given guest is logged in
     When the list of work time registrations is requested for the activity titled "Graphics design" in the project with project number 23001
     Then the error message "Login kræves" is given
     \end{minted}
@@ -489,16 +502,16 @@ Scenario: 1a. Guests are unable to view the list of work time registrations for 
     [breaklines, firstnumber=41]{gherkin}
 
     Scenario: 2a. Guests are unable to view the total amount of registered work time for an activity
-    Given a guest is logged in
+    Given guest is logged in
     When the total amount of registered work time is requested for the project activity titled "Graphics design" in the project with project number 23001
     Then the error message "Login kræves" is given
 Scenario: 3a. Guests are unable to edit the total amount of registered work time for an activity
-    Given a guest is logged in
+    Given guest is logged in
     When the user edits the first registered work time registration to 7 hours for the activity titled "Graphics design" in the project with project number 23001
     Then the error message "Login kræves" is given
 
 Scenario: 4a. Guests are unable to edit individual work time registrations for an activity
-    Given a guest is logged in
+    Given guest is logged in
     When the user edits the total amount of registered work time for the activity titled "Graphics design" in the project with project number 23001
     Then the error message "Login kræves" is given
 
