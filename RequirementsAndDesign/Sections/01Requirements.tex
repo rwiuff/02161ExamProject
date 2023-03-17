@@ -237,9 +237,8 @@ Scenario: 1e. Start week needs to be before end week
 Scenario: 1f. Same start and end week is allowed
     Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
     And the user logs in using initials "mila"
-    When the user creates the regular activity "Ferie" with start week 2304 and end week "2304
-    Then the user has a regular activity with title "Ferie", start week 2304 and end week 2306
-    Then the user has a regular activity with title "Ferie", start week 2306 and end week 2306
+    When the user creates the regular activity "Ferie" with start week 2304 and end week 2304
+    Then the user has a regular activity with title "Ferie" with start week 2304 and end week 2304
     \end{minted}
 \end{listing}
 \textbf{Opret projekt aktivitet for projekt uden projektleder}
@@ -253,15 +252,14 @@ Actors: employee
 
 #BACKGROUND
 Background:
-    Given there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila"
-    And a project with title "Video game" and project number 23001 exists in the application
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And a project with title "Video Game" with project number 23001 exists in the application
 
 #MAIN SCENARIOS
 Scenario: 1. Creating a project activity
-    Given the user is logged in as "mila"
-    And there is a project activity with the title "Graphics design"  
-    When the user assigns the project activity to project 23001 
-    Then the project with the project number 23001 has a project activity titled "Graphics design" 
+    Given the user logs in using initials "mila"
+    When the user assigns the project activity "Graphics design" to project 23001
+    Then the project with the project number 23001 has a project activity titled "Graphics design"
 
 Scenario: 2. A time budget can be added to a project activity
     Given the user is logged in as "mila"
