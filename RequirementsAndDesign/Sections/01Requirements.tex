@@ -237,7 +237,8 @@ Scenario: 1e. Start week needs to be before end week
 Scenario: 1f. Same start and end week is allowed
     Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
     And the user logs in using initials "mila"
-    When the user creates the regular activity "Ferie" with start week 2304 and end week "2304" 
+    When the user creates the regular activity "Ferie" with start week 2304 and end week "2304
+    Then the user has a regular activity with title "Ferie", start week 2304 and end week 2306
     Then the user has a regular activity with title "Ferie", start week 2306 and end week 2306
     \end{minted}
 \end{listing}
