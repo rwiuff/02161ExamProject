@@ -61,16 +61,14 @@ Actors: Guest
 
 #MAIN SCENARIOS
 Scenario: 1. Register an employee
-    Given a guest is logged in
-    And there is an employee with first name "Michael", last name "Laudrup" and initials "mila"  
-    When the user registers the employee
+    Given guest is logged in
+    When the user registers an employee with first first name "Michael", last name "Laudrup" and initials "mila"
     Then an employee with first name "Michael", last name "Laudrup" and initials "mila" exists in the application
 
 Scenario: 2. Employee already exist
-    Given a guest is logged in
+    Given guest is logged in
     And the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
-    And there is an employee with first name "Michael", last name "Laudrup" and initials "mila"
-    When the user registers the employee
+    When the user registers an employee with first first name "Michael", last name "Laudrup" and initials "mila"
     Then the error message "Medarbejder med initialer mila ekisisterer allerede" is given
 
 #ALTERNATIVE SCENARIOS
@@ -105,7 +103,7 @@ Actors: employee
 
 #MAIN SCENARIOS
 Scenario: 1. Login using initials
-    Given a guest is logged in
+    Given guest is logged in
     And there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila" 
     When the user logs in using initials "mila" 
     Then the user is logged in as an employee with first name "Michael", last name "Laudrup" initials "mila" 

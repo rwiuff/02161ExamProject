@@ -11,33 +11,35 @@ Scenario: 1. Title
 #ALTERNATIVE SCENARIOS
 Scenario: 2. Title
 
-#MEDARBEJDER SCENARIE
-Scenario: 1. Register an employee
-  Given there is an employee in the application with first name "Michael" last name "Laudrup" and initials "mila"
+# -------------------------------- #
+# BACKGROUND GHERKINS
+# -------------------------------- #
+
+Given guest is logged in
+
+# -------------------------------- #
+# MEDARBEJDER GHERKINS
+# -------------------------------- #
+
+When the user registers an employee with first first name "Michael", last name "Laudrup" and initials "mila"
+And the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
 
 
-
-####################################
+# -------------------------------- #
 # PROJEKT GHERKINS
-####################################
-the user creates a project with title "Projektplanlægning" 
+# -------------------------------- #
 
 
-
-####################################
+# -------------------------------- #
 # PROJEKT AKTIVITET GHERKINS
-####################################
+# -------------------------------- #
 
 
-
-
-####################################
+# -------------------------------- #
 # FAST AKTIVITET GHERKINS
-####################################
+# -------------------------------- #
 
 
-
-
-####################################
+# -------------------------------- #
 # PROJEKT GHERKINS
-####################################
+# -------------------------------- #
