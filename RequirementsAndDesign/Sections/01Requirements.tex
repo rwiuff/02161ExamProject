@@ -151,6 +151,16 @@ Scenario: 1. Logout
     \end{minted}
 \end{listing}
 \textbf{Opret projekt}
+\begin{figure}[H]
+    \centering
+    \caption{Sekvensdiagram: Opret projekt}\label{fig:sequence_create_project}
+    \includegraphics[width = .75\textwidth]{Diagrams/seq_create_project.png}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \caption{Sekvensdiagram: Rediger projekt}\label{fig:sequence_project_edit}
+    \includegraphics[width = .75\textwidth]{Diagrams/seq_project_edit.png}
+\end{figure}
 \begin{listing}[H]
     \centering
     \caption{Use case: Opret projekt}\label{lst:usecase_create_project}
@@ -167,6 +177,27 @@ Scenario: 1. Creating a project
     When the user creates a project with title "Projektplanlægning" 
     Then a project with title "Projektplanlægning" with project number 23001 exists in the application
 
+Scenario: 2. A project can have a customer
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila"
+    And a project with title "Projektplanlægning" with project number 23001 exists in the application
+    When the user sets customer "El-Giganten" on project 23001
+    Then the project 23001 has customer "El-Giganten"
+
+Scenario: 3. A project can be an internal project
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila"
+    And a project with title "Projektplanlægning" with project number 23001 exists in the application
+    When the user sets the project as an internal project
+    Then the project is an internal project
+
+Scenario: 4. A project can have a start week
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila"
+    And a project with title "Projektplanlægning" with project number 23001 exists in the application
+    When the user sets the start week to 2304
+    Then the project has start week 2304
+
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A guest is not able to create a project
     Given guest is logged in
@@ -180,27 +211,6 @@ Scenario: 1b. A title is required to create a project
     When the user creates a project with title ""
     Then the error message "En projekttitel mangler" is given
 
-Scenario: 1c. An employee can self assign as project leader on a project
-    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
-    And the user logs in using initials "mila"
-    And a project with title "Projektplanlægning" with project number 23001 exists in the application
-    And project 23001 has no project leader assigned
-    When the "mila" takes the role as project leader on project 23001
-    Then "mila" is the project leader on project 23001
-
-Scenario: 1d. A project can be an internal project
-    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
-    And the user logs in using initials "mila"
-    And a project with title "Projektplanlægning" with project number 23001 exists in the application
-    When the user sets the project as an internal project
-    Then the project is an internal project
-
-Scenario: 1e. A project can have a start week
-    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
-    And the user logs in using initials "mila"
-    And a project with title "Projektplanlægning" with project number 23001 exists in the application
-    When the user sets the start week to 2304
-    Then the project has start week 2304
     \end{minted}
 \end{listing}
 \textbf{Opret fast aktivitet}
@@ -384,7 +394,7 @@ Scenario: 1a. An employee is not able to create a project activity
     \caption{Use case: Medarbejder udpeger sig som projektleder} \label{lst:usecase_bliv_projektleder}
     \begin{minted}[breaklines]{gherkin}  
 Feature: Take on the role of project leader
-Description: An employee can, when there is not already one, appoint themselves as project leader.
+Description: An employee can, when no project leader is assigned to a project, appoint themselves as project leader.
 Actors: Employees
 
 #BACKGROUND
