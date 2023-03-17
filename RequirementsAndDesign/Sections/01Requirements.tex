@@ -161,13 +161,13 @@ Scenario: 1a. A guest is not able to create a project
 
 Scenario: 1b. A title is required to create a project
     Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
-    And the user with initials "mila" is logged in as an employee
+    And the user logs in using initials "mila"
     When the user creates a project with title ""
     Then the error message "En projekttitel mangler" is given
 
 Scenario: 1c. An employee can self assign as project leader on a project
     Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
-    And the user with initials "mila" is logged in as an employee
+    And the user logs in using initials "mila"
     And a project with title "Projektplanlægning" with project number 23001 exists in the application
     And project 23001 has no project leader assigned
     When the "mila" takes the role as project leader on project 23001
@@ -175,14 +175,14 @@ Scenario: 1c. An employee can self assign as project leader on a project
 
 Scenario: 1d. A project can be an internal project
     Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
-    
+    And the user logs in using initials "mila"
     And a project with title "Projektplanlægning" with project number 23001 exists in the application
     When the user sets the project as an internal project
     Then the project is an internal project
 
 Scenario: 1e. A project can have a start week
     Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
-    And the user with initials "mila" is logged in as an employee
+    And the user logs in using initials "mila"
     And a project with title "Projektplanlægning" with project number 23001 exists in the application
     When the user sets the start week to 2304
     Then the project has start week 2304
@@ -199,9 +199,9 @@ Actors: employee
 
 #MAIN SCENARIOS
 Scenario: 1. Creating a regular activity
-    Given an employee is logged in
-    And there is a regular activity with title "Ferie", start week 2304 end week 2306 
-    When the user creates the regular activity in the application 
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user logs in using initials "mila" 
+    When the user creates the regular activity "Ferie" with start week 2304 and end week 2306
     Then the user has a regular activity with title "Ferie", start week 2304 and end week 2306
 
 #ALTERNATIVE SCENARIOS
