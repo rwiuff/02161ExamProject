@@ -170,20 +170,20 @@ Scenario: 1c. An employee can self assign as project leader on a project
     And the user with initials "mila" is logged in as an employee
     And a project with title "Projektplanlægning" with project number 23001 exists in the application
     And project 23001 has no project leader assigned
-    When the user takes the role as project leader on project 23001
-    Then the user is the project leader on project 23001
+    When the "mila" takes the role as project leader on project 23001
+    Then "mila" is the project leader on project 23001
 
 Scenario: 1d. A project can be an internal project
     Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
-    And the user with initials "mila" is logged in as an employee
-    And a project exists in the application with title "Projektplanlægning" project number 23001
+    
+    And a project with title "Projektplanlægning" with project number 23001 exists in the application
     When the user sets the project as an internal project
     Then the project is an internal project
 
 Scenario: 1e. A project can have a start week
     Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
     And the user with initials "mila" is logged in as an employee
-    And a project exist in the application with title "Projektplanlægning" project number 23001
+    And a project with title "Projektplanlægning" with project number 23001 exists in the application
     When the user sets the start week to 2304
     Then the project has start week 2304
     \end{minted}
