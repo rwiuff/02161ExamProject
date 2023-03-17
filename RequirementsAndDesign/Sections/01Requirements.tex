@@ -108,14 +108,14 @@ Scenario: 1. Login using initials
 Scenario: 2. Employee does not exist
     Given guest is logged in
     When the user logs in using initials "mila" 
-    Then the error message "Ukendt medarbejder" is given 
+    Then the error message "Ukendt medarbejder" is given
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. Login is case insensitive
     Given guest is logged in
-    And there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila" 
+    And the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
     When the user logs in using initials "MiLa" 
-    Then the user is logged in as an employee with first name "Michael" last name "Laudrup" initials "mila" 
+    Then the user with initials "mila" is logged in as an employee
     \end{minted}
 \end{listing}
 \textbf{Log ud}
@@ -129,9 +129,10 @@ Actors: employee
 
 #MAIN SCENARIOS
 Scenario: 1. Logout
-    Given an employee is logged in
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user with initials "mila" is logged in as an employee
     When the user logs out
-    Then the user is logged in as a guest
+    Then guest is logged in
     \end{minted}
 \end{listing}
 \textbf{Opret projekt}
