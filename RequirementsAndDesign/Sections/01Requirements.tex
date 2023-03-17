@@ -166,19 +166,23 @@ Scenario: 1b. A title is required to create a project
     Then the error message "En projekttitel mangler" is given
 
 Scenario: 1c. An employee can self assign as project leader on a project
-    Given an employee is logged in
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user with initials "mila" is logged in as an employee
     And a project with title "Projektplanlægning" with project number 23001 exists in the application
+    And project 23001 has no project leader assigned
     When the user takes the role as project leader on project 23001
     Then the user is the project leader on project 23001
 
 Scenario: 1d. A project can be an internal project
-    Given an employee is logged in
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user with initials "mila" is logged in as an employee
     And a project exists in the application with title "Projektplanlægning" project number 23001
     When the user sets the project as an internal project
     Then the project is an internal project
 
 Scenario: 1e. A project can have a start week
-    Given an employee is logged in
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user with initials "mila" is logged in as an employee
     And a project exist in the application with title "Projektplanlægning" project number 23001
     When the user sets the start week to 2304
     Then the project has start week 2304
