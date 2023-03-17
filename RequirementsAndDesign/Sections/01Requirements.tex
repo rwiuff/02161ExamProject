@@ -101,9 +101,9 @@ Actors: employee
 #MAIN SCENARIOS
 Scenario: 1. Login using initials
     Given guest is logged in
-    And there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila" 
+    And the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
     When the user logs in using initials "mila" 
-    Then the user is logged in as an employee with first name "Michael", last name "Laudrup" initials "mila" 
+    Then the user with initials "mila" is logged in as an employee
 
 Scenario: 2. Employee does not exist
     Given guest is logged in
