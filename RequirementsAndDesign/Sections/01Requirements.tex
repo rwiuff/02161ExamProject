@@ -97,8 +97,8 @@ Scenario: 2a. Employees with same name can be registered
 \textbf{Log in}
 \begin{figure}[H]
     \centering
-    \caption{Sekvensdiagram: Medarbejder login}\label{fig:sequence_register_employee}
-    \includegraphics[width = .75\textwidth]{Diagrams/seq_register_employee.png}
+    \caption{Sekvensdiagram: Medarbejder login}\label{fig:sequence_login}
+    \includegraphics[width = .45\textwidth]{Diagrams/seq_login.png}
 \end{figure}
 \begin{listing}[H]
     \centering
@@ -129,6 +129,11 @@ Scenario: 1a. Login is case insensitive
     \end{minted}
 \end{listing}
 \textbf{Log ud}
+\begin{figure}[H]
+    \centering
+    \caption{Sekvensdiagram: Medarbejder log ud}\label{fig:sequence_logout}
+    \includegraphics[width = .25\textwidth]{Diagrams/seq_logout.png}
+\end{figure}
 \begin{listing}[H]
     \centering
     \caption{Use case: Medarbejder log ud}\label{lst:usecase_logout}
@@ -280,7 +285,7 @@ Scenario: 2. A time budget can be added to a project activity
 Scenario: 3. A start week can be set to a project activity
     Given the user logs in using initials "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the start week to 2304 on the project activity with the title "Graphics design" on the project with project number 23001
+    When the user sets the start week to 2304 on the project activity with title "Graphics design" on the project with project number 23001
     Then the project activity with the title "Graphics design" and project number 23001 has start week 2304
 
 Scenario: 4. An end week can be set to a project activity
@@ -315,14 +320,14 @@ Scenario: 2a. A guest is not able to set a time budget on a project activity
 Scenario: 3a. A guest is not able to set a start week on a project activity
     Given guest is logged in
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the start week to 2304 on the project activity with the title "Graphics design" and project number 23001
+    When the user sets the start week to 2304 on the project activity with title "Graphics design" and project number 23001
     Then the error message "Login krævet" is given
 
 Scenario: 3b. A start week needs to be before or the same as the end week
     Given the user logs in using initials "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the start week to 2304 on the project activity with the title "Graphics design" on the project with project number 23001
-
+    When the user sets the start week to 2304 on the project activity with title "Graphics design" on the project with project number 23001
+    And the user sets the end week to 2304 on the project activity with title "Graphics design" on the project with project number 23001
     Then the error message "Starttid skal være før eller ens med sluttid" is given
 
 Scenario: 4a. A guest is not able to set an end week on a project activity
