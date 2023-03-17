@@ -20,7 +20,7 @@ activate em
 em --> guest : "Medarbejder med initialer mila ekisisterer allerede"
 deactivate em 
 
-return success
-return success
+return true
+return true
 
 @enduml

@@ -7,6 +7,6 @@ activate app
 
 app -> app : setUser(null)
 
-return success
+return true
 
 @enduml
