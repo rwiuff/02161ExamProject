@@ -59,6 +59,7 @@
 %Figures
 \usepackage[svgnames]{xcolor} % Required to specify font color
 \usepackage{float}
+\usepackage{placeins}
 \usepackage{graphicx}
 \usepackage{setspace}
 \usepackage{subcaption}
@@ -145,8 +146,9 @@
 \usepackage{silence}
 \usepackage[square, longnamesfirst, numbers]{natbib}
 \usepackage{empheq}
-% \usepackage[newfloat, outputdir=../]{minted} % Overleaf minted buildpath fix
-\usepackage[newfloat]{minted}
+\usepackage[newfloat, outputdir=../]{minted} % Overleaf minted buildpath fix
+% \usepackage[newfloat]{minted}
+\usepackage{flafter}
 \setminted{fontsize=\small,
            linenos=true}
 \usemintedstyle{tango}
