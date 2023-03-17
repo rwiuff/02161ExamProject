@@ -146,25 +146,24 @@ Actors: employee
 
 #MAIN SCENARIOS
 Scenario: 1. Creating a project
-    Given an employee is logged in
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user with initials "mila" is logged in as an employee
     And the year is 2023
-    And there is a project with title "Projektplanlægning" 
-    When the user creates the project in the application 
+    When the user creates a project with title "Projektplanlægning" 
     Then a project with title "Projektplanlægning" with project number 23001 exists in the application
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A guest is not able to create a project
     Given guest is logged in
     And the year is 2023
-    And there is a project with title "Projektplanlægning"  
-    When the user creates the project in the application 
+    When the user creates a project with title "Projektplanlægning" 
     Then the error message "Kun medarbejdere kan oprette et projekt" is given
 
 Scenario: 1b. A title is required to create a project
-    Given an employee is logged in
-    And there is a project with title ""  
-    When the user creates the project in the application 
-    Then the error message "En titel mangler" is given
+    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+    And the user with initials "mila" is logged in as an employee
+    When the user creates a project with title ""
+    Then the error message "En projekttitel mangler" is given
 
 Scenario: 1c. An employee can self assign as project leader on a project
     Given an employee is logged in
