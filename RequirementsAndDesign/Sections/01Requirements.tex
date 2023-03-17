@@ -72,20 +72,18 @@ Scenario: 2. Employee already exist
     Then the error message "Medarbejder med initialer mila ekisisterer allerede" is given
 
 #ALTERNATIVE SCENARIOS
-Scenario: 1a. A name is required to register an employee
-    Given a guest is logged in
-    And there is an employee with name "" initials "mila"  
-    When the user registers the employee
-    Then the error message "Et navn mangler" is given
+Scenario: 1a. First and last name is required to register an employee
+    Given guest is logged in
+    When the user registers an employee with first name "", last name "" and initials "mila"
+    Then the error message "For- og efternavn mangler" is given
 
 Scenario: 1b. Initials is required to register an employee
-    Given a guest is logged in
-    And there is an employee with first name "Michael", last name "Laudrup" and initials ""
-    When the user registers the employee
+    Given guest is logged in
+    When the user registers the employee an employee with first name "Michael", last name "Laudrup" and initials ""
     Then the error message "Initialer mangler" is given
 
 Scenario: 2a. Employees with same name can be registered
-    Given a guest is logged in
+    Given guest is logged in
     And there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila"
     And there is an employee with first name "Michael", last name "Laudrup" and initials "milb" 
     When the user registers the employee
@@ -109,13 +107,13 @@ Scenario: 1. Login using initials
     Then the user is logged in as an employee with first name "Michael", last name "Laudrup" initials "mila" 
 
 Scenario: 2. Employee does not exist
-    Given a guest is logged in
+    Given guest is logged in
     When the user logs in using initials "mila" 
     Then the error message "Ukendt medarbejder" is given 
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. Login is case insensitive
-    Given a guest is logged in
+    Given guest is logged in
     And there is an employee in the application with first name "Michael", last name "Laudrup" and initials "mila" 
     When the user logs in using initials "MiLa" 
     Then the user is logged in as an employee with first name "Michael" last name "Laudrup" initials "mila" 
@@ -156,7 +154,7 @@ Scenario: 1. Creating a project
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A guest is not able to create a project
-    Given a guest is logged in
+    Given guest is logged in
     And the year is 2023
     And there is a project with title "Projektplanlægning"  
     When the user creates the project in the application 
@@ -205,7 +203,7 @@ Scenario: 1. Creating a regular activity
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A guest is not able to create a regular activity
-    Given a guest is logged in
+    Given guest is logged in
     And there is a regular activity with title "Ferie", start week 2304 and end week 2306   
     When the user creates the regular activity in the application 
     Then the error message "Kun medarbejdere kan oprette en fast aktivitet" is given
@@ -287,7 +285,7 @@ Scenario: 4. An end week can be set to a project activity
     \begin{minted}[breaklines, firstnumber=34]{gherkin}
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. A guest is not able to create a project activity
-    Given a guest is logged in
+    Given guest is logged in
     And there is a project activity with the title "Graphics design"  
     When the user creates the project activity in the application 
     Then the error message "Login krævet" is given
@@ -300,7 +298,7 @@ Scenario: 1b. A project activity title is unique in a project
     Then the error message "Projekt aktivitet findes allerede" is given
 
 Scenario: 2a. A guest is not able to set a time budget on a project activity
-    Given a guest is logged in
+    Given guest is logged in
     And an activity with the title "Graphics design" exists within the project 23001
     When the user sets the time budget to 50 hours on the project activity with the title "Graphics design" and project number 23001
     Then the error message "Login krævet" is given
@@ -477,7 +475,7 @@ Scenario: 4. An employee can edit individual work time registrations for an acti
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. Guests are unable to view the list of work time registrations for an activity
-    Given a guest is logged in
+    Given guest is logged in
     When the list of work time registrations is requested for the activity titled "Graphics design" in the project with project number 23001
     Then the error message "Login kræves" is given
     \end{minted}
@@ -489,16 +487,16 @@ Scenario: 1a. Guests are unable to view the list of work time registrations for 
     [breaklines, firstnumber=41]{gherkin}
 
     Scenario: 2a. Guests are unable to view the total amount of registered work time for an activity
-    Given a guest is logged in
+    Given guest is logged in
     When the total amount of registered work time is requested for the project activity titled "Graphics design" in the project with project number 23001
     Then the error message "Login kræves" is given
 Scenario: 3a. Guests are unable to edit the total amount of registered work time for an activity
-    Given a guest is logged in
+    Given guest is logged in
     When the user edits the first registered work time registration to 7 hours for the activity titled "Graphics design" in the project with project number 23001
     Then the error message "Login kræves" is given
 
 Scenario: 4a. Guests are unable to edit individual work time registrations for an activity
-    Given a guest is logged in
+    Given guest is logged in
     When the user edits the total amount of registered work time for the activity titled "Graphics design" in the project with project number 23001
     Then the error message "Login kræves" is given
 
