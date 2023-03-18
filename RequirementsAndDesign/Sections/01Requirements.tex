@@ -317,7 +317,7 @@ Scenario: 4b. An end week needs to be after or same as start week
     Given the user is logged in as "mila"
     And an activity with the title "Graphics design" exists within the project with project number 23001
     When the user sets the start week to 2304 and end week to 2303 on the project activity with the title "Graphics design" on the project with project number 23001
-    Then the error message "Start tid skal være før eller ens med sluttid" is given
+    Then the error message "Sluttid skal være efter eller ens med starttid" is given
     \end{minted}
 \end{listing}\clearpage
 \begin{listing}[H]
