@@ -7,25 +7,25 @@ Denne del af eksamensopgaven dokumenterer vores planlægningsproces, der skal ti
     \centering
     \setlength{\extrarowheight}{8pt}
     \begin{tabular}{>{\bfseries}l p{0.73\textwidth}}
-        Medarbejder           & \textit{[Employee]} En medarbejder er en person ansat i Softwarehuset A/S, som er tildelt aktiviteter. En medarbejder kan udføre aktiviteter og registrere arbejdstid brugt på aktiviteter, uagtet om medarbejderen er tilknyttet aktiviteten. Hver medarbejder har et medarbejder ID.                                     \\
-        Projekt aktivitet     & \textit{[Project activity]} En delopgave af et projekt. Hver aktivitet er tilknyttet en medarbejder.                                                                                                                                                                                                                       \\
-        Fast aktivitet        & \textit{[Regular activity]} Aktivitet der ikke kan pålægges et projekt. F.eks. ferie, sygdom, kurser.                                                                                                                                                                                                                      \\
-        Projekt               & \textit{[Project]} Udviklingsarbejde udført for en kunde (eksternt) eller for Softwarehuset A/S (internt). Et projekt administreres af en projektleder og er inddelt i aktiviteter. Hvert projekt har et projektnummer.                                                                                                    \\
-        Kunde                 & \textit{[Customer]} En ekstern entitet som bestiller og er modtager af projekter.                                                                                                                                                                                                                                          \\
-        Projektleder          & \textit{[Project leader]} En medarbejder der har ret til at oprette og tildele aktiviteter for et givent projekt.                                                                                                                                                                                                          \\
-        Softwarehuset A/S     & \textit{[Softwarehuset A/S]} Entitet som er modtager af et projekt, hvis projektet er internt.                                                                                                                                                                                                                             \\
-        Medarbejder initialer & \textit{[Employee initials]} Unik identifikation for hver enkelt medarbejder, bestående af fire bogstaver. To første fra fornavn efterfulgt af to første fra efternavn. F.eks. rawi. Hvis initialer allerede er taget, vælges bogstav et og tre i efternavn, derefter et og fire, osv.                                     \\
-        Projektnummer         & \textit{[Project number]} Identifikation for hvert enkelt projekt. Har formen årstal efterfulgt af et fireciffret løbenummer. F.eks. 23001                                                                                                                                                                                 \\
-        Budgetteret tid       & \textit{[Time budget]} En aktivitets estimerede antal hele timer.                                                                                                                                                                                                                                                          \\
-        Arbejdstid            & \textit{[Work time]} Mængde tid i inkrementer af halve timer, brugt på en aktivitet. Kan registreres af den medarbejder som har brugt arbejdstid på en given aktivitet.                                                                                                                                                    \\
-        Start- og sluttid     & \textit{[start- and end week]} En periode med opløsning på uge-niveau til aktiviteter. Begge tider angives som år og uge, ved formatet ÅÅUU. F.eks. 2304 for uge 4 i 2023. En starttid afgrænser starten af en given uge, en sluttid afgrænser ved slutningen af en given uge. Start- og sluttid kan derfor godt være ens.
+        Medarbejder           & \textit{[Employee]} En medarbejder er en person ansat i Softwarehuset A/S, som er tildelt aktiviteter. En medarbejder kan udføre aktiviteter og registrere arbejdstid brugt på aktiviteter, uagtet om medarbejderen er tilknyttet aktiviteten. Hver medarbejder har et medarbejder ID.                                         \\
+        Projekt aktivitet     & \textit{[Project activity]} En delopgave af et projekt. Hver aktivitet er tilknyttet en medarbejder.                                                                                                                                                                                                                           \\
+        Fast aktivitet        & \textit{[Regular activity]} Aktivitet der ikke kan pålægges et projekt. F.eks. ferie, sygdom, kurser.                                                                                                                                                                                                                          \\
+        Projekt               & \textit{[Project]} Udviklingsarbejde udført for en kunde (eksternt) eller for Softwarehuset A/S (internt). Et projekt administreres af en projektleder og er inddelt i aktiviteter. Hvert projekt har et projektnummer.                                                                                                        \\
+        Kunde                 & \textit{[Customer]} En ekstern entitet som bestiller og er modtager af projekter.                                                                                                                                                                                                                                              \\
+        Projektleder          & \textit{[Project leader]} En medarbejder der har ret til at oprette og tildele aktiviteter for et givent projekt.                                                                                                                                                                                                              \\
+        Softwarehuset A/S     & \textit{[Softwarehuset A/S]} Entitet som er modtager af et projekt, hvis projektet er internt.                                                                                                                                                                                                                                 \\
+        Medarbejder initialer & \textit{[Employee initials]} Unik identifikation for hver enkelt medarbejder, bestående af fire bogstaver. To første fra fornavn efterfulgt af to første fra efternavn. F.eks. ``rawi''. Hvis initialer allerede er taget, vælges bogstav et og tre i efternavn, derefter et og fire, osv.                                     \\
+        Projektnummer         & \textit{[Project number]} Identifikation for hvert enkelt projekt. Har formen årstal efterfulgt af et firecifret løbenummer. F.eks. 23001                                                                                                                                                                                      \\
+        Budgetteret tid       & \textit{[Time budget]} En aktivitets estimerede antal hele timer.                                                                                                                                                                                                                                                              \\
+        Arbejdstid            & \textit{[Work time]} Mængde tid i inkrementer af halve timer, brugt på en aktivitet. Kan registreres af den medarbejder som har brugt arbejdstid på en given aktivitet.                                                                                                                                                        \\
+        Start- og sluttid     & \textit{[start- and end week]} En periode med opløsning på uge-niveau til aktiviteter. Begge tider angives som år og uge, ved formatet ``ÅÅUU''. F.eks. 2304 for uge 4 i 2023. En starttid afgrænser starten af en given uge, en sluttid afgrænser ved slutningen af en given uge. Start- og sluttid kan derfor godt være ens.
     \end{tabular}
 \end{table}\newpage
 \subsection{Use case diagrammer}
-Dette afsnit starter med \cref{fig:AlleActorsPaaEnGang} som viser hvilke aktører der kan udfører hvilke cases. Herefter kommer en oversigt (\cref{tbl:oversigt}) over de detajlerede use cases og hvilke sider der indeholder Cucumber features (\cpagerefrange{lst:usecase_register_employee}{lst:remainingTime}) og sekvensdiagrammer (\cref{sec:sequence}).
+Dette afsnit starter med \cref{fig:AlleActorsPaaEnGang} som viser hvilke aktører der kan udfører hvilke cases. Herefter kommer en oversigt (\cref{tbl:oversigt}) over de detaljerede use cases og hvilke sider der indeholder Cucumber features (\cpagerefrange{lst:usecase_register_employee}{lst:remainingTime}) og sekvensdiagrammer (\cref{sec:sequence}).
 \begin{figure}[H]
     \centering
-    \caption{Use case diagram for programmet \textbf{Timeregistrering og projektstyring} hvori de tre aktører inkluderet er Gæst, Medarbejder og Projektleder.}\label{fig:AlleActorsPaaEnGang}
+    \caption{Use case diagram for programmet hvori de tre aktører inkluderet er Gæst, Medarbejder og Projektleder.}\label{fig:AlleActorsPaaEnGang}
     \includegraphics[width=.85\textwidth]{Diagrams/Timeregistrering og projektstyring.png}
 \end{figure}
 \begin{table}[H]
@@ -42,9 +42,9 @@ Dette afsnit starter med \cref{fig:AlleActorsPaaEnGang} som viser hvilke aktøre
         Opret Aktivitet for projekt uden projektleder        & \cpageref{lst:usecase_project_activity_no_leader_1,lst:usecase_project_activity_no_leader_2}                                                     &                                                                                                                                                      \\
         Opret Aktivitet for projekt med projektleder         & \cpageref{lst:usecase_project_activity_with_leader}                                                                                              &                                                                                                                                                      \\
         Påtag projektleder stilling                          & \cpageref{lst:usecase_bliv_projektleder}                                                                                                         & \cref{fig:becomeProjectLeader} på \cpageref{fig:becomeProjectLeader}                                                                                 \\
-        FORSLAG: Registrer arbejdstid på projekt aktivitet   & \cpageref{lst:usecase_register_worktime_projectactivity}                                                                                         &                                                                                                                                                      \\
+        Registrer arbejdstid på projekt aktivitet            & \cpageref{lst:usecase_register_worktime_projectactivity}                                                                                         &                                                                                                                                                      \\
         Se og rediger i registreret arbejdstid på aktivitet  & \cpageref{lst:usecase_se_og_rediger_i_registreret_arbejdstid_paa_aktivitet_1,lst:usecase_se_og_rediger_i_registreret_arbejdstid_paa_aktivitet_2} &                                                                                                                                                      \\
-        Se oversigt over arbejdstid pr. aktivitet og projekt & \cpageref{lst:usecase_oversigt_over_registreret_arbejdstid_pr_aktivitet}                                                                         &                                                                                                                                                      \\
+        Se oversigt over registreret arbejdstid på aktivitet & \cpageref{lst:usecase_oversigt_over_registreret_arbejdstid_pr_aktivitet}                                                                         &                                                                                                                                                      \\
         Anfør budgetteret tid til løsning af aktivitet       & \cpageref{lst:budget_time}                                                                                                                       &                                                                                                                                                      \\
         Tilknyt medarbejdere til projekt                     & \cpageref{lst:assign_employ}                                                                                                                     &                                                                                                                                                      \\
         Se forventet restarbejde på projekt                  & \cpageref{lst:remainingTime}                                                                                                                     &                                                                                                                                                      \\
@@ -506,7 +506,7 @@ Scenario: 4b. An employee wishes to edit individual work time registrations for 
 \end{listing}
 \begin{listing}
     \centering
-    \caption{Use case: Se og rediger i registreret arbejdstid på aktivitet}\label{lst:usecase_oversigt_over_registreret_arbejdstid_pr_aktivitet}
+    \caption{Use case: Se oversigt over registreret arbejdstid på aktivitet}\label{lst:usecase_oversigt_over_registreret_arbejdstid_pr_aktivitet}
     \begin{minted}[breaklines]{gherkin}  
 Feature: View summary of registered work time pr. activity
 Description: A project leader can view a summary of registered work time per activity
@@ -544,7 +544,7 @@ Scenario: 1c. The project leader recieves an error message if no work time has b
 \end{listing}\clearpage
 \begin{listing}[H]
     \centering
-    \caption{Budgetteret tid til aktivitet}\label{lst:budget_time}
+    \caption{Use case: Budgetteret tid til aktivitet}\label{lst:budget_time}
     \begin{minted}[breaklines]{gherkin}
 Feature: Set time budget for a regular activity
 Description: Project leader assigns the time bugdet for a given activity
@@ -572,7 +572,7 @@ Scenario: Employee assigns time buget
 \end{listing}
 \begin{listing}[H]
     \centering
-    \caption{Tilknyt medarbejder}\label{lst:assign_employ}
+    \caption{Use case: Tilknyt medarbejder til projekt}\label{lst:assign_employ}
     \begin{minted}[breaklines]{gherkin}
 Feature: Assign employees onto project
 Description: Project leader assigns emplyees for a project
@@ -606,7 +606,7 @@ Scenario: Employee doesn't exist
 \end{listing}
 \begin{listing}[H]
     \centering
-    \caption{Hent restarbejde}\label{lst:remainingTime}
+    \caption{Use case: Hent restarbejde}\label{lst:remainingTime}
     \begin{minted}[breaklines]{gherkin}
 Feature: Get reamining activity progress
 Description: Project leader gets remaining time on activity
@@ -625,35 +625,17 @@ Scenario: Project manager gets remaining time on activity
     Then the activity returns 26 hours
     \end{minted}
 \end{listing}\newpage
-\subsection{Diskussion: Kravspecifikation}
-\subsubsection{Oplægsmæssige overvejelser og afgrænsninger}
-\textbf{En admin rolle} \\
-Oplægget nævner som udgangspunkt ikke et krav om en administrator rolle, men derimod at det er et internt system og at der ikke er behov for et sikkerhedslag. Ofte er det oplagt at have en admin facilitet, og i dette projekt kunne det som eksempel give mening til oprettelse af medarbejdere. Men i forbindelse med en kortlægning af projektet samt afgrænsning af funktioner, ser vi større værdi for kunden at fokusere på de ønskede funktioner istedet for at \textit{gætte} på at de vil have en admin. Desuden kan en sådan rolle laves senere, hvis nødvendigt.
-
-\textbf{UI og fokus på business logik} \\
-Oplægget har ingen krav til bruger interface, men derimod rigeligt med krav til funktionalitet. Vi ønsker at levere noget brugbart til kunden hurtigt, og have K.I.S.S \textit{(Keep It Simple Stupid)} i fokus for vores beslutninger og afgrænsing. Fra tidlige leverancer kan vi bruge kundens feedback til at videreudvikle på softwareløsningen iterativt, og bedre kunne prioritere udvikling af funktioner løbende. Derfor har vi i første ikke noget grafisk bruger interface, men derimod et program der køres i et CLI \textit{(Command Line Interface)}.
-
-\textbf{Medarbejdere med samme navn}
-...
-
-\subsubsection{Tekniske overvejelser}
-
-\textbf{Abstractions og compositions}
-...
-
-    {\color{red}
-        \begin{itemize}
-            \item Oprettelse af medarbejdere som gæst/admin
-            \item Tekst baseret UI, vi har fokus på business logik, og levere noget til kunden hurtigt der virker.
-            \item Flere medarbejdere med samme navn
-        \end{itemize}
-        \textbf{Oplægsmæssige overvejelser}
-        \begin{itemize}
-            \item
-        \end{itemize}
-        \textbf{Faglige overvejelser}
-        \begin{itemize}
-            \item Abstractions og compositions unødvendige da java har garbage collector
-        \end{itemize}
-    }
+\section{Diskussion: Kravspecifikation}
+\subsection{Oplægsmæssige overvejelser og afgrænsninger}
+\subsubsection{En admin rolle}
+Oplægget nævner som udgangspunkt ikke et krav om en administrator rolle, men derimod at det er et internt system og at der ikke er behov for et sikkerhedslag. Ofte er det oplagt at have en admin facilitet, og i dette projekt kunne det som eksempel give mening til oprettelse af medarbejdere. Men i forbindelse med en kortlægning af projektet samt afgrænsning af funktioner, ser vi større værdi for kunden at fokusere på de ønskede funktioner i stedet for at \textit{gætte} på at de vil have en admin. Desuden kan en sådan rolle laves senere, hvis nødvendigt.
+\subsubsection{UI og fokus på business logik}
+Oplægget har ingen krav til bruger interface, men derimod rigeligt med krav til funktionalitet. Vi ønsker at levere noget brugbart til kunden hurtigt, og have K.I.S.S \textit{(Keep It Simple Stupid)} i fokus for vores beslutninger og afgrænsning. Fra tidlige leverancer kan vi bruge kundens feedback til at videreudvikle på softwareløsningen iterativt, og bedre kunne prioritere udvikling af funktioner løbende. Derfor har vi i første ikke noget grafisk bruger interface, men derimod et program der køres i et CLI \textit{(Command Line Interface)}.
+\subsubsection{Medarbejdere med samme navn}
+For at tilgodese at medarbejdere kan hedde det samme vil medarbejder-objekter blive gemt ud fra deres initialer \textbf{som derfor skal være unikke}.
+\subsection{Tekniske overvejelser}
+\subsubsection{Abstractions og compositions}
+Disse to begreber bliver kun brugt i abstrakt forstand, da man i Java ikke har direkte kontrol over objekter. De kan konstrueres, men eksistere selv når objekter der peger på dem slettes. Java har en garbage collector der jævnligt analysere pointers i programmet og fjerner objekter der ikke bliver peget på.
+\subsubsection{UI}
+UI'en er som nævnt tekstbaseret. Dette betyder at vi til at starte med ikke har en \emph{Viewer}-klasse, da alt printes til konsollen. Bliver UI-delen for omstændig kan en \emph{Viewer}-klasse let implementeres.
 \newpage
