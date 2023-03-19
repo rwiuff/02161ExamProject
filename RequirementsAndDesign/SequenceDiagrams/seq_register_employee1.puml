@@ -37,6 +37,7 @@ activate em
 em --> app
 deactivate em
 app --> guest: "Employee added"
+deactivate app
 end
 end
 end
