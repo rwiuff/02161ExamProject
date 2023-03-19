@@ -7,17 +7,22 @@ participant ProjectActivity as pa
 activate emp
 emp -> app : createProjectActivity(23001)
 activate app
-app -> p : createActivity("Graphics design")
 activate p
+app -> p : getProjectLeader()
+p --> app : pl : String
+deactivate p
+app -> app : checkEmployee(initials, pl)
 alt The employee is the project leader
-p -> pa : <<create>>
+activate p
+app -> p : createActivity("Graphics design")
+p -> pa** : <<create>>
 activate pa
-pa --> p : ProjectActivity("Graphics design")
+pa --> p : pa : ProjectActivity
 deactivate pa
+p -> p : activities.add("Graphics design", pa)
 deactivate p
 else The employee is not the project leader
-p --> app : "Kun projektlederen kan redigere denne projektaktivitet"
-activate p
 app --> emp : "Kun projektlederen kan redigere denne projektaktivitet"
+deactivate app
 end
 @enduml

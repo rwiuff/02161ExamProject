@@ -1,0 +1,18 @@
+@startuml createActivityNoPLCase2
+actor "Employee" as emp
+participant AppController as app
+participant Project as p
+
+activate app
+activate emp
+emp -> app : editProject(23001)
+app --> emp : printMenu()
+emp -> app : setTimeBudget("Graphics design", 50)
+app -> p : setTimeBudget("Graphics design", 50)
+activate p
+p -> p : pa : activities.get("Graphics design")
+p -> p : pa.setTimeBudget(50)
+p --> emp : "Graphics design assigned 50 hours"
+deactivate p
+deactivate app
+@enduml

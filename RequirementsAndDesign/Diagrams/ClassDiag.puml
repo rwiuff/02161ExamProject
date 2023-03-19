@@ -1,10 +1,17 @@
-@startuml Class diagram
+@startuml ClassDiagram
 skinparam linetype ortho
 skinparam Nodesep 200
 ' skinparam Ranksep 50
 class AppController{
-    Map : Projects
-    void methods()
+    login(Emplyee e)
+    logout()
+    isLoggedIn()
+    employeeExist()
+    newEmployee()
+    setUser(Employee e)
+    getProjectLeader(Project p)
+    checkEmployee(Employee e)
+    editProject(Project p, Object property, Object value)
 }
 class Report{
     remainingWorkHours : int
@@ -16,18 +23,25 @@ class Project{
     internal : boolean
     startWeek : int
     endWeek : int
+    createActivity(String)
+    setTimeBudget(String, int)
+    setStartWeek(String, int)
+    setEndWeek(String, int)
+    editProject(Oject property, Object value)
 }
 class ProjectActivity{
     worktimeRegistrations : List
     timeBudget : int
+    setTimeBudget(int)
 }
 class Activity <<(A, orchid)abstract>>{
     title : String
     startWeek : int
     endWeek : int
+    setEndWeek(String, int)
+    setStartWeek(String, int)
 }
 class RegularActivity{
-
 }
 class Employee{
     initials : String
