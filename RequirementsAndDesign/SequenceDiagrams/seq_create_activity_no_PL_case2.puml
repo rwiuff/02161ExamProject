@@ -1,0 +1,13 @@
+@startuml createActivityNoPLCase2
+actor "Employee" as emp
+participant AppController as app
+participant Project as p
+
+activate app
+activate emp
+emp -> app : editProject(23001)
+app -> p : setTimeBudget("Graphics design", 50)
+activate p
+p -> p : activity = this.activities.find("Graphics design")
+p -> p : activity.setTimeBudget(50)
+@enduml

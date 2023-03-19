@@ -1,0 +1,8 @@
+@startuml createActivityNoPLGuest
+actor "Guest" as g
+participant AppController as app
+activate g
+activate app
+g -> app : createProjectActivity(23001)
+app --> g : "Login krævet"
+@enduml

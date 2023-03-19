@@ -1,0 +1,23 @@
+@startuml createActivityPL
+actor "Employee" as emp
+participant AppController as app
+participant Project as p
+participant ProjectActivity as pa
+
+activate emp
+emp -> app : createProjectActivity(23001)
+activate app
+app -> p : createActivity("Graphics design")
+activate p
+alt The employee is the project leader
+p -> pa : <<create>>
+activate pa
+pa --> p : ProjectActivity("Graphics design")
+deactivate pa
+deactivate p
+else The employee is not the project leader
+p --> app : "Kun projektlederen kan redigere denne projektaktivitet"
+activate p
+app --> emp : "Kun projektlederen kan redigere denne projektaktivitet"
+end
+@enduml
