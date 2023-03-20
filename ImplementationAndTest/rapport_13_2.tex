@@ -24,7 +24,6 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[bitstream-charter]{mathdesign}
-% \usepackage{XCharter}
 \usepackage{babel}
 \usepackage[moderate]{savetrees}
 %Symbols and scientifics
@@ -34,24 +33,24 @@
 \usepackage{mathtools}
 \usepackage{siunitx}
 \sisetup{
-    per-mode = power ,
-    round-mode = figures ,
-    round-precision = 3 ,
-    scientific-notation = false ,
-    output-decimal-marker = {.} ,
-    exponent-product = \times ,
-    separate-uncertainty = true ,
-    uncertainty-separator = \ ,
-    range-phrase = - ,
-    range-units =  single ,
-    inter-unit-product = \ensuremath{{\cdot{}}} ,
-    number-unit-product = \ ,
-    multi-part-units = single ,
+per-mode = power ,
+round-mode = figures ,
+round-precision = 3 ,
+exponent-mode = input ,
+output-decimal-marker = {.} ,
+exponent-product = 	imes ,
+uncertainty-mode = separate ,
+range-phrase = - ,
+range-units =  single ,
+inter-unit-product = \ensuremath{{\cdot{}}} ,
+quantity-product = \ ,
+separate-uncertainty-units = single ,
 }
 
 %Appendix, TOC and Bibliography
 \usepackage{appendix}
-\renewcommand\appendixtocname{Appendices}
+\renewcommand\appendixtocname{Appendiks}
+\renewcommand\appendixpagename{Appendiks}
 \usepackage[nottoc]{tocbibind}
 \setcounter{tocdepth}{2}
 \usepackage{lastpage}
@@ -60,7 +59,6 @@
 \usepackage[svgnames]{xcolor} % Required to specify font color
 \usepackage{float}
 \usepackage{graphicx}
-\usepackage{setspace}
 \usepackage{subcaption}
 \usepackage[format=plain,
     labelfont={bf,it,footnotesize},
@@ -69,11 +67,10 @@
 \captionsetup{font={stretch=0.9}}
 \usepackage{wrapfig}
 \usepackage[a4paper, centering, rmargin=2.5cm, tmargin=2.5cm, lmargin=2.5cm, bmargin=3.5cm]{geometry}
-\usepackage{etoolbox}
 \usepackage{verbatim}
 \usepackage[space]{grffile}
 \usepackage[final]{pdfpages}
-\usepackage{array}
+\usepackage{pdflscape}
 \usepackage{multirow}
 \usepackage{fontawesome}
 \usepackage{tikz}
@@ -142,7 +139,6 @@
 \usepackage{tabularray}
 \UseTblrLibrary{booktabs}
 \usepackage{todonotes}
-\usepackage{silence}
 \usepackage[square, longnamesfirst, numbers]{natbib}
 \usepackage{empheq}
 % \usepackage[newfloat, outputdir=../]{minted} % Overleaf minted buildpath fix
@@ -158,7 +154,6 @@
 %Definitions and new commands
 \newcommand{\degr}{^{\circ}}
 \newcommand{\me}{\mathrm{e}}
-\newcommand*\mathinhead[2]{\texorpdfstring{\(\boldsymbol{#1}\)}{#2}}
 
 %Title and sectioning
 \def\Vhrulefill{\leavevmode\leaders\hrule height 0.7ex depth \dimexpr0.4pt-0.7ex\hfill\kern0pt}
@@ -175,6 +170,30 @@
    \href{#1}{\color{DTUred}\faGithub}%
 }
 \makeatother
+
+%Algorithms and pseudocode
+\newcounter{nalg}[section] % defines algorithm counter for chapter-level
+\renewcommand{\thenalg}{\thesection .\arabic{nalg}} %defines appearance of the algorithm counter
+\DeclareCaptionLabelFormat{algocaption}{Algoritme \thenalg} % defines a new caption label as Algorithm x.y
+
+\lstnewenvironment{algorithm}[1][] %defines the algorithm listing environment
+{
+    \refstepcounter{nalg} %increments algorithm number
+    \captionsetup{labelformat=algocaption,labelsep=colon} %defines the caption setup for: it ises label format as the declared caption label above and makes label and caption text to be separated by a ':'
+    \lstset{ %this is the stype
+        mathescape=true,
+        frame=tB,
+        numbers=left,
+        numberstyle=\tiny,
+        basicstyle=\scriptsize,
+        keywordstyle=\color{black}\bfseries\em,
+        keywords={,input, output, return, datatype, function, in, if, else, foreach, for, while, begin, end,} %add the keywords you want, or load a language as Rubens explains in his comment above.
+        numbers=left,
+        xleftmargin=.04\textwidth,
+        #1 % this is to add specific settings to an usage of this environment (for instnce, the caption and referable label)
+    }
+}
+{}
 
 \begin{document}
 
@@ -195,10 +214,10 @@
 
 \title{\includegraphics[width=.15\textwidth]{Graphics/DTU}\lb\vspace{.5em}\Huge\scshape\color{DTUred} \titl\lb\vspace{-4mm}\rule{4cm}{0.5mm}\lb\Large{\courseno \ \course}}
 \preauthor{\begin{center}
-    \large \lineskip 0.5em%
-    \begin{tabular}[t]{r}}
-\author{\textbf{Afleverinsgruppe 13:} \lb \lb \authOne \ \textbf{\SIDOne} \lb \authTwo \ \textbf{\SIDTwo} \lb \authThree \ \textbf{\SIDThree} \lb \authFour \ \textbf{\SIDFour} \lb \href{https://github.com/rwiuff/02161ExamProject}{\color{DTUred}github.com/rwiuff/02161ExamProject} \github{https://github.com/rwiuff/02161ExamProject}}
-\postauthor{\end{tabular}\par\end{center}}
+        \large \lineskip 0.5em%
+        \begin{tabular}[t]{r}}
+            \author{\textbf{Afleverinsgruppe 13:} \lb \lb \authOne \ \textbf{\SIDOne} \lb \authTwo \ \textbf{\SIDTwo} \lb \authThree \ \textbf{\SIDThree} \lb \authFour \ \textbf{\SIDFour} \lb \href{https://github.com/rwiuff/02161ExamProject}{\color{DTUred}github.com/rwiuff/02161ExamProject} \github{https://github.com/rwiuff/02161ExamProject}}
+            \postauthor{\end{tabular}\par\end{center}}
 \date{\handin}
 \maketitle
 
@@ -210,9 +229,13 @@
 \setcounter{page}{0}
 \newpage
 \setcounter{page}{1}
-
-\section{Overskrift}
-
+\input{Sections/00Forfatterskab.tex}
+\input{Sections/01Programstruktur.tex}
+\input{Sections/02WhiteBoxTest.tex}
+\input{Sections/03CodeCoverage.tex}
+\input{Sections/04DesignByContract.tex}
+\input{Sections/05Design.tex}
+\input{Sections/06Konklusion.tex}
 %Bibliography herunder:
 %\newpage
 
@@ -223,12 +246,10 @@
 
 \listoffigures
 %\newpage
-%\renewcommand{\listtablename}{Liste over huskeord}
 \listoftables
 %\newpage
 \listoflistings
 %Appendicer herunder:
-
-%\input{Appendix.tex}
+\input{Sections/Appendix.tex}
 
 \end{document}
