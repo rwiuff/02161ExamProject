@@ -21,6 +21,7 @@ class EmployeeController {
 }
 
 class ProjectController {
+    --
     + createProject() : Project
     + editProject(Project p, Object property, Object value) : Project
 }
@@ -48,7 +49,7 @@ class ProjectActivity{
     worktimeRegistrations : List
     timeBudget : int
     --
-    setTimeBudget(int)
+    + setTimeBudget(int)
 }
 class Activity <<(A, orchid)abstract>>{
     title : String
@@ -59,11 +60,14 @@ class Activity <<(A, orchid)abstract>>{
     + setStartWeek(String, int)
 }
 class RegularActivity{
+    --
 }
+
 class Employee{
     initials : String
     firstName : String
     lastName : String
+    --
 }
 
 AppController --> "1" EmployeeController : employeeController
