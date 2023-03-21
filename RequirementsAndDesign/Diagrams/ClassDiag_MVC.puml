@@ -1,8 +1,8 @@
-@startuml ClassDiagram
+@startuml ClassDiagramMVC
 skinparam linetype ortho
 skinparam Nodesep 200
 ' skinparam Ranksep 50
-class AppController{
+class ViewerController{
     
 }
 
@@ -70,13 +70,12 @@ class Employee{
     --
 }
 
-AppController --> "1" EmployeeController : employeeController
-AppController --> "1" ProjectController : projectController
-AppController --> "1" UserController : userController
+ViewerController --> "1" EmployeeController : employeeController
+ViewerController --> "1" ProjectController : projectController
+ViewerController --> "1" UserController : userController
 
 ProjectController --> "0..*" Project : projects
 Project -> Report : generateReport(Project project)
-
 EmployeeController --> "0..*" Employee : employees
 
 UserController --> "0..1" Employee : user
