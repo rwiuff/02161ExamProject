@@ -1,3 +1,4 @@
+![](/TaskFusion.png)
 # 02161 Exam Project
 Exam Project for DTU course 02161 Software Engineering 1
 ## Reports
