@@ -1,6 +1,6 @@
 @startuml ClassDiagram
 skinparam linetype ortho
-skinparam Nodesep 200
+skinparam Nodesep 100
 ' skinparam Ranksep 50
 class AppController{
     
