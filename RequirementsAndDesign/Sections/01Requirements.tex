@@ -99,12 +99,12 @@ Scenario: 1. Login using initials
     When the user logs in using initials "mila" 
     Then the user with initials "mila" is logged in as an employee
 
-Scenario: 2. Employee does not exist
-    GIven the user logs in using initials "mila" 
+#ALTERNATIVE SCENARIOS
+Scenario: 1a. Employee does not exist
+    Given the user logs in using initials "mila" 
     Then the error message "Ukendt medarbejder" is given
 
-#ALTERNATIVE SCENARIOS
-Scenario: 1a. Login is case insensitive
+Scenario: 1b. Login is case insensitive
     Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
     When the user logs in using initials "MiLa" 
     Then the user with initials "mila" is logged in as an employee
