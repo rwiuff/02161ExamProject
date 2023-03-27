@@ -10,16 +10,15 @@ activate app
 app -> p : createActivity("Graphics design")
 activate p
 alt No activity with title "Graphics design" is present
-p -> ppa** : <<create>>
+p -> ppa : <<create>>
 activate ppa
-ppa --> p : pa : ProjectActivity
+ppa --> p : ProjectActivity("Graphics design")
 deactivate ppa
-p -> p : activities.add("Graphics design", pa)
-p --> emp : "Projektaktivitet oprettet"
+deactivate p
 else An activity with title "Graphics design" is present
-p --> app : "DuplicateActivityException"
+p --> app : "Projektaktivitet findes allerede"
+activate p
 deactivate p
 app --> emp : "Projektaktivitet findes allerede"
-deactivate app
 end
 @enduml

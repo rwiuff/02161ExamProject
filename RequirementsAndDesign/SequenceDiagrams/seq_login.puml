@@ -1,20 +1,24 @@
-@startuml
+@startuml Login
+' skinparam ParticipantPadding 50
 actor "Guest" as guest
-participant "MainController" as app
-participant "Employee manager" as em
+participant "AppController" as app
+participant "Employees" as em
 
+activate guest
 guest -> app : login(initials)
 activate app
-
-
-app -> em : findEmployee(initials)
+loop for each Employee \n in Employees
+app -> em: employeeExists(initials)
 activate em
-em --> guest : "Ukendt medarbejder"
-return Employee 
-
-app -> app : setUser(Employee)
-
-
-return true
-
+end
+alt employeeExists == \n false
+em --> app : False
+app --> guest : "Ukendt medarbejder"
+else
+em --> app : e : Employee
+deactivate em
+app -> app : : setUser(e)
+app --> guest : "Logget ind som {initials}"
+deactivate app
+end
 @enduml

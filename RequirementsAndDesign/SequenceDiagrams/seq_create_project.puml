@@ -1,27 +1,34 @@
-@startuml
+@startuml CreateProject
 actor "Employee" as e
-participant "MainController" as app
+participant "AppControler" as app
 participant "Date server" as ds
-participant "Project manager" as pm
+participant "Project" as pm
+participant "Projects" as pms
 
 e -> app : createProject(title)
 activate app
-
 app -> app : isLoggedIn()
-app --> e : Kun medarbejdere kan oprette et projekt
-
+alt isLoggedIn == False
+app --> e : "Kun medarbejdere kan oprette et projekt"
+else
 app -> ds : getDate
 activate ds
 return date 
 
-app -> pm : createProject(title,date)
+app -> pm** : createProject(title,date)
 activate pm 
 
 pm -> pm : validTitle()
+alt validTitle == False
 pm --> e : En projekttitel mangler
-
-return project
-
-return project
-
+else
+pm --> app : p : Project
+deactivate pm
+activate pms
+app -> pms : add(p Project)
+app --> e : "Projekt oprettet"
+deactivate pms
+deactivate app
+end
+end
 @enduml

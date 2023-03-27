@@ -9,8 +9,9 @@ emp -> app : editProject(23001)
 app -> p : setEndWeek("Graphics design", 2303)
 activate p
 alt 2303 >= startWeek
-p -> p : activity = this.activities.find("Graphics design")
-p -> p : activity.setEndWeek(2303)
+p -> p : pa : activites.get("Graphics design")
+p -> p : pa.setStartWeek(2303)
+p --> emp : "Graphics design startweek set to 2303"
 else 2303 < startWeek
 deactivate p
 p --> app : "Sluttid skal være efter eller ens med starttid"

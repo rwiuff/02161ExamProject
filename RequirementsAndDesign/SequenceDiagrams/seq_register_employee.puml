@@ -1,26 +1,44 @@
-@startuml
+@startuml registerEmployee
 actor "Guest" as guest
-participant "MainController" as app
-participant "Employee manager" as em
+participant "AppController" as app
+participant "Employees" as em
+participant "Employee" as inst
 
-guest -> app : registerEmployee(firstname, lastname, initials)
+activate guest
 activate app
+guest -> app: registerEmployee(givenName, surName, initials)
 
+alt givenName.isEmpty() or surName.isEmpty()
 
-app -> em : registerEmployee(firstname, lastname, initials)
+app --> guest: "For- /efternavn mangler"
+
+else 
+alt initials.isEmpty()
+app --> guest: "Initialer mangler"
+
+else
+
+loop for each Employee \n in Employees
+app -> em: employeeExists(initials)
 activate em
-
-em -> em : validName(firstname, lastname)
-activate em 
-em --> guest : "For- og efternavn mangler"
-deactivate em 
-
-em -> em : employeeExist(initials)
-activate em 
-em --> guest : "Medarbejder med initialer mila ekisisterer allerede"
-deactivate em 
-
-return true
-return true
-
+end
+alt employeeExists(initials) == true
+em --> app: true
+app --> guest: "Medarbejder med initialer {initials} eksisterer allerede"
+else
+em --> app: false
+deactivate em
+app -> inst **: newEmployee(givenName, surName, initials)
+activate inst
+inst --> app: e: Employee
+deactivate inst
+app -> em: add(e)
+activate em
+em --> app
+deactivate em
+app --> guest: "Employee added"
+deactivate app
+end
+end
+end
 @enduml

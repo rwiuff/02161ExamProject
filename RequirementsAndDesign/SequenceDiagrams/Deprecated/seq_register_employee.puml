@@ -1,0 +1,26 @@
+@startuml
+actor "Guest" as guest
+participant "MainController" as app
+participant "Employee manager" as em
+
+guest -> app : registerEmployee(firstname, lastname, initials)
+activate app
+
+
+app -> em : registerEmployee(firstname, lastname, initials)
+activate em
+
+em -> em : validName(firstname, lastname)
+activate em 
+em --> guest : "For- og efternavn mangler"
+deactivate em 
+
+em -> em : employeeExist(initials)
+activate em 
+em --> guest : "Medarbejder med initialer mila ekisisterer allerede"
+deactivate em 
+
+return true
+return true
+
+@enduml
