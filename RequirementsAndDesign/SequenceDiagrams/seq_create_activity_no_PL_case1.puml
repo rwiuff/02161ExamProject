@@ -23,6 +23,4 @@ deactivate p
 app --> emp : "Projektaktivitet findes allerede"
 deactivate app
 end
-
-hide footbox
 @enduml

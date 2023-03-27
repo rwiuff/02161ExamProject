@@ -26,6 +26,4 @@ else The employee is not the project leader
 app --> emp : "Kun projektlederen kan redigere denne projektaktivitet"
 deactivate app
 end
-
-hide footbox
 @enduml

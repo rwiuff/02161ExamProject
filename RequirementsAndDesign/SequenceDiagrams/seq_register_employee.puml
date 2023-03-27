@@ -42,6 +42,4 @@ deactivate app
 end
 end
 end
-
-hide footbox
 @enduml

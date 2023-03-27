@@ -22,6 +22,4 @@ app -> app : : setUser(e)
 app --> guest : "Logget ind som {initials}"
 deactivate app
 end
-
-hide footbox
 @enduml

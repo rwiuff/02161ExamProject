@@ -21,7 +21,4 @@ activate p
 app --> emp : "Starttid skal være før eller ens med sluttid"
 deactivate p
 end
-
-
-hide footbox
 @enduml
