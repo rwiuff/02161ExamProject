@@ -20,4 +20,6 @@ activate p
 app --> emp : "Sluttid skal være efter eller ens med starttid"
 deactivate p
 end
+
+hide footbox
 @enduml

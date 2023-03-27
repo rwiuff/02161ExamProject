@@ -9,4 +9,6 @@ activate app
 app -> app : setUser(NULL)
 app --> em : "Logget ud"
 deactivate app
+
+hide footbox
 @enduml
