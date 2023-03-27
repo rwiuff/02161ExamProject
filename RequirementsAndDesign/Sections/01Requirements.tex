@@ -89,41 +89,14 @@ Scenario: 1d. Employees with same name can be registered
     \centering
     \caption{Use case: Medarbejder log in}\label{lst:usecase_login}
     \begin{minted}[breaklines]{gherkin}  
-Feature: Employees can login
-Description: An employee logs in to the application
-Actors: employee
 
-#MAIN SCENARIOS
-Scenario: 1. Login using initials
-    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
-    When the user logs in using initials "mila" 
-    Then the user with initials "mila" is logged in as an employee
-
-#ALTERNATIVE SCENARIOS
-Scenario: 1a. Employee does not exist
-    Given the user logs in using initials "mila" 
-    Then the error message "Ukendt medarbejder" is given
-
-Scenario: 1b. Login is case insensitive
-    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
-    When the user logs in using initials "MiLa" 
-    Then the user with initials "mila" is logged in as an employee
     \end{minted}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Use case: Medarbejder log ud}\label{lst:usecase_logout}
     \begin{minted}[breaklines]{gherkin}  
-Feature: Employees can log out
-Description: An employee logs out of the application
-Actors: employee
 
-#MAIN SCENARIOS
-Scenario: 1. Logout
-    Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
-    And the user with initials "mila" is logged in as an employee
-    When the user logs out
-    Then none is logged in
     \end{minted}
 \end{listing}
 \begin{listing}[H]
@@ -280,36 +253,7 @@ Scenario: 1b. A project activity title is unique in a project
     \centering
     \caption{Use case: Opret projekt aktivitet for projekt uden projektleder. Fortsat fra \cref{lst:usecase_project_activity_no_leader_1}}\label{lst:usecase_project_activity_no_leader_2}
     \begin{minted}[breaklines, firstnumber=42]{gherkin}
-Scenario: 2a. A guest is not able to set a time budget on a project activity
-    Given none is logged in
-    And an activity with the title "Graphics design" exists within the project 23001
-    When the user sets the time budget to 50 hours on the project activity with the title "Graphics design" and project number 23001
-    Then the error message "Login krævet" is given
 
-Scenario: 3a. A guest is not able to set a start week on a project activity
-    Given none is logged in
-    And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the start week to 2304 on the project activity with title "Graphics design" and project number 23001
-    Then the error message "Login krævet" is given
-
-Scenario: 3b. A start week needs to be before or the same as the end week
-    Given the user logs in using initials "mila"
-    And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the start week to 2304 on the project activity with title "Graphics design" on the project with project number 23001
-    And the user sets the end week to 2304 on the project activity with title "Graphics design" on the project with project number 23001
-    Then the error message "Starttid skal være før eller ens med sluttid" is given
-
-Scenario: 4a. A guest is not able to set an end week on a project activity
-    Given the user is logged in as "mila"
-    And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the end week to 2304 on project activity with the title "Graphics design" on the project with project number 23001
-    Then the error message "Login krævet" is given
-
-Scenario: 4b. An end week needs to be after or same as start week
-    Given the user is logged in as "mila"
-    And an activity with the title "Graphics design" exists within the project with project number 23001
-    When the user sets the start week to 2304 and end week to 2303 on the project activity with the title "Graphics design" on the project with project number 23001
-    Then the error message "Sluttid skal være efter eller ens med starttid" is given
     \end{minted}
 \end{listing}\clearpage
 \begin{listing}[H]
