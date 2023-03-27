@@ -2,7 +2,7 @@
 skinparam linetype ortho
 skinparam Nodesep 100
 ' skinparam Ranksep 50
-class ViewerController{
+class "TaskFusion" as app{
     
 }
 
@@ -70,9 +70,9 @@ class Employee{
     --
 }
 
-ViewerController --> "1" EmployeeController : employeeController
-ViewerController --> "1" ProjectController : projectController
-ViewerController --> "1" UserController : userController
+app --> "1" EmployeeController : employeeController
+app --> "1" ProjectController : projectController
+app --> "1" UserController : userController
 
 ProjectController --> "0..*" Project : projects
 Project -> Report : generateReport(Project project)

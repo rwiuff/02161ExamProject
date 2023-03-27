@@ -23,4 +23,6 @@ else The employee is not the project leader
 app --> e : "Du har ikke rettigheder til dette"
 deactivate app
 end
+
+hide footbox
 @enduml

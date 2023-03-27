@@ -25,3 +25,6 @@ deactivate p
 deactivate app
 end
 end
+
+hide footbox
+@enduml

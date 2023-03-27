@@ -1,6 +1,7 @@
 # Feature: Creating a regular activity
 # Description: An employee creates a regular activity in the application
 # Actors: employee
+# test
 
 # #MAIN SCENARIOS
 # Scenario: 1. Creating a regular activity

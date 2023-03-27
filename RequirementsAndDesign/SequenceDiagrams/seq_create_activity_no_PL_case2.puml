@@ -16,4 +16,6 @@ p -> p : pa.setTimeBudget(50)
 p --> emp : "Graphics design assigned 50 hours"
 deactivate p
 deactivate app
+
+hide footbox
 @enduml
