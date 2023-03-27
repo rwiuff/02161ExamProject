@@ -1,4 +1,5 @@
 @startuml seq_project_edit
+hide footbox
 actor "Employee" as e
 participant "AppController" as app
 participant "Project" as p

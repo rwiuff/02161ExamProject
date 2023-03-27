@@ -1,4 +1,5 @@
 @startuml createActivityNoPLCase2
+hide footbox
 actor "Employee" as emp
 participant AppController as app
 participant Project as p

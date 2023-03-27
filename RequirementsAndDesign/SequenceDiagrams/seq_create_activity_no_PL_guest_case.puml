@@ -1,4 +1,5 @@
 @startuml createActivityNoPLGuest
+hide footbox
 actor "Guest" as g
 participant AppController as app
 activate g

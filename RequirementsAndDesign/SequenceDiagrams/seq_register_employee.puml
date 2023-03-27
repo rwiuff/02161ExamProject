@@ -1,4 +1,5 @@
-@startuml registerEmployee
+@startuml seq_registerEmployee
+hide footbox
 actor "Guest" as guest
 participant "AppController" as app
 participant "Employees" as em

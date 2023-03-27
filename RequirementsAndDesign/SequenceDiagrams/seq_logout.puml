@@ -1,4 +1,5 @@
 @startuml Logout
+hide footbox
 actor "Employee" as em
 participant "AppController" as app
 

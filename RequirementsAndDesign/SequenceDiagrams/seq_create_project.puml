@@ -1,4 +1,5 @@
 @startuml CreateProject
+hide footbox
 actor "Employee" as e
 participant "AppControler" as app
 participant "Date server" as ds

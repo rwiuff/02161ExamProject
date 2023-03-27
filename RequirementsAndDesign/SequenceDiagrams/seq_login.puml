@@ -1,5 +1,6 @@
 @startuml Login
 ' skinparam ParticipantPadding 50
+hide footbox
 actor "Guest" as guest
 participant "AppController" as app
 participant "Employees" as em
