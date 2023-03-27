@@ -1,0 +1,20 @@
+@startuml seq_1b
+hide footbox
+
+title First name required
+actor "Guest" as guest
+participant "TaskFusion" as app
+participant "Employee" as emp
+
+activate guest
+activate app
+guest -> app: registerEmployee(firstName, lastName)
+
+activate emp
+app -> emp: new Employee(firstName, lastName)
+
+emp -> app: throw InvalidPropertyException
+
+app --> guest : throw InvalidPropertyException
+
+@enduml

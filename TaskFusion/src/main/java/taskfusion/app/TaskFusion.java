@@ -18,15 +18,15 @@ public class TaskFusion {
 
     }
 
-    public void createEmployee(String firstName, String lastName) throws InvalidPropertyException, AlreadyExistsException {
-        Employee e = new Employee(firstName, lastName);
-        String initials = e.getInitials();
+    public void registerEmployee(String firstName, String lastName) throws InvalidPropertyException, AlreadyExistsException {
+        Employee employee = new Employee(firstName, lastName);
+        String initials = employee.getInitials();
 
         if(findEmployee(initials) != null) {
             throw new AlreadyExistsException("Medarbejder ekisisterer allerede");
         }
         
-        employees.put(initials, e);
+        employees.put(initials, employee);
     }
 
     public Employee findEmployee(String initials) {

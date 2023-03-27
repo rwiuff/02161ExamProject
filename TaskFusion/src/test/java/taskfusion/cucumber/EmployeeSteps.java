@@ -39,7 +39,7 @@ public class EmployeeSteps {
     @Then("the application has a registered employee with first name {string}, last name {string}")
     public void the_application_has_a_registered_employee_with_first_name_last_name(String firstName, String lastName) {
         try {
-            taskFusion.createEmployee(firstName, lastName);
+            taskFusion.registerEmployee(firstName, lastName);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }
@@ -49,7 +49,7 @@ public class EmployeeSteps {
     public void the_user_registers_an_employee_with_first_name_last_name(String firstName, String lastName) {
         //this.employee = new Employee(firstName, lastName);
         try {
-            taskFusion.createEmployee(firstName, lastName);
+            taskFusion.registerEmployee(firstName, lastName);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }

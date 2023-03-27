@@ -1,0 +1,25 @@
+@startuml seq_1
+hide footbox
+
+title Register employee
+actor "Guest" as guest
+participant "TaskFusion" as app
+participant "Employee" as emp
+
+activate guest
+activate app
+guest -> app: registerEmployee(firstName, lastName)
+
+activate emp
+app -> emp: new Employee(firstName, lastName)
+emp --> app: Employee
+deactivate emp
+
+emp -> emp: getInitials()
+
+app -> app: findEmployee(initials)
+app -> app: employees.put(initials, employee)
+
+app --> guest
+
+@enduml
