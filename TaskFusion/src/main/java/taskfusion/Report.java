@@ -1,5 +1,5 @@
 package taskfusion;
 
-public class Viewer {
+public class Report {
     
 }
