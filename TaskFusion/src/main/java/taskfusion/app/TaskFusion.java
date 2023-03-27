@@ -2,14 +2,17 @@ package taskfusion.app;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BooleanSupplier;
 
 import taskfusion.domain.Employee;
 import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.InvalidPropertyException;
+import taskfusion.exceptions.NotFoundException;
 
 public class TaskFusion {
 
     private Map<String, Employee> employees = new HashMap<>();
+    private Employee loggedInUser;
 
     public static void main(String[] args) {
 
@@ -27,7 +30,28 @@ public class TaskFusion {
     }
 
     public Employee findEmployee(String initials) {
-        return employees.get(initials);
+        String formattedInitials = initials.toLowerCase();
+        return employees.get(formattedInitials);
+    }
+
+    public Employee getLoggedInUser() {
+        return loggedInUser;
+    }
+
+    public void login(String initials) throws NotFoundException {
+        loggedInUser = findEmployee(initials);
+
+        if(loggedInUser == null) {
+            throw new NotFoundException("Ukendt medarbejder");
+        }
+    }
+
+    public boolean isLoggedIn() {
+        return loggedInUser != null;
+    }
+
+    public void logout() {
+        loggedInUser = null;
     }
 
 }

@@ -1,7 +1,10 @@
 package taskfusion.cucumber;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import taskfusion.app.TaskFusion;
@@ -52,4 +55,32 @@ public class EmployeeSteps {
         }
         
     }
+
+    @Then("the user with initials {string} is logged in as an employee")
+    public void the_user_with_initials_is_logged_in_as_an_employee(String initials) {
+        assertTrue(taskFusion.isLoggedIn());
+        Employee loggedInUser = taskFusion.getLoggedInUser();
+        assertEquals(initials, loggedInUser.getInitials());
+    }
+
+    @When("the user logs in using initials {string}")
+    public void the_user_logs_in_using_initials(String initials) {
+        try {
+            taskFusion.login(initials);
+        } catch (Exception e) {
+            errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+    }
+
+    @Then("none is logged in")
+    public void none_is_logged_in() {
+        assertFalse(taskFusion.isLoggedIn());
+    }
+
+    @When("the user logs out")
+    public void the_user_logs_out() {
+        taskFusion.logout();
+    }
+        
 }
+
