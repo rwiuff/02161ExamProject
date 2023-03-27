@@ -15,4 +15,5 @@ public class StepDefinitions {
 	public void everythingIsOkay() {
 		assertTrue(true);
 	}
+
 }
