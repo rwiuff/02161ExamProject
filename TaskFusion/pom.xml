@@ -9,7 +9,7 @@
 	<groupId>dtu</groupId>
 	<artifactId>TaskFusion</artifactId>
 	<name>TaskFusion</name>
-	<version>SNAPSHOT 0.0.1</version>
+	<version>SNAPSHOT 0.0.2</version>
 
 	<properties>
 		<!-- Set the Java version used by the compiler. -->
