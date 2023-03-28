@@ -1,8 +1,9 @@
 package taskfusion.app;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BooleanSupplier;
 
 import taskfusion.domain.Employee;
 import taskfusion.exceptions.AlreadyExistsException;
@@ -10,6 +11,7 @@ import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 
 public class TaskFusion {
+
 
     private Map<String, Employee> employees = new HashMap<>();
     private Employee loggedInUser;
@@ -53,5 +55,7 @@ public class TaskFusion {
     public void logout() {
         loggedInUser = null;
     }
+
+   
 
 }
