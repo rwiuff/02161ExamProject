@@ -9,7 +9,13 @@ public class Employee {
     public Employee(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.initials = firstName.substring(0, 2) + lastName.substring(0, 2);
+        createInitials();
+
+    }
+
+    private void createInitials() {
+        String init = firstName.substring(0, 2) + lastName.substring(0, 2);
+        this.initials = init.toLowerCase();
     }
 
     public String getFirstName() {
