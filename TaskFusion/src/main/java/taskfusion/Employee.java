@@ -10,7 +10,6 @@ public class Employee {
         this.firstName = firstName;
         this.lastName = lastName;
         this.initials = firstName.substring(0, 2) + lastName.substring(0, 2);
-
     }
 
     public String getFirstName() {
