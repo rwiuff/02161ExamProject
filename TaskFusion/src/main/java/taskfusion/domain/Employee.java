@@ -1,9 +1,12 @@
 package taskfusion.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import taskfusion.exceptions.InvalidPropertyException;
 
 public class Employee {
-
+    private List<RegularActivity> regularActivities = new ArrayList<RegularActivity>();
     private String firstName;
     private String lastName;
     private String initials;
@@ -46,4 +49,21 @@ public class Employee {
         return initials;
     }
 
+    public List<RegularActivity> getRegularActivities() {
+      return this.regularActivities;
+    }
+
+    public void addRegularActivity(RegularActivity regularActivity) {
+      this.regularActivities.add(regularActivity);
+    }
+
+    public boolean hasRegularActivity(String title, int startWeek, int endWeek) {
+      for (RegularActivity regularActivity : this.regularActivities) {
+        if (regularActivity.getTitle() == title && regularActivity.getStartWeek() == startWeek && regularActivity.getEndWeek() == endWeek) {
+          return true;
+        }
+      }
+
+      return false;
+    }
 }
