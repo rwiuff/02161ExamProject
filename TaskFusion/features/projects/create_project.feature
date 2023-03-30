@@ -1,14 +1,14 @@
-# Feature: Creating a project
-# Description: An employee creates a project in the application
-# Actors: employee
+Feature: Creating a project
+Description: An employee creates a project in the application
+Actors: employee
 
-# #MAIN SCENARIOS
-# Scenario: 1. Creating a project
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
-#     And the user logs in with initials "mila"
-#     And the year is 2023
-#     When the user creates a project with title "Projektplanlægning" 
-#     Then a project with title "Projektplanlægning" with project number 23001 exists in the application
+#MAIN SCENARIOS
+Scenario: 1. Creating a project
+    Given the application has a registered employee with first name "Michael", last name "Laudrup"
+    And the user logs in with initials "mila"
+    And the year is 2023
+    When the user creates a project with title "Projektplanlægning" 
+    Then a project with title "Projektplanlægning" with project number 23001 exists in the application
 
 # Scenario: 2. A project can have a customer
 #     Given the application has a registered employee with first name "Michael", last name "Laudrup"

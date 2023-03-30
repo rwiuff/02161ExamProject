@@ -1,16 +1,18 @@
 package taskfusion.app;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.function.BooleanSupplier;
-
 import taskfusion.domain.Employee;
+import taskfusion.domain.Project;
 import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 
 public class TaskFusion {
-
+    private List<Project> projects = new ArrayList<Project>();
+    private DateServer dateServer = new DateServer();
     private Map<String, Employee> employees = new HashMap<>();
     private Employee loggedInUser;
 
@@ -54,4 +56,21 @@ public class TaskFusion {
         loggedInUser = null;
     }
 
+    public void createProject(String projectTitle) {
+      this.projects.add(new Project(projectTitle, this.dateServer.getDate().getWeekYear(), "001"));
+    }
+
+    public void setDateServer(DateServer dateServer) {
+      this.dateServer = dateServer;
+    }
+
+    public Project findProject(String projectTitle, Integer projectNumber) {
+      for (Project p : this.projects) {
+        if (p.getProjectTitle().equals(projectTitle) && p.getProjectNumber() == projectNumber) {
+          return p;
+        }
+      }
+
+      return null;
+    }
 }
