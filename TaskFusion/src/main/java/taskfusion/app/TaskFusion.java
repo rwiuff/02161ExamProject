@@ -84,8 +84,32 @@ public class TaskFusion {
       return null;
     }
 
-    public void createRegularActivity(String title, Integer startWeek, Integer endWeek) {
-      loggedInUser.addRegularActivity(new RegularActivity(title, startWeek, endWeek));
+    public void createRegularActivity(String title, Integer startWeek, Integer endWeek) throws OperationNotAllowedException, InvalidPropertyException {
+      if (title == "") {
+        throw new InvalidPropertyException("En titel mangler");
+      }
+
+      if (startWeek == null) {
+        throw new InvalidPropertyException("En start uge mangler");
+      }
+
+      if (endWeek == null) {
+        throw new InvalidPropertyException("En slut uge mangler");
+      }
+
+      if (startWeek > endWeek) {
+        throw new InvalidPropertyException("Start uge skal være før slut uge");
+      }
+
+      if (endWeek < startWeek) {
+        throw new InvalidPropertyException("Slut uge skal være før eller lig med start uge");
+      }
+      
+      if (isLoggedIn()) {
+        loggedInUser.addRegularActivity(new RegularActivity(title, startWeek, endWeek));
+      } else {
+        throw new OperationNotAllowedException("Kun medarbejdere kan oprette en fast aktivitet");
+      }
     }
 
     public boolean hasRegularActivity(String title, Integer startWeek, Integer endWeek) {
