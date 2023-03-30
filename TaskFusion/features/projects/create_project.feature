@@ -38,8 +38,8 @@ Scenario: 1a. A guest is not able to create a project
     When the user creates a project with title "Projektplanlægning" 
     Then the error message "Kun medarbejdere kan oprette et projekt" is given
 
-# Scenario: 1b. A title is required to create a project
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
-#     And the user logs in using initials "mila"
-#     When the user creates a project with title ""
-#     Then the error message "En projekttitel mangler" is given
+Scenario: 1b. A title is required to create a project
+    Given the application has a registered employee with first name "Michael", last name "Laudrup"
+    And the user logs in using initials "mila"
+    When the user creates a project with title ""
+    Then the error message "En projekttitel mangler" is given
