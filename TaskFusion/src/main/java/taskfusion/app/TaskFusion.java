@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
+import taskfusion.domain.RegularActivity;
 import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
@@ -81,5 +82,13 @@ public class TaskFusion {
       }
 
       return null;
+    }
+
+    public void createRegularActivity(String title, Integer startWeek, Integer endWeek) {
+      loggedInUser.addRegularActivity(new RegularActivity(title, startWeek, endWeek));
+    }
+
+    public boolean hasRegularActivity(String title, Integer startWeek, Integer endWeek) {
+      return loggedInUser.hasRegularActivity(title, startWeek, endWeek);
     }
 }
