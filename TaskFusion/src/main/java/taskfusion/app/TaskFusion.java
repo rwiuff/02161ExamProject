@@ -57,7 +57,7 @@ public class TaskFusion {
         loggedInUser = null;
     }
 
-    public void createProject(String projectTitle) throws OperationNotAllowedException {
+    public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException {
       if (projectTitle != "") {
         if (!isLoggedIn()) {
           throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
@@ -65,7 +65,7 @@ public class TaskFusion {
           this.projects.add(new Project(projectTitle, this.dateServer.getDate().getWeekYear(), "001"));
         }
       } else {
-        throw new OperationNotAllowedException("En projekttitel mangler");
+        throw new InvalidPropertyException("En projekttitel mangler");
       }
     }
 
