@@ -4,6 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import taskfusion.app.TaskFusion;
+import taskfusion.domain.Project;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -47,6 +48,8 @@ public class CreateProjectSteps {
 
   @Then("a project with title {string} with project number {int} exists in the application")
   public void aProjectWithTitleWithProjectNumberExistsInTheApplication(String string, int int1) {
-    assertNotNull(this.taskFusion.findProject(string, int1));
+    Project p = this.taskFusion.findProject(int1);
+    assertNotNull(p);
+    assertEquals(p.getProjectTitle(), string);
   }
 }

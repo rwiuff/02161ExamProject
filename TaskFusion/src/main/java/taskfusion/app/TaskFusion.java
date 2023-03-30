@@ -58,21 +58,24 @@ public class TaskFusion {
     }
 
     public void createProject(String projectTitle) throws OperationNotAllowedException {
-      if (!isLoggedIn()) {
-        throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
+      if (projectTitle != "") {
+        if (!isLoggedIn()) {
+          throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
+        } else {
+          this.projects.add(new Project(projectTitle, this.dateServer.getDate().getWeekYear(), "001"));
+        }
       } else {
-        this.projects.add(new Project(projectTitle, this.dateServer.getDate().getWeekYear(), "001"));
+        throw new OperationNotAllowedException("En projekttitel mangler");
       }
-      
     }
 
     public void setDateServer(DateServer dateServer) {
       this.dateServer = dateServer;
     }
 
-    public Project findProject(String projectTitle, Integer projectNumber) {
+    public Project findProject(Integer projectNumber) {
       for (Project p : this.projects) {
-        if (p.getProjectTitle().equals(projectTitle) && p.getProjectNumber() == projectNumber) {
+        if (p.getProjectNumber() == projectNumber) {
           return p;
         }
       }
