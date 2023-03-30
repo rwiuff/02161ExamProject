@@ -1,0 +1,99 @@
+@startuml TaskFusion-UI 
+
+
+package Controllers {
+
+    abstract CLIController {
+        # domainFacade : DomainFacade
+        --
+    }
+
+
+    class MainController {
+        --
+        + index : void
+    }
+    MainController --|> CLIController
+
+    class EmployeeController {
+        --
+    }
+    EmployeeController --|> CLIController
+
+    class ProjectController {
+        --
+    }
+    ProjectController --|> CLIController
+
+}
+
+package Views {
+
+    abstract CLIView {
+        --
+    }
+
+    class MainMenuView {
+        --
+    }
+    MainMenuView --|> CLIView
+
+    class EmployeeMenuView {
+        --
+    }
+    EmployeeMenuView --|> CLIView
+
+    class ProjectListView {
+        --
+    }
+    ProjectListView --|> CLIView
+
+    class ProjectView {
+        --
+    }
+    ProjectView --|> CLIView
+
+}
+
+package Components {
+
+    abstract CLIComponent {
+        # in : PrintStream 
+        # out : PrintStream
+        --
+    }
+
+    class Menu {
+        - scanner : Scanner
+        - options : List
+        --
+        + displayMenu() : void
+        + getUserInput() : int
+    }
+    CLIComponent <|-- Menu
+
+    class Header {
+        {}
+    }
+    CLIComponent <|-- Header
+
+    class AsciiArt {
+        --
+        + displayLogo : void
+    }
+    CLIComponent <|-- AsciiArt
+
+
+}
+
+MainController --> MainMenuView : displayMainMenu()
+
+EmployeeController --> EmployeeMenuView : displayUserArea()
+EmployeeController --> ProjectListView : displayProjects()
+
+ProjectController --> ProjectView : displayProject()
+
+
+'CLIController -> DomainFacade
+
+@enduml
