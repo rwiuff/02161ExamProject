@@ -1,12 +1,10 @@
-package taskfusion.ui.controllers;
+package taskfusion.cli.components;
 
 import java.util.Scanner;
 
-public class NavigationController {
+public class Menu {
     
-
-
-    public static int displayMenu(String[] options, String header) {
+    public static int showMenu(String[] options, String header) {
         
         // Display a header, if a header is given
         if (header != null && !header.isEmpty()) {
@@ -37,9 +35,10 @@ public class NavigationController {
             }
             attempt++;
         }
+
+        scanner.close();
         
         return choice;
     }
-
 
 }
