@@ -74,4 +74,15 @@ public class CreateProjectSteps {
       assertEquals(customer, taskFusion.findProject(projectID).getCustomer());
     }
 
+    @When("the user sets the start week to {int} on {int}")
+    public void the_user_sets_the_start_week_to_on(int start, int projectID) {
+        taskFusion.findProject(projectID).setStartWeek(start);
+    }
+
+    @Then("the project has start week {int} on {int}")
+    public void the_project_has_start_week_on(int start, int projectID) {
+        assertEquals(start, taskFusion.findProject(projectID).getStartWeek());
+    }
+
+
 }
