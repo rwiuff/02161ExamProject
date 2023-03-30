@@ -10,24 +10,24 @@ Scenario: 1. Creating a project
     When the user creates a project with title "Projektplanlægning" 
     Then a project with title "Projektplanlægning" with project number 23001 exists in the application
 
-# Scenario: 2. A project can have a customer
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
-#     And the user logs in using initials "mila"
-#     And a project with title "Projektplanlægning" with project number 23001 exists in the application
-#     When the user sets customer "El-Giganten" on project 23001
-#     Then the project 23001 has customer "El-Giganten"
+Scenario: 2. A project can have a customer
+    Given the application has a registered employee with first name "Michael", last name "Laudrup"
+    And the user logs in using initials "mila"
+    And a project with title "Projektplanlægning" with project number 23001 has been created in the application
+    When the user sets customer "El-Giganten" on project 23001
+    Then the project 23001 has customer "El-Giganten"
 
 # Scenario: 3. A project can be an internal project
 #     Given the application has a registered employee with first name "Michael", last name "Laudrup"
 #     And the user logs in using initials "mila"
-#     And a project with title "Projektplanlægning" with project number 23001 exists in the application
+#     And a project with title "Projektplanlægning" with project number 23001 has been created in the application
 #     When the user sets the project as an internal project
 #     Then the project is an internal project
 
 # Scenario: 4. A project can have a start week
 #     Given the application has a registered employee with first name "Michael", last name "Laudrup"
 #     And the user logs in using initials "mila"
-#     And a project with title "Projektplanlægning" with project number 23001 exists in the application
+#     And a project with title "Projektplanlægning" with project number 23001 has been created in the application
 #     When the user sets the start week to 2304
 #     Then the project has start week 2304
 

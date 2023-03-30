@@ -1,8 +1,6 @@
 package taskfusion.app;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
@@ -13,106 +11,121 @@ import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
 
 public class TaskFusion {
-    private List<Project> projects = new ArrayList<Project>();
-    private DateServer dateServer = new DateServer();
-    private Map<String, Employee> employees = new HashMap<>();
-    private Employee loggedInUser;
+  private Map<String, Project> projects = new HashMap<>();
+  private DateServer dateServer = new DateServer();
+  private Map<String, Employee> employees = new HashMap<>();
+  private Employee loggedInUser;
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
 
+  }
+
+  public void registerEmployee(String firstName, String lastName)
+      throws InvalidPropertyException, AlreadyExistsException {
+    Employee employee = new Employee(firstName, lastName);
+    String initials = employee.getInitials();
+
+    if (findEmployee(initials) != null) {
+      throw new AlreadyExistsException("Medarbejder ekisisterer allerede");
     }
 
-    public void registerEmployee(String firstName, String lastName) throws InvalidPropertyException, AlreadyExistsException {
-        Employee employee = new Employee(firstName, lastName);
-        String initials = employee.getInitials();
+    employees.put(initials, employee);
+  }
 
-        if(findEmployee(initials) != null) {
-            throw new AlreadyExistsException("Medarbejder ekisisterer allerede");
-        }
-        
-        employees.put(initials, employee);
+  public Employee findEmployee(String initials) {
+    String formattedInitials = initials.toLowerCase();
+    return employees.get(formattedInitials);
+  }
+
+  public Employee getLoggedInUser() {
+    return loggedInUser;
+  }
+
+  public void login(String initials) throws NotFoundException {
+    loggedInUser = findEmployee(initials);
+
+    if (loggedInUser == null) {
+      throw new NotFoundException("Ukendt medarbejder");
     }
+  }
 
-    public Employee findEmployee(String initials) {
-        String formattedInitials = initials.toLowerCase();
-        return employees.get(formattedInitials);
-    }
+  public boolean isLoggedIn() {
+    return loggedInUser != null;
+  }
 
-    public Employee getLoggedInUser() {
-        return loggedInUser;
-    }
+  public void logout() {
+    loggedInUser = null;
+  }
 
-    public void login(String initials) throws NotFoundException {
-        loggedInUser = findEmployee(initials);
-
-        if(loggedInUser == null) {
-            throw new NotFoundException("Ukendt medarbejder");
-        }
-    }
-
-    public boolean isLoggedIn() {
-        return loggedInUser != null;
-    }
-
-    public void logout() {
-        loggedInUser = null;
-    }
-
-    public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException {
-      if (projectTitle != "") {
-        if (!isLoggedIn()) {
-          throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
+  public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException {
+    String finalThree;
+    if (projectTitle != "") {
+      if (!isLoggedIn()) {
+        throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
+      } else {
+        if (projects.isEmpty()) {
+          finalThree = "001";
         } else {
-          this.projects.add(new Project(projectTitle, this.dateServer.getDate().getWeekYear(), "001"));
+          finalThree = "" + projects.size() + 1;
         }
-      } else {
-        throw new InvalidPropertyException("En projekttitel mangler");
+        Project p = new Project(projectTitle, this.dateServer.getDate().getWeekYear(), finalThree);
+        String projectNumber = "" + p.getProjectNumber();
+        this.projects.put(projectNumber, p);
       }
+    } else {
+      throw new InvalidPropertyException("En projekttitel mangler");
+    }
+  }
+
+  public void setDateServer(DateServer dateServer) {
+    this.dateServer = dateServer;
+  }
+
+  public Project findProject(Integer projectNumber) {
+    return projects.get(projectNumber + "");
+    // for (Project p : this.projects) {
+    // if (p.getProjectNumber() == projectNumber) {
+    // return p;
+    // }
+    // }
+
+    // return null;
+  }
+
+  public void createRegularActivity(String title, Integer startWeek, Integer endWeek)
+      throws OperationNotAllowedException, InvalidPropertyException {
+    if (title == "") {
+      throw new InvalidPropertyException("En titel mangler");
     }
 
-    public void setDateServer(DateServer dateServer) {
-      this.dateServer = dateServer;
+    if (startWeek == null) {
+      throw new InvalidPropertyException("En start uge mangler");
     }
 
-    public Project findProject(Integer projectNumber) {
-      for (Project p : this.projects) {
-        if (p.getProjectNumber() == projectNumber) {
-          return p;
-        }
-      }
-
-      return null;
+    if (endWeek == null) {
+      throw new InvalidPropertyException("En slut uge mangler");
     }
 
-    public void createRegularActivity(String title, Integer startWeek, Integer endWeek) throws OperationNotAllowedException, InvalidPropertyException {
-      if (title == "") {
-        throw new InvalidPropertyException("En titel mangler");
-      }
-
-      if (startWeek == null) {
-        throw new InvalidPropertyException("En start uge mangler");
-      }
-
-      if (endWeek == null) {
-        throw new InvalidPropertyException("En slut uge mangler");
-      }
-
-      if (startWeek > endWeek) {
-        throw new InvalidPropertyException("Start uge skal være før slut uge");
-      }
-
-      if (endWeek < startWeek) {
-        throw new InvalidPropertyException("Slut uge skal være før eller lig med start uge");
-      }
-      
-      if (isLoggedIn()) {
-        loggedInUser.addRegularActivity(new RegularActivity(title, startWeek, endWeek));
-      } else {
-        throw new OperationNotAllowedException("Kun medarbejdere kan oprette en fast aktivitet");
-      }
+    if (startWeek > endWeek) {
+      throw new InvalidPropertyException("Start uge skal være før slut uge");
     }
 
-    public boolean hasRegularActivity(String title, Integer startWeek, Integer endWeek) {
-      return loggedInUser.hasRegularActivity(title, startWeek, endWeek);
+    if (endWeek < startWeek) {
+      throw new InvalidPropertyException("Slut uge skal være før eller lig med start uge");
     }
+
+    if (isLoggedIn()) {
+      loggedInUser.addRegularActivity(new RegularActivity(title, startWeek, endWeek));
+    } else {
+      throw new OperationNotAllowedException("Kun medarbejdere kan oprette en fast aktivitet");
+    }
+  }
+
+  public boolean hasRegularActivity(String title, Integer startWeek, Integer endWeek) {
+    return loggedInUser.hasRegularActivity(title, startWeek, endWeek);
+  }
+
+  public void assignCustomer(int projectID, String customer) {
+    projects.get(projectID + "").setCustomer(customer);
+  }
 }
