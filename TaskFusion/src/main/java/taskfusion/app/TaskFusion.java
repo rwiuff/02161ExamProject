@@ -9,6 +9,7 @@ import taskfusion.domain.Project;
 import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
 
 public class TaskFusion {
     private List<Project> projects = new ArrayList<Project>();
@@ -56,8 +57,13 @@ public class TaskFusion {
         loggedInUser = null;
     }
 
-    public void createProject(String projectTitle) {
-      this.projects.add(new Project(projectTitle, this.dateServer.getDate().getWeekYear(), "001"));
+    public void createProject(String projectTitle) throws OperationNotAllowedException {
+      if (!isLoggedIn()) {
+        throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
+      } else {
+        this.projects.add(new Project(projectTitle, this.dateServer.getDate().getWeekYear(), "001"));
+      }
+      
     }
 
     public void setDateServer(DateServer dateServer) {

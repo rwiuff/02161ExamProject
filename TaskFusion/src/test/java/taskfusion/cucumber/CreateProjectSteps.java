@@ -38,7 +38,11 @@ public class CreateProjectSteps {
 
   @When("the user creates a project with title {string}")
   public void theUserCreatesAProjectWithTitle(String string) {
-    this.taskFusion.createProject(string);
+    try {
+      this.taskFusion.createProject(string);
+    } catch (Exception e) {
+      this.errorMessageHolder.setErrorMessage(e.getMessage());
+    }
   }
 
   @Then("a project with title {string} with project number {int} exists in the application")
