@@ -1,6 +1,6 @@
 ![](/TaskFusion.png)
 # 02161 Exam Project
-Exam Project for DTU course 02161 Software Engineering 1
+Exam Project for DTU course 02161 Software Engineering 1 [![Java CI with Maven](https://github.com/rwiuff/02161ExamProject/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/rwiuff/02161ExamProject/actions/workflows/maven.yml)
 ## Reports
 Requirements and Design kan be found as [rapport_13_1.pdf](RequirementsAndDesign/rapport_13_1.pdf)
 
