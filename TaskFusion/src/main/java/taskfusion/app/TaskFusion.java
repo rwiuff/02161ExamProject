@@ -1,18 +1,20 @@
 package taskfusion.app;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 import taskfusion.domain.Employee;
+import taskfusion.domain.Project;
+import taskfusion.domain.RegularActivity;
 import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
 
 public class TaskFusion {
-
-
+    private List<Project> projects = new ArrayList<Project>();
+    private DateServer dateServer = new DateServer();
     private Map<String, Employee> employees = new HashMap<>();
     private Employee loggedInUser;
 
@@ -56,6 +58,37 @@ public class TaskFusion {
         loggedInUser = null;
     }
 
-   
+    public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException {
+      if (projectTitle != "") {
+        if (!isLoggedIn()) {
+          throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
+        } else {
+          this.projects.add(new Project(projectTitle, this.dateServer.getDate().getWeekYear(), "001"));
+        }
+      } else {
+        throw new InvalidPropertyException("En projekttitel mangler");
+      }
+    }
 
+    public void setDateServer(DateServer dateServer) {
+      this.dateServer = dateServer;
+    }
+
+    public Project findProject(Integer projectNumber) {
+      for (Project p : this.projects) {
+        if (p.getProjectNumber() == projectNumber) {
+          return p;
+        }
+      }
+
+      return null;
+    }
+
+    public void createRegularActivity(String title, Integer startWeek, Integer endWeek) {
+      loggedInUser.addRegularActivity(new RegularActivity(title, startWeek, endWeek));
+    }
+
+    public boolean hasRegularActivity(String title, Integer startWeek, Integer endWeek) {
+      return loggedInUser.hasRegularActivity(title, startWeek, endWeek);
+    }
 }

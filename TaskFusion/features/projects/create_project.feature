@@ -1,14 +1,14 @@
-# Feature: Creating a project
-# Description: An employee creates a project in the application
-# Actors: employee
+Feature: Creating a project
+Description: An employee creates a project in the application
+Actors: employee
 
-# #MAIN SCENARIOS
-# Scenario: 1. Creating a project
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
-#     And the user logs in with initials "mila"
-#     And the year is 2023
-#     When the user creates a project with title "Projektplanlægning" 
-#     Then a project with title "Projektplanlægning" with project number 23001 exists in the application
+#MAIN SCENARIOS
+Scenario: 1. Creating a project
+    Given the application has a registered employee with first name "Michael", last name "Laudrup"
+    And the user logs in with initials "mila"
+    And the year is 2023
+    When the user creates a project with title "Projektplanlægning" 
+    Then a project with title "Projektplanlægning" with project number 23001 exists in the application
 
 # Scenario: 2. A project can have a customer
 #     Given the application has a registered employee with first name "Michael", last name "Laudrup"
@@ -32,14 +32,14 @@
 #     Then the project has start week 2304
 
 # #ALTERNATIVE SCENARIOS
-# Scenario: 1a. A guest is not able to create a project
-#     Given none is logged in
-#     And the year is 2023
-#     When the user creates a project with title "Projektplanlægning" 
-#     Then the error message "Kun medarbejdere kan oprette et projekt" is given
+Scenario: 1a. A guest is not able to create a project
+    Given none is logged in
+    And the year is 2023
+    When the user creates a project with title "Projektplanlægning" 
+    Then the error message "Kun medarbejdere kan oprette et projekt" is given
 
-# Scenario: 1b. A title is required to create a project
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
-#     And the user logs in using initials "mila"
-#     When the user creates a project with title ""
-#     Then the error message "En projekttitel mangler" is given
+Scenario: 1b. A title is required to create a project
+    Given the application has a registered employee with first name "Michael", last name "Laudrup"
+    And the user logs in using initials "mila"
+    When the user creates a project with title ""
+    Then the error message "En projekttitel mangler" is given
