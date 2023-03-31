@@ -16,7 +16,7 @@ public class ProjectRepository {
 
     // Private constructor to prevent instantiation from other classes
     private ProjectRepository() {
-        // Your initialization code here, if any
+       
     }
 
     // Public method to get the Singleton instance
@@ -26,6 +26,10 @@ public class ProjectRepository {
         }
         return instance;
 
+    }
+    
+    public static void resetInstance() {
+        instance = null;
     }
 
     public void createProject(String projectTitle, int year)
