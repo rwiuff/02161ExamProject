@@ -9,6 +9,7 @@ import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
+import taskfusion.exceptions.ShouldNotHappenException;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
@@ -21,7 +22,7 @@ public class TaskFusion {
   public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
 
   public void registerEmployee(String firstName, String lastName)
-      throws InvalidPropertyException, AlreadyExistsException {
+      throws InvalidPropertyException, AlreadyExistsException, ShouldNotHappenException {
         employeeRepo.registerEmployee(firstName, lastName);
   }
 

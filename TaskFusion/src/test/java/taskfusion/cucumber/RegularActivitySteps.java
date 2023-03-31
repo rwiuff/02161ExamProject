@@ -16,18 +16,6 @@ public class RegularActivitySteps {
     this.errorMessageHolder = errorMessageHolder;
   }
 
-  @Given("the application has a registered employee with first name {string}, last name {string} and initials {string}")
-  public void theApplicationHasARegisteredEmployeeWithFirstNameLastNameAndInitials(String string, String string2,
-      String string3) {
-    try {
-      this.taskFusion.registerEmployee(string, string2);
-    } catch (Exception e) {
-      this.errorMessageHolder.setErrorMessage(e.getMessage());
-    }
-
-    assertNotNull(this.taskFusion.findEmployee(string3));
-  }
-
   @When("the user creates the regular activity {string} with start week {int} and end week {int}")
   public void theUserCreatesTheRegularActivityWithStartWeekAndEndWeek(String string, Integer int1, Integer int2) {
     try {

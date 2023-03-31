@@ -4,7 +4,7 @@
 
 # #MAIN SCENARIO
 # Scenario: Project manager gets remaining time on activity
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
 #     And a project with title "Video game" with project number 23001 exists in the application
 #     And the user logs in using initials "mila"
 #     And "mila" takes the role as project leader on project 23001
