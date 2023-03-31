@@ -37,7 +37,7 @@ public class CreateProjectSteps {
 
   @Given("the year is {int}")
   public void theYearIs(Integer year) {
-    assertEquals(this.mockDateHolder.getYear(), year);
+    assertEquals(year, this.mockDateHolder.getYear());
   }
 
   @When("the user creates a project with title {string}")
