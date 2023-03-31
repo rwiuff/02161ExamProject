@@ -107,8 +107,7 @@ public class TaskFusion {
     return loggedInUser.hasRegularActivity(title, startWeek, endWeek);
   }
 
-  public void assignCustomer(int projectID, String customer) {
-
-    projectRepo.projects.get(projectID + "").setCustomer(customer);
+  public void assignCustomer(String projectID, String customer) {
+    projectRepo.projects.get(projectID).setCustomer(customer);
   }
 }

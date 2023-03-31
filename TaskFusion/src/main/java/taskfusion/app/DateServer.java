@@ -14,7 +14,7 @@ public class DateServer {
 	}
 
 	public int getYear() {
-		return 23;
+		return getDate().get(Calendar.YEAR) % 100;
 	}
 
 }

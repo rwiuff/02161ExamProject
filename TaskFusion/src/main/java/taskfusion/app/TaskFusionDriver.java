@@ -1,7 +1,9 @@
 package taskfusion.app;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import taskfusion.domain.Project;
-import taskfusion.persistency.ProjectRepository;
 
 public class TaskFusionDriver {
     
@@ -16,7 +18,10 @@ public class TaskFusionDriver {
 
             //ProjectRepository projectRepo = ProjectRepository.getInstance();
             //Project p = projectRepo.findProject(23001);
-            Project p = taskFusion.projectRepo.findProject(23001);
+            Project p = taskFusion.projectRepo.getProject("23001");
+
+            assertNotNull(p);
+            assertEquals("Projektet",p.getProjectTitle());
 
             System.out.println("STOP");
 

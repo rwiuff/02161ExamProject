@@ -36,12 +36,12 @@ public class ProjectRepository {
         }
 
         Project p = new Project(projectTitle, year);
-        String projectNumber = "" + p.getProjectNumber();
+        String projectNumber = p.getProjectNumber();
         this.projects.put(projectNumber, p);
     }
 
-    public Project findProject(int projectNumber) {
-        return projects.get(projectNumber + "");
+    public Project getProject(String projectNumber) {
+        return projects.get(projectNumber);
         // for (Project p : this.projects) {
         // if (p.getProjectNumber() == projectNumber) {
         // return p;

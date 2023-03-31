@@ -1,9 +1,11 @@
 package taskfusion.domain;
 
+import java.util.Set;
+
 import taskfusion.persistency.ProjectRepository;
 
 public class Project {
-  private int projectNumber;
+  private String projectNumber;
   private String projectTitle;
   private String customer;
   private boolean internal;
@@ -12,8 +14,7 @@ public class Project {
 
   public Project(String projectTitle, int year) {
     this.projectTitle = projectTitle;
-    this.projectNumber = Project.generateProjectNumber(year);
-    
+    this.projectNumber = generateProjectNumber(year);
   }
 
   public int getStartWeek() {
@@ -60,21 +61,30 @@ public class Project {
     this.projectTitle = projectTitle;
   }
 
-  public int getProjectNumber() {
+  public String getProjectNumber() {
     return this.projectNumber;
   }
 
-  public void setProjectNumber(int projectNumber) {
+  public void setProjectNumber(String projectNumber) {
     this.projectNumber = projectNumber;
   }
 
-  public static int generateProjectNumber(int year) {
+  public static String generateProjectNumber(int year) {
     ProjectRepository projectRepo = ProjectRepository.getInstance();
-
-
-    return (Integer.parseInt(year + "000") + (projectRepo.projects.size() + 1));
-
-
+    if(projectRepo.projects.isEmpty()){
+      return year + "001";
+    }
+    String[] serials = (String[]) projectRepo.projects.keySet().toArray();
+    int highestSerial = 0;
+    int tmp;
+    for (String serial : serials) {
+      if (serial.contains("" + year)) {
+        tmp = Integer.parseInt(serial.substring(2, 4));
+        highestSerial = (highestSerial < tmp) ? tmp : highestSerial;
+      }
+    }
+    String projectNumber = String.format("%3d", year + highestSerial);
+    return projectNumber;
 
   }
 

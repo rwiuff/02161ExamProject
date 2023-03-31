@@ -8,14 +8,14 @@ Scenario: 1. Creating a project
     And the user logs in with initials "mila"
     And the year is 2023
     When the user creates a project with title "Projektplanlægning" 
-    Then a project with title "Projektplanlægning" with project number 23001 exists in the application
+    Then a project with title "Projektplanlægning" with project number "23001" exists in the application
 
 Scenario: 2. A project can have a customer
     Given the application has a registered employee with first name "Michael", last name "Laudrup"
     And the user logs in using initials "mila"
     And a project with title "Projektplanlægning" with project number 23001 has been created in the application
-    When the user sets customer "El-Giganten" on project 23001
-    Then the project 23001 has customer "El-Giganten"
+    When the user sets customer "El-Giganten" on project "23001"
+    Then the project "23001" has customer "El-Giganten"
 
 # Giver det mening? Skal vi bruge et "internt" flag senere?
 
@@ -30,8 +30,8 @@ Scenario: 4. A project can have a start week
     Given the application has a registered employee with first name "Michael", last name "Laudrup"
     And the user logs in using initials "mila"
     And a project with title "Projektplanlægning" with project number 23001 has been created in the application
-    When the user sets the start week to 2304 on 23001
-    Then the project has start week 2304 on 23001
+    When the user sets the start week to 2304 on "23001"
+    Then the project has start week 2304 on "23001"
 
 # Scenario: 5. Project ID's increment
 #     Given the application has a registered employee with first name "Michael", last name "Laudrup"
