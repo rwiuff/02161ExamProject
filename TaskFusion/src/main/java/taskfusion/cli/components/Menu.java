@@ -36,7 +36,7 @@ public class Menu {
             attempt++;
         }
 
-        scanner.close();
+        //scanner.close();
         
         return choice;
     }
