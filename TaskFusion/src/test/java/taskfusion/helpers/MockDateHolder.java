@@ -26,6 +26,6 @@ public class MockDateHolder {
 
 	public int getYear() {
 		this.dateServer.getDate();
-		return Calendar.getInstance().get(Calendar.YEAR);
+		return Calendar.getInstance().getWeekYear();
 	}
 }
