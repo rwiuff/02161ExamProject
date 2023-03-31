@@ -55,7 +55,7 @@ public class TaskFusion {
     if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
     } else {
-      projectRepo.createProject(projectTitle, this.dateServer.getYear());
+      projectRepo.createProject(projectTitle, this.dateServer.getDate());
     }
   }
 

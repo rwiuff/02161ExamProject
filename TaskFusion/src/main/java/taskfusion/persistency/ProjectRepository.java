@@ -1,5 +1,6 @@
 package taskfusion.persistency;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,15 +33,17 @@ public class ProjectRepository {
         instance = null;
     }
 
-    public void createProject(String projectTitle, int year)
+    public void createProject(String projectTitle, Calendar date)
             throws OperationNotAllowedException, InvalidPropertyException {
 
         if(projectTitle == "") {
             throw new InvalidPropertyException("En projekttitel mangler");
         }
 
-        Project p = new Project(projectTitle, year);
+        Project p = new Project(projectTitle, date);
         String projectNumber = p.getProjectNumber();
+        System.out.println("Creating project with year " + date.get(Calendar.YEAR));
+        System.out.println("Creating project with projectnumber " + projectNumber);
         this.projects.put(projectNumber, p);
     }
 

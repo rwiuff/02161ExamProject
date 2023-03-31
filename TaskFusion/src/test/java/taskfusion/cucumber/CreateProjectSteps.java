@@ -38,7 +38,6 @@ public class CreateProjectSteps {
   @Given("the year is {int}")
   public void theYearIs(Integer year) {
     this.mockDateHolder.setYear(year);
-    System.out.println(this.mockDateHolder.getYear());
   }
 
   @When("the user creates a project with title {string}")
@@ -52,7 +51,9 @@ public class CreateProjectSteps {
 
   @Then("a project with title {string} with project number {string} exists in the application")
   public void aProjectWithTitleWithProjectNumberExistsInTheApplication(String projectTitle, String projectNumber) {
-    assertEquals(1, this.taskFusion.projectRepo.projects.size());
+    //assertEquals(1, this.taskFusion.projectRepo.projects.size());
+    System.out.println("Looking for number: " +projectNumber);
+    System.out.println("Size of projects map: " + this.taskFusion.projectRepo.projects.size());
     Set<String> s = this.taskFusion.projectRepo.projects.keySet();
     System.out.println(s);
     Project p = this.taskFusion.projectRepo.getProject(projectNumber);

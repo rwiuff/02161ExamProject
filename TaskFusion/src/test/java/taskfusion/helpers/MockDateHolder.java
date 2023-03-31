@@ -32,7 +32,9 @@ public class MockDateHolder {
 		setDate(nextDate);
 	}
 
-	public int getYear() {
-		return Calendar.getInstance().getWeekYear();
-	}
+	// public int getYear() {
+	// 	System.out.println("getYear in mock!");
+	// 	System.out.println("returns: " + dateServer.getDate().get(Calendar.YEAR));
+	// 	return dateServer.getDate().get(Calendar.YEAR);
+	// }
 }

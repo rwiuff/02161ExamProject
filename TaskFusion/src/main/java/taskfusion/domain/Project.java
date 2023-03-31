@@ -1,5 +1,6 @@
 package taskfusion.domain;
 
+import java.util.Calendar;
 import java.util.Set;
 
 import taskfusion.persistency.ProjectRepository;
@@ -12,9 +13,9 @@ public class Project {
   private int startWeek;
   private int endWeek;
 
-  public Project(String projectTitle, int year) {
+  public Project(String projectTitle, Calendar date) {
     this.projectTitle = projectTitle;
-    this.projectNumber = generateProjectNumber(year);
+    this.projectNumber = generateProjectNumber(date);
   }
 
   public int getStartWeek() {
@@ -69,8 +70,11 @@ public class Project {
     this.projectNumber = projectNumber;
   }
 
-  public static String generateProjectNumber(int year) {
+  public static String generateProjectNumber(Calendar date) {
     ProjectRepository projectRepo = ProjectRepository.getInstance();
+
+    int year = date.get(Calendar.YEAR) % 100;
+
     if(projectRepo.projects.isEmpty()){
       return year + "001";
     }
