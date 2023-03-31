@@ -18,8 +18,7 @@ public class TaskFusion {
   private Employee loggedInUser;
 
   public static void main(String[] args) {
-    CLI cli = new CLI();
-    cli.run();
+    
   }
 
   public void registerEmployee(String firstName, String lastName)
