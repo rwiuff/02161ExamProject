@@ -53,11 +53,11 @@ public class CreateProjectSteps {
   @Then("a project with title {string} with project number {string} exists in the application")
   public void aProjectWithTitleWithProjectNumberExistsInTheApplication(String projectTitle, String projectNumber) {
     assertEquals(1, this.taskFusion.projectRepo.projects.size());
-    Set<String> p = this.taskFusion.projectRepo.projects.keySet();
-    System.out.println(p);
-    // Project p = this.taskFusion.projectRepo.getProject(projectNumber);
-    // assertNotNull(p);
-    // assertEquals(projectTitle,p.getProjectTitle());
+    Set<String> s = this.taskFusion.projectRepo.projects.keySet();
+    System.out.println(s);
+    Project p = this.taskFusion.projectRepo.getProject(projectNumber);
+    assertNotNull(p);
+    assertEquals(projectTitle,p.getProjectTitle());
   }
 
   @Given("a project with title {string} with project number {int} has been created in the application")
