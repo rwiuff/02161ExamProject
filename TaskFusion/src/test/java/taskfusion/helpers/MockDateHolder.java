@@ -24,8 +24,15 @@ public class MockDateHolder {
 		when(this.dateServer.getDate()).thenReturn(c);
 	}
 
+	public void setYear(int year) {
+		Calendar currentDate = dateServer.getDate();
+		Calendar nextDate = new GregorianCalendar();
+		nextDate.setTime(currentDate.getTime());
+		nextDate.set(Calendar.YEAR, year);
+		setDate(nextDate);
+	}
+
 	public int getYear() {
-		this.dateServer.getDate();
 		return Calendar.getInstance().getWeekYear();
 	}
 }
