@@ -16,8 +16,8 @@ public class EmployeeSteps {
     private Employee employee;
 
     public EmployeeSteps(ErrorMessageHolder errorMessageHolder, TaskFusion taskFusion) {
-      this.errorMessageHolder = errorMessageHolder;
-      this.taskFusion = taskFusion;
+        this.errorMessageHolder = errorMessageHolder;
+        this.taskFusion = taskFusion;
     }
 
     @Then("an employee with first name {string}, last name {string} and initials {string} exists in the application")
@@ -46,13 +46,13 @@ public class EmployeeSteps {
 
     @When("the user registers an employee with first name {string}, last name {string}")
     public void the_user_registers_an_employee_with_first_name_last_name(String firstName, String lastName) {
-        //this.employee = new Employee(firstName, lastName);
+        // this.employee = new Employee(firstName, lastName);
         try {
             taskFusion.registerEmployee(firstName, lastName);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }
-        
+
     }
 
     @Then("the user with initials {string} is logged in as an employee")
@@ -80,5 +80,5 @@ public class EmployeeSteps {
     public void the_user_logs_out() {
         taskFusion.logout();
     }
-        
+
 }

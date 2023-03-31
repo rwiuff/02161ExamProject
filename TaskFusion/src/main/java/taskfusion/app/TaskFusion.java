@@ -2,6 +2,7 @@ package taskfusion.app;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
 import taskfusion.domain.RegularActivity;
@@ -17,7 +18,8 @@ public class TaskFusion {
   private Employee loggedInUser;
 
   public static void main(String[] args) {
-
+    CLI cli = new CLI();
+    cli.run();
   }
 
   public void registerEmployee(String firstName, String lastName)
