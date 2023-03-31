@@ -9,35 +9,24 @@ import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
+import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
 public class TaskFusion {
 
   private DateServer dateServer = new DateServer();
-  private Map<String, Employee> employees = new HashMap<>();
   private Employee loggedInUser;
 
   public ProjectRepository projectRepo = ProjectRepository.getInstance();
-
-  public static void main(String[] args) {
-    
-  }
+  public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
 
   public void registerEmployee(String firstName, String lastName)
       throws InvalidPropertyException, AlreadyExistsException {
-    Employee employee = new Employee(firstName, lastName);
-    String initials = employee.getInitials();
-
-    if (findEmployee(initials) != null) {
-      throw new AlreadyExistsException("Medarbejder ekisisterer allerede");
-    }
-
-    employees.put(initials, employee);
+        employeeRepo.registerEmployee(firstName, lastName);
   }
 
   public Employee findEmployee(String initials) {
-    String formattedInitials = initials.toLowerCase();
-    return employees.get(formattedInitials);
+    return employeeRepo.findEmployee(initials);
   }
 
   public Employee getLoggedInUser() {
