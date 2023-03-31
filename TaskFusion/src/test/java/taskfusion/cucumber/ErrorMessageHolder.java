@@ -1,13 +1,13 @@
 package taskfusion.cucumber;
 
 public class ErrorMessageHolder {
-    private String errorMessage;
+  private String errorMessage;
 
-    public String getErrorMessage() {
-      return this.errorMessage;
-    }
+  public String getErrorMessage() {
+    return this.errorMessage;
+  }
 
-    public void setErrorMessage(String errorMessage) {
-      this.errorMessage = errorMessage;
-    }
+  public void setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+  }
 }
