@@ -4,18 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 import taskfusion.domain.Employee;
-import taskfusion.domain.Project;
 import taskfusion.domain.RegularActivity;
 import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
+import taskfusion.persistency.ProjectRepository;
 
 public class TaskFusion {
-  private Map<String, Project> projects = new HashMap<>();
+
   private DateServer dateServer = new DateServer();
   private Map<String, Employee> employees = new HashMap<>();
   private Employee loggedInUser;
+
+  public ProjectRepository projectRepo = ProjectRepository.getInstance();
 
   public static void main(String[] args) {
     
@@ -51,6 +53,7 @@ public class TaskFusion {
   }
 
   public boolean isLoggedIn() {
+    //return true;
     return loggedInUser != null;
   }
 
@@ -59,38 +62,16 @@ public class TaskFusion {
   }
 
   public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException {
-    String finalThree;
-    if (projectTitle != "") {
-      if (!isLoggedIn()) {
-        throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
-      } else {
-        if (projects.isEmpty()) {
-          finalThree = "001";
-        } else {
-          finalThree = "" + projects.size() + 1;
-        }
-        Project p = new Project(projectTitle, this.dateServer.getDate().getWeekYear(), finalThree);
-        String projectNumber = "" + p.getProjectNumber();
-        this.projects.put(projectNumber, p);
-      }
+
+    if (!isLoggedIn()) {
+      throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
     } else {
-      throw new InvalidPropertyException("En projekttitel mangler");
+      projectRepo.createProject(projectTitle, this.dateServer.getYear());
     }
   }
 
   public void setDateServer(DateServer dateServer) {
     this.dateServer = dateServer;
-  }
-
-  public Project findProject(Integer projectNumber) {
-    return projects.get(projectNumber + "");
-    // for (Project p : this.projects) {
-    // if (p.getProjectNumber() == projectNumber) {
-    // return p;
-    // }
-    // }
-
-    // return null;
   }
 
   public void createRegularActivity(String title, Integer startWeek, Integer endWeek)
@@ -127,6 +108,7 @@ public class TaskFusion {
   }
 
   public void assignCustomer(int projectID, String customer) {
-    projects.get(projectID + "").setCustomer(customer);
+
+    projectRepo.projects.get(projectID + "").setCustomer(customer);
   }
 }

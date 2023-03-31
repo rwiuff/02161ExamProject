@@ -1,5 +1,7 @@
 package taskfusion.domain;
 
+import taskfusion.persistency.ProjectRepository;
+
 public class Project {
   private int projectNumber;
   private String projectTitle;
@@ -8,13 +10,10 @@ public class Project {
   private int startWeek;
   private int endWeek;
 
-  public Project(String projectTitle, int year, String finalThree) {
+  public Project(String projectTitle, int year) {
     this.projectTitle = projectTitle;
-    buildProjectNumber(year, finalThree);
-  }
-
-  private void buildProjectNumber(int year, String finalThree) {
-    this.projectNumber = Integer.parseInt(Integer.toString(year).substring(2) + finalThree);
+    this.projectNumber = Project.generateProjectNumber(year);
+    
   }
 
   public int getStartWeek() {
@@ -68,4 +67,15 @@ public class Project {
   public void setProjectNumber(int projectNumber) {
     this.projectNumber = projectNumber;
   }
+
+  public static int generateProjectNumber(int year) {
+    ProjectRepository projectRepo = ProjectRepository.getInstance();
+
+
+    return (Integer.parseInt(year + "000") + (projectRepo.projects.size() + 1));
+
+
+
+  }
+
 }
