@@ -1,21 +1,18 @@
 package taskfusion.cli.controllers;
 
 import taskfusion.app.TaskFusion;
+import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.views.LoginView;
 import taskfusion.cli.views.RegisterEmployeeView;
 
-public class GuestMenuController extends Controller  {
+public class GuestMenuController implements ControllerInterface {
     
     private String[] menuOptions = {
         "Login",
         "Opret medarbejder",
         "Luk"
     };
-
-    public GuestMenuController(TaskFusion taskFusion){
-        super(taskFusion);
-    }
 
     public void showMenu() {
         
@@ -25,21 +22,42 @@ public class GuestMenuController extends Controller  {
 
             switch (selectedMenuItem) {
                 case 1:
-                    LoginView loginView = new LoginView();
-                    loginView.show();
+                    showLogin();
                     break;
                 case 2:
-                    RegisterEmployeeView registerEmployeeView = new RegisterEmployeeView();
-                    registerEmployeeView.show();
+                    showRegisterEmployee();
                     break;
                 case 3:
-                    selectedMenuItem = 0;
-                    System.out.print("--- FARVEL ---");
+                    showQuit();
                     break;
                 default:
                     break;
             }
-        } while(selectedMenuItem != 0);
-
+        } while(selectedMenuItem != 3);
     }
+
+    /**
+     * SHOW pages
+     */
+
+    private void showLogin() {
+        LoginView loginView = new LoginView();
+        loginView.show();
+        if(TaskFusionCLI.taskFusion().isLoggedIn()) {
+            System.out.println(("SHOW LOGGED IN MENU"));
+            while(true){
+                
+            }
+        }
+    }
+
+    private void showRegisterEmployee() {
+        RegisterEmployeeView registerEmployeeView = new RegisterEmployeeView();
+        registerEmployeeView.show();
+    }
+
+    private void showQuit() {
+        System.out.print("--- FARVEL ---");
+    }
+
 }
