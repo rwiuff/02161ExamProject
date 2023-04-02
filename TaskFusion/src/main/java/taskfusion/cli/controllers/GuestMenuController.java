@@ -1,6 +1,5 @@
 package taskfusion.cli.controllers;
 
-import taskfusion.app.TaskFusion;
 import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.views.LoginView;
@@ -46,7 +45,7 @@ public class GuestMenuController implements ControllerInterface {
         if(TaskFusionCLI.taskFusion().isLoggedIn()) {
             System.out.println(("SHOW LOGGED IN MENU"));
             while(true){
-                
+
             }
         }
     }

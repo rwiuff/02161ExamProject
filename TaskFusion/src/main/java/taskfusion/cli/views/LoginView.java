@@ -1,6 +1,5 @@
 package taskfusion.cli.views;
 
-import io.cucumber.java.bs.I;
 import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Input;
 
