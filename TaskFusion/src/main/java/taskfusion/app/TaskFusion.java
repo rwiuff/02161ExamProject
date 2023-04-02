@@ -4,39 +4,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 import taskfusion.domain.Employee;
-import taskfusion.domain.Project;
 import taskfusion.domain.RegularActivity;
 import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
+import taskfusion.exceptions.ShouldNotHappenException;
+import taskfusion.persistency.EmployeeRepository;
+import taskfusion.persistency.ProjectRepository;
 
 public class TaskFusion {
-  private Map<String, Project> projects = new HashMap<>();
+
   private DateServer dateServer = new DateServer();
-  private Map<String, Employee> employees = new HashMap<>();
   private Employee loggedInUser;
 
-  public static void main(String[] args) {
-    CLI cli = new CLI();
-    cli.run();
-  }
+  public ProjectRepository projectRepo = ProjectRepository.getInstance();
+  public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
 
   public void registerEmployee(String firstName, String lastName)
-      throws InvalidPropertyException, AlreadyExistsException {
-    Employee employee = new Employee(firstName, lastName);
-    String initials = employee.getInitials();
-
-    if (findEmployee(initials) != null) {
-      throw new AlreadyExistsException("Medarbejder ekisisterer allerede");
-    }
-
-    employees.put(initials, employee);
+      throws InvalidPropertyException, AlreadyExistsException, ShouldNotHappenException {
+        employeeRepo.registerEmployee(firstName, lastName);
   }
 
   public Employee findEmployee(String initials) {
-    String formattedInitials = initials.toLowerCase();
-    return employees.get(formattedInitials);
+    return employeeRepo.findEmployee(initials);
   }
 
   public Employee getLoggedInUser() {
@@ -52,6 +43,7 @@ public class TaskFusion {
   }
 
   public boolean isLoggedIn() {
+    //return true;
     return loggedInUser != null;
   }
 
@@ -60,38 +52,16 @@ public class TaskFusion {
   }
 
   public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException {
-    String finalThree;
-    if (projectTitle != "") {
-      if (!isLoggedIn()) {
-        throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
-      } else {
-        if (projects.isEmpty()) {
-          finalThree = "001";
-        } else {
-          finalThree = "" + projects.size() + 1;
-        }
-        Project p = new Project(projectTitle, this.dateServer.getDate().getWeekYear(), finalThree);
-        String projectNumber = "" + p.getProjectNumber();
-        this.projects.put(projectNumber, p);
-      }
+
+    if (!isLoggedIn()) {
+      throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
     } else {
-      throw new InvalidPropertyException("En projekttitel mangler");
+      projectRepo.createProject(projectTitle, this.dateServer.getDate());
     }
   }
 
   public void setDateServer(DateServer dateServer) {
     this.dateServer = dateServer;
-  }
-
-  public Project findProject(Integer projectNumber) {
-    return projects.get(projectNumber + "");
-    // for (Project p : this.projects) {
-    // if (p.getProjectNumber() == projectNumber) {
-    // return p;
-    // }
-    // }
-
-    // return null;
   }
 
   public void createRegularActivity(String title, Integer startWeek, Integer endWeek)
@@ -127,7 +97,7 @@ public class TaskFusion {
     return loggedInUser.hasRegularActivity(title, startWeek, endWeek);
   }
 
-  public void assignCustomer(int projectID, String customer) {
-    projects.get(projectID + "").setCustomer(customer);
+  public void assignCustomer(String projectID, String customer) {
+    projectRepo.projects.get(projectID).setCustomer(customer);
   }
 }

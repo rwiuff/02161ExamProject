@@ -5,6 +5,7 @@ import java.util.GregorianCalendar;
 
 // Replaced by mock in testing
 public class DateServer {
+
 	public Calendar getDate() {
 		Calendar calendar = new GregorianCalendar();
 		Calendar c = new GregorianCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
@@ -12,7 +13,4 @@ public class DateServer {
 		return c;
 	}
 
-	public int getYear() {
-		return Calendar.getInstance().get(Calendar.YEAR);
-	}
 }

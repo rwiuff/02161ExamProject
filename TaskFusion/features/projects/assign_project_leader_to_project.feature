@@ -4,7 +4,7 @@
 
 # #BACKGROUND
 # Background:
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
 #     And the application has a registered employee with first name "Brian", last name "Laudrup" and initials "brla"
 #     And a project with title "Video game" with project number 23001 exists in the application
 

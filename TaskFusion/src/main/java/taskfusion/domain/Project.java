@@ -1,20 +1,21 @@
 package taskfusion.domain;
 
+import java.util.Calendar;
+import java.util.Set;
+
+import taskfusion.persistency.ProjectRepository;
+
 public class Project {
-  private int projectNumber;
+  private String projectNumber;
   private String projectTitle;
   private String customer;
   private boolean internal;
   private int startWeek;
   private int endWeek;
 
-  public Project(String projectTitle, int year, String finalThree) {
+  public Project(String projectTitle, Calendar date) {
     this.projectTitle = projectTitle;
-    buildProjectNumber(year, finalThree);
-  }
-
-  private void buildProjectNumber(int year, String finalThree) {
-    this.projectNumber = Integer.parseInt(Integer.toString(year).substring(2) + finalThree);
+    this.projectNumber = generateProjectNumber(date);
   }
 
   public int getStartWeek() {
@@ -61,11 +62,34 @@ public class Project {
     this.projectTitle = projectTitle;
   }
 
-  public int getProjectNumber() {
+  public String getProjectNumber() {
     return this.projectNumber;
   }
 
-  public void setProjectNumber(int projectNumber) {
+  public void setProjectNumber(String projectNumber) {
     this.projectNumber = projectNumber;
   }
+
+  public static String generateProjectNumber(Calendar date) {
+    ProjectRepository projectRepo = ProjectRepository.getInstance();
+
+    int year = date.get(Calendar.YEAR) % 100;
+
+    if(projectRepo.projects.isEmpty()){
+      return year + "001";
+    }
+    String[] serials = (String[]) projectRepo.projects.keySet().toArray();
+    int highestSerial = 0;
+    int tmp;
+    for (String serial : serials) {
+      if (serial.contains("" + year)) {
+        tmp = Integer.parseInt(serial.substring(2, 4));
+        highestSerial = (highestSerial < tmp) ? tmp : highestSerial;
+      }
+    }
+    String projectNumber = String.format("%3d", year + highestSerial);
+    return projectNumber;
+
+  }
+
 }

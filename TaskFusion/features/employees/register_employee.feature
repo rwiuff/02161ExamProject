@@ -21,11 +21,7 @@ Scenario: 1c. Last name is required to register an employee
     When the user registers an employee with first name "Michael", last name ""
     Then the error message "Efternavn mangler" is given
 
-## JEG SYNES VI SKAL DROPPE DER HER MED SAMME NAVN LOGIK - kasper
-# Det bliver noget rod, da man så skal snappe ind i employee map'en, og den har man ikke direkte adgang til i Employee modellen
-# Så skal vi i hvert fald gøre noget smartere med en form for singleton persistency lag, something-something. At passe map'en virker lidt skør måde måske
-
-# Scenario: 1c. Employees with same name can be registered
-#     And the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
-#     When the user registers an employee with first name "Michael", last name "Laudrup" and initials "milb"
-#     Then an employee with first name "Michael", last name "Laudrup" and initials "milb" exists in the application
+# Scenario: 1d. If initials exists for a new employee, next letter in last name is used
+#     When the user registers an employee with first name "Mikado", last name "Laudrup"
+#     Then an employee with first name "Mikado", last name "Laudrup" and initials "milu" exists in the application
+#     And an employee with first name "Michael", last name "Laudrup" and initials "mila" exists in the application

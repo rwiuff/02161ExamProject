@@ -4,7 +4,7 @@
 
 # #MAIN SCENARIO
 # Scenario: Project manager assigns a time budget
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
 #     And a project with title "Projektplanlægning" with project number 23001 exists in the application
 #     And "mila" takes the role as project leader on project 23001
 #     And an activity with the title "Graphics design" exists within the project with project number 23001
@@ -14,7 +14,7 @@
 
 # #ALTERNATIVE SCENARIOS
 # Scenario: Employee assigns time buget
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup" and initials "mila"
+#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
 #     And a project with title "Projektplanlægning" with project number 23001 exists in the application
 #     And an activity with the title "Graphics design" exists within the project with project number 23001
 #     And the user logs in using initials "mila"

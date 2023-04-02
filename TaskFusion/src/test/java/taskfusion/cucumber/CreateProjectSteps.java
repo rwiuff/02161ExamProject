@@ -9,6 +9,8 @@ import taskfusion.domain.Project;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.util.Set;
+
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.helpers.MockDateHolder;
 
@@ -34,24 +36,29 @@ public class CreateProjectSteps {
   }
 
   @Given("the year is {int}")
-  public void theYearIs(Integer int1) {
-    assertEquals(this.mockDateHolder.getYear(), int1);
+  public void theYearIs(Integer year) {
+    this.mockDateHolder.setYear(year);
   }
 
   @When("the user creates a project with title {string}")
-  public void theUserCreatesAProjectWithTitle(String string) {
+  public void theUserCreatesAProjectWithTitle(String projectTitle) {
     try {
-      this.taskFusion.createProject(string);
+      this.taskFusion.createProject(projectTitle);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
   }
 
-  @Then("a project with title {string} with project number {int} exists in the application")
-  public void aProjectWithTitleWithProjectNumberExistsInTheApplication(String string, int int1) {
-    Project p = this.taskFusion.findProject(int1);
+  @Then("a project with title {string} with project number {string} exists in the application")
+  public void aProjectWithTitleWithProjectNumberExistsInTheApplication(String projectTitle, String projectNumber) {
+    //assertEquals(1, this.taskFusion.projectRepo.projects.size());
+    System.out.println("Looking for number: " +projectNumber);
+    System.out.println("Size of projects map: " + this.taskFusion.projectRepo.projects.size());
+    Set<String> s = this.taskFusion.projectRepo.projects.keySet();
+    System.out.println(s);
+    Project p = this.taskFusion.projectRepo.getProject(projectNumber);
     assertNotNull(p);
-    assertEquals(p.getProjectTitle(), string);
+    assertEquals(projectTitle,p.getProjectTitle());
   }
 
   @Given("a project with title {string} with project number {int} has been created in the application")
@@ -64,24 +71,24 @@ public class CreateProjectSteps {
     }
   }
 
-  @When("the user sets customer {string} on project {int}")
-  public void the_user_sets_customer_on_project(String customer, int projectID) {
+  @When("the user sets customer {string} on project {string}")
+  public void the_user_sets_customer_on_project(String customer, String projectID) {
     taskFusion.assignCustomer(projectID, customer);
   }
 
-  @Then("the project {int} has customer {string}")
-  public void the_project_has_customer(int projectID, String customer) {
-    assertEquals(customer, taskFusion.findProject(projectID).getCustomer());
+  @Then("the project {string} has customer {string}")
+  public void the_project_has_customer(String projectID, String customer) {
+    assertEquals(customer, taskFusion.projectRepo.getProject(projectID).getCustomer());
   }
 
-  @When("the user sets the start week to {int} on {int}")
-  public void the_user_sets_the_start_week_to_on(int start, int projectID) {
-    taskFusion.findProject(projectID).setStartWeek(start);
+  @When("the user sets the start week to {int} on {string}")
+  public void the_user_sets_the_start_week_to_on(int start, String projectID) {
+    taskFusion.projectRepo.getProject(projectID).setStartWeek(start);
   }
 
-  @Then("the project has start week {int} on {int}")
-  public void the_project_has_start_week_on(int start, int projectID) {
-    assertEquals(start, taskFusion.findProject(projectID).getStartWeek());
+  @Then("the project has start week {int} on {string}")
+  public void the_project_has_start_week_on(int start, String projectID) {
+    assertEquals(start, taskFusion.projectRepo.getProject(projectID).getStartWeek());
   }
 
 }
