@@ -52,7 +52,6 @@ public class TaskFusion {
   }
 
   public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException {
-
     if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
     } else {
