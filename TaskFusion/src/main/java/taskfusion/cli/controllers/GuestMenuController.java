@@ -25,17 +25,16 @@ public class GuestMenuController extends Controller  {
 
             switch (selectedMenuItem) {
                 case 1:
-                    System.out.println("LOGIN VIEW HERE");
                     LoginView loginView = new LoginView();
                     loginView.show();
                     break;
                 case 2:
-                    System.out.println("OPRET MEDARBEJDER VIEW HER");
                     RegisterEmployeeView registerEmployeeView = new RegisterEmployeeView();
                     registerEmployeeView.show();
                     break;
                 case 3:
                     selectedMenuItem = 0;
+                    System.out.print("--- FARVEL ---");
                     break;
                 default:
                     break;

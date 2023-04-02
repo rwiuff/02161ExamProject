@@ -24,11 +24,6 @@ public class TaskFusionCLI  {
     public void mainLoop() throws IOException {
 		AsciiArt.showLogo();
 		guestMenuController.showMenu();
-		quit();
-	}
-
-	private void quit() {
-		System.out.print("--- FARVEL ---");
 	}
 
 }
