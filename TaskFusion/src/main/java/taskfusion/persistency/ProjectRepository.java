@@ -6,6 +6,7 @@ import java.util.Map;
 
 import taskfusion.domain.Project;
 import taskfusion.exceptions.InvalidPropertyException;
+import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
 
 public class ProjectRepository {
@@ -47,8 +48,13 @@ public class ProjectRepository {
         this.projects.put(projectNumber, p);
     }
 
-    public Project getProject(String projectNumber) {
+    public Project getProject(String projectNumber) throws NotFoundException {
+        Project project = projects.get(projectNumber);
+        if (project == null) {
+            throw new NotFoundException("Projektet kunne ikke findes i samlingen af projekter");
+        }
         return projects.get(projectNumber);
+
         // for (Project p : this.projects) {
         // if (p.getProjectNumber() == projectNumber) {
         // return p;
@@ -57,5 +63,7 @@ public class ProjectRepository {
 
         // return null;
     }
+
+
 
 }

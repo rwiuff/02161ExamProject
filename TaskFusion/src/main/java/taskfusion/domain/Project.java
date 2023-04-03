@@ -1,14 +1,14 @@
 package taskfusion.domain;
 
 import java.util.Calendar;
-import java.util.Set;
-
+import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.persistency.ProjectRepository;
 
 public class Project {
   private String projectNumber;
   private String projectTitle;
   private String customer;
+  private Employee projectLeader;
   private boolean internal;
   private int startWeek;
   private int endWeek;
@@ -90,6 +90,17 @@ public class Project {
     String projectNumber = String.format("%3d", year + highestSerial);
     return projectNumber;
 
+  }
+
+  public void setProjectLeader(Employee employee) throws AlreadyExistsException {
+    if (this.projectLeader != null) {
+      throw new AlreadyExistsException("Der kan kun være en projektleder");
+    }
+    this.projectLeader = employee;
+  }
+
+  public Employee getProjectLeader() {
+    return this.projectLeader;
   }
 
 }
