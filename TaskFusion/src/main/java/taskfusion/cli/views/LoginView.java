@@ -22,7 +22,7 @@ public class LoginView implements ViewInterface {
             try {
                 TaskFusionCLI.taskFusion().login(initials);
             } catch (Exception e) {
-                Text.showError(e);
+                Text.showExceptionError(e);
             }
 
             if(TaskFusionCLI.taskFusion().isLoggedIn()) {

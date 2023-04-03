@@ -24,10 +24,10 @@ public class Menu {
         while (choice < 1 || choice > options.length) {
             
             if (attempt > 0) {
-                System.out.println("!!! Ugyldigt valg");
+                Text.showError("Ugyldigt valg");
             }
             
-            System.out.print("\nVælg menupunkt: ");
+            Text.showInputPrompt("Vælg menupunkt");
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
             } else {

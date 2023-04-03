@@ -28,8 +28,8 @@ public class RegisterEmployeeView implements ViewInterface {
             try {
                 EmployeeRepository.getInstance().create(firstName, lastName);
             } catch (Exception e) {
-                Text.showError(e);
-                Text.showInstruction("Prøv igen");
+                Text.showExceptionError(e);
+                Text.showInfo("Prøv igen");
                 continue;
             }
 
