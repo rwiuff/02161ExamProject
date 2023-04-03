@@ -1,9 +1,12 @@
 @startuml TaskFusion-CLI 
 
 class TaskFusionCLI {
-    - TaskFusion taskfusion
+    - taskfusion : TaskFusion
+    - scanner : Scanner
     --
-
+    # taskFusion() : TaskFusion
+    # getInstance() : TaskFusionCLI
+    + mainLoop() : void
 }
 
 package Controllers {
@@ -13,22 +16,15 @@ package Controllers {
         showMenu() : void
     }
 
-    abstract Controller {
-        # app : TaskFusion 
-        --
-    }
-    Controller --|> ControllerInterface
-
-
     class GuestMenuController {
         --
     }
-    GuestMenuController --|> Controller
+    GuestMenuController --|> ControllerInterface
 
     class EmployeeMenuController {
         --
     }
-    EmployeeMenuController --|> Controller
+    EmployeeMenuController--|> ControllerInterface
 
 }
 

@@ -60,16 +60,6 @@ public class ProjectSteps {
     }
   }
 
-  @Given("a project with title {string} has been created in the application")
-  public void a_project_with_title_with_project_number_has_been_created_in_the_application(String projectTitle) {
-    try {
-      System.out.println(taskFusion.projectRepo.all().size());
-      this.taskFusion.createProject(projectTitle);
-      System.out.println(taskFusion.projectRepo.all().size());
-    } catch (Exception e) {
-      this.errorMessageHolder.setErrorMessage(e.getMessage());
-    }
-  }
 
   @When("the user sets customer {string} on project {string}")
   public void the_user_sets_customer_on_project(String customer, String projectNumber) {
@@ -125,8 +115,8 @@ public class ProjectSteps {
     }
   }
 
-  @When("the user assigns {string} to the project with id {string}")
-  public void assigns_to_the_project_with_id(String employeeInitials, String projectNumber) {
+  @When("the user assigns {string} to the project {string}")
+  public void assigns_to_the_project(String employeeInitials, String projectNumber) {
     try {
       taskFusion.assignEmployeeToProject(projectNumber, employeeInitials);
     } catch (Exception e) {
@@ -134,17 +124,23 @@ public class ProjectSteps {
     }
   }
 
-  @Then("the employee {string} is assigned to the project titled {string}")
-  public void the_employee_is_assigned_to_the_project_titled(String initials, String projectTitle) {
+  @Then("the employee {string} is assigned to the project {string}")
+  public void the_employee_is_assigned_to_the_project(String initials, String projectNumber) {
     Project project;
     try {
-      project = taskFusion.projectRepo.findByTitle(projectTitle);
+      project = taskFusion.projectRepo.findByProjectNumber(projectNumber);
       Employee employee = project.getAssignedEmployee(initials);
       assertEquals(initials, employee.getInitials());
-      assertEquals(projectTitle, project.getProjectTitle());
+      assertEquals(projectNumber, project.getProjectNumber());
     } catch (NotFoundException e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
   }
+
+    @Then("there is {int} projects in the application")
+    public void there_is_projects_in_the_application(int i) {
+      assertEquals(i, taskFusion.projectRepo.all().size());
+        // Write code here that turns the phrase above into concrete actions
+    }
 
 }

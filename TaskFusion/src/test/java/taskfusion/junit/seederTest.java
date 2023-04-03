@@ -11,7 +11,7 @@ import taskfusion.persistency.ProjectRepository;
 import taskfusion.persistency.Seeder;
 
 
-public class seederTest {
+public class SeederTest {
 
 
 	@BeforeEach
@@ -39,7 +39,7 @@ public class seederTest {
 		Seeder seeder = new Seeder();
 		seeder.seedDemoData();
 
-		assertEquals(2, projectRepository.all().size());
+		assertEquals(4, projectRepository.all().size());
 	}
 
 }

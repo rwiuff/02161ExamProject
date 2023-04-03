@@ -3,34 +3,29 @@ skinparam linetype ortho
 skinparam Nodesep 150
 skinparam Ranksep 150
 
-class DomainFacade {
-    --
-    + login(initials) : boolean
-    + logout() : void 
-    + isLoggedIn() : boolean 
-}
+package "Facade" {
+    
+    class "TaskFusion" as app{
+        - loggedInUser : Employee
+        --
+        + login(initials) : boolean
+        + logout()
+        + isLoggedIn() : boolean
+    }
 
-class "TaskFusion" as app{
-    - loggedInUser : Employee
-    --
-    + login(initials) : boolean
-    + logout()
-    + isLoggedIn() : boolean
 }
-
-DomainFacade --> app
 
 package "Persistency-layer" {
     class ProjectRepository << (S,#FF7700) Singleton >>{
         --
-        + findProject(projectNumber) : Project
-        + saveProject(Project) : void
+        + findByProjectNumber(projectNumber) : Project
+        + create(title) : void
     }
 
     class EmployeeRepository << (S,#FF7700) Singleton >>{
         --
-        + findEmployee(initials) : Employee
-        + saveEmployee(Employee) : void
+        + findByInitials(initials) : Employee
+        + create(firstName,lastName) : void
     }
 
 }
@@ -57,12 +52,14 @@ package "Domain-layer" {
         + setEndWeek(int)
         + setProjectLeader(Employee)
     }
+
     class ProjectActivity{
         worktimeRegistrations : List
         timeBudget : int
         --
         + setTimeBudget(int)
     }
+    
     class Activity <<(A, orchid)abstract>>{
         title : String
         startWeek : int

@@ -23,13 +23,13 @@ public class EmployeeMenuController implements ControllerInterface {
 
             switch (selectedMenuItem) {
                 case 1:
-                    showViewProjects();
+                    showListProjects();
                     break;
                 case 2:
                     showCreateProject();
                     break;
                 case 3:
-                    showViewRegularActivities();
+                    showListRegularActivities();
                     break;
                 case 4:
                     showCreateRegularActivity();
@@ -49,7 +49,7 @@ public class EmployeeMenuController implements ControllerInterface {
      * SHOW pages
      */
 
-    private void showViewProjects() {
+    private void showListProjects() {
         Text.showError("MANGLER IMPLEMENTERING");
     }
 
@@ -57,7 +57,7 @@ public class EmployeeMenuController implements ControllerInterface {
         Text.showError("MANGLER IMPLEMENTERING");
     }
 
-    private void showViewRegularActivities() {
+    private void showListRegularActivities() {
         Text.showError("MANGLER IMPLEMENTERING");
     }
 

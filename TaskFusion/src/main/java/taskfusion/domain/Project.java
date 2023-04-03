@@ -1,6 +1,5 @@
 package taskfusion.domain;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,10 +7,10 @@ import java.util.Map;
 import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
+import taskfusion.helpers.DateHelper;
 import taskfusion.helpers.PrintHelper;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
-
 
 public class Project {
   private String projectNumber;
@@ -80,29 +79,29 @@ public class Project {
     this.projectNumber = projectNumber;
   }
 
+  /**
+   * Generate a unique 5 digit project number as a string. Always leading with two-digit-year
+   * followed by incemental number.
+   * 
+   * For loop to identify highest last number, by ChatGPT v3.5
+   */
   public static String generateProjectNumber(Calendar date) {
-    ProjectRepository projectRepo = ProjectRepository.getInstance();
 
-    int year = date.get(Calendar.YEAR) % 100;
+    int year = DateHelper.twoDigitYearFromDate(date);
+    int lastNum = 0;
 
-    if (projectRepo.all().isEmpty()) {
-      return year + "001";
-    }
-    System.out.println("debug: test serials");
-    System.out.println("projects: " + Arrays.toString(projectRepo.all().keySet().toArray()));
-    PrintHelper.printProjects(projectRepo.all());
-
-    String[] serials = projectRepo.all().keySet().toArray(new String[0]);
-    int highestSerial = 0;
-    int tmp;
-    for (String serial : serials) {
-      if (serial.contains("" + year)) {
-        tmp = Integer.parseInt(serial.substring(2, 4));
-        highestSerial = (highestSerial < tmp) ? tmp : highestSerial;
+    // Find the highest incremental number for the current year
+    for (String projectNumber : ProjectRepository.getInstance().all().keySet()) {
+      if (projectNumber.startsWith(String.format("%02d", year))) {
+        int num = Integer.parseInt(projectNumber.substring(2));
+        if (num > lastNum) {
+          lastNum = num;
+        }
       }
     }
-    String projectNumber = String.format("%3d", year + highestSerial);
-    return projectNumber;
+
+    int nextProjectNumber = (year * 1000) + lastNum + 1;
+    return "" + nextProjectNumber;
 
   }
 

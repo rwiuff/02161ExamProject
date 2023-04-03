@@ -68,4 +68,5 @@ Scenario: 5a. Project number increments is reset with each year
     And a project with title "Programdesign" with project number "21002" exists in the application
     And a project with title "Half-life 3" with project number "22001" exists in the application
     And a project with title "Implementering" with project number "22002" exists in the application
+    And there is 4 projects in the application
 
