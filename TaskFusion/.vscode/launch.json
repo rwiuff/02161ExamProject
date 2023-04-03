@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TaskFusionCLI",
+            "request": "launch",
+            "mainClass": "taskfusion.cli.TaskFusionCLI",
+            "projectName": "TaskFusion"
+        },
+        {
+            "type": "java",
             "name": "ViewerController",
             "request": "launch",
             "mainClass": "taskfusion.ViewerController",
