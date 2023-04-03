@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import taskfusion.domain.Employee;
-import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 
@@ -34,13 +33,10 @@ public class EmployeeRepository {
     }
 
     public void registerEmployee(String firstName, String lastName)
-            throws InvalidPropertyException, AlreadyExistsException, ExhaustedOptionsException {
+            throws InvalidPropertyException, ExhaustedOptionsException {
+        
         Employee employee = new Employee(firstName, lastName);
         String initials = employee.getInitials();
-
-        if (findEmployee(initials) != null) {
-            throw new AlreadyExistsException("Medarbejder ekisisterer allerede");
-        }
 
         employees.put(initials, employee);
     }

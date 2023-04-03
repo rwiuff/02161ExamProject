@@ -2,7 +2,6 @@ package taskfusion.app;
 
 import taskfusion.domain.Employee;
 import taskfusion.domain.RegularActivity;
-import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
@@ -19,7 +18,7 @@ public class TaskFusion {
   public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
 
   public void registerEmployee(String firstName, String lastName)
-      throws InvalidPropertyException, AlreadyExistsException, ExhaustedOptionsException {
+      throws InvalidPropertyException, ExhaustedOptionsException {
         employeeRepo.registerEmployee(firstName, lastName);
   }
 
