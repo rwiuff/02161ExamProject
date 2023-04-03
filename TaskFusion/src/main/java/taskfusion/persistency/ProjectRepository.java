@@ -43,8 +43,7 @@ public class ProjectRepository {
 
         Project p = new Project(projectTitle, date);
         String projectNumber = p.getProjectNumber();
-        System.out.println("Creating project with year " + date.get(Calendar.YEAR));
-        System.out.println("Creating project with projectnumber " + projectNumber);
+
         this.projects.put(projectNumber, p);
     }
 

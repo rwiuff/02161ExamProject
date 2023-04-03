@@ -8,14 +8,9 @@ import taskfusion.persistency.ProjectRepository;
 public class Hooks {
     @Before
     public void beforeEachScenario() {
-        //System.out.println("Before each scenario");
+
         //Clean singletons between tests
         EmployeeRepository.resetInstance();
         ProjectRepository.resetInstance();
-    }
-
-    @After
-    public void afterEachScenario() {
-        //System.out.println("After each scenario");
     }
 }

@@ -1,15 +1,12 @@
 package taskfusion.app;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import taskfusion.domain.Employee;
 import taskfusion.domain.RegularActivity;
 import taskfusion.exceptions.AlreadyExistsException;
+import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
-import taskfusion.exceptions.ShouldNotHappenException;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
@@ -22,7 +19,7 @@ public class TaskFusion {
   public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
 
   public void registerEmployee(String firstName, String lastName)
-      throws InvalidPropertyException, AlreadyExistsException, ShouldNotHappenException {
+      throws InvalidPropertyException, AlreadyExistsException, ExhaustedOptionsException {
         employeeRepo.registerEmployee(firstName, lastName);
   }
 

@@ -9,8 +9,6 @@ import taskfusion.domain.Project;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.Set;
-
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.helpers.MockDateHolder;
 
@@ -51,19 +49,9 @@ public class CreateProjectSteps {
 
   @Then("a project with title {string} with project number {string} exists in the application")
   public void aProjectWithTitleWithProjectNumberExistsInTheApplication(String projectTitle, String projectNumber) {
-    //assertEquals(1, this.taskFusion.projectRepo.projects.size());
-    System.out.println("Looking for number: " +projectNumber);
-    System.out.println("Size of projects map: " + this.taskFusion.projectRepo.projects.size());
-    Set<String> s = this.taskFusion.projectRepo.projects.keySet();
-    System.out.println(s);
-    Project p;
-    try {
-      p = this.taskFusion.projectRepo.getProject(projectNumber);
-      assertNotNull(p);
-      assertEquals(projectTitle,p.getProjectTitle());
-    } catch (NotFoundException e) {
-      this.errorMessageHolder.setErrorMessage(e.getMessage());
-    }
+    Project p = this.taskFusion.projectRepo.getProject(projectNumber);
+    assertNotNull(p);
+    assertEquals(projectTitle,p.getProjectTitle());
   }
 
   @Given("a project with title {string} with project number {string} has been created in the application")

@@ -47,7 +47,6 @@ public class TestJUnit4AndJUnit5 {
             assertNotNull(p);
             assertEquals("Projektet",p.getProjectTitle());
 
-            System.out.println("STOP");
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
