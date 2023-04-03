@@ -7,8 +7,9 @@ Background:
     Given the application has a registered employee with first name "Michael", last name "Laudrup"
     And the application has a registered employee with first name "Brian", last name "Laudrup"
     And the user logs in using initials "mila"
-    And a project with title "Video game" with project number "23001" has been created in the application
-
+    And a project with title "Video game" has been created in the application
+    And the user logs out
+    
 #MAIN SCENARIOS
 Scenario: 1. An employee can appoint themselves as project leader
     Given the user logs in using initials "mila"

@@ -1,7 +1,13 @@
 package taskfusion.domain;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
 import taskfusion.exceptions.AlreadyExistsException;
+import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
+import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
 public class Project {
@@ -12,6 +18,7 @@ public class Project {
   private boolean internal;
   private int startWeek;
   private int endWeek;
+  private Map<String, Employee> assignedEmployees = new HashMap<>();
 
   public Project(String projectTitle, Calendar date) {
     this.projectTitle = projectTitle;
@@ -75,7 +82,7 @@ public class Project {
 
     int year = date.get(Calendar.YEAR) % 100;
 
-    if(projectRepo.projects.isEmpty()){
+    if (projectRepo.projects.isEmpty()) {
       return year + "001";
     }
     String[] serials = (String[]) projectRepo.projects.keySet().toArray();
@@ -101,6 +108,25 @@ public class Project {
 
   public Employee getProjectLeader() {
     return this.projectLeader;
+  }
+
+  public Employee getAssignedEmployee(String initials) {
+    return assignedEmployees.get(initials);
+  }
+
+  public void assignEmployee(String employeeInitials, Employee loggedInUser)
+      throws NotFoundException, OperationNotAllowedException {
+    Employee employee = EmployeeRepository.getInstance().employees.get(employeeInitials);
+    if (projectLeader == null) {
+      assignedEmployees.put(employee.getInitials(), employee);
+      return;
+    }
+    if (loggedInUser.getInitials().equals(projectLeader.getInitials())) {
+      assignedEmployees.put(employee.getInitials(), employee);
+      return;
+    }
+    throw new OperationNotAllowedException("Kun projektleder kan tildele medarbejdere til projektet");
+
   }
 
 }

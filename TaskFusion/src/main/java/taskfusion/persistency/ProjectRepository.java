@@ -3,6 +3,7 @@ package taskfusion.persistency;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import taskfusion.domain.Project;
 import taskfusion.exceptions.InvalidPropertyException;
@@ -18,7 +19,7 @@ public class ProjectRepository {
 
     // Private constructor to prevent instantiation from other classes
     private ProjectRepository() {
-       
+
     }
 
     // Public method to get the Singleton instance
@@ -29,7 +30,7 @@ public class ProjectRepository {
         return instance;
 
     }
-    
+
     public static void resetInstance() {
         instance = null;
     }
@@ -37,7 +38,7 @@ public class ProjectRepository {
     public void createProject(String projectTitle, Calendar date)
             throws OperationNotAllowedException, InvalidPropertyException {
 
-        if(projectTitle == "") {
+        if (projectTitle == "") {
             throw new InvalidPropertyException("En projekttitel mangler");
         }
 
@@ -63,6 +64,17 @@ public class ProjectRepository {
         // return null;
     }
 
-
+    public Project getByTitle(String projectTitle) throws NotFoundException {
+        Project returnProject = null;
+        for (Entry<String, Project> entry: projects.entrySet()){
+            if(entry.getValue().getProjectTitle().equals(projectTitle)){
+                returnProject = entry.getValue();
+            }
+        }
+        if(returnProject == null){
+            throw new NotFoundException("Projektet kunne ikke findes i samlingen af projekter");
+        }
+        return returnProject;
+    }
 
 }

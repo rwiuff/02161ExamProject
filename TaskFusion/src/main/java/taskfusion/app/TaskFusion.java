@@ -1,6 +1,7 @@
 package taskfusion.app;
 
 import taskfusion.domain.Employee;
+import taskfusion.domain.Project;
 import taskfusion.domain.RegularActivity;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
@@ -24,6 +25,11 @@ public class TaskFusion {
 
   public Employee findEmployee(String initials) {
     return employeeRepo.findEmployee(initials);
+  }
+
+  public void assignEmployeeToProject(String projectNumber, String initials) throws NotFoundException, OperationNotAllowedException{
+    Project project = projectRepo.getProject(projectNumber);
+    project.assignEmployee(initials, loggedInUser);
   }
 
   public Employee getLoggedInUser() {
