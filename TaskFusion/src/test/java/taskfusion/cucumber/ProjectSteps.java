@@ -4,20 +4,22 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import taskfusion.app.TaskFusion;
+import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.helpers.MockDateHolder;
 
-public class CreateProjectSteps {
+public class ProjectSteps {
   private TaskFusion taskFusion;
   private ErrorMessageHolder errorMessageHolder;
   private MockDateHolder mockDateHolder;
 
-  public CreateProjectSteps(ErrorMessageHolder errorMessageHolder, TaskFusion taskFusion,
+  public ProjectSteps(ErrorMessageHolder errorMessageHolder, TaskFusion taskFusion,
       MockDateHolder mockDateHolder) {
     this.taskFusion = taskFusion;
     this.errorMessageHolder = errorMessageHolder;
@@ -117,5 +119,29 @@ public class CreateProjectSteps {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
   }
+
+    @When("{string} assigns {string} to the project with id {string}")
+    public void assigns_to_the_project_with_id(String projectLeader, String employee, String projectID) {
+        try {
+          taskFusion.projectRepo.assignEmployee(projectID, projectLeader, employee);
+        } catch (NotFoundException | OperationNotAllowedException e) {
+          this.errorMessageHolder.setErrorMessage(e.getMessage());
+        }
+    }
+
+    @Then("the employee {string} is assigned to the project titled {string}")
+    public void the_employee_is_assigned_to_the_project_titled(String initials, String projectTitle) {
+      Project project;
+      try {
+        project = taskFusion.projectRepo.getByTitle(projectTitle);
+        Employee employee = project.getAssignedEmployee(initials);
+        assertEquals(initials, employee.getInitials());
+        assertEquals(projectTitle, project.getProjectTitle());
+      } catch (NotFoundException e) {
+        this.errorMessageHolder.setErrorMessage(e.getMessage());
+      }
+    }
+
+
 
 }

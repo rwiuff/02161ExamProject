@@ -12,7 +12,7 @@ Scenario: Project manager assigns an employee
     Given the user logs in using initials "mila"
     And "mila" takes the role as project leader on project "23001"
     And the application has a registered employee with first name "Brian", last name "Laudrup"
-    And "mila" assigns "brla" to the project titled "Video Game"
+    When "mila" assigns "brla" to the project with id "23001"
     Then the employee "brla" is assigned to the project titled "Video Game"
 
 # #ALTERNATIVE SCENARIOS
@@ -20,7 +20,7 @@ Scenario: Project manager assigns an employee
 #     Given the user is logged in as "mila"
 #     And there is an employee in the application with first name "Brian", last name "Laudrup" and initials "brla"
 #     And "mila" assigns "brla" to the project titled "Video Game"
-#     Then the project titled "Video Game" returns the error message "Only project managers can assign employees"
+#     Then the project titled "Video Game" returns the error message "Kun projektleder kan tildele medarbejdere til projektet"
 
 # Scenario: Employee doesn't exist
 #     Given user is logged in as "mila"
