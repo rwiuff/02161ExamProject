@@ -2,22 +2,22 @@ package taskfusion.cli.controllers;
 
 import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
+import taskfusion.cli.components.Text;
 import taskfusion.cli.views.LoginView;
 import taskfusion.cli.views.RegisterEmployeeView;
 
 public class GuestMenuController implements ControllerInterface {
-    
+
     private String[] menuOptions = {
-        "Login",
-        "Opret medarbejder",
-        "Luk"
+            "Login",
+            "Opret medarbejder",
+            "Luk"
     };
 
     public void showMenu() {
-        
-        int selectedMenuItem = 0;
-        do {
-            selectedMenuItem = Menu.showMenu(menuOptions, "Gæst menu");
+
+        while (true) {
+            int selectedMenuItem = Menu.showMenu(menuOptions, "Gæst menu");
 
             switch (selectedMenuItem) {
                 case 1:
@@ -28,11 +28,12 @@ public class GuestMenuController implements ControllerInterface {
                     break;
                 case 3:
                     showQuit();
-                    break;
+                    return; // NOTICE THIS RETURN, not break
                 default:
-                    break;
+                    Text.showError("Uventet menupunkt");
+                    return; // NOTICE THIS RETURN, not break
             }
-        } while(selectedMenuItem != 3);
+        }
     }
 
     /**
@@ -42,11 +43,8 @@ public class GuestMenuController implements ControllerInterface {
     private void showLogin() {
         LoginView loginView = new LoginView();
         loginView.show();
-        if(TaskFusionCLI.taskFusion().isLoggedIn()) {
-            System.out.println(("SHOW LOGGED IN MENU"));
-            while(true){
-
-            }
+        if (TaskFusionCLI.taskFusion().isLoggedIn()) {
+            new EmployeeMenuController().showMenu();
         }
     }
 
@@ -56,7 +54,7 @@ public class GuestMenuController implements ControllerInterface {
     }
 
     private void showQuit() {
-        System.out.print("--- FARVEL ---");
+        System.out.println("--- FARVEL ---");
     }
 
 }
