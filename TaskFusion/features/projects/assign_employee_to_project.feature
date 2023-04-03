@@ -1,19 +1,19 @@
-# Feature: Assign employees onto project
-# Description: Project leader assigns emplyees for a project
-# Actors: Project leader
+Feature: Assign employees onto project
+Description: Project leader assigns emplyees for a project
+Actors: Project leader
 
-# #BACKGROUND
-# Background:
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
-#     And a project with title "Video game" with project number 23001 exists in the application
+#BACKGROUND
+Background:
+    Given the application has a registered employee with first name "Michael", last name "Laudrup"
+    And a project with title "Video game" has been created in the application
 
-# #MAIN SCENARIO
-# Scenario: Project manager assigns an employee
-#     Given the user logs in using initials "mila"
-#     And "mila" takes the role as project leader on project 23001
-#     And the application has a registered employee with first name "Brian", last name "Laudrup" and initials "brla"
-#     And "mila" assigns "brla" to the project titled "Video Game"
-#     Then the employee "brla" is assigned to the project titled "Video Game"
+#MAIN SCENARIO
+Scenario: Project manager assigns an employee
+    Given the user logs in using initials "mila"
+    And "mila" takes the role as project leader on project "23001"
+    And the application has a registered employee with first name "Brian", last name "Laudrup"
+    And "mila" assigns "brla" to the project titled "Video Game"
+    Then the employee "brla" is assigned to the project titled "Video Game"
 
 # #ALTERNATIVE SCENARIOS
 # Scenario: Employee assigns employee to project

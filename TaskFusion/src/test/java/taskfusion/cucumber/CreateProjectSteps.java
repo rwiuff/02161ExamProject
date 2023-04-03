@@ -59,9 +59,8 @@ public class CreateProjectSteps {
     }
   }
 
-  @Given("a project with title {string} with project number {string} has been created in the application")
-  public void a_project_with_title_with_project_number_has_been_created_in_the_application(String projectTitle,
-      String projectID) {
+  @Given("a project with title {string} has been created in the application")
+  public void a_project_with_title_with_project_number_has_been_created_in_the_application(String projectTitle) {
     try {
       this.taskFusion.createProject(projectTitle);
     } catch (Exception e) {
