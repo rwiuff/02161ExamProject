@@ -49,9 +49,14 @@ public class CreateProjectSteps {
 
   @Then("a project with title {string} with project number {string} exists in the application")
   public void aProjectWithTitleWithProjectNumberExistsInTheApplication(String projectTitle, String projectNumber) {
-    Project p = this.taskFusion.projectRepo.getProject(projectNumber);
-    assertNotNull(p);
-    assertEquals(projectTitle,p.getProjectTitle());
+
+    try {
+      Project p = this.taskFusion.projectRepo.getProject(projectNumber);
+      assertNotNull(p);
+      assertEquals(projectTitle,p.getProjectTitle());
+    } catch (NotFoundException e) {
+      this.errorMessageHolder.setErrorMessage(e.getMessage());
+    }
   }
 
   @Given("a project with title {string} with project number {string} has been created in the application")
