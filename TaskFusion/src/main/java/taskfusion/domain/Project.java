@@ -114,19 +114,19 @@ public class Project {
     return assignedEmployees.get(initials);
   }
 
-  public void assignEmployee(String employeeInitials)
+  public void assignEmployee(String employeeInitials, Employee loggedInUser)
       throws NotFoundException, OperationNotAllowedException {
     Employee employee = EmployeeRepository.getInstance().employees.get(employeeInitials);
-    
     if (projectLeader == null) {
       assignedEmployees.put(employee.getInitials(), employee);
-    } else {
-      if (projectLeaderInitials.equals(projectLeader.getInitials())) {
-        assignedEmployees.put(employee.getInitials(), employee);
-      } else {
-        throw new OperationNotAllowedException("Kun projektleder kan tildele medarbejdere til projektet");
-      }
+      return;
     }
+    if (loggedInUser.getInitials().equals(projectLeader.getInitials())) {
+      assignedEmployees.put(employee.getInitials(), employee);
+      return;
+    }
+    throw new OperationNotAllowedException("Kun projektleder kan tildele medarbejdere til projektet");
+
   }
 
 }

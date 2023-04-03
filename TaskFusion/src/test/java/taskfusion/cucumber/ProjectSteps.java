@@ -55,7 +55,7 @@ public class ProjectSteps {
     try {
       Project p = this.taskFusion.projectRepo.getProject(projectNumber);
       assertNotNull(p);
-      assertEquals(projectTitle,p.getProjectTitle());
+      assertEquals(projectTitle, p.getProjectTitle());
     } catch (NotFoundException e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -122,28 +122,26 @@ public class ProjectSteps {
     }
   }
 
-    @When("{the user assigns {string} to the project with id {string}")
-    public void assigns_to_the_project_with_id(String employeeInitials, String projectID) {
-        try {
-          taskFusion.projectRepo.projects.get(projectID).assignEmployee(employeeInitials);
-        } catch (NotFoundException | OperationNotAllowedException e) {
-          this.errorMessageHolder.setErrorMessage(e.getMessage());
-        }
+  @When("the user assigns {string} to the project with id {string}")
+  public void assigns_to_the_project_with_id(String employeeInitials, String projectID) {
+    try {
+      taskFusion.assignEmployeeToProject(projectID, employeeInitials);
+    } catch (Exception e) {
+      this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
+  }
 
-    @Then("the employee {string} is assigned to the project titled {string}")
-    public void the_employee_is_assigned_to_the_project_titled(String initials, String projectTitle) {
-      Project project;
-      try {
-        project = taskFusion.projectRepo.getByTitle(projectTitle);
-        Employee employee = project.getAssignedEmployee(initials);
-        assertEquals(initials, employee.getInitials());
-        assertEquals(projectTitle, project.getProjectTitle());
-      } catch (NotFoundException e) {
-        this.errorMessageHolder.setErrorMessage(e.getMessage());
-      }
+  @Then("the employee {string} is assigned to the project titled {string}")
+  public void the_employee_is_assigned_to_the_project_titled(String initials, String projectTitle) {
+    Project project;
+    try {
+      project = taskFusion.projectRepo.getByTitle(projectTitle);
+      Employee employee = project.getAssignedEmployee(initials);
+      assertEquals(initials, employee.getInitials());
+      assertEquals(projectTitle, project.getProjectTitle());
+    } catch (NotFoundException e) {
+      this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
-
-
+  }
 
 }

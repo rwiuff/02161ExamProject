@@ -1,14 +1,10 @@
 package taskfusion.persistency;
 
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
 
-import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
