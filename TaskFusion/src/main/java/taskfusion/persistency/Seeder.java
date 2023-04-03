@@ -45,7 +45,7 @@ public class Seeder {
         
         projectRepository.createProject("Kravspecifikationer", date);
         projectRepository.createProject("Programdesign", date);
-        //projectRepository.createProject("Implementering", date);
+        // projectRepository.createProject("Implementering", date);
         // projectRepository.createProject("Test", date);
     }
             

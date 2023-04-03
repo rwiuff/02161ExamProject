@@ -6,6 +6,7 @@ import java.util.Scanner;
 import taskfusion.app.TaskFusion;
 import taskfusion.cli.components.AsciiArt;
 import taskfusion.cli.controllers.GuestMenuController;
+import taskfusion.cli.views.WelcomeView;
 import taskfusion.persistency.Seeder;
 
 public class TaskFusionCLI  {
@@ -23,18 +24,18 @@ public class TaskFusionCLI  {
 
     private TaskFusionCLI() {
 		seedDemoData();
-		
+
         taskFusion = new TaskFusion();
 		scanner = new Scanner(System.in);
 		
     }
 
     public static void main(String[] args) throws Exception {
-		new TaskFusionCLI().mainLoop();
+		TaskFusionCLI.getInstance().mainLoop();
 	}
 
     public void mainLoop() throws IOException {
-		AsciiArt.showLogo();
+		new WelcomeView().show();
 		new GuestMenuController().showMenu();
 		scanner.close();
 	}

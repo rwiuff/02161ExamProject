@@ -3,7 +3,7 @@ package taskfusion.cli.components;
 public class Header {
     
     public static void showHeader(String header, int level) {
-        
+        System.out.println(" ");
         if(level == 1) {
             System.out.println("===========================");
         }
@@ -16,7 +16,12 @@ public class Header {
             System.out.println("- - - - - - - - - - - - - - ");
         }
 
-        System.out.println(header);
+        //For menus
+        if(level == 11) {
+
+        }
+
+        System.out.println(header.toUpperCase());
 
         if(level == 1) {
             System.out.println("===========================");
@@ -28,6 +33,11 @@ public class Header {
 
         if(level == 3) {
             System.out.println("- - - - - - - - - - - - - - ");
+        }
+
+        //for menus
+        if(level == 11) {
+            System.out.println("---------------------------");
         }
 
     }

@@ -8,7 +8,7 @@ public class Menu {
         
         // Display a header, if a header is given
         if (header != null && !header.isEmpty()) {
-            System.out.println(header.toUpperCase());
+            Header.showHeader(header, 11);
         }
         
         // Write menu options
