@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import taskfusion.exceptions.AlreadyExistsException;
+import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
+import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
 public class Project {
@@ -107,13 +110,23 @@ public class Project {
     return this.projectLeader;
   }
 
-  public void assignEmployee(Employee emp) {
-    String initials = emp.getInitials();
-    assignedEmployees.put(initials, emp);
-  }
-
   public Employee getAssignedEmployee(String initials) {
     return assignedEmployees.get(initials);
+  }
+
+  public void assignEmployee(String employeeInitials)
+      throws NotFoundException, OperationNotAllowedException {
+    Employee employee = EmployeeRepository.getInstance().employees.get(employeeInitials);
+    
+    if (projectLeader == null) {
+      assignedEmployees.put(employee.getInitials(), employee);
+    } else {
+      if (projectLeaderInitials.equals(projectLeader.getInitials())) {
+        assignedEmployees.put(employee.getInitials(), employee);
+      } else {
+        throw new OperationNotAllowedException("Kun projektleder kan tildele medarbejdere til projektet");
+      }
+    }
   }
 
 }

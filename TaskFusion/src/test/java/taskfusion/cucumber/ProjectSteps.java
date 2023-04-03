@@ -64,7 +64,9 @@ public class ProjectSteps {
   @Given("a project with title {string} has been created in the application")
   public void a_project_with_title_with_project_number_has_been_created_in_the_application(String projectTitle) {
     try {
+      System.out.println(taskFusion.projectRepo.projects.size());
       this.taskFusion.createProject(projectTitle);
+      System.out.println(taskFusion.projectRepo.projects.size());
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -120,10 +122,10 @@ public class ProjectSteps {
     }
   }
 
-    @When("{string} assigns {string} to the project with id {string}")
-    public void assigns_to_the_project_with_id(String projectLeader, String employee, String projectID) {
+    @When("{the user assigns {string} to the project with id {string}")
+    public void assigns_to_the_project_with_id(String employeeInitials, String projectID) {
         try {
-          taskFusion.projectRepo.assignEmployee(projectID, projectLeader, employee);
+          taskFusion.projectRepo.projects.get(projectID).assignEmployee(employeeInitials);
         } catch (NotFoundException | OperationNotAllowedException e) {
           this.errorMessageHolder.setErrorMessage(e.getMessage());
         }

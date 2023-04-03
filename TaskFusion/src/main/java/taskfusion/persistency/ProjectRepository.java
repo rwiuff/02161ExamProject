@@ -68,27 +68,6 @@ public class ProjectRepository {
         // return null;
     }
 
-    public void assignEmployee(String projectID, String projectLeader, String employee)
-            throws NotFoundException, OperationNotAllowedException {
-        Project p = getProject(projectID);
-        Employee emp = EmployeeRepository.getInstance().employees.get(employee);
-        if (p.getProjectLeader() == null) {
-            p.assignEmployee(emp);
-        } else {
-            if (projectLeader.equals(p.getProjectLeader().getInitials())) {
-                p.assignEmployee(emp);
-            } else {
-                throw new OperationNotAllowedException("Kun projektleder kan tildele medarbejdere til projektet");
-            }
-        }
-    }
-
-    public void assignEmployee(String projectID, String employee) throws NotFoundException {
-        Project p = getProject(projectID);
-        Employee emp = EmployeeRepository.getInstance().employees.get(employee);
-        p.assignEmployee(emp);
-    }
-
     public Project getByTitle(String projectTitle) throws NotFoundException {
         Project returnProject = null;
         for (Entry<String, Project> entry: projects.entrySet()){
