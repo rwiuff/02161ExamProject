@@ -1,5 +1,6 @@
 package taskfusion.domain;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,8 +8,10 @@ import java.util.Map;
 import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
+import taskfusion.helpers.PrintHelper;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
+
 
 public class Project {
   private String projectNumber;
@@ -85,7 +88,11 @@ public class Project {
     if (projectRepo.projects.isEmpty()) {
       return year + "001";
     }
-    String[] serials = (String[]) projectRepo.projects.keySet().toArray();
+    System.out.println("debug: test serials");
+    System.out.println("projects: " + Arrays.toString(projectRepo.projects.keySet().toArray()));
+    PrintHelper.printProjects(projectRepo.projects);
+
+    String[] serials = projectRepo.projects.keySet().toArray(new String[0]);
     int highestSerial = 0;
     int tmp;
     for (String serial : serials) {

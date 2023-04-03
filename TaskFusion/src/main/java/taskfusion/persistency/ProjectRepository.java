@@ -38,7 +38,7 @@ public class ProjectRepository {
     public void createProject(String projectTitle, Calendar date)
             throws OperationNotAllowedException, InvalidPropertyException {
 
-        if (projectTitle == "") {
+        if (projectTitle.length() < 2) {
             throw new InvalidPropertyException("En projekttitel mangler");
         }
 

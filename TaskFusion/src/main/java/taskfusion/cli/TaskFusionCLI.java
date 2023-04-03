@@ -6,8 +6,11 @@ import java.util.Scanner;
 import taskfusion.app.TaskFusion;
 import taskfusion.cli.components.AsciiArt;
 import taskfusion.cli.controllers.GuestMenuController;
+import taskfusion.persistency.Seeder;
 
 public class TaskFusionCLI  {
+
+	private boolean seedDemoData = true;
     
 	private static TaskFusionCLI instance;
 
@@ -19,8 +22,11 @@ public class TaskFusionCLI  {
 	 */
 
     private TaskFusionCLI() {
+		seedDemoData();
+		
         taskFusion = new TaskFusion();
 		scanner = new Scanner(System.in);
+		
     }
 
     public static void main(String[] args) throws Exception {
@@ -31,6 +37,16 @@ public class TaskFusionCLI  {
 		AsciiArt.showLogo();
 		new GuestMenuController().showMenu();
 		scanner.close();
+	}
+
+	/**
+	 * Seeding
+	 */
+	private void seedDemoData() {
+		if(seedDemoData) {
+			Seeder seeder = new Seeder();
+			seeder.seedDemoData();
+		}
 	}
 
 	/**
