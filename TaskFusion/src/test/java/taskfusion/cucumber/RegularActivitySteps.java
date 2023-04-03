@@ -1,8 +1,5 @@
 package taskfusion.cucumber;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import taskfusion.app.TaskFusion;

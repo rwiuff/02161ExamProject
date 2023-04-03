@@ -2,6 +2,8 @@ package taskfusion.cli.components;
 
 import java.util.Scanner;
 
+import taskfusion.cli.TaskFusionCLI;
+
 public class Menu {
     
     public static int showMenu(String[] options, String header) {
@@ -19,7 +21,7 @@ public class Menu {
         // Get a valid menu choice
         int choice = 0;
         int attempt = 0;
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = TaskFusionCLI.scanner();
         
         while (choice < 1 || choice > options.length) {
             

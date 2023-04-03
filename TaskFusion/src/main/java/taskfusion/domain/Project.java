@@ -8,7 +8,6 @@ import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.helpers.DateHelper;
-import taskfusion.helpers.PrintHelper;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
@@ -17,7 +16,6 @@ public class Project {
   private String projectTitle;
   private String customer;
   private Employee projectLeader;
-  private boolean internal;
   private int startWeek;
   private int endWeek;
   private Map<String, Employee> assignedEmployees = new HashMap<>();
@@ -48,11 +46,16 @@ public class Project {
   }
 
   public boolean isInternal() {
-    return this.internal;
-  }
 
-  public void setInternalExternal(boolean internal) {
-    this.internal = internal;
+    if (customer == null) {
+      return true;
+    }
+
+    if (customer.length() == 0) {
+      return true;
+    }
+
+    return false;
   }
 
   public void setCustomer(String customer) {
@@ -80,7 +83,8 @@ public class Project {
   }
 
   /**
-   * Generate a unique 5 digit project number as a string. Always leading with two-digit-year
+   * Generate a unique 5 digit project number as a string. Always leading with
+   * two-digit-year
    * followed by incemental number.
    * 
    * For loop to identify highest last number, by ChatGPT v3.5
@@ -122,7 +126,12 @@ public class Project {
 
   public void assignEmployee(String employeeInitials, Employee loggedInUser)
       throws NotFoundException, OperationNotAllowedException {
+
     Employee employee = EmployeeRepository.getInstance().findByInitials(employeeInitials);
+    if(employee == null) {
+      throw new NotFoundException("Ukendt medarbejder");
+    }
+
     if (projectLeader == null) {
       assignedEmployees.put(employee.getInitials(), employee);
       return;

@@ -13,8 +13,6 @@ public class EmployeeSteps {
     private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
     private TaskFusion taskFusion = new TaskFusion();
 
-    private Employee employee;
-
     public EmployeeSteps(ErrorMessageHolder errorMessageHolder, TaskFusion taskFusion) {
         this.errorMessageHolder = errorMessageHolder;
         this.taskFusion = taskFusion;

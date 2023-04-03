@@ -12,26 +12,26 @@ Scenario: 1. Creating a project
 
 Scenario: 2. A project can have a customer
     Given the application has a registered employee with first name "Michael", last name "Laudrup"
+    And the year is 2023
     And the user logs in using initials "mila"
     And the user creates a project with title "Projektplanlægning"
     When the user sets customer "El-Giganten" on project "23001"
     Then the project "23001" has customer "El-Giganten"
 
-# # Giver det mening? Skal vi bruge et "internt" flag senere?
+Scenario: 3. A project in an internal project, if it does not have a customer
+    Given the application has a registered employee with first name "Michael", last name "Laudrup"
+    And the year is 2023
+    And the user logs in using initials "mila"
+    And the user creates a project with title "Projektplanlægning"
+    Then the project "23001" is an internal project
 
-# # Scenario: 3. A project can be an internal project
-# #     Given the application has a registered employee with first name "Michael", last name "Laudrup"
-# #     And the user logs in using initials "mila"
-# #     And the user creates a project with title "Projektplanlægning" with project number 23001
-# #     When the user sets the project as an internal project
-# #     Then the project is an internal project
-
-# Scenario: 4. A project can have a start week
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
-#     And the user logs in using initials "mila"
-#     And the user creates a project with title "Projektplanlægning" with project number 23001
-#     When the user sets the start week to 2304 on "23001"
-#     Then the project has start week 2304 on "23001"
+Scenario: 4. A project can have a start week
+    Given the application has a registered employee with first name "Michael", last name "Laudrup"
+    And the year is 2023
+    And the user logs in using initials "mila"
+    And the user creates a project with title "Projektplanlægning"
+    When the user sets the start week to 2304 on "23001"
+    Then the project has start week 2304 on "23001"
 
 Scenario: 5. Project numbers increments with each new project for the same year
     Given the application has a registered employee with first name "Michael", last name "Laudrup"
@@ -53,6 +53,14 @@ Scenario: 1b. A title is required to create a project
     And the user logs in using initials "mila"
     When the user creates a project with title ""
     Then the error message "En projekttitel mangler" is given
+
+Scenario: 3a. A project in an external project, if it has a customer
+    Given the application has a registered employee with first name "Michael", last name "Laudrup"
+    And the year is 2023
+    And the user logs in using initials "mila"
+    And the user creates a project with title "Projektplanlægning"
+    When the user sets customer "El-Giganten" on project "23001"
+    Then the project "23001" is an external project
 
 Scenario: 5a. Project number increments is reset with each year
     Given the application has a registered employee with first name "Michael", last name "Laudrup"

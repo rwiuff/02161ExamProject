@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import taskfusion.app.TaskFusion;
-import taskfusion.cli.components.AsciiArt;
 import taskfusion.cli.controllers.GuestMenuController;
 import taskfusion.cli.views.WelcomeView;
 import taskfusion.persistency.Seeder;

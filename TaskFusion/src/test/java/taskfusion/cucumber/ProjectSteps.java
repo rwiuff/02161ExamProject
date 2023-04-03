@@ -8,7 +8,9 @@ import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.helpers.MockDateHolder;
@@ -141,6 +143,16 @@ public class ProjectSteps {
     public void there_is_projects_in_the_application(int i) {
       assertEquals(i, taskFusion.projectRepo.all().size());
         // Write code here that turns the phrase above into concrete actions
+    }
+
+    @Then("the project {string} is an internal project")
+    public void the_project_is_an_internal_project(String projectNumber) throws NotFoundException {
+        assertTrue(taskFusion.projectRepo.findByProjectNumber(projectNumber).isInternal());
+    }
+
+    @Then("the project {string} is an external project")
+    public void the_project_is_an_external_project(String projectNumber) throws NotFoundException {
+      assertFalse(taskFusion.projectRepo.findByProjectNumber(projectNumber).isInternal());
     }
 
 }
