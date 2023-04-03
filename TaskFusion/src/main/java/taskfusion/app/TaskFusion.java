@@ -18,20 +18,11 @@ public class TaskFusion {
   public ProjectRepository projectRepo = ProjectRepository.getInstance();
   public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
 
-  public void registerEmployee(String firstName, String lastName)
-      throws InvalidPropertyException, ExhaustedOptionsException {
-        employeeRepo.registerEmployee(firstName, lastName);
-  }
-
-  public Employee findEmployee(String initials) {
-    return employeeRepo.findEmployee(initials);
-  }
-
-  public void assignEmployeeToProject(String projectNumber, String initials) throws NotFoundException, OperationNotAllowedException{
-    Project project = projectRepo.getProject(projectNumber);
-    project.assignEmployee(initials, loggedInUser);
-  }
-
+  /**
+   * ###########################
+   * USER / SESSION facades
+   * ###########################
+   */
   public Employee getLoggedInUser() {
     return loggedInUser;
   }
@@ -45,7 +36,7 @@ public class TaskFusion {
   }
 
   public boolean isLoggedIn() {
-    //return true;
+    // return true;
     return loggedInUser != null;
   }
 
@@ -53,17 +44,53 @@ public class TaskFusion {
     loggedInUser = null;
   }
 
+  /**
+   * ###########################
+   * EMPLOYEE facades
+   * ###########################
+   */
+  public void registerEmployee(String firstName, String lastName)
+      throws InvalidPropertyException, ExhaustedOptionsException {
+    employeeRepo.create(firstName, lastName);
+  }
+
+  public Employee findEmployee(String initials) {
+    return employeeRepo.findByInitials(initials);
+  }
+
   public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException {
     if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
     } else {
-      projectRepo.createProject(projectTitle, this.dateServer.getDate());
+      projectRepo.create(projectTitle, this.dateServer.getDate());
     }
   }
 
   public void setDateServer(DateServer dateServer) {
     this.dateServer = dateServer;
   }
+
+  /**
+   * ###########################
+   * PROJECT facades
+   * ###########################
+   */
+
+  public void assignCustomerToProject(String projectNumber, String customer) throws NotFoundException {
+    projectRepo.findByProjectNumber(projectNumber).setCustomer(customer);
+  }
+
+  public void assignEmployeeToProject(String projectNumber, String initials)
+      throws NotFoundException, OperationNotAllowedException {
+    Project project = projectRepo.findByProjectNumber(projectNumber);
+    project.assignEmployee(initials, loggedInUser);
+  }
+
+  /**
+   * ###########################
+   * REGULAR ACTIVITY facades
+   * ###########################
+   */
 
   public void createRegularActivity(String title, Integer startWeek, Integer endWeek)
       throws OperationNotAllowedException, InvalidPropertyException {
@@ -98,7 +125,4 @@ public class TaskFusion {
     return loggedInUser.hasRegularActivity(title, startWeek, endWeek);
   }
 
-  public void assignCustomer(String projectID, String customer) {
-    projectRepo.projects.get(projectID).setCustomer(customer);
-  }
 }

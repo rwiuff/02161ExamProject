@@ -10,12 +10,18 @@ import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
 
+/**
+ * Singleton instance, getInstance and resetInstance provided by ChatGPT v4
+ */
 public class ProjectRepository {
 
+    private Map<String, Project> projects = new HashMap<>();
+
+    /**
+     * SINGLETON related
+     */
     // Declare a private static instance of the class
     private static ProjectRepository instance;
-
-    public Map<String, Project> projects = new HashMap<>();
 
     // Private constructor to prevent instantiation from other classes
     private ProjectRepository() {
@@ -28,14 +34,21 @@ public class ProjectRepository {
             instance = new ProjectRepository();
         }
         return instance;
-
     }
 
     public static void resetInstance() {
         instance = null;
     }
 
-    public void createProject(String projectTitle, Calendar date)
+    /**
+     * REPOSITORY related
+     */
+
+     public Map<String, Project> all() {
+        return projects;
+     }
+
+    public void create(String projectTitle, Calendar date)
             throws OperationNotAllowedException, InvalidPropertyException {
 
         if (projectTitle.length() < 2) {
@@ -48,23 +61,16 @@ public class ProjectRepository {
         this.projects.put(projectNumber, p);
     }
 
-    public Project getProject(String projectNumber) throws NotFoundException {
+    public Project findByProjectNumber(String projectNumber) throws NotFoundException {
         Project project = projects.get(projectNumber);
         if (project == null) {
             throw new NotFoundException("Projektet kunne ikke findes i samlingen af projekter");
         }
         return projects.get(projectNumber);
 
-        // for (Project p : this.projects) {
-        // if (p.getProjectNumber() == projectNumber) {
-        // return p;
-        // }
-        // }
-
-        // return null;
     }
 
-    public Project getByTitle(String projectTitle) throws NotFoundException {
+    public Project findByTitle(String projectTitle) throws NotFoundException {
         Project returnProject = null;
         for (Entry<String, Project> entry: projects.entrySet()){
             if(entry.getValue().getProjectTitle().equals(projectTitle)){

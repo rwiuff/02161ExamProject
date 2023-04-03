@@ -18,7 +18,7 @@ public class TaskFusionDriver {
 
             //ProjectRepository projectRepo = ProjectRepository.getInstance();
             //Project p = projectRepo.findProject(23001);
-            Project p = taskFusion.projectRepo.getProject("23001");
+            Project p = taskFusion.projectRepo.findByProjectNumber("23001");
 
             assertNotNull(p);
             assertEquals("Projektet",p.getProjectTitle());

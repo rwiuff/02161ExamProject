@@ -85,14 +85,14 @@ public class Project {
 
     int year = date.get(Calendar.YEAR) % 100;
 
-    if (projectRepo.projects.isEmpty()) {
+    if (projectRepo.all().isEmpty()) {
       return year + "001";
     }
     System.out.println("debug: test serials");
-    System.out.println("projects: " + Arrays.toString(projectRepo.projects.keySet().toArray()));
-    PrintHelper.printProjects(projectRepo.projects);
+    System.out.println("projects: " + Arrays.toString(projectRepo.all().keySet().toArray()));
+    PrintHelper.printProjects(projectRepo.all());
 
-    String[] serials = projectRepo.projects.keySet().toArray(new String[0]);
+    String[] serials = projectRepo.all().keySet().toArray(new String[0]);
     int highestSerial = 0;
     int tmp;
     for (String serial : serials) {
@@ -123,7 +123,7 @@ public class Project {
 
   public void assignEmployee(String employeeInitials, Employee loggedInUser)
       throws NotFoundException, OperationNotAllowedException {
-    Employee employee = EmployeeRepository.getInstance().employees.get(employeeInitials);
+    Employee employee = EmployeeRepository.getInstance().findByInitials(employeeInitials);
     if (projectLeader == null) {
       assignedEmployees.put(employee.getInitials(), employee);
       return;

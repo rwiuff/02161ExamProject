@@ -26,7 +26,7 @@ public class RegisterEmployeeView implements ViewInterface {
             }
 
             try {
-                EmployeeRepository.getInstance().registerEmployee(firstName, lastName);
+                EmployeeRepository.getInstance().create(firstName, lastName);
             } catch (Exception e) {
                 Text.showError(e);
                 Text.showInstruction("Prøv igen");

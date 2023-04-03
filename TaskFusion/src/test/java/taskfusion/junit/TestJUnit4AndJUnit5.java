@@ -3,8 +3,12 @@ package taskfusion.junit;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import taskfusion.app.TaskFusion;
 import taskfusion.domain.Project;
+import taskfusion.helpers.SingletonHelpers;
 
 /**
  * A test class to check which tests are run with which framework.
@@ -32,7 +36,12 @@ public class TestJUnit4AndJUnit5 {
 	// 	org.junit.jupiter.api.Assertions.assertTrue(true); // JUnit 5
 	// }
 
-	@org.junit.Test
+	@BeforeEach
+	public void resetSingletons() {
+		SingletonHelpers.resetSingletons();
+	}
+
+	@Test
 	public void createProjectTest(){
 		TaskFusion taskFusion = new TaskFusion();
 
@@ -42,7 +51,7 @@ public class TestJUnit4AndJUnit5 {
             
             taskFusion.createProject("Projektet");
 
-            Project p = taskFusion.projectRepo.getProject("23001");
+            Project p = taskFusion.projectRepo.findByProjectNumber("23001");
 
             assertNotNull(p);
             assertEquals("Projektet",p.getProjectTitle());

@@ -24,7 +24,7 @@ public class GuestMenuController implements ControllerInterface {
                     showLogin();
                     break;
                 case 2:
-                    showRegisterEmployee();
+                    showRcreate();
                     break;
                 case 3:
                     showQuit();
@@ -50,7 +50,7 @@ public class GuestMenuController implements ControllerInterface {
         }
     }
 
-    private void showRegisterEmployee() {
+    private void showRcreate() {
         RegisterEmployeeView registerEmployeeView = new RegisterEmployeeView();
         registerEmployeeView.show();
     }

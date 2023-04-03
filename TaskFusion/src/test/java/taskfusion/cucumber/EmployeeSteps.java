@@ -23,7 +23,7 @@ public class EmployeeSteps {
     @Then("an employee with first name {string}, last name {string} and initials {string} exists in the application")
     public void an_employee_with_first_name_last_name_and_initials_exists_in_the_application(String firstName,
             String lastName, String initials) {
-        Employee employee = taskFusion.findEmployee(initials);
+        Employee employee = taskFusion.employeeRepo.findByInitials(initials);
 
         assertEquals(employee.getFirstName(), firstName);
         assertEquals(employee.getLastName(), lastName);

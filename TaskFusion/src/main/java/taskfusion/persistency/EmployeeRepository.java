@@ -7,12 +7,19 @@ import taskfusion.domain.Employee;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 
+/**
+ * Singleton instance, getInstance and resetInstance provided by ChatGPT v4
+ */
 public class EmployeeRepository {
+
+    private Map<String, Employee> employees = new HashMap<>();
+
+    /**
+     * SINGLETON related
+     */
 
     // Declare a private static instance of the class
     private static EmployeeRepository instance;
-
-    public Map<String, Employee> employees = new HashMap<>();
 
     // Private constructor to prevent instantiation from other classes
     private EmployeeRepository() {
@@ -32,7 +39,11 @@ public class EmployeeRepository {
         instance = null;
     }
 
-    public void registerEmployee(String firstName, String lastName)
+    /**
+     * REPOSITORY related
+     */
+
+    public void create(String firstName, String lastName)
             throws InvalidPropertyException, ExhaustedOptionsException {
         
         Employee employee = new Employee(firstName, lastName);
@@ -41,9 +52,13 @@ public class EmployeeRepository {
         employees.put(initials, employee);
     }
 
-    public Employee findEmployee(String initials) {
+    public Employee findByInitials(String initials) {
         String formattedInitials = initials.toLowerCase();
         return employees.get(formattedInitials);
+    }
+
+    public Map<String, Employee> all() {
+        return employees;
     }
 
 }

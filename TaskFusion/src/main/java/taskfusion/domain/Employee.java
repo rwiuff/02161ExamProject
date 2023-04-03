@@ -59,7 +59,7 @@ public class Employee {
               + lastName.substring(l2, Math.min(l2 + 1, lastName.length()));
 
           init = init.toLowerCase();
-          if (employeeRepo.findEmployee(init) == null) {
+          if (employeeRepo.findByInitials(init) == null) {
             this.initials = init;
             return;
           }
