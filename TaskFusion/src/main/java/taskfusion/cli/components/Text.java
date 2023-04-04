@@ -14,7 +14,7 @@ public class Text {
 
     public static void showSuccess(String successMessage) {
         System.out.println(" ");
-        System.out.println("✅  \u001B[32m " + successMessage + " \u001B[32m");
+        System.out.println("✅  \u001B[32m " + successMessage + " \u001B[0m");
     }
 
     public static void showInfo(String inforMessage) {

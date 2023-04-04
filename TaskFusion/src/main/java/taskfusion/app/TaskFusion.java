@@ -58,14 +58,6 @@ public class TaskFusion {
     return employeeRepo.findByInitials(initials);
   }
 
-  public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException {
-    if (!isLoggedIn()) {
-      throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
-    } else {
-      projectRepo.create(projectTitle, this.dateServer.getDate());
-    }
-  }
-
   public void setDateServer(DateServer dateServer) {
     this.dateServer = dateServer;
   }
@@ -76,6 +68,14 @@ public class TaskFusion {
    * ###########################
    */
 
+   public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException {
+    if (!isLoggedIn()) {
+      throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
+    } else {
+      projectRepo.create(projectTitle, this.dateServer.getDate());
+    }
+  }
+
   public void assignCustomerToProject(String projectNumber, String customer) throws NotFoundException {
     projectRepo.findByProjectNumber(projectNumber).setCustomer(customer);
   }
@@ -84,6 +84,11 @@ public class TaskFusion {
       throws NotFoundException, OperationNotAllowedException {
     Project project = projectRepo.findByProjectNumber(projectNumber);
     project.assignEmployee(initials, loggedInUser);
+  }
+
+  public Project findProject(String projectNumber) throws NotFoundException {
+    Project project = projectRepo.findByProjectNumber(projectNumber);
+    return project;
   }
 
   /**

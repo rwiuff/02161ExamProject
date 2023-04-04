@@ -3,6 +3,15 @@ package taskfusion.cli.components;
 public class Header {
     
     public static void showHeader(String header, int level) {
+
+        if(header == null) {
+            return;
+        } 
+        
+        if(header.isEmpty()) {
+            return;
+        }
+
         System.out.println(" ");
         if(level == 1) {
             System.out.println("===========================");

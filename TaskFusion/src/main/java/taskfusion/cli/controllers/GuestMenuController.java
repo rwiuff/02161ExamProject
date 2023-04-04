@@ -21,40 +21,24 @@ public class GuestMenuController implements ControllerInterface {
 
             switch (selectedMenuItem) {
                 case 1:
-                    showLogin();
+                    new LoginView().show();
+
+                    if (TaskFusionCLI.taskFusion().isLoggedIn()) {
+                        new EmployeeMenuController().showMenu();
+                    }
+
                     break;
                 case 2:
-                    showRcreate();
+                    new RegisterEmployeeView().show();
                     break;
                 case 3:
-                    showQuit();
+                    System.out.println("--- FARVEL ---");
                     return; // NOTICE THIS RETURN, not break
                 default:
                     Text.showError("Uventet menupunkt");
                     return; // NOTICE THIS RETURN, not break
             }
         }
-    }
-
-    /**
-     * SHOW pages
-     */
-
-    private void showLogin() {
-        LoginView loginView = new LoginView();
-        loginView.show();
-        if (TaskFusionCLI.taskFusion().isLoggedIn()) {
-            new EmployeeMenuController().showMenu();
-        }
-    }
-
-    private void showRcreate() {
-        RegisterEmployeeView registerEmployeeView = new RegisterEmployeeView();
-        registerEmployeeView.show();
-    }
-
-    private void showQuit() {
-        System.out.println("--- FARVEL ---");
     }
 
 }

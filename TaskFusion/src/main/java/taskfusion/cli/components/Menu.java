@@ -1,5 +1,6 @@
 package taskfusion.cli.components;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import taskfusion.cli.TaskFusionCLI;
@@ -9,14 +10,10 @@ public class Menu {
     public static int showMenu(String[] options, String header) {
         
         // Display a header, if a header is given
-        if (header != null && !header.isEmpty()) {
-            Header.showHeader(header, 11);
-        }
+        Header.showHeader(header, 11);
         
         // Write menu options
-        for (int i = 0; i < options.length; i++) {
-            System.out.printf("%d. %s%n", i+1, options[i]);
-        }
+        List.showNumberedOptions(options);
         
         // Get a valid menu choice
         int choice = 0;
@@ -37,10 +34,44 @@ public class Menu {
             }
             attempt++;
         }
-
-        //scanner.close();
         
         return choice;
+    }
+
+    public static String showListOptions(String[] optionKeys, String[] optionTexts, String prompt, String header) {
+
+        // Display a header, if a header is given
+        Header.showHeader(header, 11);
+
+        // Write menu options
+        List.showMapList(optionKeys, optionTexts);
+        
+        // Get a valid menu choice
+        int attempt = 0;
+        Scanner scanner = TaskFusionCLI.scanner();
+
+        Text.showInstruction("For at go tilbage, indtast \"tilbage\"");
+        
+        while (true) {
+            
+            Text.showInputPrompt(prompt);
+            
+            String choice = scanner.nextLine();
+
+            if(choice.equals("tilbage")) {
+                return null;
+            }
+
+            if(Arrays.asList(optionKeys).contains(choice)){
+                return choice;
+            }
+
+            scanner.next();
+            attempt++;
+            Text.showError("Ugyldigt valg");
+        }
+ 
+
     }
 
 }

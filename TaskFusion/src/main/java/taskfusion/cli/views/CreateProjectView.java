@@ -5,35 +5,29 @@ import taskfusion.cli.components.Header;
 import taskfusion.cli.components.Input;
 import taskfusion.cli.components.Text;
 
-public class RegisterEmployeeView implements ViewInterface {
+public class CreateProjectView implements ViewInterface {
     
     public void show() {
 
-        Header.showHeader("Opret medarbejder", 1);
+        Header.showHeader("Opret projekt", 1);
 
         while(true) {
             
-            String firstName = Input.lineWithCancel("Indtast fornavn");
+            String projectTitle = Input.lineWithCancel("Projekt titel");
             
-            if(firstName == null) {
-                return;
-            }
-
-            String lastName = Input.lineWithCancel("Indtast efternavn");
-            
-            if(lastName == null) {
+            if(projectTitle == null) {
                 return;
             }
 
             try {
-                TaskFusionCLI.taskFusion().registerEmployee(firstName, lastName);
+                TaskFusionCLI.taskFusion().createProject(projectTitle);
             } catch (Exception e) {
                 Text.showExceptionError(e);
                 Text.showInfo("Prøv igen");
                 continue;
             }
 
-            Text.showSuccess("Medarbejder oprettet.");
+            Text.showSuccess("Projekt oprettet.");
             return;
         }
     }

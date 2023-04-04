@@ -1,8 +1,14 @@
 package taskfusion.cli.controllers;
 
+import java.util.Map;
+
 import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
+import taskfusion.cli.views.CreateProjectView;
+import taskfusion.cli.views.ListProjectsView;
+import taskfusion.domain.Project;
+import taskfusion.exceptions.NotFoundException;
 
 public class EmployeeMenuController implements ControllerInterface {
 
@@ -20,18 +26,35 @@ public class EmployeeMenuController implements ControllerInterface {
             int selectedMenuItem = Menu.showMenu(menuOptions, "Medarbejder menu");
 
             switch (selectedMenuItem) {
-                case 1:
-                    showListProjects();
+                case 1: // Se projekter
+
+                    Project selectedProject = null;
+                    try {
+                        selectedProject = new ListProjectsView().select();
+                    } catch (NotFoundException e) {
+                        Text.showExceptionError(e);
+                    }    
+
+                    if(selectedProject != null) {
+                        continue;
+                    }
+
+                    new ProjectMenuController(selectedProject);
+
                     break;
-                case 2:
-                    showCreateProject();
+
+                case 2: // Opret projekt
+                    new CreateProjectView().show();
                     break;
-                case 3:
-                    showListRegularActivities();
+
+                case 3: // Se faste aktiviteter
+                    Text.showError("MANGLER IMPLEMENTERING");
                     break;
-                case 4:
-                    showCreateRegularActivity();
+
+                case 4: // Opret fast aktivitet
+                    Text.showError("MANGLER IMPLEMENTERING");
                     break;
+
                 case 5:
                     TaskFusionCLI.taskFusion().logout();
                     return; // NOTICE THIS RETURN, not break
@@ -41,26 +64,6 @@ public class EmployeeMenuController implements ControllerInterface {
                     return; // NOTICE THIS RETURN, not break
             }
         }
-    }
-
-    /**
-     * SHOW pages
-     */
-
-    private void showListProjects() {
-        Text.showError("MANGLER IMPLEMENTERING");
-    }
-
-    private void showCreateProject() {
-        Text.showError("MANGLER IMPLEMENTERING");
-    }
-
-    private void showListRegularActivities() {
-        Text.showError("MANGLER IMPLEMENTERING");
-    }
-
-    private void showCreateRegularActivity() {
-        Text.showError("MANGLER IMPLEMENTERING");
     }
 
 }
