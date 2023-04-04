@@ -2,6 +2,7 @@ package taskfusion.cli.controllers;
 
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
+import taskfusion.cli.views.ProjectInfoView;
 import taskfusion.domain.Project;
 
 public class ProjectMenuController implements ControllerInterface {
@@ -15,6 +16,7 @@ public class ProjectMenuController implements ControllerInterface {
 
     private String[] menuOptions = {
             "Se medarbejdere",
+            "Tilføj medarbejder til projektet",
             "Påtag projektleder rolle",
             "tilbage"
     };
@@ -27,6 +29,8 @@ public class ProjectMenuController implements ControllerInterface {
         }
 
         while (true) {
+            new ProjectInfoView(project).show();
+            
             int selectedMenuItem = Menu.showMenu(menuOptions, "Projekt menu");
 
             switch (selectedMenuItem) {
@@ -34,11 +38,15 @@ public class ProjectMenuController implements ControllerInterface {
                     Text.showError("MANGLER IMPLEMENTERING");
                     break;
 
-                case 2: // Påtag projektlederrolle
+                case 2: // Tilføj medarbejder til projekt
                     Text.showError("MANGLER IMPLEMENTERING");
                     break;
 
-                case 3:
+                case 3: // Påtag projektlederrolle
+                    Text.showError("MANGLER IMPLEMENTERING");
+                    break;
+
+                case 4:
                     return; // NOTICE THIS RETURN, not break
 
                 default:
