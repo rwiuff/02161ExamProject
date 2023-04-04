@@ -1,7 +1,10 @@
 package taskfusion.persistency;
 import java.util.Calendar;
+import java.util.Map;
+
 import taskfusion.app.DateServer;
 import taskfusion.domain.Employee;
+import taskfusion.domain.Project;
 
 
 
@@ -44,6 +47,16 @@ public class Seeder {
         projectRepository.create("Programdesign", creator, date);
         projectRepository.create("Implementering", creator, date);
         projectRepository.create("Test", creator, date);
+
+        //Assign users to projects
+        for (Map.Entry<String, Project> projectEntry : ProjectRepository.getInstance().all().entrySet()) {
+
+            Project project = projectEntry.getValue();
+    
+            project.assignEmployee("rakr", creator);
+            project.assignEmployee("mach", creator);
+            project.assignEmployee("masc", creator);
+        }
     }
             
 

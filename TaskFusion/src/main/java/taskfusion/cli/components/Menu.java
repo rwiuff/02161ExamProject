@@ -27,6 +27,8 @@ public class Menu {
             }
             
             Text.showInputPrompt("Vælg menupunkt");
+            scanner.skip("\\s*");
+
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
             } else {
@@ -42,23 +44,22 @@ public class Menu {
 
         // Display a header, if a header is given
         Header.showHeader(header, 11);
+        Text.showInstruction("For at go tilbage, indtast \"tilbage\"");
 
         // Write menu options
         List.showMapList(optionKeys, optionTexts);
         
-        // Get a valid menu choice
-        int attempt = 0;
         Scanner scanner = TaskFusionCLI.scanner();
-
-        Text.showInstruction("For at go tilbage, indtast \"tilbage\"");
         
+
         while (true) {
             
             Text.showInputPrompt(prompt);
+            scanner.skip("\\s*");
             
             String choice = scanner.nextLine();
-
-            if(choice.equals("tilbage")) {
+            
+            if(choice.toLowerCase().contains("tilbage")) {
                 return null;
             }
 
@@ -66,8 +67,6 @@ public class Menu {
                 return choice;
             }
 
-            scanner.next();
-            attempt++;
             Text.showError("Ugyldigt valg");
         }
  

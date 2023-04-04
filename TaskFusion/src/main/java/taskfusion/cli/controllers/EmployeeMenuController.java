@@ -35,11 +35,11 @@ public class EmployeeMenuController implements ControllerInterface {
                         Text.showExceptionError(e);
                     }    
 
-                    if(selectedProject != null) {
+                    if(selectedProject == null) {
                         continue;
                     }
 
-                    new ProjectMenuController(selectedProject);
+                    new ProjectMenuController(selectedProject).showMenu();
 
                     break;
 
