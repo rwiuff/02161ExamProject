@@ -11,7 +11,7 @@ import taskfusion.persistency.ProjectRepository;
 import taskfusion.persistency.Seeder;
 
 
-public class SeederTest_old {
+public class SeederTest {
 
 
 	@BeforeEach
