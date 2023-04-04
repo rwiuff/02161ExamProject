@@ -10,7 +10,7 @@ public class Menu {
     public static int showMenu(String[] options, String header) {
         
         // Display a header, if a header is given
-        Header.showHeader(header, 11);
+        Header.showHeader(header, 2);
         
         // Write menu options
         List.showNumberedOptions(options);
@@ -43,7 +43,7 @@ public class Menu {
     public static String showListOptions(String[] optionKeys, String[] optionTexts, String prompt, String header) {
 
         // Display a header, if a header is given
-        Header.showHeader(header, 11);
+        Header.showHeader(header, 2);
         Text.showInstruction("For at go tilbage, indtast \"tilbage\"");
 
         // Write menu options
