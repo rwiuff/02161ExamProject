@@ -79,4 +79,10 @@ public class EmployeeSteps {
         taskFusion.logout();
     }
 
+    @Then("the employee {string} have {int} projects")
+    public void the_employee_have_projects(String initials, int projects) {
+        assertEquals(projects, taskFusion.findEmployeeByInitials(initials).getProjects().size());
+        // Write code here that turns the phrase above into concrete actions
+    }
+
 }

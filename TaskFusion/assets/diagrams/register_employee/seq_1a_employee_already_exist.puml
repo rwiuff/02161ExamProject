@@ -17,7 +17,7 @@ deactivate emp
 
 emp -> emp: getInitials()
 
-app -> app: findEmployee(initials)
+app -> app: findEmployeeByInitials(initials)
 
 app --> guest : throw AlreadyExistsException
 

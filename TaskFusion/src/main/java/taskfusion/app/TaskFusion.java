@@ -28,7 +28,7 @@ public class TaskFusion {
   }
 
   public void login(String initials) throws NotFoundException {
-    loggedInUser = findEmployee(initials);
+    loggedInUser = findEmployeeByInitials(initials);
 
     if (loggedInUser == null) {
       throw new NotFoundException("Ukendt medarbejder");
@@ -54,7 +54,7 @@ public class TaskFusion {
     employeeRepo.create(firstName, lastName);
   }
 
-  public Employee findEmployee(String initials) {
+  public Employee findEmployeeByInitials(String initials) {
     return employeeRepo.findByInitials(initials);
   }
 
@@ -66,13 +66,14 @@ public class TaskFusion {
    * ###########################
    * PROJECT facades
    * ###########################
+   * @throws NotFoundException
    */
 
-   public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException {
+   public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
     if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
     } else {
-      projectRepo.create(projectTitle, this.dateServer.getDate());
+      projectRepo.create(projectTitle, loggedInUser, this.dateServer.getDate());
     }
   }
 
@@ -86,7 +87,7 @@ public class TaskFusion {
     project.assignEmployee(initials, loggedInUser);
   }
 
-  public Project findProject(String projectNumber) throws NotFoundException {
+  public Project findProjectByProjectNumber(String projectNumber) throws NotFoundException {
     Project project = projectRepo.findByProjectNumber(projectNumber);
     return project;
   }

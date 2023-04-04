@@ -8,6 +8,7 @@ import java.util.Map;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.persistency.EmployeeRepository;
+import taskfusion.persistency.ProjectRepository;
 
 public class Employee {
   private List<RegularActivity> regularActivities = new ArrayList<RegularActivity>();
@@ -111,7 +112,21 @@ public class Employee {
   }
 
   public Map<String, Project> getProjects() {
-    return projects;
+
+    Map<String, Project> employeeProjects = new HashMap<>();
+
+    for (Map.Entry<String, Project> projectEntry : ProjectRepository.getInstance().all().entrySet()) {
+
+        Project project = projectEntry.getValue();
+
+        if(project.getAssignedEmployee(initials) != null) {
+          employeeProjects.put(project.getProjectNumber(),project);
+        }
+    }
+
+    return employeeProjects;
 
   }
+
+
 }

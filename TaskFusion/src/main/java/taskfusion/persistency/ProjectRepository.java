@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
@@ -48,14 +49,15 @@ public class ProjectRepository {
         return projects;
      }
 
-    public void create(String projectTitle, Calendar date)
-            throws OperationNotAllowedException, InvalidPropertyException {
+    public void create(String projectTitle, Employee creator, Calendar date)
+            throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
 
         if (projectTitle.length() < 2) {
             throw new InvalidPropertyException("En projekttitel mangler");
         }
 
         Project p = new Project(projectTitle, date);
+        p.assignEmployee(creator.getInitials(), creator);
         String projectNumber = p.getProjectNumber();
 
         this.projects.put(projectNumber, p);

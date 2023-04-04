@@ -38,7 +38,7 @@ public class ListProjectsView implements ViewInterface {
             return null;
         }
 
-        return TaskFusionCLI.taskFusion().findProject(choice);
+        return TaskFusionCLI.taskFusion().findProjectByProjectNumber(choice);
 
     }
 

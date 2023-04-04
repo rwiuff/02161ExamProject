@@ -124,24 +124,36 @@ public class Project {
     return assignedEmployees.get(initials);
   }
 
+  public Map<String, Employee> getAssignedEmployees() {
+    return assignedEmployees;
+  }
+
   public void assignEmployee(String employeeInitials, Employee loggedInUser)
       throws NotFoundException, OperationNotAllowedException {
 
     Employee employee = EmployeeRepository.getInstance().findByInitials(employeeInitials);
-    if(employee == null) {
+    if (employee == null) {
       throw new NotFoundException("Ukendt medarbejder");
     }
 
+    if(!allowAssignEmployeeToProject(loggedInUser)) {
+      throw new OperationNotAllowedException("Kun projektleder kan tildele medarbejdere til projektet");
+    }
+
+    assignedEmployees.put(employee.getInitials(), employee);
+
+
+  }
+
+  private boolean allowAssignEmployeeToProject(Employee loggedInUser) {
+
     if (projectLeader == null) {
-      assignedEmployees.put(employee.getInitials(), employee);
-      return;
+      return true;
     }
     if (loggedInUser.getInitials().equals(projectLeader.getInitials())) {
-      assignedEmployees.put(employee.getInitials(), employee);
-      return;
+      return true;
     }
-    throw new OperationNotAllowedException("Kun projektleder kan tildele medarbejdere til projektet");
-
+    return false;
   }
 
 }

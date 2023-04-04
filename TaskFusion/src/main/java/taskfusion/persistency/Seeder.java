@@ -1,6 +1,7 @@
 package taskfusion.persistency;
 import java.util.Calendar;
 import taskfusion.app.DateServer;
+import taskfusion.domain.Employee;
 
 
 
@@ -36,11 +37,13 @@ public class Seeder {
     public void seedProjects() throws Exception {
         DateServer dateServer = new DateServer();
         Calendar date = dateServer.getDate();
+
+        Employee creator = EmployeeRepository.getInstance().findByInitials("kasy");
         
-        projectRepository.create("Kravspecifikationer", date);
-        projectRepository.create("Programdesign", date);
-        projectRepository.create("Implementering", date);
-        projectRepository.create("Test", date);
+        projectRepository.create("Kravspecifikationer",creator , date);
+        projectRepository.create("Programdesign", creator, date);
+        projectRepository.create("Implementering", creator, date);
+        projectRepository.create("Test", creator, date);
     }
             
 

@@ -99,6 +99,7 @@ Activity <|- RegularActivity
 
 Project --> "1" Employee : projectLeader
 Project --> "0..*" Employee : employees
+Employee --> "0..*" Project : projects
 Project -> "0..*" ProjectActivity : activities
 Employee -> "0..*" RegularActivity : regularActivities
 
