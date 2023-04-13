@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Project.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TaskFusion</a> &gt; <a href="index.source.html" class="el_package">taskfusion.domain</a> &gt; <span class="el_source">Project.java</span></div><h1>Project.java</h1><pre class="source lang-java linenums">package taskfusion.domain;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import taskfusion.exceptions.AlreadyExistsException;
+import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
+import taskfusion.helpers.DateHelper;
+import taskfusion.persistency.EmployeeRepository;
+import taskfusion.persistency.ProjectRepository;
+
+public class Project {
+  private String projectNumber;
+  private String projectTitle;
+  private String customer;
+  private Employee projectLeader;
+  private int startWeek;
+  private int endWeek;
+<span class="fc" id="L23">  private Map&lt;String, Employee&gt; assignedEmployees = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L24">  private List&lt;ProjectActivity&gt; activities = new ArrayList&lt;ProjectActivity&gt;();</span>
+
+<span class="fc" id="L26">  public Project(String projectTitle, Calendar date) {</span>
+<span class="fc" id="L27">    this.projectTitle = projectTitle;</span>
+<span class="fc" id="L28">    this.projectNumber = generateProjectNumber(date);</span>
+<span class="fc" id="L29">  }</span>
+
+  public int getStartWeek() {
+<span class="fc" id="L32">    return this.startWeek;</span>
+  }
+
+  public void setStartWeek(int startWeek) {
+    // Husk at kaste InvalidPropertyException, når
+    // du laver activities.
+<span class="fc" id="L38">    this.startWeek = startWeek;</span>
+<span class="fc" id="L39">  }</span>
+
+  public int getEndWeek() {
+<span class="nc" id="L42">    return this.endWeek;</span>
+  }
+
+  public void setEndWeek(int endWeek) {
+    // Husk at kaste InvalidPropertyException, når
+    // du laver activities.
+<span class="nc" id="L48">    this.endWeek = endWeek;</span>
+<span class="nc" id="L49">  }</span>
+
+  public boolean isInternal() {
+
+<span class="fc bfc" id="L53" title="All 2 branches covered.">    if (customer == null) {</span>
+<span class="fc" id="L54">      return true;</span>
+    }
+
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">    if (customer.length() == 0) {</span>
+<span class="nc" id="L58">      return true;</span>
+    }
+
+<span class="fc" id="L61">    return false;</span>
+  }
+
+  public void setCustomer(String customer) {
+<span class="fc" id="L65">    this.customer = customer;</span>
+<span class="fc" id="L66">  }</span>
+
+  public String getCustomer() {
+<span class="fc" id="L69">    return this.customer;</span>
+  }
+
+  public String getProjectTitle() {
+<span class="fc" id="L73">    return this.projectTitle;</span>
+  }
+
+  public void setProjectTitle(String projectTitle) {
+<span class="nc" id="L77">    this.projectTitle = projectTitle;</span>
+<span class="nc" id="L78">  }</span>
+
+  public String getProjectNumber() {
+<span class="fc" id="L81">    return this.projectNumber;</span>
+  }
+
+  public void setProjectNumber(String projectNumber) {
+<span class="nc" id="L85">    this.projectNumber = projectNumber;</span>
+<span class="nc" id="L86">  }</span>
+
+  /**
+   * Generate a unique 5 digit project number as a string. Always leading with
+   * two-digit-year
+   * followed by incemental number.
+   * 
+   * For loop to identify highest last number, by ChatGPT v3.5
+   */
+  public static String generateProjectNumber(Calendar date) {
+
+<span class="fc" id="L97">    int year = DateHelper.twoDigitYearFromDate(date);</span>
+<span class="fc" id="L98">    int lastNum = 0;</span>
+
+    // Find the highest incremental number for the current year
+<span class="fc bfc" id="L101" title="All 2 branches covered.">    for (String projectNumber : ProjectRepository.getInstance().all().keySet()) {</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">      if (projectNumber.startsWith(String.format(&quot;%02d&quot;, year))) {</span>
+<span class="fc" id="L103">        int num = Integer.parseInt(projectNumber.substring(2));</span>
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        if (num &gt; lastNum) {</span>
+<span class="fc" id="L105">          lastNum = num;</span>
+        }
+      }
+<span class="fc" id="L108">    }</span>
+
+<span class="fc" id="L110">    int nextProjectNumber = (year * 1000) + lastNum + 1;</span>
+<span class="fc" id="L111">    return &quot;&quot; + nextProjectNumber;</span>
+
+  }
+
+  public void setProjectLeader(Employee employee) throws AlreadyExistsException {
+<span class="fc bfc" id="L116" title="All 2 branches covered.">    if (this.projectLeader != null) {</span>
+<span class="fc" id="L117">      throw new AlreadyExistsException(&quot;Der kan kun være en projektleder&quot;);</span>
+    }
+<span class="fc" id="L119">    this.projectLeader = employee;</span>
+<span class="fc" id="L120">  }</span>
+
+  public Employee getProjectLeader() {
+<span class="fc" id="L123">    return this.projectLeader;</span>
+  }
+
+  public Employee getAssignedEmployee(String initials) {
+<span class="fc" id="L127">    return assignedEmployees.get(initials);</span>
+  }
+
+  public Map&lt;String, Employee&gt; getAssignedEmployees() {
+<span class="fc" id="L131">    return assignedEmployees;</span>
+  }
+
+  public void assignEmployee(String employeeInitials, Employee loggedInUser)
+      throws NotFoundException, OperationNotAllowedException {
+
+<span class="fc" id="L137">    Employee employee = EmployeeRepository.getInstance().findByInitials(employeeInitials);</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">    if (employee == null) {</span>
+<span class="fc" id="L139">      throw new NotFoundException(&quot;Ukendt medarbejder&quot;);</span>
+    }
+
+<span class="fc bfc" id="L142" title="All 2 branches covered.">    if(!allowAssignEmployeeToProject(loggedInUser)) {</span>
+<span class="fc" id="L143">      throw new OperationNotAllowedException(&quot;Kun projektleder kan tildele medarbejdere til projektet&quot;);</span>
+    }
+
+<span class="fc" id="L146">    assignedEmployees.put(employee.getInitials(), employee);</span>
+
+
+<span class="fc" id="L149">  }</span>
+
+  private boolean allowAssignEmployeeToProject(Employee loggedInUser) {
+
+<span class="fc bfc" id="L153" title="All 2 branches covered.">    if (projectLeader == null) {</span>
+<span class="fc" id="L154">      return true;</span>
+    }
+<span class="fc bfc" id="L156" title="All 2 branches covered.">    if (loggedInUser.getInitials().equals(projectLeader.getInitials())) {</span>
+<span class="fc" id="L157">      return true;</span>
+    }
+<span class="fc" id="L159">    return false;</span>
+  }
+
+  public void assignProjectActivity(ProjectActivity projectActivity) throws AlreadyExistsException {
+<span class="fc bfc" id="L163" title="All 2 branches covered.">    if (hasProjectActivity(projectActivity.getTitle())) {</span>
+<span class="fc" id="L164">      throw new AlreadyExistsException(&quot;Projekt aktivitet findes allerede&quot;);</span>
+    }
+    
+<span class="fc" id="L167">    this.activities.add(projectActivity);</span>
+<span class="fc" id="L168">  }</span>
+
+  public boolean hasProjectActivity(String title) {
+<span class="fc bfc" id="L171" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">      if (projectActivity.getTitle().equals(title)) {</span>
+<span class="fc" id="L173">        return true;</span>
+      }
+<span class="nc" id="L175">    }</span>
+
+<span class="fc" id="L177">    return false;</span>
+  }
+
+  public ProjectActivity findProjectActivity(String title) throws NotFoundException {
+<span class="pc bpc" id="L181" title="1 of 2 branches missed.">    for (ProjectActivity projectActivity : this.activities) {</span>
+<span class="pc bpc" id="L182" title="1 of 2 branches missed.">      if (projectActivity.getTitle().equals(title)) {</span>
+<span class="fc" id="L183">        return projectActivity;</span>
+      }
+<span class="nc" id="L185">    }</span>
+
+<span class="nc" id="L187">    throw new NotFoundException(&quot;Projektaktiviteten findes ikke.&quot;);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

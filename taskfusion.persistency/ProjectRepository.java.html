@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProjectRepository.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TaskFusion</a> &gt; <a href="index.source.html" class="el_package">taskfusion.persistency</a> &gt; <span class="el_source">ProjectRepository.java</span></div><h1>ProjectRepository.java</h1><pre class="source lang-java linenums">package taskfusion.persistency;
+
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import taskfusion.domain.Employee;
+import taskfusion.domain.Project;
+import taskfusion.exceptions.InvalidPropertyException;
+import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
+
+/**
+ * Singleton instance, getInstance and resetInstance provided by ChatGPT v4
+ */
+public class ProjectRepository {
+
+<span class="fc" id="L19">    private Map&lt;String, Project&gt; projects = new HashMap&lt;&gt;();</span>
+
+    /**
+     * SINGLETON related
+     */
+    // Declare a private static instance of the class
+    private static ProjectRepository instance;
+
+    // Private constructor to prevent instantiation from other classes
+<span class="fc" id="L28">    private ProjectRepository() {</span>
+
+<span class="fc" id="L30">    }</span>
+
+    // Public method to get the Singleton instance
+    public static ProjectRepository getInstance() {
+<span class="fc bfc" id="L34" title="All 2 branches covered.">        if (instance == null) {</span>
+<span class="fc" id="L35">            instance = new ProjectRepository();</span>
+        }
+<span class="fc" id="L37">        return instance;</span>
+    }
+
+    public static void resetInstance() {
+<span class="fc" id="L41">        instance = null;</span>
+<span class="fc" id="L42">    }</span>
+
+    /**
+     * REPOSITORY related
+     */
+
+     public Map&lt;String, Project&gt; all() {
+<span class="fc" id="L49">        return projects;</span>
+     }
+
+    public void create(String projectTitle, Employee creator, Calendar date)
+            throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
+
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (projectTitle.length() &lt; 2) {</span>
+<span class="fc" id="L56">            throw new InvalidPropertyException(&quot;En projekttitel mangler&quot;);</span>
+        }
+
+<span class="fc" id="L59">        Project p = new Project(projectTitle, date);</span>
+<span class="fc" id="L60">        p.assignEmployee(creator.getInitials(), creator);</span>
+<span class="fc" id="L61">        String projectNumber = p.getProjectNumber();</span>
+
+<span class="fc" id="L63">        this.projects.put(projectNumber, p);</span>
+<span class="fc" id="L64">    }</span>
+
+    public Project findByProjectNumber(String projectNumber) throws NotFoundException {
+<span class="fc" id="L67">        Project project = projects.get(projectNumber);</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (project == null) {</span>
+<span class="fc" id="L69">            throw new NotFoundException(&quot;Projektet kunne ikke findes i samlingen af projekter&quot;);</span>
+        }
+<span class="fc" id="L71">        return projects.get(projectNumber);</span>
+
+    }
+
+    public Project findByTitle(String projectTitle) throws NotFoundException {
+<span class="nc" id="L76">        Project returnProject = null;</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">        for (Entry&lt;String, Project&gt; entry: projects.entrySet()){</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">            if(entry.getValue().getProjectTitle().equals(projectTitle)){</span>
+<span class="nc" id="L79">                returnProject = entry.getValue();</span>
+            }
+<span class="nc" id="L81">        }</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        if(returnProject == null){</span>
+<span class="nc" id="L83">            throw new NotFoundException(&quot;Projektet kunne ikke findes i samlingen af projekter&quot;);</span>
+        }
+<span class="nc" id="L85">        return returnProject;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
