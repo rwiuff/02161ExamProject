@@ -17,21 +17,15 @@ public class TaskFusionDriver {
             
             taskFusion.createProject("Projektet");
 
-            //ProjectRepository projectRepo = ProjectRepository.getInstance();
-            //Project p = projectRepo.findProjectByProjectNumber(23001);
-            Project p = taskFusion.projectRepo.findByProjectNumber("23001");
+            Project p = taskFusion.findProjectByProjectNumber("23001");
 
             assertNotNull(p);
             assertEquals("Projektet", p.getProjectTitle());
-            taskFusion.createProjectActivity("23001", "testaktivitet", 2303, 2304);
-            assertNotNull(taskFusion.getLoggedInUser().findProject("23001"));
-            assertNotNull(taskFusion.findProjectByProjectNumber("23001"));
-            assertNotNull(taskFusion.getLoggedInUser().findProject("23001").findProjectActivity("testaktivitet"));
-            // WHAT THE FUCK
+            taskFusion.createProjectActivity("23001", "testaktivitet", 01, 02);
+            taskFusion.createProjectActivity("23001", "testaktivitet", 01, 02);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
 
     }
 

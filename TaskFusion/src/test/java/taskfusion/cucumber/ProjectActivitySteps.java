@@ -58,16 +58,6 @@ public class ProjectActivitySteps {
     }
   }
 
-  @Given("the user assigns the project activity {string} to project {string} with startWeek {int} and endWeek {int} twice")
-  public void theUserAssignsTheProjectActivityToProjectWithStartWeekAndEndWeekTwice(String string, String string2, Integer int1, Integer int2) {
-    try {
-      this.taskFusion.createProjectActivity(string2, string, int1, int2);
-      this.taskFusion.createProjectActivity(string2, string, int1, int2);
-    } catch (Exception e) {
-      this.errorMessageHolder.setErrorMessage(e.getMessage());
-    }
-  }
-
   @When("the user sets the time budget to {int} hours on the project activity with the title {string} and project number {string}")
   public void theUserSetsTheTimeBudgetToHoursOnTheProjectActivityWithTheTitleAndProjectNumber(Integer int1, String string1, String string2) {
     try {

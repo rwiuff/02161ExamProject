@@ -36,9 +36,9 @@ Scenario: 1a. A guest is not able to create a project activity
 
 Scenario: 1b. A project activity title is unique in a project
   Given the user logs in using initials "mila"
-  # And an activity with the title "Graphic design" exists within the project with project number "23001"
-  # When the user assigns the project activity "Graphics design" to project "23001" with startWeek 1 and endWeek 2
-  And the user assigns the project activity "Graphics design" to project "23001" with startWeek 2304 and endWeek 2305 twice
+  And an activity with the title "Graphic design" exists within the project with project number "23001"
+  When the user assigns the project activity "Graphics design" to project "23001" with startWeek 1 and endWeek 2
+  When the user assigns the project activity "Graphics design" to project "23001" with startWeek 1 and endWeek 2
   Then the error message "Projekt aktivitet findes allerede" is given
 
 Scenario: 2a. A guest is not able to set a time budget on a project activity
