@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
+import taskfusion.exceptions.NotFoundException;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
@@ -128,5 +130,25 @@ public class Employee {
 
   }
 
+  public Project findProject(String projectNumber) {
+    return this.getProjects().get(projectNumber);
+  }
 
+  public void addProject(Project project) throws AlreadyExistsException, NotFoundException {
+    if (findProject(project.getProjectNumber()) == null) {
+      this.projects.put(project.getProjectNumber(), project);
+    } else {
+      throw new AlreadyExistsException("Projektet findes allerede");
+    }
+  }
+
+  public void addProjectActivity(String projectNumber, ProjectActivity projectActivity) throws AlreadyExistsException, NotFoundException {
+    Project project = findProject(projectNumber);
+    project.assignProjectActivity(projectActivity);
+  }
+
+  public void setTimeBudgetProjectActivity(String projectNumber, String title, Integer timeBudget) throws NotFoundException {
+    Project project = findProject(projectNumber);
+    project.findProjectActivity(title).setTimeBudget(timeBudget);
+  }
 }

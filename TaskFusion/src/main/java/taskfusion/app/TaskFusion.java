@@ -4,6 +4,7 @@ import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
 import taskfusion.domain.ProjectActivity;
 import taskfusion.domain.RegularActivity;
+import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
@@ -68,9 +69,10 @@ public class TaskFusion {
    * PROJECT facades
    * ###########################
    * @throws NotFoundException
+   * @throws AlreadyExistsException
    */
 
-   public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
+   public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, AlreadyExistsException {
     if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
     } else {
@@ -136,10 +138,29 @@ public class TaskFusion {
    * ###########################
    * PROJECT ACTIVITY facades
    * ###########################
+   * @throws AlreadyExistsException
+   * @throws InvalidPropertyException
    */
 
-  public void createProjectActivity(Integer projectNumber, String title, Integer startWeek, Integer endWeek) throws NotFoundException {
-    Project project = this.projectRepo.findByProjectNumber(String.valueOf(projectNumber));
-    project.assignProjectActivity(new ProjectActivity(title, startWeek, endWeek));
+  public void createProjectActivity(String projectNumber, String title, Integer startWeek, Integer endWeek) throws NotFoundException, OperationNotAllowedException, AlreadyExistsException, InvalidPropertyException {
+    if (startWeek > endWeek) {
+      throw new InvalidPropertyException("Starttid skal være før eller ens med sluttid");
+    }
+
+    if (!isLoggedIn()) {
+      throw new OperationNotAllowedException("Login krævet");
+    } else {
+      Project project = findProjectByProjectNumber(projectNumber);
+      project.assignProjectActivity(new ProjectActivity(title, startWeek, endWeek));
+    }
+  }
+
+  public void setTimeBudget(String projectNumber, String title, Integer timeBudget) throws NotFoundException, OperationNotAllowedException {
+    if (!isLoggedIn()) {
+      throw new OperationNotAllowedException("Login krævet");
+    } else {
+      Project project = findProjectByProjectNumber(projectNumber);
+      project.findProjectActivity(title).setTimeBudget(timeBudget);
+    }
   }
 }

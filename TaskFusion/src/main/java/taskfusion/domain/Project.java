@@ -159,13 +159,17 @@ public class Project {
     return false;
   }
 
-  public void assignProjectActivity(ProjectActivity projectActivity) {
+  public void assignProjectActivity(ProjectActivity projectActivity) throws AlreadyExistsException {
+    if (hasProjectActivity(projectActivity.getTitle())) {
+      throw new AlreadyExistsException("Projekt aktivitet findes allerede");
+    }
+    
     this.activities.add(projectActivity);
   }
 
-  public boolean hasProjectActivity(String string) throws NotFoundException {
+  public boolean hasProjectActivity(String title) {
     for (ProjectActivity projectActivity : this.activities) {
-      if (projectActivity.getTitle().equals(string)) {
+      if (projectActivity.getTitle().equals(title)) {
         return true;
       }
     }
@@ -173,4 +177,13 @@ public class Project {
     return false;
   }
 
+  public ProjectActivity findProjectActivity(String title) throws NotFoundException {
+    for (ProjectActivity projectActivity : this.activities) {
+      if (projectActivity.getTitle().equals(title)) {
+        return projectActivity;
+      }
+    }
+
+    throw new NotFoundException("Projektaktiviteten findes ikke.");
+  }
 }
