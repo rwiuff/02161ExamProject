@@ -139,12 +139,11 @@ public class Project {
       throw new NotFoundException("Ukendt medarbejder");
     }
 
-    if(!allowAssignEmployeeToProject(loggedInUser)) {
+    if (!allowAssignEmployeeToProject(loggedInUser)) {
       throw new OperationNotAllowedException("Kun projektleder kan tildele medarbejdere til projektet");
     }
 
     assignedEmployees.put(employee.getInitials(), employee);
-
 
   }
 
@@ -173,4 +172,11 @@ public class Project {
     return false;
   }
 
+  public ProjectActivity getActivity(String activityTitle) throws NotFoundException {
+    if(hasProjectActivity(activityTitle)){
+      return activities.stream().filter(activity -> activity.title.equals(activityTitle)).findFirst().get();
+    } else {
+      throw new NotFoundException("Ukendt projektaktivitet");
+    }
+  }
 }

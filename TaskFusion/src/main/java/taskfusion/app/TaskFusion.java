@@ -67,10 +67,12 @@ public class TaskFusion {
    * ###########################
    * PROJECT facades
    * ###########################
+   * 
    * @throws NotFoundException
    */
 
-   public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
+  public void createProject(String projectTitle)
+      throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
     if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
     } else {
@@ -138,8 +140,22 @@ public class TaskFusion {
    * ###########################
    */
 
-  public void createProjectActivity(Integer projectNumber, String title, Integer startWeek, Integer endWeek) throws NotFoundException {
-    Project project = this.projectRepo.findByProjectNumber(String.valueOf(projectNumber));
+  public void createProjectActivity(Integer projectNumber, String title, Integer startWeek, Integer endWeek)
+      throws NotFoundException {
+    Project project = findProjectByProjectNumber(String.valueOf(projectNumber));
     project.assignProjectActivity(new ProjectActivity(title, startWeek, endWeek));
   }
+
+  public void setTimeBudget(int projectNumber, String activityTitle, int hours) throws NotFoundException {
+    Project project = findProjectByProjectNumber(String.valueOf(projectNumber));
+    ProjectActivity activity = project.getActivity(activityTitle);
+    activity.setTimeBudget(hours);
+  }
+
+  public Integer getTimeBudget(int projectNumber, String activityTitle) throws NotFoundException {
+    Project project = findProjectByProjectNumber(String.valueOf(projectNumber));
+    ProjectActivity activity = project.getActivity(activityTitle);
+    return activity.getTimeBudget();
+  }
+
 }

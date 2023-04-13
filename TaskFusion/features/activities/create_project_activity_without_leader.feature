@@ -13,10 +13,10 @@ Scenario: 1. Creating a project activity
   When the user assigns the project activity "Graphics design" to project 23001
   Then the project with the project number 23001 has a project activity titled "Graphics design"
 
-# Scenario: 2. A time budget can be added to a project activity
-#     And an activity with the title "Graphics design" exists within the project with project number 23001
-#     When the user sets the time budget to 50 hours on the project activity with the title "Graphics design" and project number 23001
-#     Then the project activity with the title "Graphics design" and project number 23001 has a time budget of 50 hours
+Scenario: 2. A time budget can be added to a project activity
+    Given the user assigns the project activity "Graphics design" to project 23001
+    When the user sets the time budget to 50 hours on the project activity with the title "Graphics design" and project number 23001
+    Then the project activity with the title "Graphics design" and project number 23001 has a time budget of 50 hours
 
 # Scenario: 3. A start week can be set to a project activity
 #     And an activity with the title "Graphics design" exists within the project with project number 23001
