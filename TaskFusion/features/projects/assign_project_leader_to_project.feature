@@ -4,8 +4,8 @@ Actors: Employees
 
 #BACKGROUND
 Background:
-    Given the application has a registered employee with first name "Michael", last name "Laudrup"
-    And the application has a registered employee with first name "Brian", last name "Laudrup"
+    Given the user registers an employee with first name "Michael", last name "Laudrup"
+    And the user registers an employee with first name "Brian", last name "Laudrup"
     And the user logs in using initials "mila"
     And the user creates a project with title "Video game"
     And the user logs out

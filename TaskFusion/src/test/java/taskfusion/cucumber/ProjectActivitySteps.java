@@ -35,11 +35,6 @@ public class ProjectActivitySteps {
     }
   }
 
-  @Given("no one is logged in")
-  public void nooneIsLoggedIn() {
-    this.taskFusion.logout();
-  }
-
   @When("the user sets the time budget to {int} hours on the project activity with the title {string} and project number {string}")
   public void theUserSetsTheTimeBudgetToHoursOnTheProjectActivityWithTheTitleAndProjectNumber(Integer int1, String string1, String string2) {
     try {

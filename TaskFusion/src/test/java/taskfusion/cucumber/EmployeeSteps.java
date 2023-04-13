@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import taskfusion.app.TaskFusion;
@@ -21,7 +22,7 @@ public class EmployeeSteps {
     @Then("an employee with first name {string}, last name {string} and initials {string} exists in the application")
     public void an_employee_with_first_name_last_name_and_initials_exists_in_the_application(String firstName,
             String lastName, String initials) {
-        Employee employee = taskFusion.employeeRepo.findByInitials(initials);
+        Employee employee = taskFusion.findEmployeeByInitials(initials);
 
         assertEquals(employee.getFirstName(), firstName);
         assertEquals(employee.getLastName(), lastName);
@@ -32,19 +33,9 @@ public class EmployeeSteps {
     public void the_error_message_is_given(String errorMessage) {
         assertEquals(errorMessage, this.errorMessageHolder.getErrorMessage());
     }
-    
-    @Then("the application has a registered employee with first name {string}, last name {string}")
-    public void the_application_has_a_registered_employee_with_first_name_last_name(String firstName, String lastName) {
-        try {
-            taskFusion.registerEmployee(firstName, lastName);
-        } catch (Exception e) {
-            errorMessageHolder.setErrorMessage(e.getMessage());
-        }
-    }
 
-    @When("the user registers an employee with first name {string}, last name {string}")
+    @Given("the user registers an employee with first name {string}, last name {string}")
     public void the_user_registers_an_employee_with_first_name_last_name(String firstName, String lastName) {
-        // this.employee = new Employee(firstName, lastName);
         try {
             taskFusion.registerEmployee(firstName, lastName);
         } catch (Exception e) {
@@ -82,7 +73,6 @@ public class EmployeeSteps {
     @Then("the employee {string} have {int} projects")
     public void the_employee_have_projects(String initials, int projects) {
         assertEquals(projects, taskFusion.findEmployeeByInitials(initials).getProjects().size());
-        // Write code here that turns the phrase above into concrete actions
     }
 
 }

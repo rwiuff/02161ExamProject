@@ -151,7 +151,7 @@ public class TaskFusion {
       throw new OperationNotAllowedException("Login krævet");
     } else {
       Project project = findProjectByProjectNumber(projectNumber);
-      project.assignProjectActivity(new ProjectActivity(title, startWeek, endWeek));
+      project.createProjectActivity(new ProjectActivity(title, startWeek, endWeek));
     }
   }
 

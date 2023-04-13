@@ -159,7 +159,7 @@ public class Project {
     return false;
   }
 
-  public void assignProjectActivity(ProjectActivity projectActivity) throws AlreadyExistsException {
+  public void createProjectActivity(ProjectActivity projectActivity) throws AlreadyExistsException {
     if (hasProjectActivity(projectActivity.getTitle())) {
       throw new AlreadyExistsException("Projekt aktivitet findes allerede");
     }

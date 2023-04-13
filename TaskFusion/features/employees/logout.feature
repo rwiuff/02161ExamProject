@@ -4,7 +4,7 @@ Actors: employee
 
 #MAIN SCENARIOS
 Scenario: 1. Logout
-    Given the application has a registered employee with first name "Michael", last name "Laudrup"
+    Given the user registers an employee with first name "Michael", last name "Laudrup"
     And the user logs in using initials "mila"
     When the user logs out
     Then none is logged in
