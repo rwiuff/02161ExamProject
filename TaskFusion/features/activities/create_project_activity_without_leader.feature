@@ -1,17 +1,17 @@
-# Feature: Creating a project activity for a project without a project leader
-# Description: An employee creates a project activity for a project without a project leader
-# Actors: employee
+Feature: Creating a project activity for a project without a project leader
+  Description: An employee creates a project activity for a project without a project leader
+  Actors: employee
 
-# #BACKGROUND
-# Background:
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
-#     And the user logs in using initials "mila"
-#     And a project with title "Video Game" with project number 23001 exists in the application
+#BACKGROUND
+Background:
+  Given the application has a registered employee with first name "Michael", last name "Laudrup"
+  And the user logs in using initials "mila"
+  And a project with title "Video Game" with project number 23001 exists in the application
 
-# #MAIN SCENARIOS
-# Scenario: 1. Creating a project activity
-#     When the user assigns the project activity "Graphics design" to project 23001
-#     Then the project with the project number 23001 has a project activity titled "Graphics design"
+#MAIN SCENARIOS
+Scenario: 1. Creating a project activity
+  When the user assigns the project activity "Graphics design" to project 23001
+  Then the project with the project number 23001 has a project activity titled "Graphics design"
 
 # Scenario: 2. A time budget can be added to a project activity
 #     And an activity with the title "Graphics design" exists within the project with project number 23001

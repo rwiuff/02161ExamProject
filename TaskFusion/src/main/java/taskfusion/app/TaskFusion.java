@@ -2,6 +2,7 @@ package taskfusion.app;
 
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
+import taskfusion.domain.ProjectActivity;
 import taskfusion.domain.RegularActivity;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
@@ -131,4 +132,14 @@ public class TaskFusion {
     return loggedInUser.hasRegularActivity(title, startWeek, endWeek);
   }
 
+  /**
+   * ###########################
+   * PROJECT ACTIVITY facades
+   * ###########################
+   */
+
+  public void createProjectActivity(Integer projectNumber, String title, Integer startWeek, Integer endWeek) throws NotFoundException {
+    Project project = this.projectRepo.findByProjectNumber(String.valueOf(projectNumber));
+    project.assignProjectActivity(new ProjectActivity(title, startWeek, endWeek));
+  }
 }
