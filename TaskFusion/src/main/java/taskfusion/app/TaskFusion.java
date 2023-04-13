@@ -68,11 +68,13 @@ public class TaskFusion {
    * ###########################
    * PROJECT facades
    * ###########################
+   * 
    * @throws NotFoundException
    * @throws AlreadyExistsException
    */
 
-   public void createProject(String projectTitle) throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, AlreadyExistsException {
+  public void createProject(String projectTitle)
+      throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, AlreadyExistsException {
     if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
     } else {
@@ -138,11 +140,13 @@ public class TaskFusion {
    * ###########################
    * PROJECT ACTIVITY facades
    * ###########################
+   * 
    * @throws AlreadyExistsException
    * @throws InvalidPropertyException
    */
 
-  public void createProjectActivity(String projectNumber, String title, Integer startWeek, Integer endWeek) throws NotFoundException, OperationNotAllowedException, AlreadyExistsException, InvalidPropertyException {
+  public void createProjectActivity(String projectNumber, String title, Integer startWeek, Integer endWeek)
+      throws NotFoundException, OperationNotAllowedException, AlreadyExistsException, InvalidPropertyException {
     if (startWeek > endWeek) {
       throw new InvalidPropertyException("Starttid skal være før eller ens med sluttid");
     }
@@ -155,12 +159,23 @@ public class TaskFusion {
     }
   }
 
-  public void setTimeBudget(String projectNumber, String title, Integer timeBudget) throws NotFoundException, OperationNotAllowedException {
+  public void setTimeBudget(String projectNumber, String title, Integer timeBudget)
+      throws NotFoundException, OperationNotAllowedException {
     if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Login krævet");
     } else {
       Project project = findProjectByProjectNumber(projectNumber);
       project.findProjectActivity(title).setTimeBudget(timeBudget);
     }
+  }
+
+  public void registerWorkTime(String projectNumber, String activityTitle, double worktTime) throws NotFoundException {
+    projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
+        .registerWorkTime(getLoggedInUser().getInitials(), worktTime);
+  }
+
+  public double getWorkTime(String projectNumber, String activityTitle, double workTime) throws NotFoundException {
+    return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
+    .getWorkTime(getLoggedInUser().getInitials());
   }
 }
