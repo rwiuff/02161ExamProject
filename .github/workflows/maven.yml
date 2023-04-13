@@ -42,8 +42,8 @@ jobs:
 #      if: ${{ github.ref == 'refs/heads/master' }}
       uses: cicirello/jacoco-badge-generator@v2
       with:
-        jacoco-csv-file: target/site/jacoco/jacoco.csv
-        badge-directory: target/site/jacoco/badges
+        jacoco-csv-file: ./TaskFusion/target/site/jacoco/jacoco.csv
+        badges-directory: ./TaskFusion/target/site/jacoco/badges
     
     #Publish Code coverage report
     - name: Publish coverage report to GitHub Pages
