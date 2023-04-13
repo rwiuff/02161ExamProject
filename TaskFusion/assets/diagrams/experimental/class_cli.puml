@@ -1,0 +1,97 @@
+@startuml TaskFusion-CLI 
+
+class TaskFusionCLI {
+    - taskfusion : TaskFusion
+    - scanner : Scanner
+    --
+    # taskFusion() : TaskFusion
+    # getInstance() : TaskFusionCLI
+    + mainLoop() : void
+}
+
+package Controllers {
+
+    interface ControllerInterface {
+        --
+        showMenu() : void
+    }
+
+    class GuestMenuController {
+        --
+    }
+    GuestMenuController --|> ControllerInterface
+
+    class EmployeeMenuController {
+        --
+    }
+    EmployeeMenuController--|> ControllerInterface
+
+}
+
+package Views {
+
+    interface ViewInterface {
+        --
+        display() : void
+    }
+
+    class LoginView {
+        --
+    }
+    LoginView --|> ViewInterface
+
+    class RegisterEmployeeView {
+        --
+    }
+    RegisterEmployeeView --|> ViewInterface
+
+    
+    class ProjectListView {
+        --
+    }
+    ProjectListView --|> ViewInterface
+
+    class ProjectView {
+        --
+    }
+    ProjectView --|> ViewInterface
+
+}
+
+package Components {
+
+    interface Component {
+        --
+    }
+
+    class Menu {
+        # showMenu(options,header) : int
+    }
+    Component <|-- Menu
+
+    class Header {
+        # showHeader(header) : void
+    }
+    Component <|-- Header
+
+    class AsciiArt {
+        --
+        + showLogo : void
+    }
+    Component <|-- AsciiArt
+
+
+}
+
+GuestMenuController --> LoginView : 1
+GuestMenuController --> RegisterEmployeeView : 1
+
+EmployeeMenuController --> ProjectListView : showProjects()
+EmployeeMenuController --> ProjectView : showProjects()
+
+
+TaskFusionCLI --> GuestMenuController : guestMenuController
+TaskFusionCLI --> EmployeeMenuController : EmployeeMenuController
+
+
+@enduml
