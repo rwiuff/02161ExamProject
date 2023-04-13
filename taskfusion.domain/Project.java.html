@@ -159,7 +159,7 @@ public class Project {
 <span class="fc" id="L159">    return false;</span>
   }
 
-  public void assignProjectActivity(ProjectActivity projectActivity) throws AlreadyExistsException {
+  public void createProjectActivity(ProjectActivity projectActivity) throws AlreadyExistsException {
 <span class="fc bfc" id="L163" title="All 2 branches covered.">    if (hasProjectActivity(projectActivity.getTitle())) {</span>
 <span class="fc" id="L164">      throw new AlreadyExistsException(&quot;Projekt aktivitet findes allerede&quot;);</span>
     }

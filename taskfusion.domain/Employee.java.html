@@ -144,7 +144,7 @@ public class Employee {
 
   public void addProjectActivity(String projectNumber, ProjectActivity projectActivity) throws AlreadyExistsException, NotFoundException {
 <span class="nc" id="L146">    Project project = findProject(projectNumber);</span>
-<span class="nc" id="L147">    project.assignProjectActivity(projectActivity);</span>
+<span class="nc" id="L147">    project.createProjectActivity(projectActivity);</span>
 <span class="nc" id="L148">  }</span>
 
   public void setTimeBudgetProjectActivity(String projectNumber, String title, Integer timeBudget) throws NotFoundException {

@@ -151,7 +151,7 @@ import taskfusion.persistency.ProjectRepository;
 <span class="fc" id="L151">      throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
     } else {
 <span class="fc" id="L153">      Project project = findProjectByProjectNumber(projectNumber);</span>
-<span class="fc" id="L154">      project.assignProjectActivity(new ProjectActivity(title, startWeek, endWeek));</span>
+<span class="fc" id="L154">      project.createProjectActivity(new ProjectActivity(title, startWeek, endWeek));</span>
     }
 <span class="fc" id="L156">  }</span>
 
