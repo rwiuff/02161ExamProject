@@ -39,7 +39,7 @@ jobs:
     
     # Generate Code coverage report
     - name: Generate JaCoCo Badge
-      if: ${{ github.ref == 'refs/heads/master' }}
+#      if: ${{ github.ref == 'refs/heads/master' }}
       uses: cicirello/jacoco-badge-generator@v2
       with:
         jacoco-csv-file: target/site/jacoco/jacoco.csv
@@ -47,7 +47,7 @@ jobs:
     
     #Publish Code coverage report
     - name: Publish coverage report to GitHub Pages
-      if: ${{ github.ref == 'refs/heads/master' }}
+#      if: ${{ github.ref == 'refs/heads/master' }}
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         folder: target/site/jacoco
