@@ -1,5 +1,7 @@
 package taskfusion.cli.controllers;
 
+import java.util.Map;
+
 import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;

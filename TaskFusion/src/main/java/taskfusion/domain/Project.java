@@ -139,11 +139,12 @@ public class Project {
       throw new NotFoundException("Ukendt medarbejder");
     }
 
-    if (!allowAssignEmployeeToProject(loggedInUser)) {
+    if(!allowAssignEmployeeToProject(loggedInUser)) {
       throw new OperationNotAllowedException("Kun projektleder kan tildele medarbejdere til projektet");
     }
 
     assignedEmployees.put(employee.getInitials(), employee);
+
 
   }
 
@@ -158,13 +159,17 @@ public class Project {
     return false;
   }
 
-  public void assignProjectActivity(ProjectActivity projectActivity) {
+  public void assignProjectActivity(ProjectActivity projectActivity) throws AlreadyExistsException {
+    if (hasProjectActivity(projectActivity.getTitle())) {
+      throw new AlreadyExistsException("Projekt aktivitet findes allerede");
+    }
+    
     this.activities.add(projectActivity);
   }
 
-  public boolean hasProjectActivity(String string) throws NotFoundException {
+  public boolean hasProjectActivity(String title) {
     for (ProjectActivity projectActivity : this.activities) {
-      if (projectActivity.getTitle().equals(string)) {
+      if (projectActivity.getTitle().equals(title)) {
         return true;
       }
     }
@@ -172,11 +177,13 @@ public class Project {
     return false;
   }
 
-  public ProjectActivity getActivity(String activityTitle) throws NotFoundException {
-    if(hasProjectActivity(activityTitle)){
-      return activities.stream().filter(activity -> activity.title.equals(activityTitle)).findFirst().get();
-    } else {
-      throw new NotFoundException("Ukendt projektaktivitet");
+  public ProjectActivity findProjectActivity(String title) throws NotFoundException {
+    for (ProjectActivity projectActivity : this.activities) {
+      if (projectActivity.getTitle().equals(title)) {
+        return projectActivity;
+      }
     }
+
+    throw new NotFoundException("Projektaktiviteten findes ikke.");
   }
 }

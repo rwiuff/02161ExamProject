@@ -2,6 +2,7 @@ package taskfusion.app;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import java.util.Map;
 
 import taskfusion.domain.Project;
 
@@ -16,17 +17,15 @@ public class TaskFusionDriver {
             
             taskFusion.createProject("Projektet");
 
-            //ProjectRepository projectRepo = ProjectRepository.getInstance();
-            //Project p = projectRepo.findProjectByProjectNumber(23001);
-            Project p = taskFusion.projectRepo.findByProjectNumber("23001");
+            Project p = taskFusion.findProjectByProjectNumber("23001");
 
             assertNotNull(p);
-            assertEquals("Projektet",p.getProjectTitle());
-
+            assertEquals("Projektet", p.getProjectTitle());
+            taskFusion.createProjectActivity("23001", "testaktivitet", 01, 02);
+            taskFusion.createProjectActivity("23001", "testaktivitet", 01, 02);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        
 
     }
 
