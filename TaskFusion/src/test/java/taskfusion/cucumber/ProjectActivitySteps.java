@@ -26,15 +26,6 @@ public class ProjectActivitySteps {
     }
   }
 
-  @Given("a project with title {string} with project number {int} exists in the application")
-  public void aProjectWithTitleWithProjectNumberExistsInTheApplication(String string, Integer int1) {
-    try {
-      this.taskFusion.createProject(string);
-    } catch (Exception e) {
-      this.errorMessageHolder.setErrorMessage(e.getMessage());
-    }
-  }
-
   @Then("the project with the project number {string} has a project activity titled {string}")
   public void theProjectWithTheProjectNumberHasAProjectActivityTitled(String string1, String string2) {
     try {
@@ -47,15 +38,6 @@ public class ProjectActivitySteps {
   @Given("no one is logged in")
   public void nooneIsLoggedIn() {
     this.taskFusion.logout();
-  }
-
-  @Given("an activity with the title {string} exists within the project with project number {string}")
-  public void anActivityWithTheTitleExistsWithinTheProjectWithProjectNumber(String string1, String string2) {
-    try {
-      this.taskFusion.createProjectActivity(string2, string1, 0, 1);
-    } catch (Exception e) {
-      this.errorMessageHolder.setErrorMessage(e.getMessage());
-    }
   }
 
   @When("the user sets the time budget to {int} hours on the project activity with the title {string} and project number {string}")
