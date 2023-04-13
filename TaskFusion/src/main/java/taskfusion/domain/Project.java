@@ -1,7 +1,9 @@
 package taskfusion.domain;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import taskfusion.exceptions.AlreadyExistsException;
@@ -19,6 +21,7 @@ public class Project {
   private int startWeek;
   private int endWeek;
   private Map<String, Employee> assignedEmployees = new HashMap<>();
+  private List<ProjectActivity> activities = new ArrayList<ProjectActivity>();
 
   public Project(String projectTitle, Calendar date) {
     this.projectTitle = projectTitle;
@@ -153,6 +156,20 @@ public class Project {
     if (loggedInUser.getInitials().equals(projectLeader.getInitials())) {
       return true;
     }
+    return false;
+  }
+
+  public void assignProjectActivity(ProjectActivity projectActivity) {
+    this.activities.add(projectActivity);
+  }
+
+  public boolean hasProjectActivity(String string) throws NotFoundException {
+    for (ProjectActivity projectActivity : this.activities) {
+      if (projectActivity.getTitle().equals(string)) {
+        return true;
+      }
+    }
+
     return false;
   }
 
