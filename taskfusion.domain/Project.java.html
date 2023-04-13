@@ -178,13 +178,13 @@ public class Project {
   }
 
   public ProjectActivity findProjectActivity(String title) throws NotFoundException {
-<span class="pc bpc" id="L181" title="1 of 2 branches missed.">    for (ProjectActivity projectActivity : this.activities) {</span>
-<span class="pc bpc" id="L182" title="1 of 2 branches missed.">      if (projectActivity.getTitle().equals(title)) {</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
+<span class="fc bfc" id="L182" title="All 2 branches covered.">      if (projectActivity.getTitle().equals(title)) {</span>
 <span class="fc" id="L183">        return projectActivity;</span>
       }
-<span class="nc" id="L185">    }</span>
+<span class="fc" id="L185">    }</span>
 
-<span class="nc" id="L187">    throw new NotFoundException(&quot;Projektaktiviteten findes ikke.&quot;);</span>
+<span class="fc" id="L187">    throw new NotFoundException(&quot;Projektaktiviteten findes ikke.&quot;);</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
