@@ -12,7 +12,7 @@ import taskfusion.persistency.ProjectRepository;
 
 public class Employee {
   private List<RegularActivity> regularActivities = new ArrayList<RegularActivity>();
-  private Map<String, Project> projects = new HashMap<>();
+  // private Map<String, Project> projects = new HashMap<>();
   private String firstName;
   private String lastName;
   private String initials;
