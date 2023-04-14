@@ -106,7 +106,7 @@ public class ProjectRepository {
         return allWorktimeRegistrations();
     }
 
-    public WorktimeRegistration findWorktimeRegistrationById(int id) {
+    public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
 
         List<WorktimeRegistration> list = allWorktimeRegistrations();
 
@@ -116,7 +116,8 @@ public class ProjectRepository {
             }
         }
 
-        return null;
+        throw new NotFoundException("Ukendt tidsregistrering");
+
     }
 
     public Integer generateWorktimeRegistrationId() {

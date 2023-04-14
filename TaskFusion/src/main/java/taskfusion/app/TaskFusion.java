@@ -1,7 +1,6 @@
 package taskfusion.app;
 
 import java.util.List;
-import java.util.Map;
 
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
@@ -13,7 +12,6 @@ import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
-import taskfusion.helpers.PrintHelper;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
@@ -219,7 +217,7 @@ public class TaskFusion {
         .getTotalWorkTimeForEmployee(loggedInUser.getInitials());
   }
 
-  public void editWorktimeRegistration(int id, double hours) throws OperationNotAllowedException {
+  public void editWorktimeRegistration(int id, double hours) throws OperationNotAllowedException, NotFoundException {
 
     if(!isLoggedIn()) {
       throw new OperationNotAllowedException("Login krævet");

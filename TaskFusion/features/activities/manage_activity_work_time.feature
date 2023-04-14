@@ -34,7 +34,7 @@ Scenario: 2. An employee can view the total amount of registered work time for a
     When the user requests a sum of own worktime registrations for the activity titled "Graphics design" in the project with project number "01001"
     Then 16 hours is returned
 
-Scenario: 3. An employee can edit individual work time registrations for an activity
+Scenario: 3. An employee can edit a individual worktime registration
     Given the user logs in using initials "mila"
     And the user edits the worktime registration with id 1 to 7 hours
     When the user requests a sum of own worktime registrations for the activity titled "Graphics design" in the project with project number "01001"
@@ -46,37 +46,20 @@ Scenario: 1a. Guests are unable to view the list of work time registrations for 
     When the user requests a list of own worktime registrations for the activity titled "Graphics design" in the project with project number "01001"
     Then the error message "Login krævet" is given
 
-# Scenario: 2a. Guests are unable to view the total amount of registered work time for an activity
-#     Given none is logged in
-#     When the total amount of registered work time is requested for the project activity titled "Graphics design" in the project with project number 01001
-#     Then the error message "Login krævet" is given
+Scenario: 2a. Guests are unable to view the total amount of registered work time for an activity
+    When the user requests a sum of own worktime registrations for the activity titled "Graphics design" in the project with project number "01001"
+    Then the error message "Login krævet" is given
 
-# Scenario: 3a. Guests are unable to edit the total amount of registered work time for an activity
-#     Given none is logged in
-#     When the user edits the first registered work time registration to 7 hours for the activity titled "Graphics design" in the project with project number 01001
-#     Then the error message "Login krævet" is given
+Scenario: 3a. Guests are unable to edit individual work time registrations for an activity
+    When the user edits the worktime registration with id 1 to 7 hours
+    Then the error message "Login krævet" is given
 
-# Scenario: 4a. Guests are unable to edit individual work time registrations for an activity
-#     Given none is logged in
-#     When the user edits the total amount of registered work time for the activity titled "Graphics design" in the project with project number 01001
-#     Then the error message "Login krævet" is given
-
-# Scenario: 1b. An employee wishes to view the list of work time registrations for an activity with no work time registered
-#     And an activity with the title "Implement physics" exists within the project with project number 01001
-#     When the list of work time registrations is requested for the activity titled "Implement physics" in the project with project number 01001
-#     Then the error message "Ingen arbejdstid er registreret for denne aktivitet endnu" is given
-
-# Scenario: 2b. An employee wishes to view the total amount of registered work time for an activity with no registered work time
-#     And an activity with the title "Implement physics" exists within the project with project number 01001
-#     When the the total amount of registered work time is requested for the activity titled "Implement physics" in the project with project number 01001
-#     Then the error message "Ingen arbejdstid er registreret for denne aktivitet endnu" is given
-
-# Scenario: 3b. An employee wishes to edit the total amount of registered work time for an activity with no registered work time
-#     And an activity with the title "Implement physics" exists within the project with project number 01001
-#     When the user edits the total amount of registered work time to 18 hours for the activity titled "Implement physics" in the project with project number 01001
-#     Then the error message "Ingen arbejdstid er registreret for denne aktivitet endnu" is given
-
-# Scenario: 4b. An employee wishes to edit individual work time registrations for an activity with no registered work time
-#     And an activity with the title "Implement physics" exists within the project with project number 01001
-#     When the user edits the first registered work time registration to 7 hours for the activity titled "Implement physics" in the project with project number 01001
-#     Then the error message "Ingen arbejdstid er registreret for denne aktivitet endnu"
+Scenario: 3b. Not found exception is thrown if a worktime registration cant be found
+    Given the user logs in using initials "mila"
+    And the user edits the worktime registration with id 99 to 7 hours
+    Then the error message "Ukendt tidsregistrering" is given
+  
+Scenario: 3c. A employee cant edit another employee worktime registration
+    Given the user logs in using initials "mila"
+    And the user edits the worktime registration with id 3 to 7 hours
+    Then the error message "Du har ikke rettighed til at redigere denne registrering" is given

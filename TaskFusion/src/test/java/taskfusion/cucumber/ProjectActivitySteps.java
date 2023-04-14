@@ -114,7 +114,11 @@ public class ProjectActivitySteps {
 
     @Then("worktime registration with id {int} has a worktime of {int} hours")
     public void worktime_registration_with_id_has_a_worktime_of_hours(int id, int hours) {
-        assertEquals(hours, taskFusion.projectRepo.findWorktimeRegistrationById(id).getTime());
+        try {
+          assertEquals(hours, taskFusion.projectRepo.findWorktimeRegistrationById(id).getTime());
+        } catch (Exception e) {
+          this.errorMessageHolder.setErrorMessage(e.getMessage());
+        }
     }
 
     @Then("the user edits the worktime registration with id {int} to {double} hours")
