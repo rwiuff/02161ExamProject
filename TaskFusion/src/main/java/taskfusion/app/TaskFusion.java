@@ -162,14 +162,22 @@ public class TaskFusion {
     }
   }
 
-  public void setTimeBudget(String projectNumber, String title, Integer timeBudget)
+  public void setTimeBudget(String projectNumber, String projectActivityTitle, Integer timeBudget)
       throws NotFoundException, OperationNotAllowedException {
     if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Login krævet");
-    } else {
-      Project project = findProjectByProjectNumber(projectNumber);
-      project.findProjectActivity(title).setTimeBudget(timeBudget);
+    } 
+    
+    if (projectRepo.findByProjectNumber(projectNumber).getProjectLeader() != null) {
+      if (!loggedInUser.getInitials().equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials())) {
+        System.out.println(loggedInUser.getInitials().equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials()));
+        throw new OperationNotAllowedException("Kun projektlederen kan tildele tidsbudgetter");
+      }
     }
+
+    Project project = findProjectByProjectNumber(projectNumber);
+    project.findProjectActivity(projectActivityTitle).setTimeBudget(timeBudget);
+    
   }
 
   public void registerWorkTime(String projectNumber, String activityTitle, double worktTime) throws NotFoundException, OperationNotAllowedException {

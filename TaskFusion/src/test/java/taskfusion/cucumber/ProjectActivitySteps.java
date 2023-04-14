@@ -45,9 +45,9 @@ public class ProjectActivitySteps {
   }
 
   @When("the user sets the time budget to {int} hours on the project activity with the title {string} and project number {string}")
-  public void theUserSetsTheTimeBudgetToHoursOnTheProjectActivityWithTheTitleAndProjectNumber(Integer int1, String string1, String string2) {
+  public void theUserSetsTheTimeBudgetToHoursOnTheProjectActivityWithTheTitleAndProjectNumber(Integer timeBudget, String projectActivityTitle, String projectNumber) {
     try {
-      this.taskFusion.setTimeBudget(string2, string1, int1);
+      this.taskFusion.setTimeBudget(projectNumber, projectActivityTitle, timeBudget);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
