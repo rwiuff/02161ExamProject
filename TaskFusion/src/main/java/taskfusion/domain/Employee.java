@@ -11,8 +11,9 @@ import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
+import taskfusion.viewModels.EmployeeViewModel;
 
-public class Employee {
+public class Employee implements ConvertibleToViewModelInterface {
   private List<RegularActivity> regularActivities = new ArrayList<RegularActivity>();
   private Map<String, Project> projects = new HashMap<>();
   private String firstName;
@@ -24,6 +25,10 @@ public class Employee {
     this.lastName = validateLastName(lastName);
     createInitials();
 
+  }
+
+  public EmployeeViewModel toViewModel(){
+    return new EmployeeViewModel(this);
   }
 
   private String validateFirstName(String firstName) throws InvalidPropertyException {

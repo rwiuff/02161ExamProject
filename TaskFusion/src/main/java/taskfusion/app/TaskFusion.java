@@ -13,6 +13,8 @@ import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
+import taskfusion.facades.EmployeeFacade;
+import taskfusion.facades.ProjectFacade;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
@@ -24,9 +26,18 @@ public class TaskFusion {
   public ProjectRepository projectRepo = ProjectRepository.getInstance();
   public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
 
+  private EmployeeFacade employeeFacade;
+  private ProjectFacade projectFacade;
+
+
+  public TaskFusion() {
+    this.employeeFacade = new EmployeeFacade(this);
+    this.projectFacade = new ProjectFacade(this);
+  }
+
   /**
    * ###########################
-   * USER / SESSION facades
+   * Authentification
    * ###########################
    */
   public Employee getLoggedInUser() {
@@ -52,59 +63,18 @@ public class TaskFusion {
 
   /**
    * ###########################
-   * EMPLOYEE facades
+   * Date handling
    * ###########################
    */
-  public void registerEmployee(String firstName, String lastName)
-      throws InvalidPropertyException, ExhaustedOptionsException {
-    employeeRepo.create(firstName, lastName);
-  }
-
-  public Employee findEmployeeByInitials(String initials) {
-    return employeeRepo.findByInitials(initials);
-  }
 
   public void setDateServer(DateServer dateServer) {
     this.dateServer = dateServer;
   }
 
-     // ALLE DISSE CHECKS, SKAL FOREGÅ I DOMAIN LAYER, SO I SELVE REGULARACTIVITY KLASSEN
-     public Calendar getDate() {
-      return this.dateServer.getDate();
-    }
-
-  /**
-   * ###########################
-   * PROJECT facades
-   * ###########################
-   * 
-   * @throws NotFoundException
-   * @throws AlreadyExistsException
-   */
-
-  public void createProject(String projectTitle)
-      throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, AlreadyExistsException {
-    if (!isLoggedIn()) {
-      throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
-    } else {
-      projectRepo.create(projectTitle, loggedInUser, this.dateServer.getDate());
-    }
+  public Calendar getDate() {
+    return this.dateServer.getDate();
   }
 
-  public void assignCustomerToProject(String projectNumber, String customer) throws NotFoundException {
-    projectRepo.findByProjectNumber(projectNumber).setCustomer(customer);
-  }
-
-  public void assignEmployeeToProject(String projectNumber, String initials)
-      throws NotFoundException, OperationNotAllowedException {
-    Project project = projectRepo.findByProjectNumber(projectNumber);
-    project.assignEmployee(initials, loggedInUser);
-  }
-
-  public Project findProjectByProjectNumber(String projectNumber) throws NotFoundException {
-    Project project = projectRepo.findByProjectNumber(projectNumber);
-    return project;
-  }
 
   /**
    * ###########################
@@ -112,6 +82,8 @@ public class TaskFusion {
    * ###########################
    */
 
+  // ALLE DISSE CHECKS, SKAL FOREGÅ I DOMAIN LAYER, SO I SELVE REGULARACTIVITY
+  // KLASSEN
   public void createRegularActivity(String title, Integer startWeek, Integer endWeek)
       throws OperationNotAllowedException, InvalidPropertyException {
     if (title == "") {
@@ -172,22 +144,25 @@ public class TaskFusion {
       throws NotFoundException, OperationNotAllowedException {
     if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Login krævet");
-    } 
-    
+    }
+
     if (projectRepo.findByProjectNumber(projectNumber).getProjectLeader() != null) {
-      if (!loggedInUser.getInitials().equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials())) {
-        System.out.println(loggedInUser.getInitials().equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials()));
+      if (!loggedInUser.getInitials()
+          .equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials())) {
+        System.out.println(loggedInUser.getInitials()
+            .equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials()));
         throw new OperationNotAllowedException("Kun projektlederen kan tildele tidsbudgetter");
       }
     }
 
     Project project = findProjectByProjectNumber(projectNumber);
     project.findProjectActivity(projectActivityTitle).setTimeBudget(timeBudget);
-    
+
   }
 
-  public void registerWorkTime(String projectNumber, String activityTitle, double worktTime) throws NotFoundException, OperationNotAllowedException {
-    if(!isLoggedIn()) {
+  public void registerWorkTime(String projectNumber, String activityTitle, double worktTime)
+      throws NotFoundException, OperationNotAllowedException {
+    if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Login krævet");
     }
     projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
@@ -197,15 +172,16 @@ public class TaskFusion {
   public double getTotalWorkTimeForEmployee(String projectNumber, String activityTitle, double workTime)
       throws NotFoundException, OperationNotAllowedException {
 
-        if(!isLoggedIn()) {
-          throw new OperationNotAllowedException("Login krævet");
-        }
+    if (!isLoggedIn()) {
+      throw new OperationNotAllowedException("Login krævet");
+    }
     return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
         .getTotalWorkTimeForEmployee(getLoggedInUser().getInitials());
   }
 
-  public Double getTotalWorktimeForActivity(String projectNumber, String activityTitle) throws NotFoundException, OperationNotAllowedException {
-    if(!isLoggedIn()) {
+  public Double getTotalWorktimeForActivity(String projectNumber, String activityTitle)
+      throws NotFoundException, OperationNotAllowedException {
+    if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Login krævet");
     }
     return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getTotalWorkTime();
@@ -214,35 +190,36 @@ public class TaskFusion {
   public List<WorktimeRegistration> getUserWorktimeRegistrationsForProjectActivity(String activityTitle,
       String projectNumber) throws NotFoundException, OperationNotAllowedException {
 
-        if(!isLoggedIn()) {
-          throw new OperationNotAllowedException("Login krævet");
-        }
+    if (!isLoggedIn()) {
+      throw new OperationNotAllowedException("Login krævet");
+    }
 
     return findProjectByProjectNumber(projectNumber).findProjectActivity(activityTitle)
         .getWorkTimeRegistrationsForEmployee(loggedInUser.getInitials());
   }
 
-  public double getUserWorktimeForProjectActivity(String activityTitle, String projectNumber) throws NotFoundException, OperationNotAllowedException {
-    if(!isLoggedIn()) {
+  public double getUserWorktimeForProjectActivity(String activityTitle, String projectNumber)
+      throws NotFoundException, OperationNotAllowedException {
+    if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Login krævet");
     }
-    
+
     return findProjectByProjectNumber(projectNumber).findProjectActivity(activityTitle)
         .getTotalWorkTimeForEmployee(loggedInUser.getInitials());
   }
 
   public void editWorktimeRegistration(int id, double hours) throws OperationNotAllowedException, NotFoundException {
 
-    if(!isLoggedIn()) {
+    if (!isLoggedIn()) {
       throw new OperationNotAllowedException("Login krævet");
     }
 
     WorktimeRegistration worktimeRegistration = projectRepo.findWorktimeRegistrationById(id);
 
-    if(!worktimeRegistration.getInitials().equals(loggedInUser.getInitials())) {
+    if (!worktimeRegistration.getInitials().equals(loggedInUser.getInitials())) {
       throw new OperationNotAllowedException("Du har ikke rettighed til at redigere denne registrering");
     }
-    
+
     worktimeRegistration.setTime(hours);
 
   }

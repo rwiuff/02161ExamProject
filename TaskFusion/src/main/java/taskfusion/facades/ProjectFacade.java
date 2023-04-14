@@ -7,6 +7,7 @@ import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.persistency.ProjectRepository;
+import taskfusion.viewModels.ProjectViewModel;
 
 public class ProjectFacade {
     private TaskFusion taskFusion;
@@ -35,9 +36,9 @@ public class ProjectFacade {
         project.assignEmployee(initials, taskFusion.getLoggedInUser());
     }
 
-    public Project findProjectByProjectNumber(String projectNumber) throws NotFoundException {
+    public ProjectViewModel findProjectByProjectNumber(String projectNumber) throws NotFoundException {
         Project project = projectRepo.findByProjectNumber(projectNumber);
-        return project;
+        return project.toViewModel();
     }
     
 }

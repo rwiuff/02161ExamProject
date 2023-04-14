@@ -5,6 +5,7 @@ import taskfusion.domain.Employee;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.persistency.EmployeeRepository;
+import taskfusion.viewModels.EmployeeViewModel;
 
 public class EmployeeFacade {
     private TaskFusion taskFusion;
@@ -19,8 +20,8 @@ public class EmployeeFacade {
         employeeRepo.create(firstName, lastName);
     }
 
-    public Employee findEmployeeByInitials(String initials) {
-        return employeeRepo.findByInitials(initials);
+    public EmployeeViewModel findEmployeeByInitials(String initials) {
+        return employeeRepo.findByInitials(initials).toViewModel();
     }
 
 }
