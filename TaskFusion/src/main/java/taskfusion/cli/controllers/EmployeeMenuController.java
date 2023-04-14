@@ -5,8 +5,8 @@ import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
 import taskfusion.cli.views.CreateProjectView;
 import taskfusion.cli.views.ListProjectsView;
-import taskfusion.domain.Project;
 import taskfusion.exceptions.NotFoundException;
+import taskfusion.viewModels.ProjectViewModel;
 
 public class EmployeeMenuController implements ControllerInterface {
 
@@ -26,7 +26,7 @@ public class EmployeeMenuController implements ControllerInterface {
             switch (selectedMenuItem) {
                 case 1: // Se projekter
 
-                    Project selectedProject = null;
+                    ProjectViewModel selectedProject = null;
                     try {
                         selectedProject = new ListProjectsView().select();
                     } catch (NotFoundException e) {

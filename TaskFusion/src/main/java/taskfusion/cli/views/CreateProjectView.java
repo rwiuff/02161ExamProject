@@ -20,7 +20,7 @@ public class CreateProjectView implements ViewInterface {
             }
 
             try {
-                TaskFusionCLI.taskFusion().createProject(projectTitle);
+                TaskFusionCLI.projectFacade().createProject(projectTitle);
             } catch (Exception e) {
                 Text.showExceptionError(e);
                 Text.showInfo("Prøv igen");

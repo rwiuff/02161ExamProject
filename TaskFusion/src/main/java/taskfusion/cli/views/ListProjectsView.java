@@ -8,6 +8,7 @@ import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
 import taskfusion.domain.Project;
 import taskfusion.exceptions.NotFoundException;
+import taskfusion.viewModels.ProjectViewModel;
 
 public class ListProjectsView implements ViewInterface {
     
@@ -16,21 +17,21 @@ public class ListProjectsView implements ViewInterface {
 
     }
 
-    public Project select() throws NotFoundException {
+    public ProjectViewModel select() throws NotFoundException {
 
-        Map<String, Project> projects =  TaskFusionCLI.taskFusion().getLoggedInUser().getProjects();
-
-        //Get the options
-        String[] optionKeys = projects.keySet().toArray(new String[0]);
+        List<ProjectViewModel> projects = TaskFusionCLI.projectFacade().getUserProjects();
 
         //Get titles
-        List<String> optionsList = new ArrayList<String>();
+        List<String> optionsTextList = new ArrayList<String>();
+        List<String> optionsKeyList = new ArrayList<String>();
 
-        for (Project project : projects.values()) {
-            optionsList.add(project.getProjectTitle());
+        for (ProjectViewModel project : projects) {
+            optionsTextList.add(project.projectTitle);
+            optionsKeyList.add(project.projectNumber);
         }
 
-        String[] optionTexts = optionsList.toArray(new String[0]);
+        String[] optionTexts = optionsTextList.toArray(new String[0]);
+        String[] optionKeys = optionsKeyList.toArray(new String[0]);
 
         String choice = Menu.showListOptions(optionKeys, optionTexts, "Vælg projekt", "Dine projekter");
 
@@ -38,7 +39,7 @@ public class ListProjectsView implements ViewInterface {
             return null;
         }
 
-        return TaskFusionCLI.taskFusion().findProjectByProjectNumber(choice);
+        return TaskFusionCLI.projectFacade().findProjectByProjectNumber(choice);
 
     }
 

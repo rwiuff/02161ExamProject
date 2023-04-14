@@ -3,13 +3,13 @@ package taskfusion.cli.controllers;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
 import taskfusion.cli.views.ProjectInfoView;
-import taskfusion.domain.Project;
+import taskfusion.viewModels.ProjectViewModel;
 
 public class ProjectMenuController implements ControllerInterface {
 
-    private Project project;
+    private ProjectViewModel project;
 
-    public ProjectMenuController(Project project){
+    public ProjectMenuController(ProjectViewModel project){
         this.project = project;
     }
 

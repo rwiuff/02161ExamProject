@@ -29,11 +29,11 @@ public class PrintHelperTest {
     }
 
     @Test 
-    public void testPrintProjecs() throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, ExhaustedOptionsException {
+    public void testPrintProjects() throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, ExhaustedOptionsException {
         EmployeeRepository.getInstance().create("Michael", "Laudrup");
         Employee creator = EmployeeRepository.getInstance().findByInitials("mila");
 
-        ProjectRepository.getInstance().create("Demo 1", creator, new DateServer().getDate());
+        ProjectRepository.getInstance().create("Demo 1", new DateServer().getDate());
         PrintHelper.printProjects(ProjectRepository.getInstance().all());
     }
 

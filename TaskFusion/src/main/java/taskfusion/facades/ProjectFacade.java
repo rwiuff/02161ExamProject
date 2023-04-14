@@ -1,6 +1,8 @@
 package taskfusion.facades;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import taskfusion.app.TaskFusion;
 import taskfusion.domain.Employee;
@@ -161,6 +163,13 @@ public class ProjectFacade {
 
     }
 
+    public List<ProjectViewModel> getUserProjects() {
+        
+        List<Project> projects = new ArrayList<Project>(getLoggedInUserModel().getProjects().values());
+
+        return ProjectViewModel.listFromModels(projects);
+    }
+
     /**
      * ###########################
      * Helper methods
@@ -169,4 +178,6 @@ public class ProjectFacade {
     private Employee getLoggedInUserModel() {
         return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);
     }
+
+
 }
