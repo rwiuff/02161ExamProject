@@ -1,14 +1,19 @@
 package taskfusion.app;
 
+import java.util.List;
+import java.util.Map;
+
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
 import taskfusion.domain.ProjectActivity;
 import taskfusion.domain.RegularActivity;
+import taskfusion.domain.WorktimeRegistration;
 import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
+import taskfusion.helpers.PrintHelper;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
@@ -155,7 +160,7 @@ public class TaskFusion {
       throw new OperationNotAllowedException("Login krævet");
     } else {
       Project project = findProjectByProjectNumber(projectNumber);
-      project.createProjectActivity(new ProjectActivity(title, startWeek, endWeek));
+      project.createProjectActivity(new ProjectActivity(title, startWeek, endWeek), loggedInUser);
     }
   }
 
@@ -171,11 +176,45 @@ public class TaskFusion {
 
   public void registerWorkTime(String projectNumber, String activityTitle, double worktTime) throws NotFoundException {
     projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
-        .registerWorkTime(getLoggedInUser().getInitials(), worktTime);
+        .registerWorkTime(getLoggedInUser().getInitials(), this.dateServer.getDate(), worktTime);
   }
 
-  public double getWorkTime(String projectNumber, String activityTitle, double workTime) throws NotFoundException {
+  public double getTotalWorkTimeForEmployee(String projectNumber, String activityTitle, double workTime)
+      throws NotFoundException {
     return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
-    .getWorkTime(getLoggedInUser().getInitials());
+        .getTotalWorkTimeForEmployee(getLoggedInUser().getInitials());
   }
+
+  public Double getTotalWorktimeForActivity(String projectNumber, String activityTitle) throws NotFoundException {
+    return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getTotalWorkTime();
+  }
+
+  public List<WorktimeRegistration> getUserWorktimeRegistrationsForProjectActivity(String activityTitle,
+      String projectNumber) throws NotFoundException {
+
+    return findProjectByProjectNumber(projectNumber).findProjectActivity(activityTitle)
+        .getWorkTimeRegistrationsForEmployee(loggedInUser.getInitials());
+  }
+
+  public double getUserWorktimeForProjectActivity(String activityTitle, String projectNumber) throws NotFoundException {
+    return findProjectByProjectNumber(projectNumber).findProjectActivity(activityTitle)
+        .getTotalWorkTimeForEmployee(loggedInUser.getInitials());
+  }
+
+  public void editWorktimeRegistration(int id, double hours) throws OperationNotAllowedException {
+
+    if(!isLoggedIn()) {
+      throw new OperationNotAllowedException("Login krævet");
+    }
+
+    WorktimeRegistration worktimeRegistration = projectRepo.findWorktimeRegistrationById(id);
+
+    if(!worktimeRegistration.getInitials().equals(loggedInUser.getInitials())) {
+      throw new OperationNotAllowedException("Du har ikke rettighed til at redigere denne registrering");
+    }
+    
+    worktimeRegistration.setTime(hours);
+
+  }
+
 }

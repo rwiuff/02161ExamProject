@@ -54,7 +54,6 @@ package "Domain-layer" {
     }
 
     class ProjectActivity{
-        worktimeRegistrations : List
         timeBudget : int
         --
         + setTimeBudget(int)
@@ -82,6 +81,12 @@ package "Domain-layer" {
         - createInitials() : void
     }
 
+    class WorktimeRegistration {
+        - initials : String 
+        - time : double 
+        - date : Calendar
+    }
+
 }
 
 app --> "1" ProjectRepository : projectRepository
@@ -102,5 +107,9 @@ Project --> "0..*" Employee : employees
 Employee --> "0..*" Project : projects
 Project -> "0..*" ProjectActivity : activities
 Employee -> "0..*" RegularActivity : regularActivities
+
+ProjectActivity --> "0..*" WorktimeRegistrations : worktimeRegistrations
+
+'Employee --> "0..*" WorktimeRegistrations : worktimeRegistrations
 
 @enduml

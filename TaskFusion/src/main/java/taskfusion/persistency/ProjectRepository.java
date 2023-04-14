@@ -1,12 +1,15 @@
 package taskfusion.persistency;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
+import taskfusion.domain.WorktimeRegistration;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
@@ -83,6 +86,47 @@ public class ProjectRepository {
             throw new NotFoundException("Projektet kunne ikke findes i samlingen af projekter");
         }
         return returnProject;
+    }
+
+    private List<WorktimeRegistration> allWorktimeRegistrations() {
+
+        List<WorktimeRegistration> list = new ArrayList<>();
+
+        for (Entry<String, Project> entry: projects.entrySet()){
+
+            Project project = entry.getValue();
+
+            list.addAll(project.getWorktimeRegistrations());
+        }
+        return list;
+    }
+
+    public WorktimeRegistration findWorktimeRegistrationById(int id) {
+
+        List<WorktimeRegistration> list = allWorktimeRegistrations();
+
+        for(WorktimeRegistration worktimeRegistration : list) {
+            if(worktimeRegistration.getId().equals(id)) {
+                return worktimeRegistration;
+            }
+        }
+
+        return null;
+    }
+
+    public Integer generateWorktimeRegistrationId() {
+        Integer lastId = 0;
+
+        List<WorktimeRegistration> list = allWorktimeRegistrations();
+
+        for(WorktimeRegistration worktimeRegistration : list) {
+            Integer id = worktimeRegistration.getId();
+            if(id > lastId) {
+                lastId = id;
+            }
+        }
+
+        return lastId + 1;
     }
 
 }

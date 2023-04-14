@@ -142,10 +142,10 @@ public class Employee {
     }
   }
 
-  public void addProjectActivity(String projectNumber, ProjectActivity projectActivity) throws AlreadyExistsException, NotFoundException {
-    Project project = findProject(projectNumber);
-    project.createProjectActivity(projectActivity);
-  }
+  // public void addProjectActivity(String projectNumber, ProjectActivity projectActivity) throws AlreadyExistsException, NotFoundException {
+  //   Project project = findProject(projectNumber);
+  //   project.createProjectActivity(projectActivity);
+  // }
 
   public void setTimeBudgetProjectActivity(String projectNumber, String title, Integer timeBudget) throws NotFoundException {
     Project project = findProject(projectNumber);

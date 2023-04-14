@@ -108,6 +108,11 @@ public class Project {
     }
 
     int nextProjectNumber = (year * 1000) + lastNum + 1;
+
+    if(nextProjectNumber < 10000) {
+      return "0" + nextProjectNumber;
+    } 
+
     return "" + nextProjectNumber;
 
   }
@@ -159,7 +164,13 @@ public class Project {
     return false;
   }
 
-  public void createProjectActivity(ProjectActivity projectActivity) throws AlreadyExistsException {
+  public void createProjectActivity(ProjectActivity projectActivity, Employee loggedInUser) throws AlreadyExistsException, OperationNotAllowedException {
+    if (projectLeader != null) {
+      if (!projectLeader.getInitials().equals(loggedInUser.getInitials())) {
+        throw new OperationNotAllowedException("Kun projektlederen kan redigere denne projekt aktivitet");
+      }
+    }
+    
     if (hasProjectActivity(projectActivity.getTitle())) {
       throw new AlreadyExistsException("Projekt aktivitet findes allerede");
     }
@@ -186,4 +197,17 @@ public class Project {
 
     throw new NotFoundException("Projektaktiviteten findes ikke.");
   }
+
+  public List<WorktimeRegistration> getWorktimeRegistrations() {
+
+    List<WorktimeRegistration> list = new ArrayList<>();
+
+    for (ProjectActivity projectActivity : this.activities) {
+      list.addAll(projectActivity.getWorktimeRegistrations());
+    }
+
+    return list;
+
+  }
+
 }

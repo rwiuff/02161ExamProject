@@ -1,16 +1,18 @@
 package taskfusion.domain;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class ProjectActivity extends Activity {
-  protected int timeBudget;
-
-  private Map<String, Double> timeRegister = new HashMap<>();
+  
+  private int timeBudget;
+  private List<WorktimeRegistration> worktimeRegistrations;
 
   public ProjectActivity(String title, int startWeek, int endWeek) {
     super(title, startWeek, endWeek);
     this.timeBudget = 0;
+    this.worktimeRegistrations = new ArrayList<>();
   }
 
   public int getTimeBudget() {
@@ -21,15 +23,36 @@ public class ProjectActivity extends Activity {
     this.timeBudget = timeBudget;
   }
 
-  public void registerWorkTime(String initials, double worktTime) {
-    if (timeRegister.get(initials) == null) {
-      timeRegister.put(initials, worktTime);
-    } else {
-      timeRegister.put(initials, timeRegister.get(initials) + worktTime);
-    }
+  public void registerWorkTime(String initials, Calendar date, double workTime) {
+    worktimeRegistrations.add(new WorktimeRegistration(initials, date, workTime));
   }
 
-  public double getWorkTime(String initials) {
-    return timeRegister.get(initials);
+
+  public List<WorktimeRegistration> getWorktimeRegistrations() {
+    return worktimeRegistrations;
+  }
+
+  public List<WorktimeRegistration> getWorkTimeRegistrationsForEmployee(String initials) {
+    List<WorktimeRegistration> workTimes = new ArrayList<>();
+    for (WorktimeRegistration registration : worktimeRegistrations) {
+      if (registration.getInitials().equals(initials)) {
+        workTimes.add(registration);
+      }
+    }
+    return workTimes;
+  }
+
+  public double sumWorktime(List<WorktimeRegistration> worktimeRegistrations) {
+    Double workTime = worktimeRegistrations.stream().mapToDouble(w -> w.getTime()).sum();
+    return workTime;
+  }
+
+  public double getTotalWorkTimeForEmployee(String initials) {
+    List<WorktimeRegistration> workTimeRegistrations = getWorkTimeRegistrationsForEmployee(initials);
+    return sumWorktime(workTimeRegistrations);
+  }
+
+  public Double getTotalWorkTime() {
+    return sumWorktime(worktimeRegistrations);
   }
 }
