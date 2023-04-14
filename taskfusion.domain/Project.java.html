@@ -108,83 +108,107 @@ public class Project {
 <span class="fc" id="L108">    }</span>
 
 <span class="fc" id="L110">    int nextProjectNumber = (year * 1000) + lastNum + 1;</span>
-<span class="fc" id="L111">    return &quot;&quot; + nextProjectNumber;</span>
+
+<span class="fc bfc" id="L112" title="All 2 branches covered.">    if(nextProjectNumber &lt; 10000) {</span>
+<span class="fc" id="L113">      return &quot;0&quot; + nextProjectNumber;</span>
+    } 
+
+<span class="fc" id="L116">    return &quot;&quot; + nextProjectNumber;</span>
 
   }
 
   public void setProjectLeader(Employee employee) throws AlreadyExistsException {
-<span class="fc bfc" id="L116" title="All 2 branches covered.">    if (this.projectLeader != null) {</span>
-<span class="fc" id="L117">      throw new AlreadyExistsException(&quot;Der kan kun være en projektleder&quot;);</span>
+<span class="fc bfc" id="L121" title="All 2 branches covered.">    if (this.projectLeader != null) {</span>
+<span class="fc" id="L122">      throw new AlreadyExistsException(&quot;Der kan kun være en projektleder&quot;);</span>
     }
-<span class="fc" id="L119">    this.projectLeader = employee;</span>
-<span class="fc" id="L120">  }</span>
+<span class="fc" id="L124">    this.projectLeader = employee;</span>
+<span class="fc" id="L125">  }</span>
 
   public Employee getProjectLeader() {
-<span class="fc" id="L123">    return this.projectLeader;</span>
+<span class="fc" id="L128">    return this.projectLeader;</span>
   }
 
   public Employee getAssignedEmployee(String initials) {
-<span class="fc" id="L127">    return assignedEmployees.get(initials);</span>
+<span class="fc" id="L132">    return assignedEmployees.get(initials);</span>
   }
 
   public Map&lt;String, Employee&gt; getAssignedEmployees() {
-<span class="fc" id="L131">    return assignedEmployees;</span>
+<span class="fc" id="L136">    return assignedEmployees;</span>
   }
 
   public void assignEmployee(String employeeInitials, Employee loggedInUser)
       throws NotFoundException, OperationNotAllowedException {
 
-<span class="fc" id="L137">    Employee employee = EmployeeRepository.getInstance().findByInitials(employeeInitials);</span>
-<span class="fc bfc" id="L138" title="All 2 branches covered.">    if (employee == null) {</span>
-<span class="fc" id="L139">      throw new NotFoundException(&quot;Ukendt medarbejder&quot;);</span>
+<span class="fc" id="L142">    Employee employee = EmployeeRepository.getInstance().findByInitials(employeeInitials);</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">    if (employee == null) {</span>
+<span class="fc" id="L144">      throw new NotFoundException(&quot;Ukendt medarbejder&quot;);</span>
     }
 
-<span class="fc bfc" id="L142" title="All 2 branches covered.">    if(!allowAssignEmployeeToProject(loggedInUser)) {</span>
-<span class="fc" id="L143">      throw new OperationNotAllowedException(&quot;Kun projektleder kan tildele medarbejdere til projektet&quot;);</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">    if(!allowAssignEmployeeToProject(loggedInUser)) {</span>
+<span class="fc" id="L148">      throw new OperationNotAllowedException(&quot;Kun projektleder kan tildele medarbejdere til projektet&quot;);</span>
     }
 
-<span class="fc" id="L146">    assignedEmployees.put(employee.getInitials(), employee);</span>
+<span class="fc" id="L151">    assignedEmployees.put(employee.getInitials(), employee);</span>
 
 
-<span class="fc" id="L149">  }</span>
+<span class="fc" id="L154">  }</span>
 
   private boolean allowAssignEmployeeToProject(Employee loggedInUser) {
 
-<span class="fc bfc" id="L153" title="All 2 branches covered.">    if (projectLeader == null) {</span>
-<span class="fc" id="L154">      return true;</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">    if (projectLeader == null) {</span>
+<span class="fc" id="L159">      return true;</span>
     }
-<span class="fc bfc" id="L156" title="All 2 branches covered.">    if (loggedInUser.getInitials().equals(projectLeader.getInitials())) {</span>
-<span class="fc" id="L157">      return true;</span>
+<span class="fc bfc" id="L161" title="All 2 branches covered.">    if (loggedInUser.getInitials().equals(projectLeader.getInitials())) {</span>
+<span class="fc" id="L162">      return true;</span>
     }
-<span class="fc" id="L159">    return false;</span>
+<span class="fc" id="L164">    return false;</span>
   }
 
-  public void createProjectActivity(ProjectActivity projectActivity) throws AlreadyExistsException {
-<span class="fc bfc" id="L163" title="All 2 branches covered.">    if (hasProjectActivity(projectActivity.getTitle())) {</span>
-<span class="fc" id="L164">      throw new AlreadyExistsException(&quot;Projekt aktivitet findes allerede&quot;);</span>
+  public void createProjectActivity(ProjectActivity projectActivity, Employee loggedInUser) throws AlreadyExistsException, OperationNotAllowedException {
+<span class="fc bfc" id="L168" title="All 2 branches covered.">    if (projectLeader != null) {</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">      if (!projectLeader.getInitials().equals(loggedInUser.getInitials())) {</span>
+<span class="fc" id="L170">        throw new OperationNotAllowedException(&quot;Kun projektlederen kan redigere denne projekt aktivitet&quot;);</span>
+      }
     }
     
-<span class="fc" id="L167">    this.activities.add(projectActivity);</span>
-<span class="fc" id="L168">  }</span>
+<span class="fc bfc" id="L174" title="All 2 branches covered.">    if (hasProjectActivity(projectActivity.getTitle())) {</span>
+<span class="fc" id="L175">      throw new AlreadyExistsException(&quot;Projekt aktivitet findes allerede&quot;);</span>
+    }
+    
+<span class="fc" id="L178">    this.activities.add(projectActivity);</span>
+<span class="fc" id="L179">  }</span>
 
   public boolean hasProjectActivity(String title) {
-<span class="fc bfc" id="L171" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
-<span class="pc bpc" id="L172" title="1 of 2 branches missed.">      if (projectActivity.getTitle().equals(title)) {</span>
-<span class="fc" id="L173">        return true;</span>
+<span class="fc bfc" id="L182" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
+<span class="pc bpc" id="L183" title="1 of 2 branches missed.">      if (projectActivity.getTitle().equals(title)) {</span>
+<span class="fc" id="L184">        return true;</span>
       }
-<span class="nc" id="L175">    }</span>
+<span class="nc" id="L186">    }</span>
 
-<span class="fc" id="L177">    return false;</span>
+<span class="fc" id="L188">    return false;</span>
   }
 
   public ProjectActivity findProjectActivity(String title) throws NotFoundException {
-<span class="fc bfc" id="L181" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
-<span class="fc bfc" id="L182" title="All 2 branches covered.">      if (projectActivity.getTitle().equals(title)) {</span>
-<span class="fc" id="L183">        return projectActivity;</span>
+<span class="fc bfc" id="L192" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
+<span class="fc bfc" id="L193" title="All 2 branches covered.">      if (projectActivity.getTitle().equals(title)) {</span>
+<span class="fc" id="L194">        return projectActivity;</span>
       }
-<span class="fc" id="L185">    }</span>
+<span class="fc" id="L196">    }</span>
 
-<span class="fc" id="L187">    throw new NotFoundException(&quot;Projektaktiviteten findes ikke.&quot;);</span>
+<span class="fc" id="L198">    throw new NotFoundException(&quot;Projektaktiviteten findes ikke.&quot;);</span>
   }
+
+  public List&lt;WorktimeRegistration&gt; getWorktimeRegistrations() {
+
+<span class="fc" id="L203">    List&lt;WorktimeRegistration&gt; list = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L205" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
+<span class="fc" id="L206">      list.addAll(projectActivity.getWorktimeRegistrations());</span>
+<span class="fc" id="L207">    }</span>
+
+<span class="fc" id="L209">    return list;</span>
+
+  }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
