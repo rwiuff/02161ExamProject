@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskFusion.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TaskFusion</a> &gt; <a href="index.source.html" class="el_package">taskfusion.app</a> &gt; <span class="el_source">TaskFusion.java</span></div><h1>TaskFusion.java</h1><pre class="source lang-java linenums">package taskfusion.app;
 
 import java.util.List;
-import java.util.Map;
 
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
@@ -13,17 +12,16 @@ import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
-import taskfusion.helpers.PrintHelper;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
-<span class="fc" id="L20">public class TaskFusion {</span>
+<span class="fc" id="L18">public class TaskFusion {</span>
 
-<span class="fc" id="L22">  private DateServer dateServer = new DateServer();</span>
+<span class="fc" id="L20">  private DateServer dateServer = new DateServer();</span>
   private Employee loggedInUser;
 
-<span class="fc" id="L25">  public ProjectRepository projectRepo = ProjectRepository.getInstance();</span>
-<span class="fc" id="L26">  public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();</span>
+<span class="fc" id="L23">  public ProjectRepository projectRepo = ProjectRepository.getInstance();</span>
+<span class="fc" id="L24">  public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();</span>
 
   /**
    * ###########################
@@ -31,25 +29,25 @@ import taskfusion.persistency.ProjectRepository;
    * ###########################
    */
   public Employee getLoggedInUser() {
-<span class="fc" id="L34">    return loggedInUser;</span>
+<span class="fc" id="L32">    return loggedInUser;</span>
   }
 
   public void login(String initials) throws NotFoundException {
-<span class="fc" id="L38">    loggedInUser = findEmployeeByInitials(initials);</span>
+<span class="fc" id="L36">    loggedInUser = findEmployeeByInitials(initials);</span>
 
-<span class="fc bfc" id="L40" title="All 2 branches covered.">    if (loggedInUser == null) {</span>
-<span class="fc" id="L41">      throw new NotFoundException(&quot;Ukendt medarbejder&quot;);</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">    if (loggedInUser == null) {</span>
+<span class="fc" id="L39">      throw new NotFoundException(&quot;Ukendt medarbejder&quot;);</span>
     }
-<span class="fc" id="L43">  }</span>
+<span class="fc" id="L41">  }</span>
 
   public boolean isLoggedIn() {
     // return true;
-<span class="fc bfc" id="L47" title="All 2 branches covered.">    return loggedInUser != null;</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">    return loggedInUser != null;</span>
   }
 
   public void logout() {
-<span class="fc" id="L51">    loggedInUser = null;</span>
-<span class="fc" id="L52">  }</span>
+<span class="fc" id="L49">    loggedInUser = null;</span>
+<span class="fc" id="L50">  }</span>
 
   /**
    * ###########################
@@ -58,16 +56,16 @@ import taskfusion.persistency.ProjectRepository;
    */
   public void registerEmployee(String firstName, String lastName)
       throws InvalidPropertyException, ExhaustedOptionsException {
-<span class="fc" id="L61">    employeeRepo.create(firstName, lastName);</span>
-<span class="fc" id="L62">  }</span>
+<span class="fc" id="L59">    employeeRepo.create(firstName, lastName);</span>
+<span class="fc" id="L60">  }</span>
 
   public Employee findEmployeeByInitials(String initials) {
-<span class="fc" id="L65">    return employeeRepo.findByInitials(initials);</span>
+<span class="fc" id="L63">    return employeeRepo.findByInitials(initials);</span>
   }
 
   public void setDateServer(DateServer dateServer) {
-<span class="fc" id="L69">    this.dateServer = dateServer;</span>
-<span class="fc" id="L70">  }</span>
+<span class="fc" id="L67">    this.dateServer = dateServer;</span>
+<span class="fc" id="L68">  }</span>
 
   /**
    * ###########################
@@ -80,26 +78,26 @@ import taskfusion.persistency.ProjectRepository;
 
   public void createProject(String projectTitle)
       throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, AlreadyExistsException {
-<span class="fc bfc" id="L83" title="All 2 branches covered.">    if (!isLoggedIn()) {</span>
-<span class="fc" id="L84">      throw new OperationNotAllowedException(&quot;Kun medarbejdere kan oprette et projekt&quot;);</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">    if (!isLoggedIn()) {</span>
+<span class="fc" id="L82">      throw new OperationNotAllowedException(&quot;Kun medarbejdere kan oprette et projekt&quot;);</span>
     } else {
-<span class="fc" id="L86">      projectRepo.create(projectTitle, loggedInUser, this.dateServer.getDate());</span>
+<span class="fc" id="L84">      projectRepo.create(projectTitle, loggedInUser, this.dateServer.getDate());</span>
     }
-<span class="fc" id="L88">  }</span>
+<span class="fc" id="L86">  }</span>
 
   public void assignCustomerToProject(String projectNumber, String customer) throws NotFoundException {
-<span class="fc" id="L91">    projectRepo.findByProjectNumber(projectNumber).setCustomer(customer);</span>
-<span class="fc" id="L92">  }</span>
+<span class="fc" id="L89">    projectRepo.findByProjectNumber(projectNumber).setCustomer(customer);</span>
+<span class="fc" id="L90">  }</span>
 
   public void assignEmployeeToProject(String projectNumber, String initials)
       throws NotFoundException, OperationNotAllowedException {
-<span class="fc" id="L96">    Project project = projectRepo.findByProjectNumber(projectNumber);</span>
-<span class="fc" id="L97">    project.assignEmployee(initials, loggedInUser);</span>
-<span class="fc" id="L98">  }</span>
+<span class="fc" id="L94">    Project project = projectRepo.findByProjectNumber(projectNumber);</span>
+<span class="fc" id="L95">    project.assignEmployee(initials, loggedInUser);</span>
+<span class="fc" id="L96">  }</span>
 
   public Project findProjectByProjectNumber(String projectNumber) throws NotFoundException {
-<span class="fc" id="L101">    Project project = projectRepo.findByProjectNumber(projectNumber);</span>
-<span class="fc" id="L102">    return project;</span>
+<span class="fc" id="L99">    Project project = projectRepo.findByProjectNumber(projectNumber);</span>
+<span class="fc" id="L100">    return project;</span>
   }
 
   /**
@@ -110,35 +108,35 @@ import taskfusion.persistency.ProjectRepository;
 
   public void createRegularActivity(String title, Integer startWeek, Integer endWeek)
       throws OperationNotAllowedException, InvalidPropertyException {
-<span class="fc bfc" id="L113" title="All 2 branches covered.">    if (title == &quot;&quot;) {</span>
-<span class="fc" id="L114">      throw new InvalidPropertyException(&quot;En titel mangler&quot;);</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">    if (title == &quot;&quot;) {</span>
+<span class="fc" id="L112">      throw new InvalidPropertyException(&quot;En titel mangler&quot;);</span>
     }
 
-<span class="fc bfc" id="L117" title="All 2 branches covered.">    if (startWeek == null) {</span>
-<span class="fc" id="L118">      throw new InvalidPropertyException(&quot;En start uge mangler&quot;);</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">    if (startWeek == null) {</span>
+<span class="fc" id="L116">      throw new InvalidPropertyException(&quot;En start uge mangler&quot;);</span>
     }
 
-<span class="fc bfc" id="L121" title="All 2 branches covered.">    if (endWeek == null) {</span>
-<span class="fc" id="L122">      throw new InvalidPropertyException(&quot;En slut uge mangler&quot;);</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">    if (endWeek == null) {</span>
+<span class="fc" id="L120">      throw new InvalidPropertyException(&quot;En slut uge mangler&quot;);</span>
     }
 
-<span class="fc bfc" id="L125" title="All 2 branches covered.">    if (startWeek &gt; endWeek) {</span>
-<span class="fc" id="L126">      throw new InvalidPropertyException(&quot;Start uge skal være før slut uge&quot;);</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">    if (startWeek &gt; endWeek) {</span>
+<span class="fc" id="L124">      throw new InvalidPropertyException(&quot;Start uge skal være før slut uge&quot;);</span>
     }
 
-<span class="pc bpc" id="L129" title="1 of 2 branches missed.">    if (endWeek &lt; startWeek) {</span>
-<span class="nc" id="L130">      throw new InvalidPropertyException(&quot;Slut uge skal være før eller lig med start uge&quot;);</span>
+<span class="pc bpc" id="L127" title="1 of 2 branches missed.">    if (endWeek &lt; startWeek) {</span>
+<span class="nc" id="L128">      throw new InvalidPropertyException(&quot;Slut uge skal være før eller lig med start uge&quot;);</span>
     }
 
-<span class="fc bfc" id="L133" title="All 2 branches covered.">    if (isLoggedIn()) {</span>
-<span class="fc" id="L134">      loggedInUser.addRegularActivity(new RegularActivity(title, startWeek, endWeek));</span>
+<span class="fc bfc" id="L131" title="All 2 branches covered.">    if (isLoggedIn()) {</span>
+<span class="fc" id="L132">      loggedInUser.addRegularActivity(new RegularActivity(title, startWeek, endWeek));</span>
     } else {
-<span class="fc" id="L136">      throw new OperationNotAllowedException(&quot;Kun medarbejdere kan oprette en fast aktivitet&quot;);</span>
+<span class="fc" id="L134">      throw new OperationNotAllowedException(&quot;Kun medarbejdere kan oprette en fast aktivitet&quot;);</span>
     }
-<span class="fc" id="L138">  }</span>
+<span class="fc" id="L136">  }</span>
 
   public boolean hasRegularActivity(String title, Integer startWeek, Integer endWeek) {
-<span class="fc" id="L141">    return loggedInUser.hasRegularActivity(title, startWeek, endWeek);</span>
+<span class="fc" id="L139">    return loggedInUser.hasRegularActivity(title, startWeek, endWeek);</span>
   }
 
   /**
@@ -152,88 +150,88 @@ import taskfusion.persistency.ProjectRepository;
 
   public void createProjectActivity(String projectNumber, String title, Integer startWeek, Integer endWeek)
       throws NotFoundException, OperationNotAllowedException, AlreadyExistsException, InvalidPropertyException {
-<span class="fc bfc" id="L155" title="All 2 branches covered.">    if (startWeek &gt; endWeek) {</span>
-<span class="fc" id="L156">      throw new InvalidPropertyException(&quot;Starttid skal være før eller ens med sluttid&quot;);</span>
+<span class="fc bfc" id="L153" title="All 2 branches covered.">    if (startWeek &gt; endWeek) {</span>
+<span class="fc" id="L154">      throw new InvalidPropertyException(&quot;Starttid skal være før eller ens med sluttid&quot;);</span>
     }
 
-<span class="fc bfc" id="L159" title="All 2 branches covered.">    if (!isLoggedIn()) {</span>
-<span class="fc" id="L160">      throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
+<span class="fc bfc" id="L157" title="All 2 branches covered.">    if (!isLoggedIn()) {</span>
+<span class="fc" id="L158">      throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
     } else {
-<span class="fc" id="L162">      Project project = findProjectByProjectNumber(projectNumber);</span>
-<span class="fc" id="L163">      project.createProjectActivity(new ProjectActivity(title, startWeek, endWeek), loggedInUser);</span>
+<span class="fc" id="L160">      Project project = findProjectByProjectNumber(projectNumber);</span>
+<span class="fc" id="L161">      project.createProjectActivity(new ProjectActivity(title, startWeek, endWeek), loggedInUser);</span>
     }
-<span class="fc" id="L165">  }</span>
+<span class="fc" id="L163">  }</span>
 
   public void setTimeBudget(String projectNumber, String title, Integer timeBudget)
       throws NotFoundException, OperationNotAllowedException {
-<span class="fc bfc" id="L169" title="All 2 branches covered.">    if (!isLoggedIn()) {</span>
-<span class="fc" id="L170">      throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
+<span class="fc bfc" id="L167" title="All 2 branches covered.">    if (!isLoggedIn()) {</span>
+<span class="fc" id="L168">      throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
     } else {
-<span class="fc" id="L172">      Project project = findProjectByProjectNumber(projectNumber);</span>
-<span class="fc" id="L173">      project.findProjectActivity(title).setTimeBudget(timeBudget);</span>
+<span class="fc" id="L170">      Project project = findProjectByProjectNumber(projectNumber);</span>
+<span class="fc" id="L171">      project.findProjectActivity(title).setTimeBudget(timeBudget);</span>
     }
-<span class="fc" id="L175">  }</span>
+<span class="fc" id="L173">  }</span>
 
   public void registerWorkTime(String projectNumber, String activityTitle, double worktTime) throws NotFoundException, OperationNotAllowedException {
-<span class="pc bpc" id="L178" title="1 of 2 branches missed.">    if(!isLoggedIn()) {</span>
-<span class="nc" id="L179">      throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">    if(!isLoggedIn()) {</span>
+<span class="nc" id="L177">      throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
     }
-<span class="fc" id="L181">    projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
-<span class="fc" id="L182">        .registerWorkTime(getLoggedInUser().getInitials(), this.dateServer.getDate(), worktTime);</span>
-<span class="fc" id="L183">  }</span>
+<span class="fc" id="L179">    projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
+<span class="fc" id="L180">        .registerWorkTime(getLoggedInUser().getInitials(), this.dateServer.getDate(), worktTime);</span>
+<span class="fc" id="L181">  }</span>
 
   public double getTotalWorkTimeForEmployee(String projectNumber, String activityTitle, double workTime)
       throws NotFoundException, OperationNotAllowedException {
 
-<span class="pc bpc" id="L188" title="1 of 2 branches missed.">        if(!isLoggedIn()) {</span>
-<span class="nc" id="L189">          throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
+<span class="pc bpc" id="L186" title="1 of 2 branches missed.">        if(!isLoggedIn()) {</span>
+<span class="nc" id="L187">          throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
         }
-<span class="fc" id="L191">    return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
-<span class="fc" id="L192">        .getTotalWorkTimeForEmployee(getLoggedInUser().getInitials());</span>
+<span class="fc" id="L189">    return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
+<span class="fc" id="L190">        .getTotalWorkTimeForEmployee(getLoggedInUser().getInitials());</span>
   }
 
   public Double getTotalWorktimeForActivity(String projectNumber, String activityTitle) throws NotFoundException, OperationNotAllowedException {
-<span class="nc bnc" id="L196" title="All 2 branches missed.">    if(!isLoggedIn()) {</span>
-<span class="nc" id="L197">      throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
+<span class="nc bnc" id="L194" title="All 2 branches missed.">    if(!isLoggedIn()) {</span>
+<span class="nc" id="L195">      throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
     }
-<span class="nc" id="L199">    return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getTotalWorkTime();</span>
+<span class="nc" id="L197">    return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getTotalWorkTime();</span>
   }
 
   public List&lt;WorktimeRegistration&gt; getUserWorktimeRegistrationsForProjectActivity(String activityTitle,
       String projectNumber) throws NotFoundException, OperationNotAllowedException {
 
-<span class="fc bfc" id="L205" title="All 2 branches covered.">        if(!isLoggedIn()) {</span>
-<span class="fc" id="L206">          throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
+<span class="fc bfc" id="L203" title="All 2 branches covered.">        if(!isLoggedIn()) {</span>
+<span class="fc" id="L204">          throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
         }
 
-<span class="fc" id="L209">    return findProjectByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
-<span class="fc" id="L210">        .getWorkTimeRegistrationsForEmployee(loggedInUser.getInitials());</span>
+<span class="fc" id="L207">    return findProjectByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
+<span class="fc" id="L208">        .getWorkTimeRegistrationsForEmployee(loggedInUser.getInitials());</span>
   }
 
   public double getUserWorktimeForProjectActivity(String activityTitle, String projectNumber) throws NotFoundException, OperationNotAllowedException {
-<span class="pc bpc" id="L214" title="1 of 2 branches missed.">    if(!isLoggedIn()) {</span>
-<span class="nc" id="L215">      throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">    if(!isLoggedIn()) {</span>
+<span class="fc" id="L213">      throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
     }
     
-<span class="fc" id="L218">    return findProjectByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
-<span class="fc" id="L219">        .getTotalWorkTimeForEmployee(loggedInUser.getInitials());</span>
+<span class="fc" id="L216">    return findProjectByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
+<span class="fc" id="L217">        .getTotalWorkTimeForEmployee(loggedInUser.getInitials());</span>
   }
 
-  public void editWorktimeRegistration(int id, double hours) throws OperationNotAllowedException {
+  public void editWorktimeRegistration(int id, double hours) throws OperationNotAllowedException, NotFoundException {
 
-<span class="pc bpc" id="L224" title="1 of 2 branches missed.">    if(!isLoggedIn()) {</span>
-<span class="nc" id="L225">      throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
+<span class="fc bfc" id="L222" title="All 2 branches covered.">    if(!isLoggedIn()) {</span>
+<span class="fc" id="L223">      throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
     }
 
-<span class="fc" id="L228">    WorktimeRegistration worktimeRegistration = projectRepo.findWorktimeRegistrationById(id);</span>
+<span class="fc" id="L226">    WorktimeRegistration worktimeRegistration = projectRepo.findWorktimeRegistrationById(id);</span>
 
-<span class="pc bpc" id="L230" title="1 of 2 branches missed.">    if(!worktimeRegistration.getInitials().equals(loggedInUser.getInitials())) {</span>
-<span class="nc" id="L231">      throw new OperationNotAllowedException(&quot;Du har ikke rettighed til at redigere denne registrering&quot;);</span>
+<span class="fc bfc" id="L228" title="All 2 branches covered.">    if(!worktimeRegistration.getInitials().equals(loggedInUser.getInitials())) {</span>
+<span class="fc" id="L229">      throw new OperationNotAllowedException(&quot;Du har ikke rettighed til at redigere denne registrering&quot;);</span>
     }
     
-<span class="fc" id="L234">    worktimeRegistration.setTime(hours);</span>
+<span class="fc" id="L232">    worktimeRegistration.setTime(hours);</span>
 
-<span class="fc" id="L236">  }</span>
+<span class="fc" id="L234">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
