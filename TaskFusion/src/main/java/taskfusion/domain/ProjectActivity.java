@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ProjectActivity extends Activity {
+import taskfusion.viewModels.ProjectActivityViewModel;
+
+public class ProjectActivity extends Activity implements ConvertibleToViewModelInterface {
   
   private int timeBudget;
   private List<WorktimeRegistration> worktimeRegistrations;
@@ -13,6 +15,11 @@ public class ProjectActivity extends Activity {
     super(title, startWeek, endWeek);
     this.timeBudget = 0;
     this.worktimeRegistrations = new ArrayList<>();
+  }
+
+
+  public ProjectActivityViewModel toViewModel() {
+    return new ProjectActivityViewModel(this);
   }
 
   public int getTimeBudget() {

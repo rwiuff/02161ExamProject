@@ -43,10 +43,10 @@ public class Seeder {
 
         Employee creator = EmployeeRepository.getInstance().findByInitials("kasy");
         
-        projectRepository.create("Kravspecifikationer",creator , date);
-        projectRepository.create("Programdesign", creator, date);
-        projectRepository.create("Implementering", creator, date);
-        projectRepository.create("Test", creator, date);
+        projectRepository.create("Kravspecifikationer", date).assignEmployee(creator.getInitials(), creator);
+        projectRepository.create("Programdesign", date).assignEmployee(creator.getInitials(), creator);
+        projectRepository.create("Implementering", date).assignEmployee(creator.getInitials(), creator);
+        projectRepository.create("Test", date).assignEmployee(creator.getInitials(), creator);
 
         //Assign users to projects
         for (Map.Entry<String, Project> projectEntry : ProjectRepository.getInstance().all().entrySet()) {

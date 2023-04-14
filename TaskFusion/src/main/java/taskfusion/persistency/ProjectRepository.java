@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
 import taskfusion.domain.WorktimeRegistration;
 import taskfusion.exceptions.InvalidPropertyException;
@@ -52,7 +51,7 @@ public class ProjectRepository {
         return projects;
      }
 
-    public void create(String projectTitle, Employee creator, Calendar date)
+    public Project create(String projectTitle, Calendar date)
             throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
 
         if (projectTitle.length() < 2) {
@@ -60,10 +59,10 @@ public class ProjectRepository {
         }
 
         Project p = new Project(projectTitle, date);
-        p.assignEmployee(creator.getInitials(), creator);
         String projectNumber = p.getProjectNumber();
 
         this.projects.put(projectNumber, p);
+        return p;
     }
 
     public Project findByProjectNumber(String projectNumber) throws NotFoundException {

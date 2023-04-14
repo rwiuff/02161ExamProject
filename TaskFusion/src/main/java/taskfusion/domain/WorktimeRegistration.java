@@ -3,8 +3,9 @@ package taskfusion.domain;
 import java.util.Calendar;
 
 import taskfusion.persistency.ProjectRepository;
+import taskfusion.viewModels.WorktimeRegistrationViewModel;
 
-public class WorktimeRegistration {
+public class WorktimeRegistration implements ConvertibleToViewModelInterface {
     private Integer id;
     private Calendar date;
     private String initials;
@@ -15,6 +16,10 @@ public class WorktimeRegistration {
         this.date = date;
         this.time = time;
         this.id = ProjectRepository.getInstance().generateWorktimeRegistrationId();
+    }
+
+    public WorktimeRegistrationViewModel toViewModel() {
+        return new WorktimeRegistrationViewModel(this);
     }
 
     public Calendar getDate() {
