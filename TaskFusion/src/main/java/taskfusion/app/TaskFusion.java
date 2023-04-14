@@ -174,29 +174,47 @@ public class TaskFusion {
     }
   }
 
-  public void registerWorkTime(String projectNumber, String activityTitle, double worktTime) throws NotFoundException {
+  public void registerWorkTime(String projectNumber, String activityTitle, double worktTime) throws NotFoundException, OperationNotAllowedException {
+    if(!isLoggedIn()) {
+      throw new OperationNotAllowedException("Login krævet");
+    }
     projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
         .registerWorkTime(getLoggedInUser().getInitials(), this.dateServer.getDate(), worktTime);
   }
 
   public double getTotalWorkTimeForEmployee(String projectNumber, String activityTitle, double workTime)
-      throws NotFoundException {
+      throws NotFoundException, OperationNotAllowedException {
+
+        if(!isLoggedIn()) {
+          throw new OperationNotAllowedException("Login krævet");
+        }
     return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
         .getTotalWorkTimeForEmployee(getLoggedInUser().getInitials());
   }
 
-  public Double getTotalWorktimeForActivity(String projectNumber, String activityTitle) throws NotFoundException {
+  public Double getTotalWorktimeForActivity(String projectNumber, String activityTitle) throws NotFoundException, OperationNotAllowedException {
+    if(!isLoggedIn()) {
+      throw new OperationNotAllowedException("Login krævet");
+    }
     return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getTotalWorkTime();
   }
 
   public List<WorktimeRegistration> getUserWorktimeRegistrationsForProjectActivity(String activityTitle,
-      String projectNumber) throws NotFoundException {
+      String projectNumber) throws NotFoundException, OperationNotAllowedException {
+
+        if(!isLoggedIn()) {
+          throw new OperationNotAllowedException("Login krævet");
+        }
 
     return findProjectByProjectNumber(projectNumber).findProjectActivity(activityTitle)
         .getWorkTimeRegistrationsForEmployee(loggedInUser.getInitials());
   }
 
-  public double getUserWorktimeForProjectActivity(String activityTitle, String projectNumber) throws NotFoundException {
+  public double getUserWorktimeForProjectActivity(String activityTitle, String projectNumber) throws NotFoundException, OperationNotAllowedException {
+    if(!isLoggedIn()) {
+      throw new OperationNotAllowedException("Login krævet");
+    }
+    
     return findProjectByProjectNumber(projectNumber).findProjectActivity(activityTitle)
         .getTotalWorkTimeForEmployee(loggedInUser.getInitials());
   }

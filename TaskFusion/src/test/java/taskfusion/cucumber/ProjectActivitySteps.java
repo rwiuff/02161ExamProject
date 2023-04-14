@@ -13,6 +13,7 @@ import taskfusion.app.TaskFusion;
 import taskfusion.domain.WorktimeRegistration;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
+import taskfusion.helpers.PrintHelper;
 
 public class ProjectActivitySteps {
   private ErrorMessageHolder errorMessageHolder;
@@ -80,11 +81,11 @@ public class ProjectActivitySteps {
   }
 
   @When("the user requests a list of own worktime registrations for the activity titled {string} in the project with project number {string}")
-    public void the_user_requests_a_list_of_own_worktime_registrations_for_the_activity_titled_in_the_project_with_project_number(String activityTitle, String projectNumber) throws NotFoundException {
-      this.worktimeRegistrations = this.taskFusion.getUserWorktimeRegistrationsForProjectActivity(activityTitle, projectNumber);  
+    public void the_user_requests_a_list_of_own_worktime_registrations_for_the_activity_titled_in_the_project_with_project_number(String activityTitle, String projectNumber) {
+        
       try {
           this.worktimeRegistrations = this.taskFusion.getUserWorktimeRegistrationsForProjectActivity(activityTitle, projectNumber);
-          
+          //PrintHelper.printWorktimeRegistrations(this.worktimeRegistrations);
         } catch (Exception e) {
           this.errorMessageHolder.setErrorMessage(e.getMessage());
         }
@@ -123,5 +124,8 @@ public class ProjectActivitySteps {
         } catch (Exception e) {
           this.errorMessageHolder.setErrorMessage(e.getMessage());
         }
+        //System.out.println("LIST AFTER EDIT:");
+        //PrintHelper.printWorktimeRegistrations(this.taskFusion.projectRepo.getAllWorktimeRegistrations());
+        //System.out.println("END LIST AFTER EDIT:");
     }
 }

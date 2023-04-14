@@ -101,6 +101,11 @@ public class ProjectRepository {
         return list;
     }
 
+    /**REMOVE THIS */
+    public List<WorktimeRegistration> getAllWorktimeRegistrations() {
+        return allWorktimeRegistrations();
+    }
+
     public WorktimeRegistration findWorktimeRegistrationById(int id) {
 
         List<WorktimeRegistration> list = allWorktimeRegistrations();
