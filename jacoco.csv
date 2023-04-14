@@ -1,5 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-TaskFusion,taskfusion.domain,Project,18,274,3,35,9,70,7,35,4,19
+TaskFusion,taskfusion.domain,Project,23,274,3,35,10,70,8,35,5,19
 TaskFusion,taskfusion.domain,ProjectActivity,6,85,0,4,1,20,1,11,1,9
 TaskFusion,taskfusion.domain,RegularActivity,0,8,0,0,0,2,0,1,0,1
 TaskFusion,taskfusion.domain,WorktimeRegistration,3,29,0,0,1,11,1,5,1,5
@@ -8,6 +8,8 @@ TaskFusion,taskfusion.domain,Report,3,0,0,0,1,0,1,0,1,0
 TaskFusion,taskfusion.domain,Activity,12,23,0,0,6,8,3,4,3,4
 TaskFusion,taskfusion.helpers,PrintHelper,22,46,2,4,5,8,3,4,2,2
 TaskFusion,taskfusion.helpers,DateHelper,3,6,0,0,1,1,1,1,1,1
+TaskFusion,taskfusion.viewModels,ProjectViewModel,23,0,0,0,7,0,1,0,1,0
+TaskFusion,taskfusion.viewModels,ViewModel,3,0,0,0,1,0,1,0,1,0
 TaskFusion,taskfusion.persistency,Seeder,3,101,0,2,2,27,0,5,0,4
 TaskFusion,taskfusion.persistency,EmployeeRepository,0,47,0,2,0,15,0,7,0,6
 TaskFusion,taskfusion.persistency,ProjectRepository,38,159,7,15,9,40,6,16,2,9
