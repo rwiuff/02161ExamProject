@@ -76,11 +76,17 @@ public class TaskFusion {
 
   /**
    * ###########################
-   * REGULAR ACTIVITY facades
+   * FACADES
    * ###########################
    */
 
+  public EmployeeFacade getEmployeeFacade() {
+    return this.employeeFacade;
+  }
 
+  public ProjectFacade getProjectFacade() {
+    return this.projectFacade;
+  }
   
 
 }
