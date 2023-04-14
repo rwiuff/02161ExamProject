@@ -3,17 +3,30 @@ skinparam linetype ortho
 skinparam Nodesep 150
 skinparam Ranksep 150
 
-package "Facade" {
+
     
-    class "TaskFusion" as app{
-        - loggedInUser : Employee
+class "TaskFusion" as app{
+    - loggedInUser : Employee
+    --
+    + login(initials) : boolean
+    + logout()
+    + isLoggedIn() : boolean
+}
+
+package "Facade-layer" {
+
+    class EmployeeFacade {
         --
-        + login(initials) : boolean
-        + logout()
-        + isLoggedIn() : boolean
+        + registerEmployee(firstName, lastName)
+        + findEmployee(initials)
     }
 
+    class ProjectFacade {
+        + createProject(projectTitle)
+        + assignCustomerToProject(projectNumber, customer)
+    }
 }
+
 
 package "Persistency-layer" {
     class ProjectRepository << (S,#FF7700) Singleton >>{
@@ -33,7 +46,11 @@ package "Persistency-layer" {
 
 package "Domain-layer" {
 
-    class Report{
+    interface ConvertibleToViewModel{
+        + toViewModel() : ViewModel
+    }
+
+    class Report {
         remainingWorkHours : int
         incompleteActivities : List
         --
@@ -88,9 +105,11 @@ package "Domain-layer" {
     }
 
 }
+app --> "1" ProjectFacade : projectFacade
+app --> "1" EmployeeFacade : employeeFacade
 
-app --> "1" ProjectRepository : projectRepository
-app --> "1" EmployeeRepository : employeeRepository
+ProjectFacade --> "1" ProjectRepository : projectRepository
+EmployeeFacade --> "1" EmployeeRepository : employeeRepository
 
 ProjectRepository --> "0..*" Project : projects
 Project -> Report : generateReport(Project project)
@@ -108,8 +127,14 @@ Employee --> "0..*" Project : projects
 Project -> "0..*" ProjectActivity : activities
 Employee -> "0..*" RegularActivity : regularActivities
 
-ProjectActivity --> "0..*" WorktimeRegistrations : worktimeRegistrations
+ProjectActivity --> "0..*" WorktimeRegistration : worktimeRegistrations
 
 'Employee --> "0..*" WorktimeRegistrations : worktimeRegistrations
+Project ..|> ConvertibleToViewModel
+Employee ..|> ConvertibleToViewModel
+ProjectActivity ..|> ConvertibleToViewModel
+RegularActivity ..|> ConvertibleToViewModel
+WorktimeRegistration ..|> ConvertibleToViewModel
+Report ..|> ConvertibleToViewModel
 
 @enduml

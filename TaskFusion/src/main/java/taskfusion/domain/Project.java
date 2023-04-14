@@ -12,8 +12,9 @@ import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.helpers.DateHelper;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
+import taskfusion.viewModels.ProjectViewModel;
 
-public class Project {
+public class Project implements ConvertibleToViewModelInterface {
   private String projectNumber;
   private String projectTitle;
   private String customer;
@@ -26,6 +27,10 @@ public class Project {
   public Project(String projectTitle, Calendar date) {
     this.projectTitle = projectTitle;
     this.projectNumber = generateProjectNumber(date);
+  }
+
+  public ProjectViewModel toViewModel() {
+    return new ProjectViewModel(this);
   }
 
   public int getStartWeek() {
