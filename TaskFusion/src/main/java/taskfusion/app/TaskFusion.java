@@ -1,5 +1,6 @@
 package taskfusion.app;
 
+import java.util.Calendar;
 import java.util.List;
 
 import taskfusion.domain.Employee;
@@ -66,6 +67,11 @@ public class TaskFusion {
   public void setDateServer(DateServer dateServer) {
     this.dateServer = dateServer;
   }
+
+     // ALLE DISSE CHECKS, SKAL FOREGÅ I DOMAIN LAYER, SO I SELVE REGULARACTIVITY KLASSEN
+     public Calendar getDate() {
+      return this.dateServer.getDate();
+    }
 
   /**
    * ###########################
