@@ -1,22 +1,9 @@
 package taskfusion.app;
 
 import java.util.Calendar;
-import java.util.List;
-
-import taskfusion.domain.Employee;
-import taskfusion.domain.Project;
-import taskfusion.domain.ProjectActivity;
-import taskfusion.domain.RegularActivity;
-import taskfusion.domain.WorktimeRegistration;
-import taskfusion.exceptions.AlreadyExistsException;
-import taskfusion.exceptions.ExhaustedOptionsException;
-import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
-import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.facades.EmployeeFacade;
 import taskfusion.facades.ProjectFacade;
-import taskfusion.persistency.EmployeeRepository;
-import taskfusion.persistency.ProjectRepository;
 import taskfusion.viewModels.EmployeeViewModel;
 
 public class TaskFusion {

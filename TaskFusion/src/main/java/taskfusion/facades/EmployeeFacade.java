@@ -23,7 +23,14 @@ public class EmployeeFacade {
     }
 
     public EmployeeViewModel findEmployeeByInitials(String initials) {
-        return employeeRepo.findByInitials(initials).toViewModel();
+
+        Employee employee = employeeRepo.findByInitials(initials);
+
+        if(employee != null) {
+            return employee.toViewModel();
+        }
+
+        return null;
     }
 
     // ALLE DISSE CHECKS, SKAL FOREGÅ I DOMAIN LAYER, SO I SELVE REGULARACTIVITY

@@ -10,10 +10,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import taskfusion.app.TaskFusion;
-import taskfusion.domain.WorktimeRegistration;
-import taskfusion.exceptions.NotFoundException;
-import taskfusion.exceptions.OperationNotAllowedException;
-import taskfusion.helpers.PrintHelper;
 import taskfusion.persistency.ProjectRepository;
 import taskfusion.viewModels.WorktimeRegistrationViewModel;
 

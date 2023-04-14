@@ -1,13 +1,8 @@
 package taskfusion.junit;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import taskfusion.app.TaskFusion;
-import taskfusion.domain.Project;
 import taskfusion.helpers.SingletonHelpers;
 
 /**
@@ -43,7 +38,7 @@ public class TestJUnit4AndJUnit5 {
 
 	@Test
 	public void createProjectTest(){
-		TaskFusion taskFusion = new TaskFusion();
+		//TaskFusion taskFusion = new TaskFusion();
 
         try {
             // taskFusion.registerEmployee("John", "Dillermand");

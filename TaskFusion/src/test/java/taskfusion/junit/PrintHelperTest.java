@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import taskfusion.app.DateServer;
-import taskfusion.domain.Employee;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
@@ -31,7 +30,7 @@ public class PrintHelperTest {
     @Test 
     public void testPrintProjects() throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, ExhaustedOptionsException {
         EmployeeRepository.getInstance().create("Michael", "Laudrup");
-        Employee creator = EmployeeRepository.getInstance().findByInitials("mila");
+        //Employee creator = EmployeeRepository.getInstance().findByInitials("mila");
 
         ProjectRepository.getInstance().create("Demo 1", new DateServer().getDate());
         PrintHelper.printProjects(ProjectRepository.getInstance().all());

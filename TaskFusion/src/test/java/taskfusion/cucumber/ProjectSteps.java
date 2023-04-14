@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.helpers.MockDateHolder;
+import taskfusion.helpers.PrintHelper;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
@@ -101,10 +102,10 @@ public class ProjectSteps {
     }
   }
 
-  @When("{string} takes the role as project leader on project {string}")
-  public void takes_the_role_as_project_leader_on_project(String initials, String projectNumber) {
+  @When("the user takes the role as project leader on project {string}")
+  public void the_user_takes_the_role_as_project_leader_on_project(String projectNumber) {
     try {
-      ProjectRepository.getInstance().findByProjectNumber(projectNumber).setProjectLeader(EmployeeRepository.getInstance().findByInitials(initials));
+      taskFusion.getProjectFacade().takeProjectLeaderRole(projectNumber);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }

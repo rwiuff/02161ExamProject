@@ -2,8 +2,6 @@ package taskfusion.facades;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import taskfusion.app.TaskFusion;
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
@@ -46,6 +44,10 @@ public class ProjectFacade {
             throws NotFoundException, OperationNotAllowedException {
         Project project = projectRepo.findByProjectNumber(projectNumber);
         project.assignEmployee(initials, EmployeeRepository.getInstance().findByInitials(initials));
+    }
+
+    public void takeProjectLeaderRole(String projectNumber) throws AlreadyExistsException, NotFoundException {
+        projectRepo.findByProjectNumber(projectNumber).setProjectLeader(getLoggedInUserModel());
     }
 
     public ProjectViewModel findProjectByProjectNumber(String projectNumber) throws NotFoundException {

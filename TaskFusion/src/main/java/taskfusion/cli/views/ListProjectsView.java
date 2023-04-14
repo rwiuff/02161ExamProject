@@ -2,11 +2,9 @@ package taskfusion.cli.views;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
-import taskfusion.domain.Project;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.viewModels.ProjectViewModel;
 

@@ -7,7 +7,7 @@
 #     Given the application has a registered employee with first name "Michael", last name "Laudrup"
 #     And the application has a registered employee with first name "Lars", last name "Svendsen" and initials "lasv"
 #     And a project with title "Video game" with project number 23001 exists in the application
-#     And "lasv" takes the role as project leader on project 23001
+#     And the user takes the role as project leader on project 23001
 #     And multiple activities with registered work time for "mila" exists within the project titled "Video game"
 
 # #MAIN SCENARIO

@@ -9,8 +9,11 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import taskfusion.app.TaskFusion;
 import taskfusion.domain.Employee;
+import taskfusion.domain.Project;
+import taskfusion.exceptions.NotFoundException;
+import taskfusion.helpers.PrintHelper;
 import taskfusion.persistency.EmployeeRepository;
-import taskfusion.viewModels.EmployeeViewModel;
+import taskfusion.persistency.ProjectRepository;
 
 public class EmployeeSteps {
     private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();
@@ -74,6 +77,23 @@ public class EmployeeSteps {
     @Then("the employee {string} have {int} projects")
     public void the_employee_have_projects(String initials, int projects) {
         assertEquals(projects, EmployeeRepository.getInstance().findByInitials(initials).getProjects().size());
+    }
+
+    @Given("debug")
+    public void debug() throws Exception {
+        System.out.println("------ DEBUG ------");
+        System.out.println(this.errorMessageHolder.getErrorMessage());
+        Project project = ProjectRepository.getInstance().findByProjectNumber("23001");
+      Employee employee = project.getAssignedEmployee("brla");
+      PrintHelper.printEmployees(project.getAssignedEmployees());
+      System.out.println(employee.getInitials());
+
+    }
+
+    @Given("print exception")
+    public void print_exception() {
+        System.out.println("------ PRINTING EXCEPTION ------");
+        System.out.println(this.errorMessageHolder.getErrorMessage());
     }
 
 }

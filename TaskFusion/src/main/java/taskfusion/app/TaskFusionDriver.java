@@ -1,13 +1,9 @@
 package taskfusion.app;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import taskfusion.domain.Project;
-
 public class TaskFusionDriver {
     
     public static void main(String[] args) {
-        TaskFusion taskFusion = new TaskFusion();
+        //TaskFusion taskFusion = new TaskFusion();
 
         try {
             // taskFusion.registerEmployee("John", "Dillermand");

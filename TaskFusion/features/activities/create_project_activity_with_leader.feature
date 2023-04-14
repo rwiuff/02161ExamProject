@@ -8,7 +8,7 @@ Background:
     And the user registers an employee with first name "Mette", last name "Frederiksen"
     And the user logs in using initials "mefr"
     And the user creates a project with title "Video game"
-    And "mefr" takes the role as project leader on project "23001"
+    And the user takes the role as project leader on project "23001"
     And the user logs out
 
 #MAIN SCENARIOS
