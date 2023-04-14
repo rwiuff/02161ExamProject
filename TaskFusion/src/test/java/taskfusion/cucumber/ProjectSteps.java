@@ -14,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.helpers.MockDateHolder;
+import taskfusion.persistency.EmployeeRepository;
+import taskfusion.persistency.ProjectRepository;
 
 public class ProjectSteps {
   private TaskFusion taskFusion;
@@ -44,7 +46,7 @@ public class ProjectSteps {
   @When("the user creates a project with title {string}")
   public void theUserCreatesAProjectWithTitle(String projectTitle) {
     try {
-      this.taskFusion.createProject(projectTitle);
+      taskFusion.getProjectFacade().createProject(projectTitle);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -54,7 +56,7 @@ public class ProjectSteps {
   public void aProjectWithTitleWithProjectNumberExistsInTheApplication(String projectTitle, String projectNumber) {
 
     try {
-      Project p = this.taskFusion.projectRepo.findByProjectNumber(projectNumber);
+      Project p = ProjectRepository.getInstance().findByProjectNumber(projectNumber);
       assertNotNull(p);
       assertEquals(projectTitle, p.getProjectTitle());
     } catch (NotFoundException e) {
@@ -66,7 +68,7 @@ public class ProjectSteps {
   @When("the user sets customer {string} on project {string}")
   public void the_user_sets_customer_on_project(String customer, String projectNumber) {
     try {
-      taskFusion.assignCustomerToProject(projectNumber, customer);
+      taskFusion.getProjectFacade().assignCustomerToProject(projectNumber, customer);
     } catch (NotFoundException e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -75,7 +77,7 @@ public class ProjectSteps {
   @Then("the project {string} has customer {string}")
   public void the_project_has_customer(String projectNumber, String customer) {
     try {
-      assertEquals(customer, taskFusion.projectRepo.findByProjectNumber(projectNumber).getCustomer());
+      assertEquals(customer, ProjectRepository.getInstance().findByProjectNumber(projectNumber).getCustomer());
     } catch (NotFoundException e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -84,7 +86,7 @@ public class ProjectSteps {
   @When("the user sets the start week to {int} on {string}")
   public void the_user_sets_the_start_week_to_on(int start, String projectNumber) {
     try {
-      taskFusion.projectRepo.findByProjectNumber(projectNumber).setStartWeek(start);
+      ProjectRepository.getInstance().findByProjectNumber(projectNumber).setStartWeek(start);
     } catch (NotFoundException e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -93,7 +95,7 @@ public class ProjectSteps {
   @Then("the project has start week {int} on {string}")
   public void the_project_has_start_week_on(int start, String projectNumber) {
     try {
-      assertEquals(start, taskFusion.projectRepo.findByProjectNumber(projectNumber).getStartWeek());
+      assertEquals(start, ProjectRepository.getInstance().findByProjectNumber(projectNumber).getStartWeek());
     } catch (NotFoundException e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -102,7 +104,7 @@ public class ProjectSteps {
   @When("{string} takes the role as project leader on project {string}")
   public void takes_the_role_as_project_leader_on_project(String initials, String projectNumber) {
     try {
-      taskFusion.projectRepo.findByProjectNumber(projectNumber).setProjectLeader(taskFusion.employeeRepo.findByInitials(initials));
+      ProjectRepository.getInstance().findByProjectNumber(projectNumber).setProjectLeader(EmployeeRepository.getInstance().findByInitials(initials));
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -111,7 +113,7 @@ public class ProjectSteps {
   @Then("{string} is the project leader on project {string}")
   public void is_the_project_leader_on_project(String initials, String projectNumber) {
     try {
-      assertEquals(initials, taskFusion.projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials());
+      assertEquals(initials, ProjectRepository.getInstance().findByProjectNumber(projectNumber).getProjectLeader().getInitials());
     } catch (NotFoundException e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -120,7 +122,7 @@ public class ProjectSteps {
   @When("the user assigns {string} to the project {string}")
   public void assigns_to_the_project(String employeeInitials, String projectNumber) {
     try {
-      taskFusion.assignEmployeeToProject(projectNumber, employeeInitials);
+      taskFusion.getProjectFacade().assignEmployeeToProject(projectNumber, employeeInitials);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -130,7 +132,7 @@ public class ProjectSteps {
   public void the_employee_is_assigned_to_the_project(String initials, String projectNumber) {
     Project project;
     try {
-      project = taskFusion.projectRepo.findByProjectNumber(projectNumber);
+      project = ProjectRepository.getInstance().findByProjectNumber(projectNumber);
       Employee employee = project.getAssignedEmployee(initials);
       assertEquals(initials, employee.getInitials());
       assertEquals(projectNumber, project.getProjectNumber());
@@ -141,18 +143,18 @@ public class ProjectSteps {
 
     @Then("there is {int} projects in the application")
     public void there_is_projects_in_the_application(int i) {
-      assertEquals(i, taskFusion.projectRepo.all().size());
+      assertEquals(i, ProjectRepository.getInstance().all().size());
         // Write code here that turns the phrase above into concrete actions
     }
 
     @Then("the project {string} is an internal project")
     public void the_project_is_an_internal_project(String projectNumber) throws NotFoundException {
-        assertTrue(taskFusion.projectRepo.findByProjectNumber(projectNumber).isInternal());
+        assertTrue(ProjectRepository.getInstance().findByProjectNumber(projectNumber).isInternal());
     }
 
     @Then("the project {string} is an external project")
     public void the_project_is_an_external_project(String projectNumber) throws NotFoundException {
-      assertFalse(taskFusion.projectRepo.findByProjectNumber(projectNumber).isInternal());
+      assertFalse(ProjectRepository.getInstance().findByProjectNumber(projectNumber).isInternal());
     }
 
 }
