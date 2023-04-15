@@ -1,0 +1,96 @@
+@startuml
+left to right direction
+(*) --> "
+{{
+salt
+{+
+title GÆST MENU 
+header GuestMenuController
+<&chevron-right> Login
+<&chevron-right> Opret medarbejder
+<&chevron-right> Luk
+}
+}}
+" as GuestMenuController
+
+GuestMenuController --> "
+{{
+salt
+{+
+title LOGIN
+header LoginView
+<&terminal> Indtast dine initialer
+}
+}}
+" as LoginView 
+
+LoginView --> "
+{{
+salt
+{+
+title MEDARBEJDER MENU
+header EmployeeMenuController
+<&chevron-right> Se projekter
+<&chevron-right> Opret projekt
+<color:Red><&chevron-right> Se faste aktiviteter
+<color:Red><&chevron-right> Opret fast aktivitet
+<&chevron-right> Logud
+}
+}}
+" as EmployeeMenuController
+
+GuestMenuController --> "
+{{
+salt
+{+
+title OPRET MEDARBEJDER
+header RegisterEmployeeView
+<&terminal> Indtast fornavn
+<&terminal> Indtast efternavn
+}
+}}
+" as RegisterEmployeeView
+
+EmployeeMenuController --> "
+{{
+salt
+{+
+title DINE PROJEKTER
+header ListProjectsView
+<&menu> [projekt nummer]. [projekt titel]
+<&menu> ...
+<&terminal> Vælg projekt
+}
+}}
+" as ListProjectsView
+
+ListProjectsView --> "
+{{
+salt
+{+
+title PROJEKT MENU
+header ProjectMenuController
+Projekt nummer:    23001
+Projekt leder:     kasy
+Medarbejdere:      4
+______________________________
+<color:Red><&chevron-right> Se medarbejdere
+<color:Red><&chevron-right> Tilføj medarbejder til projekt
+<color:Red><&chevron-right> påtag projektleder rolle
+<&chevron-right> tilbage
+}
+}}
+" as ProjectMenuController
+
+EmployeeMenuController --> "
+{{
+salt
+{+
+title OPRET PROJEKT
+header CreateProjectView
+<&terminal> Indtast projekt title
+}
+}}
+" as CreateProjectView
+
+@enduml

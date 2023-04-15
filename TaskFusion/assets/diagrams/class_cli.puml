@@ -1,0 +1,64 @@
+@startuml TaskFusion-CLI 
+
+package "Application-layer" {
+    class "TaskFusion" as taskFusion {
+        + login(initials) : boolean
+        + logout()
+        + isLoggedIn() : boolean
+        + getLoggedInUser() : EmployeeViewModel
+    }
+
+    class "EmployeeFacade" as employeeFacade {
+
+    }
+
+    class "ProjectFacade" as projectFacade {
+
+    }
+
+    taskFusion --> "1" employeeFacade : getEmployeeFacade()
+    taskFusion --> "1" projectFacade : getprojectFacade()
+}
+
+package "Presentation-layer" {
+    class TaskFusionCLI {
+        - scanner : Scanner
+        --
+        # getInstance() : TaskFusionCLI
+        + mainLoop() : void
+    }
+
+    interface ControllerInterface {
+        --
+        showMenu() : void
+    }
+
+    class ____MenuController {
+        --
+    }
+
+
+    interface ViewInterface {
+        --
+        show() : void
+    }
+
+    class ____View {
+        --
+    }
+
+    class ____Component
+
+    TaskFusionCLI -->"1" ____MenuController
+
+    ____MenuController --|> ControllerInterface
+    ____View --|> ViewInterface
+    ____MenuController -->"0..*" ____View
+    ____View -->"0..1"  ____MenuController
+    ____View -->"0..*" ____Component
+}
+
+
+TaskFusionCLI -->"1" taskFusion : taskFusion
+
+@enduml

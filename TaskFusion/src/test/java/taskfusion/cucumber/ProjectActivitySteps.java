@@ -126,8 +126,6 @@ public class ProjectActivitySteps {
         } catch (Exception e) {
           this.errorMessageHolder.setErrorMessage(e.getMessage());
         }
-        //System.out.println("LIST AFTER EDIT:");
-        //PrintHelper.printWorktimeRegistrations(this.taskFusion.projectRepo.getAllWorktimeRegistrations());
-        //System.out.println("END LIST AFTER EDIT:");
+
     }
 }
