@@ -57,7 +57,9 @@ salt
 {+
 title DINE PROJEKTER
 header ListProjectsView
-<&menu> [projekt nummer]. [projekt titel]
+<&menu> 23001. Kravspecifikationer
+<&menu> 23002. Programdesign
+<&menu> 23003. Implementering
 <&menu> ...
 <&terminal> Vælg projekt
 }
@@ -92,5 +94,50 @@ header CreateProjectView
 }
 }}
 " as CreateProjectView
+
+EmployeeMenuController --> "
+{{
+salt
+{+
+title <color:Red>OPRET FAST AKTIVITET
+header CreateRegularActivityView
+<&terminal> Indtast titel
+<&terminal> Indtast start uge [UUYY]
+<&terminal> Indtast slut uge [UUYY]
+}
+}}
+" as CreateRegularActivityView
+
+EmployeeMenuController --> "
+{{
+salt
+{+
+title <color:Red>DINE FASTE AKTIVITETER
+header ListRegularActivitiesView
+<&menu> 1. Syg: 0423 - 0523
+<&menu> 2. Ferie: 0723 - 0923
+<&menu> 3. Syg: 1023 - 1023
+<&menu> ...
+<&terminal> Vælg aktivitet
+}
+}}
+" as ListRegularActivitiesView
+
+ListRegularActivitiesView --> "
+{{
+salt
+{+
+title <color:Red>FAST AKTIVITET MENU
+header RegularActivityMenuController
+Aktivitet titel:    Ferie
+periode:  0423 - 0423
+______________________________
+<color:Red><&chevron-right> Ret titel
+<color:Red><&chevron-right> Ret startuge
+<color:Red><&chevron-right> Ret slutuge
+<&chevron-right> tilbage
+}
+}}
+" as RegularActivityMenuController
 
 @enduml
