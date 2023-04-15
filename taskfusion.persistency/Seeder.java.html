@@ -43,10 +43,10 @@ public class Seeder {
 
 <span class="fc" id="L44">        Employee creator = EmployeeRepository.getInstance().findByInitials(&quot;kasy&quot;);</span>
         
-<span class="fc" id="L46">        projectRepository.create(&quot;Kravspecifikationer&quot;,creator , date);</span>
-<span class="fc" id="L47">        projectRepository.create(&quot;Programdesign&quot;, creator, date);</span>
-<span class="fc" id="L48">        projectRepository.create(&quot;Implementering&quot;, creator, date);</span>
-<span class="fc" id="L49">        projectRepository.create(&quot;Test&quot;, creator, date);</span>
+<span class="fc" id="L46">        projectRepository.create(&quot;Kravspecifikationer&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
+<span class="fc" id="L47">        projectRepository.create(&quot;Programdesign&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
+<span class="fc" id="L48">        projectRepository.create(&quot;Implementering&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
+<span class="fc" id="L49">        projectRepository.create(&quot;Test&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
 
         //Assign users to projects
 <span class="fc bfc" id="L52" title="All 2 branches covered.">        for (Map.Entry&lt;String, Project&gt; projectEntry : ProjectRepository.getInstance().all().entrySet()) {</span>

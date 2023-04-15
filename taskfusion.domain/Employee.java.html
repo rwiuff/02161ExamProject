@@ -11,33 +11,38 @@ import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
+import taskfusion.viewModels.EmployeeViewModel;
 
-public class Employee {
-<span class="fc" id="L16">  private List&lt;RegularActivity&gt; regularActivities = new ArrayList&lt;RegularActivity&gt;();</span>
-<span class="fc" id="L17">  private Map&lt;String, Project&gt; projects = new HashMap&lt;&gt;();</span>
+public class Employee implements ConvertibleToViewModelInterface {
+<span class="fc" id="L17">  private List&lt;RegularActivity&gt; regularActivities = new ArrayList&lt;RegularActivity&gt;();</span>
+<span class="fc" id="L18">  private Map&lt;String, Project&gt; projects = new HashMap&lt;&gt;();</span>
   private String firstName;
   private String lastName;
   private String initials;
 
-<span class="fc" id="L22">  public Employee(String firstName, String lastName) throws InvalidPropertyException, ExhaustedOptionsException {</span>
-<span class="fc" id="L23">    this.firstName = validateFirstName(firstName);</span>
-<span class="fc" id="L24">    this.lastName = validateLastName(lastName);</span>
-<span class="fc" id="L25">    createInitials();</span>
+<span class="fc" id="L23">  public Employee(String firstName, String lastName) throws InvalidPropertyException, ExhaustedOptionsException {</span>
+<span class="fc" id="L24">    this.firstName = validateFirstName(firstName);</span>
+<span class="fc" id="L25">    this.lastName = validateLastName(lastName);</span>
+<span class="fc" id="L26">    createInitials();</span>
 
-<span class="fc" id="L27">  }</span>
+<span class="fc" id="L28">  }</span>
+
+  public EmployeeViewModel toViewModel(){
+<span class="fc" id="L31">    return new EmployeeViewModel(this);</span>
+  }
 
   private String validateFirstName(String firstName) throws InvalidPropertyException {
-<span class="fc bfc" id="L30" title="All 2 branches covered.">    if (firstName.length() &lt; 2) {</span>
-<span class="fc" id="L31">      throw new InvalidPropertyException(&quot;Fornavn mangler&quot;);</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">    if (firstName.length() &lt; 2) {</span>
+<span class="fc" id="L36">      throw new InvalidPropertyException(&quot;Fornavn mangler&quot;);</span>
     }
-<span class="fc" id="L33">    return firstName;</span>
+<span class="fc" id="L38">    return firstName;</span>
   }
 
   private String validateLastName(String lastName) throws InvalidPropertyException {
-<span class="fc bfc" id="L37" title="All 2 branches covered.">    if (lastName.length() &lt; 2) {</span>
-<span class="fc" id="L38">      throw new InvalidPropertyException(&quot;Efternavn mangler&quot;);</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">    if (lastName.length() &lt; 2) {</span>
+<span class="fc" id="L43">      throw new InvalidPropertyException(&quot;Efternavn mangler&quot;);</span>
     }
-<span class="fc" id="L40">    return lastName;</span>
+<span class="fc" id="L45">    return lastName;</span>
   }
 
   /*
@@ -58,89 +63,89 @@ public class Employee {
     // String init = firstName.substring(0, 2) + lastName.substring(0, 2);
     // this.initials = init.toLowerCase();
 
-<span class="fc" id="L61">    EmployeeRepository employeeRepo = EmployeeRepository.getInstance();</span>
+<span class="fc" id="L66">    EmployeeRepository employeeRepo = EmployeeRepository.getInstance();</span>
 
-<span class="pc bpc" id="L63" title="1 of 2 branches missed.">    for (int l1 = 0; l1 &lt; lastName.length(); l1++) {</span>
-<span class="pc bpc" id="L64" title="1 of 2 branches missed.">      for (int l2 = l1 + 1; l2 &lt; lastName.length(); l2++) {</span>
-<span class="fc" id="L65">        String init = firstName.substring(0, 2)</span>
-<span class="fc" id="L66">            + lastName.substring(l1, Math.min(l1 + 1, lastName.length()))</span>
-<span class="fc" id="L67">            + lastName.substring(l2, Math.min(l2 + 1, lastName.length()));</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">    for (int l1 = 0; l1 &lt; lastName.length(); l1++) {</span>
+<span class="pc bpc" id="L69" title="1 of 2 branches missed.">      for (int l2 = l1 + 1; l2 &lt; lastName.length(); l2++) {</span>
+<span class="fc" id="L70">        String init = firstName.substring(0, 2)</span>
+<span class="fc" id="L71">            + lastName.substring(l1, Math.min(l1 + 1, lastName.length()))</span>
+<span class="fc" id="L72">            + lastName.substring(l2, Math.min(l2 + 1, lastName.length()));</span>
 
-<span class="fc" id="L69">        init = init.toLowerCase();</span>
-<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (employeeRepo.findByInitials(init) == null) {</span>
-<span class="fc" id="L71">          this.initials = init;</span>
-<span class="fc" id="L72">          return;</span>
+<span class="fc" id="L74">        init = init.toLowerCase();</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        if (employeeRepo.findByInitials(init) == null) {</span>
+<span class="fc" id="L76">          this.initials = init;</span>
+<span class="fc" id="L77">          return;</span>
         }
       }
     }
 
-<span class="nc" id="L77">    throw new ExhaustedOptionsException(&quot;Kunne ikke generere unikke initialer&quot;);</span>
+<span class="nc" id="L82">    throw new ExhaustedOptionsException(&quot;Kunne ikke generere unikke initialer&quot;);</span>
 
   }
 
   public String getFirstName() {
-<span class="fc" id="L82">    return firstName;</span>
+<span class="fc" id="L87">    return firstName;</span>
   }
 
   public String getLastName() {
-<span class="fc" id="L86">    return lastName;</span>
+<span class="fc" id="L91">    return lastName;</span>
   }
 
   public String getFullName() {
-<span class="fc" id="L90">    return firstName + &quot; &quot; + lastName;</span>
+<span class="fc" id="L95">    return firstName + &quot; &quot; + lastName;</span>
   }
 
   public String getInitials() {
-<span class="fc" id="L94">    return initials;</span>
+<span class="fc" id="L99">    return initials;</span>
   }
 
   public List&lt;RegularActivity&gt; getRegularActivities() {
-<span class="nc" id="L98">    return this.regularActivities;</span>
+<span class="nc" id="L103">    return this.regularActivities;</span>
   }
 
   public void addRegularActivity(RegularActivity regularActivity) {
-<span class="fc" id="L102">    this.regularActivities.add(regularActivity);</span>
-<span class="fc" id="L103">  }</span>
+<span class="fc" id="L107">    this.regularActivities.add(regularActivity);</span>
+<span class="fc" id="L108">  }</span>
 
   public boolean hasRegularActivity(String title, int startWeek, int endWeek) {
-<span class="fc bfc" id="L106" title="All 2 branches covered.">    for (RegularActivity regularActivity : this.regularActivities) {</span>
-<span class="pc bpc" id="L107" title="3 of 4 branches missed.">      if (regularActivity.getTitle() == title &amp;&amp; regularActivity.getStartWeek() == startWeek</span>
-<span class="nc bnc" id="L108" title="All 2 branches missed.">          &amp;&amp; regularActivity.getEndWeek() == endWeek) {</span>
-<span class="nc" id="L109">        return true;</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">    for (RegularActivity regularActivity : this.regularActivities) {</span>
+<span class="pc bpc" id="L112" title="3 of 4 branches missed.">      if (regularActivity.getTitle() == title &amp;&amp; regularActivity.getStartWeek() == startWeek</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">          &amp;&amp; regularActivity.getEndWeek() == endWeek) {</span>
+<span class="nc" id="L114">        return true;</span>
       }
-<span class="fc" id="L111">    }</span>
+<span class="fc" id="L116">    }</span>
 
-<span class="fc" id="L113">    return false;</span>
+<span class="fc" id="L118">    return false;</span>
   }
 
   public Map&lt;String, Project&gt; getProjects() {
 
-<span class="fc" id="L118">    Map&lt;String, Project&gt; employeeProjects = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L123">    Map&lt;String, Project&gt; employeeProjects = new HashMap&lt;&gt;();</span>
 
-<span class="fc bfc" id="L120" title="All 2 branches covered.">    for (Map.Entry&lt;String, Project&gt; projectEntry : ProjectRepository.getInstance().all().entrySet()) {</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">    for (Map.Entry&lt;String, Project&gt; projectEntry : ProjectRepository.getInstance().all().entrySet()) {</span>
 
-<span class="fc" id="L122">        Project project = projectEntry.getValue();</span>
+<span class="fc" id="L127">        Project project = projectEntry.getValue();</span>
 
-<span class="fc bfc" id="L124" title="All 2 branches covered.">        if(project.getAssignedEmployee(initials) != null) {</span>
-<span class="fc" id="L125">          employeeProjects.put(project.getProjectNumber(),project);</span>
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        if(project.getAssignedEmployee(initials) != null) {</span>
+<span class="fc" id="L130">          employeeProjects.put(project.getProjectNumber(),project);</span>
         }
-<span class="fc" id="L127">    }</span>
+<span class="fc" id="L132">    }</span>
 
-<span class="fc" id="L129">    return employeeProjects;</span>
+<span class="fc" id="L134">    return employeeProjects;</span>
 
   }
 
   public Project findProject(String projectNumber) {
-<span class="nc" id="L134">    return this.getProjects().get(projectNumber);</span>
+<span class="nc" id="L139">    return this.getProjects().get(projectNumber);</span>
   }
 
   public void addProject(Project project) throws AlreadyExistsException, NotFoundException {
-<span class="nc bnc" id="L138" title="All 2 branches missed.">    if (findProject(project.getProjectNumber()) == null) {</span>
-<span class="nc" id="L139">      this.projects.put(project.getProjectNumber(), project);</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">    if (findProject(project.getProjectNumber()) == null) {</span>
+<span class="nc" id="L144">      this.projects.put(project.getProjectNumber(), project);</span>
     } else {
-<span class="nc" id="L141">      throw new AlreadyExistsException(&quot;Projektet findes allerede&quot;);</span>
+<span class="nc" id="L146">      throw new AlreadyExistsException(&quot;Projektet findes allerede&quot;);</span>
     }
-<span class="nc" id="L143">  }</span>
+<span class="nc" id="L148">  }</span>
 
   // public void addProjectActivity(String projectNumber, ProjectActivity projectActivity) throws AlreadyExistsException, NotFoundException {
   //   Project project = findProject(projectNumber);
@@ -148,8 +153,8 @@ public class Employee {
   // }
 
   public void setTimeBudgetProjectActivity(String projectNumber, String title, Integer timeBudget) throws NotFoundException {
-<span class="nc" id="L151">    Project project = findProject(projectNumber);</span>
-<span class="nc" id="L152">    project.findProjectActivity(title).setTimeBudget(timeBudget);</span>
-<span class="nc" id="L153">  }</span>
+<span class="nc" id="L156">    Project project = findProject(projectNumber);</span>
+<span class="nc" id="L157">    project.findProjectActivity(title).setTimeBudget(timeBudget);</span>
+<span class="nc" id="L158">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

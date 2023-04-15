@@ -2,26 +2,79 @@
 
 import taskfusion.app.TaskFusion;
 import taskfusion.domain.Employee;
+import taskfusion.domain.RegularActivity;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
+import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.persistency.EmployeeRepository;
+import taskfusion.viewModels.EmployeeViewModel;
 
 public class EmployeeFacade {
     private TaskFusion taskFusion;
-<span class="nc" id="L11">    public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();</span>
+<span class="fc" id="L14">    public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();</span>
 
-<span class="nc" id="L13">    public EmployeeFacade(TaskFusion taskFusion) {</span>
-<span class="nc" id="L14">        this.taskFusion = taskFusion;</span>
-<span class="nc" id="L15">    }</span>
+<span class="fc" id="L16">    public EmployeeFacade(TaskFusion taskFusion) {</span>
+<span class="fc" id="L17">        this.taskFusion = taskFusion;</span>
+<span class="fc" id="L18">    }</span>
 
     public void registerEmployee(String firstName, String lastName)
             throws InvalidPropertyException, ExhaustedOptionsException {
-<span class="nc" id="L19">        employeeRepo.create(firstName, lastName);</span>
-<span class="nc" id="L20">    }</span>
+<span class="fc" id="L22">        employeeRepo.create(firstName, lastName);</span>
+<span class="fc" id="L23">    }</span>
 
-    public Employee findEmployeeByInitials(String initials) {
-<span class="nc" id="L23">        return employeeRepo.findByInitials(initials);</span>
+    public EmployeeViewModel findEmployeeByInitials(String initials) {
+
+<span class="fc" id="L27">        Employee employee = employeeRepo.findByInitials(initials);</span>
+
+<span class="fc bfc" id="L29" title="All 2 branches covered.">        if(employee != null) {</span>
+<span class="fc" id="L30">            return employee.toViewModel();</span>
+        }
+
+<span class="fc" id="L33">        return null;</span>
     }
 
+    // ALLE DISSE CHECKS, SKAL FOREGÅ I DOMAIN LAYER, SO I SELVE REGULARACTIVITY
+    // KLASSEN
+    public void createRegularActivity(String title, Integer startWeek, Integer endWeek)
+            throws OperationNotAllowedException, InvalidPropertyException {
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (title == &quot;&quot;) {</span>
+<span class="fc" id="L41">            throw new InvalidPropertyException(&quot;En titel mangler&quot;);</span>
+        }
+
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (startWeek == null) {</span>
+<span class="fc" id="L45">            throw new InvalidPropertyException(&quot;En start uge mangler&quot;);</span>
+        }
+
+<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (endWeek == null) {</span>
+<span class="fc" id="L49">            throw new InvalidPropertyException(&quot;En slut uge mangler&quot;);</span>
+        }
+
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (startWeek &gt; endWeek) {</span>
+<span class="fc" id="L53">            throw new InvalidPropertyException(&quot;Start uge skal være før slut uge&quot;);</span>
+        }
+
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (endWeek &lt; startWeek) {</span>
+<span class="nc" id="L57">            throw new InvalidPropertyException(&quot;Slut uge skal være før eller lig med start uge&quot;);</span>
+        }
+
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (taskFusion.isLoggedIn()) {</span>
+<span class="fc" id="L61">            getLoggedInUserModel().addRegularActivity(new RegularActivity(title, startWeek, endWeek));</span>
+        } else {
+<span class="fc" id="L63">            throw new OperationNotAllowedException(&quot;Kun medarbejdere kan oprette en fast aktivitet&quot;);</span>
+        }
+<span class="fc" id="L65">    }</span>
+
+    public boolean hasRegularActivity(String title, Integer startWeek, Integer endWeek) {
+<span class="fc" id="L68">        return getLoggedInUserModel().hasRegularActivity(title, startWeek, endWeek);</span>
+    }
+
+    /**
+   * ###########################
+   * Helper methods
+   * ###########################
+   */
+    private Employee getLoggedInUserModel() {
+<span class="fc" id="L77">        return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
