@@ -4,6 +4,7 @@ import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Header;
 import taskfusion.cli.components.Input;
 import taskfusion.cli.components.Text;
+import taskfusion.cli.controllers.EmployeeMenuController;
 
 public class LoginView implements ViewInterface {
     
@@ -12,6 +13,10 @@ public class LoginView implements ViewInterface {
         Header.showHeader("Login", 1);
 
         while(true) {
+
+            if (TaskFusionCLI.taskFusion().isLoggedIn()) {
+                new EmployeeMenuController().showMenu();
+            }
             
             String initials = Input.lineWithCancel("Indtast dine initialer");
             
@@ -23,10 +28,6 @@ public class LoginView implements ViewInterface {
                 TaskFusionCLI.taskFusion().login(initials);
             } catch (Exception e) {
                 Text.showExceptionError(e);
-            }
-
-            if(TaskFusionCLI.taskFusion().isLoggedIn()) {
-                return;
             }
             
         }

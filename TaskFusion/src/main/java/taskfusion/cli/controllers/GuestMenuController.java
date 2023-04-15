@@ -22,11 +22,6 @@ public class GuestMenuController implements ControllerInterface {
             switch (selectedMenuItem) {
                 case 1:
                     new LoginView().show();
-
-                    if (TaskFusionCLI.taskFusion().isLoggedIn()) {
-                        new EmployeeMenuController().showMenu();
-                    }
-
                     break;
                 case 2:
                     new RegisterEmployeeView().show();

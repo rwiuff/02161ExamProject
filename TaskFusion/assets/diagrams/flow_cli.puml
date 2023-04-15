@@ -32,7 +32,7 @@ title MEDARBEJDER MENU
 header EmployeeMenuController
 <&chevron-right> Se projekter
 <&chevron-right> Opret projekt
-<color:Red><&chevron-right> Se faste aktiviteter
+<&chevron-right> Se faste aktiviteter
 <&chevron-right> Opret fast aktivitet
 <&chevron-right> Logud
 }
