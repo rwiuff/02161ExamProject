@@ -1,7 +1,7 @@
 ######################
 ## TODO
 ######################
-
+- Cucumber feature implementations
 
 
 
@@ -16,4 +16,6 @@
 ######################
 ## Known bugs
 ######################
-- Kan ikke oprette mere end 2 projekter i seeder, af een eller anden årsag.
+- Man kan godt oprette faste aktiviteter med forkerte ugenumre, fx accepteres værdien 2
+- Skal man kunne redigere i faste aktiviter?
+-startweek og endweek skal nok være i Strings

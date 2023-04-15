@@ -1,5 +1,6 @@
 package taskfusion.cli.components;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import taskfusion.cli.TaskFusionCLI;
@@ -27,5 +28,14 @@ public class Input {
         return line;
     }
 
+    public static void enterToContinue(String prompt) {
+        Text.lineBreak();
+        Text.showInfo(prompt);
+        try {
+            System.in.read();
+        } catch (IOException e) {
+
+        }
+    }
 
 }

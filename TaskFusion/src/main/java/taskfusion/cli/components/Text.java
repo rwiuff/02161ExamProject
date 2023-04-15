@@ -34,4 +34,8 @@ public class Text {
         System.out.println("      ~~~~~ " + slogan + " ~~~~~");
     }
 
+    public static void lineBreak() {
+        System.out.println("");
+    }
+
 }

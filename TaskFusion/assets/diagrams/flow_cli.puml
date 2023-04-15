@@ -33,7 +33,7 @@ header EmployeeMenuController
 <&chevron-right> Se projekter
 <&chevron-right> Opret projekt
 <color:Red><&chevron-right> Se faste aktiviteter
-<color:Red><&chevron-right> Opret fast aktivitet
+<&chevron-right> Opret fast aktivitet
 <&chevron-right> Logud
 }
 }}
@@ -103,7 +103,7 @@ EmployeeMenuController --> "
 {{
 salt
 {+
-title <color:Red>OPRET FAST AKTIVITET
+title OPRET FAST AKTIVITET
 header CreateRegularActivityView
 <&terminal> Indtast titel
 <&terminal> Indtast start uge [UUYY]

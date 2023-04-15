@@ -4,6 +4,7 @@ import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
 import taskfusion.cli.views.CreateProjectView;
+import taskfusion.cli.views.CreateRegularActivityView;
 import taskfusion.cli.views.ListProjectsView;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.viewModels.ProjectViewModel;
@@ -25,7 +26,7 @@ public class EmployeeMenuController implements ControllerInterface {
 
             switch (selectedMenuItem) {
                 case 1: // Se projekter
-
+                    
                     ProjectViewModel selectedProject = null;
                     try {
                         selectedProject = new ListProjectsView().select();
@@ -50,7 +51,7 @@ public class EmployeeMenuController implements ControllerInterface {
                     break;
 
                 case 4: // Opret fast aktivitet
-                    Text.showError("MANGLER IMPLEMENTERING");
+                    new CreateRegularActivityView().show();
                     break;
 
                 case 5:
@@ -58,7 +59,7 @@ public class EmployeeMenuController implements ControllerInterface {
                     return; // NOTICE THIS RETURN, not break
 
                 default:
-                    Text.showError("Uventet menupunkt");
+                    Text.showError("Ukendt menupunkt");
                     return; // NOTICE THIS RETURN, not break
             }
         }
