@@ -43,7 +43,7 @@ public class ProjectFacade {
     public void assignEmployeeToProject(String projectNumber, String initials)
             throws NotFoundException, OperationNotAllowedException {
         Project project = projectRepo.findByProjectNumber(projectNumber);
-        project.assignEmployee(initials, EmployeeRepository.getInstance().findByInitials(initials));
+        project.assignEmployee(initials, getLoggedInUserModel());
     }
 
     public void takeProjectLeaderRole(String projectNumber) throws AlreadyExistsException, NotFoundException {

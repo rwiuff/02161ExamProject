@@ -22,10 +22,8 @@ Scenario: 1. Employee assigns employee to project
 Scenario: 2. Project manager assigns an employee
     Given the user logs in using initials "mila"
     And the user takes the role as project leader on project "23001"
-    And print exception
     And the user registers an employee with first name "Brian", last name "Laudrup"
     When the user assigns "brla" to the project "23001"
-    And debug
     Then the employee "brla" is assigned to the project "23001"
     And the employee "brla" have 1 projects
 

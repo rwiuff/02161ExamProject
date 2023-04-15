@@ -79,16 +79,6 @@ public class EmployeeSteps {
         assertEquals(projects, EmployeeRepository.getInstance().findByInitials(initials).getProjects().size());
     }
 
-    @Given("debug")
-    public void debug() throws Exception {
-        System.out.println("------ DEBUG ------");
-        System.out.println(this.errorMessageHolder.getErrorMessage());
-        Project project = ProjectRepository.getInstance().findByProjectNumber("23001");
-      Employee employee = project.getAssignedEmployee("brla");
-      PrintHelper.printEmployees(project.getAssignedEmployees());
-      System.out.println(employee.getInitials());
-
-    }
 
     @Given("print exception")
     public void print_exception() {
