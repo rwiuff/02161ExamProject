@@ -75,10 +75,14 @@ header ProjectMenuController
 Projekt nummer:    23001
 Projekt leder:     kasy
 Medarbejdere:      4
+<color:Red>Aktiviteter:       3
 ______________________________
 <color:Red><&chevron-right> Se medarbejdere
 <color:Red><&chevron-right> Tilføj medarbejder til projekt
+<color:Red><&chevron-right> Se aktiviteter
+<color:Red><&chevron-right> Tilføj aktivitet
 <color:Red><&chevron-right> påtag projektleder rolle
+<color:Red><&chevron-right> Generer rapport
 <&chevron-right> tilbage
 }
 }}
@@ -139,5 +143,140 @@ ______________________________
 }
 }}
 " as RegularActivityMenuController
+
+ProjectMenuController --> "
+{{
+salt
+{+
+title <color:Red>MEDARBEJDERE
+header ListEmployeesView
+<&menu> kasy : Kasper Sylvest
+<&menu> rakr : Rasmus Kronborg
+<&menu> mach : Mathies Christian
+<&menu> masc : Max-Emil Scotten
+<&menu> ...
+<&terminal> Vælg medarbejder
+}
+}}
+" as ListEmployeesView
+
+ProjectMenuController --> "
+{{
+salt
+{+
+title <color:Red>TILFØJ MEDARBEJDER TIL PROJEKT
+header AssignEmployeeToProjectView
+<&terminal> Indtast medarbejder initialer
+}
+}}
+" as AssignEmployeeToProjectView
+
+ProjectMenuController --> "
+{{
+salt
+{+
+title <color:Red>PÅTAG PROJEKTLEDER ROLLE
+header AssignProjectLeaderToProjectView
+Er du sikker?
+<&terminal> Indtast ja/nej
+}
+}}
+" as AssignProjectLeaderToProjectView
+
+ProjectMenuController --> "
+{{
+salt
+{+
+title <color:Red>PROJEKT AKTIVITETER
+header ListProjectActivitiesView
+<&menu> 1. Kravspecifikation
+<&menu> 2. Design
+<&menu> 3. Half-Life 3
+<&menu> ...
+<&terminal> Vælg aktivitet:
+}
+}}
+" as ListProjectActivitiesView
+
+ProjectMenuController --> "
+{{
+salt
+{+
+title <color:Red>OPRET PROJEKT AKTIVITET
+header CreateProjectActivityView
+<&terminal> Indtast titel:
+}
+}}
+" as CreateProjectActivityView
+
+ProjectMenuController --> "
+{{
+salt
+{+
+title <color:Red>PROJEKT RAPPORT
+header ProjectReportView
+Projekt nummer:    23001
+Projekt leder:     kasy
+Medarbejdere:      4
+Aktiviteter:       3
+Tidsbudget:       300
+Registreret tid:       150
+Andel:              50.0%
+<&terminal> Tryk enter for at vende tilbage:
+}
+}}
+" as ProjectReportView
+
+ListProjectActivitiesView --> "
+{{
+salt
+{+
+title <color:Red>PROJECT AKTIVITET MENU
+header ProjectActivityMenuController
+Aktivitet titel:    Ferie
+______________________________
+<color:Red><&chevron-right> Se tidsregistreringer
+<color:Red><&chevron-right> Opret tidsregistrering
+<&chevron-right> tilbage
+}
+}}
+" as ProjectActivityMenuController
+
+ProjectActivityMenuController --> "
+{{
+salt
+{+
+title <color:Red>OPRET TIDSREGISTRERING
+header CreateWorktimeRegistrationView
+<&terminal> Indtast timer:
+}
+}}
+" as CreateWorktimeRegistrationView
+
+ProjectActivityMenuController --> "
+{{
+salt
+{+
+title <color:Red>PROJEKT AKTIVITETER
+header ListProjectActivitiesView
+<&menu> 56. 02/03-2023 : 1.5
+<&menu> 99. 02/07-2023 : 4.0
+<&menu> 103. 02/10-2023 : 1.0
+<&menu> ...
+<&terminal> Vælg tidsregistrering:
+}
+}}
+" as ListWorktimeRegistrationsView
+
+ListWorktimeRegistrationsView --> "
+{{
+salt
+{+
+title <color:Red>REDIGER TIDSREGISTRERING
+header EditWorktimeRegistrationView
+<&terminal> Indtast timer:
+}
+}}
+" as EditWorktimeRegistrationView
 
 @enduml
