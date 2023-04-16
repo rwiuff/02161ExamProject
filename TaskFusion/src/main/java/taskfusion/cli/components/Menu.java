@@ -73,4 +73,16 @@ public class Menu {
 
     }
 
+
+    public static String showListOptions(java.util.List<String> optionsKeyList, java.util.List<String> optionsTextList, String prompt, String header) {
+    
+        String[] optionTexts = optionsTextList.toArray(new String[0]);
+        String[] optionKeys = optionsKeyList.toArray(new String[0]);
+        
+        return Menu.showListOptions(optionKeys, optionTexts, prompt, header);
+    }
+
+
+    
+
 }

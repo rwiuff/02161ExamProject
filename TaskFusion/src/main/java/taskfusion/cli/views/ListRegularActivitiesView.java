@@ -10,9 +10,15 @@ import taskfusion.viewModels.RegularActivityViewModel;
 
 public class ListRegularActivitiesView implements ViewInterface {
     
+    private List<RegularActivityViewModel> activities;
+
+    public ListRegularActivitiesView(List<RegularActivityViewModel> activities) {
+        this.activities = activities;
+    }
 
     public void show() {
-        List<RegularActivityViewModel> activities = new ArrayList<>();
+
+        Text.showError("DENNE FEATURE ER IKKE FULDT IMPLEMENTERET.");
 
         if(activities.size() == 0) {
             Text.showInfo("Du har ingen faste aktiviteter");

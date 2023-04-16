@@ -1,5 +1,8 @@
 package taskfusion.cli.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
@@ -9,6 +12,7 @@ import taskfusion.cli.views.ListProjectsView;
 import taskfusion.cli.views.ListRegularActivitiesView;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.viewModels.ProjectViewModel;
+import taskfusion.viewModels.RegularActivityViewModel;
 
 public class EmployeeMenuController implements ControllerInterface {
 
@@ -27,7 +31,8 @@ public class EmployeeMenuController implements ControllerInterface {
 
             switch (selectedMenuItem) {
                 case 1: // Se projekter
-                    new ListProjectsView().show();
+                    List<ProjectViewModel> projects = TaskFusionCLI.projectFacade().getUserProjects();
+                    new ListProjectsView(projects).show();
                     break;
 
                 case 2: // Opret projekt
@@ -35,7 +40,8 @@ public class EmployeeMenuController implements ControllerInterface {
                     break;
 
                 case 3: // Se faste aktiviteter
-                    new ListRegularActivitiesView().show();
+                    List<RegularActivityViewModel> activities = new ArrayList<>();
+                    new ListRegularActivitiesView(activities).show();
                     break;
 
                 case 4: // Opret fast aktivitet

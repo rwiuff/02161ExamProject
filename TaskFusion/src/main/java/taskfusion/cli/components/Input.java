@@ -28,6 +28,22 @@ public class Input {
         return line;
     }
 
+    public static boolean confirm() {
+        
+        Scanner scanner = TaskFusionCLI.scanner();
+        
+        Text.showInputPrompt("Er du sikker? Skriv ja / nej");
+        scanner.skip("\\s*");
+
+        String line = TaskFusionCLI.scanner().nextLine();
+        System.out.print(line);
+        if (line.toLowerCase().equals("ja")) {
+            return true;
+        }
+        Text.showError("Du annulerede.");
+        return false;
+    }
+
     public static void enterToContinue(String prompt) {
         Text.lineBreak();
         Text.showInfo(prompt);

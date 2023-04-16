@@ -1,8 +1,17 @@
 package taskfusion.cli.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
+import taskfusion.cli.views.AssignEmployeeToProjectView;
+import taskfusion.cli.views.ListEmployeesView;
 import taskfusion.cli.views.ProjectInfoView;
+import taskfusion.cli.views.TakeProjectLeaderRoleView;
+import taskfusion.exceptions.NotFoundException;
+import taskfusion.viewModels.EmployeeViewModel;
 import taskfusion.viewModels.ProjectViewModel;
 
 public class ProjectMenuController implements ControllerInterface {
@@ -12,7 +21,6 @@ public class ProjectMenuController implements ControllerInterface {
     public ProjectMenuController(ProjectViewModel project){
         this.project = project;
     }
-
 
     private String[] menuOptions = {
             "Se medarbejdere",
@@ -35,15 +43,18 @@ public class ProjectMenuController implements ControllerInterface {
 
             switch (selectedMenuItem) {
                 case 1: //Se medarbejdere
-                    Text.showError("MANGLER IMPLEMENTERING");
+                    List<EmployeeViewModel> employees = new ArrayList<>();
+                    new ListEmployeesView(employees).show();
                     break;
 
                 case 2: // Tilføj medarbejder til projekt
-                    Text.showError("MANGLER IMPLEMENTERING");
+                    new AssignEmployeeToProjectView(project).show();
+                    reloadProject();
                     break;
 
                 case 3: // Påtag projektlederrolle
-                    Text.showError("MANGLER IMPLEMENTERING");
+                    new TakeProjectLeaderRoleView(project).show();
+                    reloadProject();
                     break;
 
                 case 4:
@@ -55,5 +66,17 @@ public class ProjectMenuController implements ControllerInterface {
             }
         }
     } 
+
+    private void reloadProject() {
+
+        ProjectViewModel reloadedProject = null;
+        try {
+            reloadedProject = TaskFusionCLI.projectFacade().findProjectByProjectNumber(project.projectNumber);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+            return;
+        }
+        this.project = reloadedProject;
+    }
     
 }

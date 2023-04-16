@@ -17,5 +17,8 @@
 ## Known bugs
 ######################
 - Man kan godt oprette faste aktiviteter med forkerte ugenumre, fx accepteres værdien 2
-- Skal man kunne redigere i faste aktiviter?
--startweek og endweek skal nok være i Strings
+- Skal man kunne redigere i faste aktiviter? I så fald mangler facade.
+- startweek og endweek skal nok være i Strings, måske?
+- Mangler facade for at få projekt medarbejdere
+- Mangler facade for at få faste aktiviteter
+- Mangler facade for at finde 1 fast aktivitet.

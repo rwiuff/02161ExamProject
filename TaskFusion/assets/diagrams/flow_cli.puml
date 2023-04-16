@@ -77,11 +77,11 @@ Projekt leder:     kasy
 Medarbejdere:      4
 <color:Red>Aktiviteter:       3
 ______________________________
-<color:Red><&chevron-right> Se medarbejdere
-<color:Red><&chevron-right> Tilføj medarbejder til projekt
+<&chevron-right> Se medarbejdere
+<&chevron-right> Tilføj medarbejder til projekt
 <color:Red><&chevron-right> Se aktiviteter
 <color:Red><&chevron-right> Tilføj aktivitet
-<color:Red><&chevron-right> påtag projektleder rolle
+<&chevron-right> påtag projektleder rolle
 <color:Red><&chevron-right> Generer rapport
 <&chevron-right> tilbage
 }
@@ -116,8 +116,9 @@ EmployeeMenuController --> "
 {{
 salt
 {+
-title <color:Red>DINE FASTE AKTIVITETER
+title DINE FASTE AKTIVITETER
 header ListRegularActivitiesView
+<color:Red>Mangler facade
 <&menu> 1. Syg: 0423 - 0523
 <&menu> 2. Ferie: 0723 - 0923
 <&menu> 3. Syg: 1023 - 1023
@@ -148,8 +149,9 @@ ProjectMenuController --> "
 {{
 salt
 {+
-title <color:Red>MEDARBEJDERE
+title MEDARBEJDERE
 header ListEmployeesView
+<color:Red>Mangler facade
 <&menu> kasy : Kasper Sylvest
 <&menu> rakr : Rasmus Kronborg
 <&menu> mach : Mathies Christian
@@ -164,7 +166,7 @@ ProjectMenuController --> "
 {{
 salt
 {+
-title <color:Red>TILFØJ MEDARBEJDER TIL PROJEKT
+title TILFØJ MEDARBEJDER TIL PROJEKT
 header AssignEmployeeToProjectView
 <&terminal> Indtast medarbejder initialer
 }
@@ -175,7 +177,7 @@ ProjectMenuController --> "
 {{
 salt
 {+
-title <color:Red>PÅTAG PROJEKTLEDER ROLLE
+title PÅTAG PROJEKTLEDER ROLLE
 header AssignProjectLeaderToProjectView
 Er du sikker?
 <&terminal> Indtast ja/nej
