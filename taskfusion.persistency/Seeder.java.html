@@ -1,64 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Seeder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TaskFusion</a> &gt; <a href="index.source.html" class="el_package">taskfusion.persistency</a> &gt; <span class="el_source">Seeder.java</span></div><h1>Seeder.java</h1><pre class="source lang-java linenums">package taskfusion.persistency;
+
 import java.util.Calendar;
 import java.util.Map;
 
 import taskfusion.app.DateServer;
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
-
-
+import taskfusion.domain.ProjectActivity;
+import taskfusion.exceptions.AlreadyExistsException;
+import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
 
 public class Seeder {
-    
-<span class="fc" id="L13">    EmployeeRepository employeeRepository = EmployeeRepository.getInstance();</span>
-<span class="fc" id="L14">    ProjectRepository projectRepository = ProjectRepository.getInstance();</span>
 
-<span class="fc" id="L16">    public Seeder() {</span>
+<span class="fc" id="L16">    EmployeeRepository employeeRepository = EmployeeRepository.getInstance();</span>
+<span class="fc" id="L17">    ProjectRepository projectRepository = ProjectRepository.getInstance();</span>
+<span class="fc" id="L18">    DateServer dateServer = new DateServer();</span>
 
-<span class="fc" id="L18">    }</span>
+<span class="fc" id="L20">    public Seeder() {</span>
+
+<span class="fc" id="L22">    }</span>
 
     public void seedDemoData() {
         try {
-<span class="fc" id="L22">            seedEmployees();</span>
-<span class="fc" id="L23">            seedProjects();</span>
+<span class="fc" id="L26">            seedEmployees();</span>
+<span class="fc" id="L27">            seedProjects();</span>
 
-<span class="nc" id="L25">        } catch (Exception e) {</span>
-<span class="nc" id="L26">            e.printStackTrace();</span>
-<span class="fc" id="L27">        }</span>
-<span class="fc" id="L28">    }</span>
-
+<span class="nc" id="L29">        } catch (Exception e) {</span>
+<span class="nc" id="L30">            e.printStackTrace();</span>
+<span class="fc" id="L31">        }</span>
+<span class="fc" id="L32">    }</span>
 
     public void seedEmployees() throws Exception {
 
-<span class="fc" id="L33">        employeeRepository.create(&quot;Kasper&quot;, &quot;Sylvest&quot;);</span>
-<span class="fc" id="L34">        employeeRepository.create(&quot;Rasmus&quot;, &quot;Wiuff&quot;);</span>
-<span class="fc" id="L35">        employeeRepository.create(&quot;Mathies&quot;, &quot;Christian&quot;);</span>
-<span class="fc" id="L36">        employeeRepository.create(&quot;Max-Emil&quot;, &quot;Scotten&quot;);</span>
-        
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L36">        employeeRepository.create(&quot;Kasper&quot;, &quot;Sylvest&quot;);</span>
+<span class="fc" id="L37">        employeeRepository.create(&quot;Rasmus&quot;, &quot;Wiuff&quot;);</span>
+<span class="fc" id="L38">        employeeRepository.create(&quot;Mathies&quot;, &quot;Christian&quot;);</span>
+<span class="fc" id="L39">        employeeRepository.create(&quot;Max-Emil&quot;, &quot;Scotten&quot;);</span>
+
+<span class="fc" id="L41">    }</span>
 
     public void seedProjects() throws Exception {
-<span class="fc" id="L41">        DateServer dateServer = new DateServer();</span>
-<span class="fc" id="L42">        Calendar date = dateServer.getDate();</span>
+<span class="fc" id="L44">        Calendar date = dateServer.getDate();</span>
 
-<span class="fc" id="L44">        Employee creator = EmployeeRepository.getInstance().findByInitials(&quot;kasy&quot;);</span>
-        
-<span class="fc" id="L46">        projectRepository.create(&quot;Kravspecifikationer&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
-<span class="fc" id="L47">        projectRepository.create(&quot;Programdesign&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
-<span class="fc" id="L48">        projectRepository.create(&quot;Implementering&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
-<span class="fc" id="L49">        projectRepository.create(&quot;Test&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
+<span class="fc" id="L46">        Employee creator = EmployeeRepository.getInstance().findByInitials(&quot;kasy&quot;);</span>
 
-        //Assign users to projects
-<span class="fc bfc" id="L52" title="All 2 branches covered.">        for (Map.Entry&lt;String, Project&gt; projectEntry : ProjectRepository.getInstance().all().entrySet()) {</span>
+<span class="fc" id="L48">        projectRepository.create(&quot;Kravspecifikationer&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
+<span class="fc" id="L49">        projectRepository.create(&quot;Programdesign&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
+<span class="fc" id="L50">        projectRepository.create(&quot;Implementering&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
+<span class="fc" id="L51">        projectRepository.create(&quot;Test&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
 
-<span class="fc" id="L54">            Project project = projectEntry.getValue();</span>
-    
-<span class="fc" id="L56">            project.assignEmployee(&quot;rawi&quot;, creator);</span>
-<span class="fc" id="L57">            project.assignEmployee(&quot;mach&quot;, creator);</span>
-<span class="fc" id="L58">            project.assignEmployee(&quot;masc&quot;, creator);</span>
-<span class="fc" id="L59">        }</span>
-<span class="fc" id="L60">    }</span>
-            
+        // Assign users to projects
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        for (Map.Entry&lt;String, Project&gt; projectEntry : ProjectRepository.getInstance().all().entrySet()) {</span>
+
+<span class="fc" id="L56">            Project project = projectEntry.getValue();</span>
+
+<span class="fc" id="L58">            seedEmployeesToProject(project, creator);</span>
+<span class="fc" id="L59">            seedProjectActivitesToProject(project, creator);</span>
+<span class="fc" id="L60">        }</span>
+
+<span class="fc" id="L62">    }</span>
+
+    private void seedEmployeesToProject(Project project, Employee user) throws NotFoundException, OperationNotAllowedException {
+<span class="fc" id="L65">        project.assignEmployee(&quot;rawi&quot;, user);</span>
+<span class="fc" id="L66">        project.assignEmployee(&quot;mach&quot;, user);</span>
+<span class="fc" id="L67">        project.assignEmployee(&quot;masc&quot;, user);</span>
+<span class="fc" id="L68">    }</span>
+
+    private void seedProjectActivitesToProject(Project project, Employee user) throws AlreadyExistsException, OperationNotAllowedException {
+<span class="fc" id="L71">        project.createProjectActivity(&quot;Brainstorm&quot;,&quot;2301&quot;,&quot;2302&quot;, user);</span>
+<span class="fc" id="L72">        project.createProjectActivity(&quot;Dokumentation&quot;,&quot;2305&quot;,&quot;2305&quot;, user);</span>
+
+<span class="fc bfc" id="L74" title="All 2 branches covered.">        for(ProjectActivity activity : project.getActivities()) {</span>
+<span class="fc" id="L75">            seedWorktimeRegistrationsForProjectActivity(activity);</span>
+<span class="fc" id="L76">        }</span>
+<span class="fc" id="L77">    }</span>
+
+    private void seedWorktimeRegistrationsForProjectActivity(ProjectActivity activity) {
+
+<span class="fc" id="L81">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 1);</span>
+<span class="fc" id="L82">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 5.5);</span>
+
+<span class="fc" id="L84">        activity.registerWorkTime(&quot;mach&quot;, dateServer.getDate(), 1);</span>
+<span class="fc" id="L85">        activity.registerWorkTime(&quot;mach&quot;, dateServer.getDate(), 5.5);</span>
+
+<span class="fc" id="L87">        activity.registerWorkTime(&quot;kasy&quot;, dateServer.getDate(), 1);</span>
+<span class="fc" id="L88">        activity.registerWorkTime(&quot;kasy&quot;, dateServer.getDate(), 5.5);</span>
+
+<span class="fc" id="L90">        activity.registerWorkTime(&quot;masc&quot;, dateServer.getDate(), 1);</span>
+<span class="fc" id="L91">        activity.registerWorkTime(&quot;masc&quot;, dateServer.getDate(), 5.5);</span>
+<span class="fc" id="L92">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
