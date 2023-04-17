@@ -12,30 +12,32 @@ public class ProjectViewModel extends ViewModel {
     public int endWeek;
     public String projectLeaderFullName;
     public int assignedEmployeesAmount;
+    public List&lt;ProjectActivityViewModel&gt; projectActivities;
 
-<span class="nc" id="L16">    public ProjectViewModel(Project project) {</span>
-<span class="nc" id="L17">        this.projectNumber = project.getProjectNumber();</span>
-<span class="nc" id="L18">        this.projectTitle = project.getProjectTitle();</span>
-<span class="nc" id="L19">        this.customer = project.getCustomer();</span>
-<span class="nc" id="L20">        this.startWeek = project.getStartWeek();</span>
-<span class="nc" id="L21">        this.endWeek = project.getEndWeek();</span>
+<span class="nc" id="L17">    public ProjectViewModel(Project project) {</span>
+<span class="nc" id="L18">        this.projectNumber = project.getProjectNumber();</span>
+<span class="nc" id="L19">        this.projectTitle = project.getProjectTitle();</span>
+<span class="nc" id="L20">        this.customer = project.getCustomer();</span>
+<span class="nc" id="L21">        this.startWeek = project.getStartWeek();</span>
+<span class="nc" id="L22">        this.endWeek = project.getEndWeek();</span>
+<span class="nc" id="L23">        this.projectActivities = ProjectActivityViewModel.listFromModels(project.getActivities());</span>
         
-<span class="nc bnc" id="L23" title="All 2 branches missed.">        if(project.getProjectLeader() != null) {</span>
-<span class="nc" id="L24">            this.projectLeaderFullName = project.getProjectLeader().getFullName();</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        if(project.getProjectLeader() != null) {</span>
+<span class="nc" id="L26">            this.projectLeaderFullName = project.getProjectLeader().getFullName();</span>
         }
 
-<span class="nc" id="L27">        this.assignedEmployeesAmount = project.getAssignedEmployees().size();</span>
-<span class="nc" id="L28">    }</span>
+<span class="nc" id="L29">        this.assignedEmployeesAmount = project.getAssignedEmployees().size();</span>
+<span class="nc" id="L30">    }</span>
 
     public static List&lt;ProjectViewModel&gt; listFromModels(List&lt;Project&gt; modelList) {
         
-<span class="nc" id="L32">        List&lt;ProjectViewModel&gt; list = new ArrayList&lt;ProjectViewModel&gt;();</span>
+<span class="nc" id="L34">        List&lt;ProjectViewModel&gt; list = new ArrayList&lt;ProjectViewModel&gt;();</span>
 
-<span class="nc bnc" id="L34" title="All 2 branches missed.">        for(Project item : modelList) {</span>
-<span class="nc" id="L35">            list.add(item.toViewModel());</span>
-<span class="nc" id="L36">        }</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        for(Project item : modelList) {</span>
+<span class="nc" id="L37">            list.add(item.toViewModel());</span>
+<span class="nc" id="L38">        }</span>
 
-<span class="nc" id="L38">        return list;</span>
+<span class="nc" id="L40">        return list;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
