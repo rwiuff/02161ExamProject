@@ -16,7 +16,6 @@
     - Budget  
     - Aktiviteter 
         - Tidsregisteringerne
-- (Mathies) startweek og endweek skal være i Strings istedet for integers.
 - (Kasper) CLI
 
 
