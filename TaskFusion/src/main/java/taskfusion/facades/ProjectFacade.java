@@ -149,14 +149,21 @@ public class ProjectFacade {
                 .getTotalWorkTimeForEmployee(getLoggedInUserModel().getInitials());
     }
 
-    public List<WorktimeRegistrationViewModel> getTotalWorktimeRegistrationsForProjectActivity(String activityTitle,
-            String projectNumber) throws OperationNotAllowedException, NotFoundException {
+    public List<WorktimeRegistrationViewModel> getTotalWorktimeRegistrationsForProject(String projectNumber)
+            throws OperationNotAllowedException, NotFoundException {
         if (!taskFusion.isLoggedIn()) {
             throw new OperationNotAllowedException("Login krævet");
         }
+        String projectLeader = projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials();
+        if (!taskFusion.getLoggedInUser().initials.equals(projectLeader)) {
+            throw new OperationNotAllowedException(
+                    "Kun projektlederen kan tilgå oversigten af arbejdstid for projektet");
+        }
         List<WorktimeRegistration> worktimeRegistrations = projectRepo.findByProjectNumber(projectNumber)
-                .findProjectActivity(activityTitle)
                 .getWorktimeRegistrations();
+        if (worktimeRegistrations.size() == 0) {
+            throw new NotFoundException("Ingen arbejdstid er registreret under dette projekt endnu");
+        }
         return WorktimeRegistrationViewModel.listFromModels(worktimeRegistrations);
     }
 

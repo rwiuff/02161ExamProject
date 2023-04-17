@@ -10,7 +10,6 @@ import taskfusion.cli.views.CreateProjectView;
 import taskfusion.cli.views.CreateRegularActivityView;
 import taskfusion.cli.views.ListProjectsView;
 import taskfusion.cli.views.ListRegularActivitiesView;
-import taskfusion.exceptions.NotFoundException;
 import taskfusion.viewModels.ProjectViewModel;
 import taskfusion.viewModels.RegularActivityViewModel;
 

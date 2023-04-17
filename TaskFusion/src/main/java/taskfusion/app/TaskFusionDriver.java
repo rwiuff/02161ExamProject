@@ -3,20 +3,14 @@ package taskfusion.app;
 public class TaskFusionDriver {
     
     public static void main(String[] args) {
-        //TaskFusion taskFusion = new TaskFusion();
-
+        TaskFusion taskFusion = new TaskFusion();
         try {
-            // taskFusion.registerEmployee("John", "Dillermand");
-            // taskFusion.login("jodi");
-            
-            // taskFusion.createProject("Projektet");
-
-            // Project p = taskFusion.findProjectByProjectNumber("23001");
-
-            // assertNotNull(p);
-            // assertEquals("Projektet", p.getProjectTitle());
-            // taskFusion.createProjectActivity("23001", "testaktivitet", 01, 02);
-            // taskFusion.createProjectActivity("23001", "testaktivitet", 01, 02);
+            taskFusion.getEmployeeFacade().registerEmployee("Rasmus", "Wiuff");
+            taskFusion.login("rawi");
+            taskFusion.getProjectFacade().createProject("Web");
+            taskFusion.getProjectFacade().takeProjectLeaderRole("23001");
+            taskFusion.getProjectFacade().getTotalWorktimeRegistrationsForProject("23001");
+            System.out.println("here");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

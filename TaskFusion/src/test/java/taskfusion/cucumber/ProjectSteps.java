@@ -14,8 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.helpers.MockDateHolder;
-import taskfusion.helpers.PrintHelper;
-import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
 public class ProjectSteps {

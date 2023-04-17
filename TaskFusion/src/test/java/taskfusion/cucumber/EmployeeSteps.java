@@ -9,11 +9,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import taskfusion.app.TaskFusion;
 import taskfusion.domain.Employee;
-import taskfusion.domain.Project;
-import taskfusion.exceptions.NotFoundException;
-import taskfusion.helpers.PrintHelper;
 import taskfusion.persistency.EmployeeRepository;
-import taskfusion.persistency.ProjectRepository;
 
 public class EmployeeSteps {
     private ErrorMessageHolder errorMessageHolder = new ErrorMessageHolder();

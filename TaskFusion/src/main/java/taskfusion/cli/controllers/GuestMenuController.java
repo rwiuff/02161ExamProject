@@ -1,6 +1,5 @@
 package taskfusion.cli.controllers;
 
-import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
 import taskfusion.cli.views.LoginView;
