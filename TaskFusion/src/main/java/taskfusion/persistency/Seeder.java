@@ -31,7 +31,7 @@ public class Seeder {
     public void seedEmployees() throws Exception {
 
         employeeRepository.create("Kasper", "Sylvest");
-        employeeRepository.create("Rasmus", "Kronborg");
+        employeeRepository.create("Rasmus", "Wiuff");
         employeeRepository.create("Mathies", "Christian");
         employeeRepository.create("Max-Emil", "Scotten");
         
@@ -53,7 +53,7 @@ public class Seeder {
 
             Project project = projectEntry.getValue();
     
-            project.assignEmployee("rakr", creator);
+            project.assignEmployee("rawi", creator);
             project.assignEmployee("mach", creator);
             project.assignEmployee("masc", creator);
         }
