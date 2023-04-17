@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import taskfusion.cli.TaskFusionCLI;
+import taskfusion.cli.components.Header;
 import taskfusion.cli.components.Input;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
@@ -30,27 +31,13 @@ public class ListRegularActivitiesView implements ViewInterface {
         List<String> optionsKeyList = new ArrayList<String>();
 
         for (RegularActivityViewModel activity : activities) {
-            optionsTextList.add(activity.title + ": " + activity.startWeek + " - " + activity.endWeek);
-            optionsKeyList.add(""+activity.id);
+            optionsTextList.add(activity.startWeek + " - " + activity.endWeek);
+            optionsKeyList.add(activity.title);
         }
 
-        String choice = Menu.showListOptions(optionsKeyList, optionsTextList, "Vælg aktivitet", "Dine faste aktiviteter");
-
-        if(choice == null) {
-            return;
-        }
-
-        RegularActivityViewModel activity;
-        try {
-            activity = TaskFusionCLI.employeeFacade().getRegularActivityById(Integer.parseInt(choice));
-        } catch (Exception e) {
-            Text.showExceptionError(e);
-            return;
-        }
-
-        Text.showInfo(activity.title);
-        
-        Text.showError("MANGLER IMPLEMENTERING");
+        Header.showHeader("Faste aktiviteter", 1);
+        taskfusion.cli.components.List.showMapList(optionsKeyList, optionsTextList);
+        Input.enterToContinue("Tryk på Enter for at gå tilbage");
 
         return;
     }

@@ -31,7 +31,7 @@ public class ListWorktimeRegistrationsView implements ViewInterface {
         List<String> optionsKeyList = new ArrayList<String>();
 
         for (WorktimeRegistrationViewModel worktimeRegistration : worktimeRegistrations) {
-            optionsTextList.add(Formatter.dateToString(worktimeRegistration.date) + " : " + worktimeRegistration.time);
+            optionsTextList.add(Formatter.dateToString(worktimeRegistration.date) + " : " + worktimeRegistration.time + "("+ worktimeRegistration.initials +")");
             optionsKeyList.add("" + worktimeRegistration.id);
         }
 

@@ -116,34 +116,17 @@ EmployeeMenuController --> "
 {{
 salt
 {+
-title DINE FASTE AKTIVITETER
+title FASTE AKTIVITETER
 header ListRegularActivitiesView
 Mangler facade
-<&menu> 1. Syg: 0423 - 0523
-<&menu> 2. Ferie: 0723 - 0923
-<&menu> 3. Syg: 1023 - 1023
+<&menu> Syg: 0423 - 0523
+<&menu> Ferie: 0723 - 0923
+<&menu> Syg: 1023 - 1023
 <&menu> ...
-<&terminal> Vælg aktivitet
+<&terminal> Tryk enter for at gå tilbage
 }
 }}
 " as ListRegularActivitiesView
-
-ListRegularActivitiesView --> "
-{{
-salt
-{+
-title <color:Red>FAST AKTIVITET MENU
-header RegularActivityMenuController
-Aktivitet titel:    Ferie
-periode:  0423 - 0423
-______________________________
-<color:Red><&chevron-right> Ret titel
-<color:Red><&chevron-right> Ret startuge
-<color:Red><&chevron-right> Ret slutuge
-<&chevron-right> tilbage
-}
-}}
-" as RegularActivityMenuController
 
 ProjectMenuController --> "
 {{
@@ -238,8 +221,8 @@ title PROJECT AKTIVITET MENU
 header ProjectActivityMenuController
 Aktivitet titel:    Ferie
 ______________________________
-<color:Red><&chevron-right> Se tidsregistreringer
-<color:Red><&chevron-right> Opret tidsregistrering
+<&chevron-right> Se tidsregistreringer
+<&chevron-right> Opret tidsregistrering
 <&chevron-right> tilbage
 }
 }}
@@ -249,7 +232,7 @@ ProjectActivityMenuController --> "
 {{
 salt
 {+
-title <color:Red>OPRET TIDSREGISTRERING
+title OPRET TIDSREGISTRERING
 header CreateWorktimeRegistrationView
 <&terminal> Indtast timer:
 }
@@ -260,26 +243,16 @@ ProjectActivityMenuController --> "
 {{
 salt
 {+
-title <color:Red>TIDSREGISTRERINGER
+title TIDSREGISTRERINGER
 header ListWorktimeRegistrationsView
 <&menu> 56. 02/03-2023 : 1.5
 <&menu> 99. 02/07-2023 : 4.0
 <&menu> 103. 02/10-2023 : 1.0
 <&menu> ...
-<&terminal> Vælg tidsregistrering:
+<&terminal> Tryk enter for at vende tilbage
 }
 }}
 " as ListWorktimeRegistrationsView
 
-ListWorktimeRegistrationsView --> "
-{{
-salt
-{+
-title <color:Red>REDIGER TIDSREGISTRERING
-header EditWorktimeRegistrationView
-<&terminal> Indtast timer:
-}
-}}
-" as EditWorktimeRegistrationView
 
 @enduml
