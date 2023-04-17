@@ -8,8 +8,8 @@ import taskfusion.domain.RegularActivity;
 public class RegularActivityViewModel extends ViewModel {
     public int id;
     public String title;
-    public int startWeek;
-    public int endWeek;
+    public String startWeek;
+    public String endWeek;
 
     public RegularActivityViewModel(RegularActivity activity) {
         this.id = activity.getId();

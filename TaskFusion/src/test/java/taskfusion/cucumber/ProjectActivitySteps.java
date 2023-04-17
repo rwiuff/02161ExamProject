@@ -25,9 +25,9 @@ public class ProjectActivitySteps {
     this.taskFusion = taskFusion;
   }
 
-  @Given("the user assigns the project activity {string} to project {string} with startWeek {int} and endWeek {int}")
+  @Given("the user assigns the project activity {string} to project {string} with startWeek {string} and endWeek {string}")
   public void theUserAssignsTheProjectActivityToProjectWithStartWeekAndEndWeek(String title, String projectNumber,
-      Integer startWeek, Integer endWeek) {
+      String startWeek, String endWeek) {
     try {
       taskFusion.getProjectFacade().createProjectActivity(projectNumber, title, startWeek, endWeek);
     } catch (Exception e) {
@@ -65,9 +65,9 @@ public class ProjectActivitySteps {
     }
   }
 
-  @Then("the project activity with title {string} and project number {string} has end week {int}")
+  @Then("the project activity with title {string} and project number {string} has end week {string}")
   public void theProjectActivityWithTitleAndProjectNumberHasEndWeek(String title, String projectNumber,
-      Integer endWeek) {
+      String endWeek) {
     try {
       assertEquals(endWeek,
           ProjectRepository.getInstance().findByProjectNumber(projectNumber).findProjectActivity(title).getEndWeek());
@@ -76,8 +76,8 @@ public class ProjectActivitySteps {
     }
   }
 
-  @Then("the project activity with the title {string} and project number {string} has start week {int}")
-  public void theProjectActivityWithTheTitleAndProjectNumberHasStartWeek(String string, String string2, Integer int1) {
+  @Then("the project activity with the title {string} and project number {string} has start week {string}")
+  public void theProjectActivityWithTheTitleAndProjectNumberHasStartWeek(String string, String string2, String int1) {
     try {
       assertEquals(int1,
           ProjectRepository.getInstance().findByProjectNumber(string2).findProjectActivity(string).getStartWeek());

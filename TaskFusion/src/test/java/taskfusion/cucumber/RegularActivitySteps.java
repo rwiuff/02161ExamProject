@@ -24,36 +24,18 @@ public class RegularActivitySteps {
     this.errorMessageHolder = errorMessageHolder;
   }
 
-  @When("the user creates the regular activity {string} with start week {int} and end week {int}")
-  public void theUserCreatesTheRegularActivityWithStartWeekAndEndWeek(String string, Integer int1, Integer int2) {
+  @When("the user creates the regular activity {string} with start week {string} and end week {string}")
+  public void theUserCreatesTheRegularActivityWithStartWeekAndEndWeek(String title, String startWeek, String endWeek) {
     try {
-      this.taskFusion.getEmployeeFacade().createRegularActivity(string, int1, int2);
+      this.taskFusion.getEmployeeFacade().createRegularActivity(title, startWeek, endWeek);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
   }
 
-  @Then("the user has a regular activity with title {string} with start week {int} and end week {int}")
-  public void theUserHasARegularActivityWithTitleWithStartWeekAndEndWeek(String string, Integer int1, Integer int2) {
-    this.taskFusion.getEmployeeFacade().hasRegularActivity(string, int1, int2);
-  }
-
-  @When("the user creates the regular activity {string} with start week {string} and end week {int}")
-  public void theUserCreatesTheRegularActivityWithStartWeekAndEndWeek(String string, String string2, Integer int1) {
-    try {
-      this.taskFusion.getEmployeeFacade().createRegularActivity(string, null, int1);
-    } catch (Exception e) {
-      this.errorMessageHolder.setErrorMessage(e.getMessage());
-    }
-  }
-
-  @When("the user creates the regular activity {string} with start week {int} and end week {string}")
-  public void theUserCreatesTheRegularActivityWithStartWeekAndEndWeek(String string, Integer int1, String string2) {
-    try {
-      this.taskFusion.getEmployeeFacade().createRegularActivity(string, int1, null);
-    } catch (Exception e) {
-      this.errorMessageHolder.setErrorMessage(e.getMessage());
-    }
+  @Then("the user has a regular activity with title {string} with start week {string} and end week {string}")
+  public void theUserHasARegularActivityWithTitleWithStartWeekAndEndWeek(String title, String startWeek, String endWeek) {
+    this.taskFusion.getEmployeeFacade().hasRegularActivity(title, startWeek, endWeek);
   }
 
   @Then("the regular activity with id {int} does not exist")

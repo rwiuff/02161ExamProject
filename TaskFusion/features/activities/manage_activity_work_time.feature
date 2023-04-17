@@ -10,7 +10,7 @@ Background:
   And the user logs in using initials "mila"
   And the year is 2001
   And the user creates a project with title "Video Game"
-  And the user assigns the project activity "Graphics design" to project "01001" with startWeek 1 and endWeek 2
+  And the user assigns the project activity "Graphics design" to project "01001" with startWeek "0101" and endWeek "0102"
   And the user registers a work time of 6 hours to the project activity with title "Graphics design" in the project with project number "01001" 
   #ID 1
   And the user registers a work time of 10 hours to the project activity with title "Graphics design" in the project with project number "01001"

@@ -7,7 +7,7 @@ Background:
     Given the user registers an employee with first name "Michael", last name "Laudrup"
     And the user logs in using initials "mila"
     And the user creates a project with title "Video Game"
-    And the user assigns the project activity "Graphics design" to project "23001" with startWeek 1 and endWeek 2
+    And the user assigns the project activity "Graphics design" to project "23001" with startWeek "2301" and endWeek "2302"
 
 #MAIN SCENARIOS
 Scenario: 1. Register work time on project activity

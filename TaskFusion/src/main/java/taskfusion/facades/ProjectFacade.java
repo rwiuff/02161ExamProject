@@ -64,12 +64,19 @@ public class ProjectFacade {
      * @throws InvalidPropertyException
      */
 
-    public void createProjectActivity(String projectNumber, String title, Integer startWeek, Integer endWeek)
+    public void createProjectActivity(String projectNumber, String title, String startWeek, String endWeek)
             throws NotFoundException, OperationNotAllowedException, AlreadyExistsException, InvalidPropertyException {
         requireLogin();
-
-        if (startWeek > endWeek) {
-            throw new InvalidPropertyException("Starttid skal være før eller ens med sluttid");
+        
+        if (startWeek.length() != 4 || endWeek.length() != 4) {
+            throw new OperationNotAllowedException("Start uge og slut uge skal angives med fire cifre");
+        }
+        
+        if (Integer.parseInt(startWeek.substring(0,2)) > Integer.parseInt(endWeek.substring(0,2))) {
+            throw new InvalidPropertyException("Start år skal være før eller ens med slut år");
+        } else if (Integer.parseInt(startWeek.substring(0,2)) == Integer.parseInt(endWeek.substring(0,2)) &&
+                Integer.parseInt(startWeek.substring(2,4)) > Integer.parseInt(endWeek.substring(2,4))) {
+            throw new InvalidPropertyException("Start uge skal være før eller ens med slut uge");
         }
 
         Project project = projectRepo.findByProjectNumber(projectNumber);

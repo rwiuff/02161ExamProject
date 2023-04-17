@@ -10,8 +10,8 @@ Background:
     And the user logs in using initials "lasv"
     And the user creates a project with title "Video game"
     And the user takes the role as project leader on project "25001"
-    And the user assigns the project activity "Graphics design" to project "25001" with startWeek 1 and endWeek 5
-    And the user assigns the project activity "Gameplay" to project "25001" with startWeek 1 and endWeek 2
+    And the user assigns the project activity "Graphics design" to project "25001" with startWeek "2501" and endWeek "2505"
+    And the user assigns the project activity "Gameplay" to project "25001" with startWeek "2501" and endWeek "2502"
     And the user registers a work time of 6 hours to the project activity with title "Graphics design" in the project with project number "25001" 
     #ID 1
     And the user registers a work time of 10 hours to the project activity with title "Graphics design" in the project with project number "25001"

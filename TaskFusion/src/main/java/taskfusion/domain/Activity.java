@@ -2,28 +2,28 @@ package taskfusion.domain;
 
 public abstract class Activity {
   protected String title;
-  protected int startWeek;
-  protected int endWeek;
+  protected String startWeek;
+  protected String endWeek;
 
-  public Activity(String title, Integer startWeek, Integer endWeek) {
+  public Activity(String title, String startWeek, String endWeek) {
     this.title = title;
     this.startWeek = startWeek;
     this.endWeek = endWeek;
   }
 
-  public int getStartWeek() {
+  public String getStartWeek() {
     return this.startWeek;
   }
 
-  public void setStartWeek(int startWeek) {
+  public void setStartWeek(String startWeek) {
     this.startWeek = startWeek;
   }
 
-  public int getEndWeek() {
+  public String getEndWeek() {
     return this.endWeek;
   }
 
-  public void setEndWeek(int endWeek) {
+  public void setEndWeek(String endWeek) {
     this.endWeek = endWeek;
   }
 

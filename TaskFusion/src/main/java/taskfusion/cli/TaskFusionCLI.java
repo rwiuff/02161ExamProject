@@ -1,7 +1,7 @@
 package taskfusion.cli;
 
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.Scanner; 
 
 import taskfusion.app.TaskFusion;
 import taskfusion.cli.controllers.GuestMenuController;

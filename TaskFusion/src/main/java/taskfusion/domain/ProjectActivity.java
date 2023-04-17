@@ -11,7 +11,7 @@ public class ProjectActivity extends Activity implements ConvertibleToViewModelI
   private int timeBudget;
   private List<WorktimeRegistration> worktimeRegistrations;
 
-  public ProjectActivity(String title, int startWeek, int endWeek) {
+  public ProjectActivity(String title, String startWeek, String endWeek) {
     super(title, startWeek, endWeek);
     this.timeBudget = 0;
     this.worktimeRegistrations = new ArrayList<>();

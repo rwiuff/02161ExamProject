@@ -14,11 +14,11 @@ Background:
 #MAIN SCENARIOS
 Scenario: 1. A project leader can create a project activity
     Given the user logs in using initials "mefr"
-    When the user assigns the project activity "Graphics design" to project "23001" with startWeek 1 and endWeek 2
+    When the user assigns the project activity "Graphics design" to project "23001" with startWeek "2301" and endWeek "2302"
     Then the project with the project number "23001" has a project activity titled "Graphics design"
 
 #ALTERNATIVE SCENARIOS
 Scenario: 1a. An employee is not able to create a project activity, when a projectleader is assigned
     Given the user logs in using initials "mila"
-    When the user assigns the project activity "Graphics design" to project "23001" with startWeek 1 and endWeek 2
+    When the user assigns the project activity "Graphics design" to project "23001" with startWeek "2301" and endWeek "2302"
     Then the error message "Kun projektlederen kan redigere denne projekt aktivitet" is given

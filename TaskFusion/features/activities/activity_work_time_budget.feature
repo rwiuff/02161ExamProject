@@ -10,7 +10,7 @@ Background:
   And the user logs in using initials "mila"
   And the user creates a project with title "Projektplanlægning"
   And the user takes the role as project leader on project "15001"
-  And the user assigns the project activity "Graphics design" to project "15001" with startWeek 1 and endWeek 5
+  And the user assigns the project activity "Graphics design" to project "15001" with startWeek "2301" and endWeek "2305"
   And the user logs out
 
 #MAIN SCENARIO

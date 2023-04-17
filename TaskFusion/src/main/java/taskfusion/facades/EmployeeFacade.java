@@ -45,26 +45,29 @@ public class EmployeeFacade {
 
     // ALLE DISSE CHECKS, SKAL FOREGÅ I DOMAIN LAYER, SO I SELVE REGULARACTIVITY
     // KLASSEN
-    public void createRegularActivity(String title, Integer startWeek, Integer endWeek)
-            throws OperationNotAllowedException, InvalidPropertyException {
+    public void createRegularActivity(String title, String startWeek, String endWeek)
+            throws OperationNotAllowedException, InvalidPropertyException {            
         if (title == "") {
             throw new InvalidPropertyException("En titel mangler");
         }
 
-        if (startWeek == null) {
+        if (startWeek.equals("")) {
             throw new InvalidPropertyException("En start uge mangler");
         }
 
-        if (endWeek == null) {
+        if (endWeek.equals("")) {
             throw new InvalidPropertyException("En slut uge mangler");
         }
 
-        if (startWeek > endWeek) {
-            throw new InvalidPropertyException("Start uge skal være før slut uge");
+        if (startWeek.length() != 4 || endWeek.length() != 4) {
+            throw new InvalidPropertyException("Start uge og slut uge skal angives med fire cifre");
         }
 
-        if (endWeek < startWeek) {
-            throw new InvalidPropertyException("Slut uge skal være før eller lig med start uge");
+        if (Integer.parseInt(startWeek.substring(0,2)) > Integer.parseInt(endWeek.substring(0,2))) {
+            throw new InvalidPropertyException("Start år skal være før eller ens med slut år");
+        } else if (Integer.parseInt(startWeek.substring(0,2)) == Integer.parseInt(endWeek.substring(0,2)) &&
+                Integer.parseInt(startWeek.substring(2,4)) > Integer.parseInt(endWeek.substring(2,4))) {
+            throw new InvalidPropertyException("Start uge skal være før slut uge");
         }
 
         if (taskFusion.isLoggedIn()) {
@@ -74,7 +77,7 @@ public class EmployeeFacade {
         }
     }
 
-    public boolean hasRegularActivity(String title, Integer startWeek, Integer endWeek) {
+    public boolean hasRegularActivity(String title, String startWeek, String endWeek) {
         return getLoggedInUserModel().hasRegularActivity(title, startWeek, endWeek);
     }
 
