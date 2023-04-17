@@ -6,7 +6,7 @@ Background:
     Given the user registers an employee with first name "Michael", last name "Laudrup"
     And the user logs in using initials "mila"
     And the user creates a project with title "Video game"
-    And the user assigns the project activity "Graphics design" to project "23001" with startWeek 2304 and endWeek 2305
+    And the user assigns the project activity "Graphics design" to project "23001" with startWeek "2304" and endWeek "2305"
     And the user logs out
 
 Scenario: 1. An employee can view a list of employees assinged to an activity

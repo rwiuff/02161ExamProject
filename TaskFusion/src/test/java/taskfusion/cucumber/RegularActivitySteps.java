@@ -44,9 +44,9 @@ public class RegularActivitySteps {
     assertNull(activity);
   }
 
-  @Then("a regular activity is returned with id {int}, title {string}, start week {int} and end week {int}")
-  public void a_regular_activity_is_returned_with_id_title_start_week_and_end_week(int id, String title, int startWeek,
-      int endWeek) {
+  @Then("a regular activity is returned with id {int}, title {string}, start week {string} and end week {string}")
+  public void a_regular_activity_is_returned_with_id_title_start_week_and_end_week(int id, String title, String startWeek,
+      String endWeek) {
     assertEquals(title, this.regularActivity.title);
     assertEquals(id, this.regularActivity.id);
     assertEquals(startWeek, this.regularActivity.startWeek);
