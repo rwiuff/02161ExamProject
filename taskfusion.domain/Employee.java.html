@@ -151,23 +151,5 @@ public class Employee implements ConvertibleToViewModelInterface {
   public Project findProject(String projectNumber) {
 <span class="nc" id="L152">    return this.getProjects().get(projectNumber);</span>
   }
-
-  public void addProject(Project project) throws AlreadyExistsException, NotFoundException {
-<span class="nc bnc" id="L156" title="All 2 branches missed.">    if (findProject(project.getProjectNumber()) == null) {</span>
-<span class="nc" id="L157">      this.projects.put(project.getProjectNumber(), project);</span>
-    } else {
-<span class="nc" id="L159">      throw new AlreadyExistsException(&quot;Projektet findes allerede&quot;);</span>
-    }
-<span class="nc" id="L161">  }</span>
-
-  // public void addProjectActivity(String projectNumber, ProjectActivity projectActivity) throws AlreadyExistsException, NotFoundException {
-  //   Project project = findProject(projectNumber);
-  //   project.createProjectActivity(projectActivity);
-  // }
-
-  public void setTimeBudgetProjectActivity(String projectNumber, String title, Integer timeBudget) throws NotFoundException {
-<span class="nc" id="L169">    Project project = findProject(projectNumber);</span>
-<span class="nc" id="L170">    project.findProjectActivity(title).setTimeBudget(timeBudget);</span>
-<span class="nc" id="L171">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
