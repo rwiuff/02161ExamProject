@@ -18,12 +18,13 @@ import java.util.List;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.helpers.MockDateHolder;
 import taskfusion.persistency.ProjectRepository;
+import taskfusion.viewModels.EmployeeViewModel;
 
 public class ProjectSteps {
   private TaskFusion taskFusion;
   private ErrorMessageHolder errorMessageHolder;
   private MockDateHolder mockDateHolder;
-  private List<Employee> assignedEmployees = new ArrayList<Employee>();
+  private List<EmployeeViewModel> assignedEmployees = new ArrayList<EmployeeViewModel>();
 
   public ProjectSteps(ErrorMessageHolder errorMessageHolder, TaskFusion taskFusion,
       MockDateHolder mockDateHolder) {

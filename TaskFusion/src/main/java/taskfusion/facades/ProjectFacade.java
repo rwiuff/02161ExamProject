@@ -195,12 +195,8 @@ public class ProjectFacade {
         return ProjectViewModel.listFromModels(projects);
     }
 
-    public List<Employee> getAssignedEmployees(String projectNumber) {
-      return ProjectRepository.getInstance().getListOfEmployees(projectNumber);
-    }
-
-    public List<EmployeeViewModel> getAssignedEmployeesViewModel(String projectNumber) {
-      return EmployeeViewModel.listFromModels(getAssignedEmployees(projectNumber));
+    public List<EmployeeViewModel> getProjectEmployees(String projectNumber) {
+      return EmployeeViewModel.listFromModels(ProjectRepository.getInstance().getListOfEmployees(projectNumber));
     }
 
     /**

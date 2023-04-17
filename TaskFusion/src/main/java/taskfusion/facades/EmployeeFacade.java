@@ -71,12 +71,8 @@ public class EmployeeFacade {
         return getLoggedInUserModel().hasRegularActivity(title, startWeek, endWeek);
     }
 
-    public List<RegularActivity> getRegularActivities(String initials) {
-        return EmployeeRepository.getInstance().findByInitials(initials).getRegularActivities();
-    }
-
-    public List<RegularActivityViewModel> getAssignedEmployeesViewModel(String initials) {
-        return RegularActivityViewModel.listFromModels(getRegularActivities(initials));
+    public List<RegularActivityViewModel> getRegularActivities() {
+        return RegularActivityViewModel.listFromModels(EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials).getRegularActivities());
     }
 
     /**
