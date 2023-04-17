@@ -62,4 +62,9 @@ public class ProjectActivity extends Activity implements ConvertibleToViewModelI
   public Double getTotalWorkTime() {
     return sumWorktime(worktimeRegistrations);
   }
+
+
+public Double getRemainingWorktime() {
+    return timeBudget - sumWorktime(worktimeRegistrations);
+}
 }

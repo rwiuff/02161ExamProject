@@ -163,6 +163,9 @@ public class ProjectFacade {
         worktimeRegistration.setTime(hours);
 
     }
+    public Double getRemainingWorktimeForActivity(String projectNumber, String activityTitle) throws NotFoundException {
+        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getRemainingWorktime();
+    }
 
     public List<ProjectViewModel> getUserProjects() {
         
@@ -179,6 +182,5 @@ public class ProjectFacade {
     private Employee getLoggedInUserModel() {
         return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);
     }
-
 
 }
