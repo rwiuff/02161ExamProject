@@ -75,19 +75,6 @@ public class ProjectRepository {
 
     }
 
-    public Project findByTitle(String projectTitle) throws NotFoundException {
-        Project returnProject = null;
-        for (Entry<String, Project> entry: projects.entrySet()){
-            if(entry.getValue().getProjectTitle().equals(projectTitle)){
-                returnProject = entry.getValue();
-            }
-        }
-        if(returnProject == null){
-            throw new NotFoundException("Projektet kunne ikke findes i samlingen af projekter");
-        }
-        return returnProject;
-    }
-
     private List<WorktimeRegistration> allWorktimeRegistrations() {
 
         List<WorktimeRegistration> list = new ArrayList<>();
@@ -99,11 +86,6 @@ public class ProjectRepository {
             list.addAll(project.getWorktimeRegistrations());
         }
         return list;
-    }
-
-    /**REMOVE THIS */
-    public List<WorktimeRegistration> getAllWorktimeRegistrations() {
-        return allWorktimeRegistrations();
     }
 
     public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
