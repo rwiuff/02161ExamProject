@@ -151,22 +151,4 @@ public class Employee implements ConvertibleToViewModelInterface {
   public Project findProject(String projectNumber) {
     return this.getProjects().get(projectNumber);
   }
-
-  public void addProject(Project project) throws AlreadyExistsException, NotFoundException {
-    if (findProject(project.getProjectNumber()) == null) {
-      this.projects.put(project.getProjectNumber(), project);
-    } else {
-      throw new AlreadyExistsException("Projektet findes allerede");
-    }
-  }
-
-  // public void addProjectActivity(String projectNumber, ProjectActivity projectActivity) throws AlreadyExistsException, NotFoundException {
-  //   Project project = findProject(projectNumber);
-  //   project.createProjectActivity(projectActivity);
-  // }
-
-  public void setTimeBudgetProjectActivity(String projectNumber, String title, Integer timeBudget) throws NotFoundException {
-    Project project = findProject(projectNumber);
-    project.findProjectActivity(title).setTimeBudget(timeBudget);
-  }
 }
