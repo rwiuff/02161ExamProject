@@ -54,16 +54,7 @@ public class Project implements ConvertibleToViewModelInterface {
   }
 
   public boolean isInternal() {
-
-    if (customer == null) {
-      return true;
-    }
-
-    if (customer.length() == 0) {
-      return true;
-    }
-
-    return false;
+    return customer == null || customer.isEmpty();
   }
 
   public void setCustomer(String customer) {
