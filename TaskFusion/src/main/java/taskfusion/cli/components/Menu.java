@@ -40,6 +40,11 @@ public class Menu {
         return choice;
     }
 
+    public static int showMenu(java.util.List<String> options, String header) {
+        String[] optionTexts = options.toArray(new String[0]);
+        return Menu.showMenu(optionTexts, header);
+    }
+
     public static String showListOptions(String[] optionKeys, String[] optionTexts, String prompt, String header) {
 
         // Display a header, if a header is given

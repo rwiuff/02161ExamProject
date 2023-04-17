@@ -12,6 +12,7 @@ public class ProjectViewModel extends ViewModel {
     public int endWeek;
     public String projectLeaderFullName;
     public int assignedEmployeesAmount;
+    public List<ProjectActivityViewModel> projectActivities;
 
     public ProjectViewModel(Project project) {
         this.projectNumber = project.getProjectNumber();
@@ -19,6 +20,7 @@ public class ProjectViewModel extends ViewModel {
         this.customer = project.getCustomer();
         this.startWeek = project.getStartWeek();
         this.endWeek = project.getEndWeek();
+        this.projectActivities = ProjectActivityViewModel.listFromModels(project.getActivities());
         
         if(project.getProjectLeader() != null) {
             this.projectLeaderFullName = project.getProjectLeader().getFullName();

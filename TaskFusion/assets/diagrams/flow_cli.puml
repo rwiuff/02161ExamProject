@@ -151,13 +151,12 @@ salt
 {+
 title MEDARBEJDERE
 header ListEmployeesView
-<color:Red>Mangler facade
 <&menu> kasy : Kasper Sylvest
 <&menu> rakr : Rasmus Kronborg
 <&menu> mach : Mathies Christian
 <&menu> masc : Max-Emil Scotten
 <&menu> ...
-<&terminal> Vælg medarbejder
+<&terminal> Tryk enter for at gå tilbage
 }
 }}
 " as ListEmployeesView
@@ -204,9 +203,11 @@ ProjectMenuController --> "
 {{
 salt
 {+
-title <color:Red>OPRET PROJEKT AKTIVITET
+title OPRET PROJEKT AKTIVITET
 header CreateProjectActivityView
 <&terminal> Indtast titel:
+<&terminal> Indtast start uge [YYUU]:
+<&terminal> Indtast slut uge [YYUU]:
 }
 }}
 " as CreateProjectActivityView

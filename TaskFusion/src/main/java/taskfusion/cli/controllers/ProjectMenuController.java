@@ -7,11 +7,14 @@ import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
 import taskfusion.cli.views.AssignEmployeeToProjectView;
+import taskfusion.cli.views.CreateProjectActivityView;
 import taskfusion.cli.views.ListEmployeesView;
+import taskfusion.cli.views.ListProjectActivitiesView;
 import taskfusion.cli.views.ProjectInfoView;
 import taskfusion.cli.views.TakeProjectLeaderRoleView;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.viewModels.EmployeeViewModel;
+import taskfusion.viewModels.ProjectActivityViewModel;
 import taskfusion.viewModels.ProjectViewModel;
 
 public class ProjectMenuController implements ControllerInterface {
@@ -26,6 +29,8 @@ public class ProjectMenuController implements ControllerInterface {
             "Se medarbejdere",
             "Tilføj medarbejder til projektet",
             "Påtag projektleder rolle",
+            "Se projekt aktiviteter",
+            "Tilføj projekt aktivitet",
             "tilbage"
     };
 
@@ -43,7 +48,7 @@ public class ProjectMenuController implements ControllerInterface {
 
             switch (selectedMenuItem) {
                 case 1: //Se medarbejdere
-                    List<EmployeeViewModel> employees = new ArrayList<>();
+                    List<EmployeeViewModel> employees = TaskFusionCLI.projectFacade().getProjectEmployees(project.projectNumber);
                     new ListEmployeesView(employees).show();
                     break;
 
@@ -57,7 +62,17 @@ public class ProjectMenuController implements ControllerInterface {
                     reloadProject();
                     break;
 
-                case 4:
+                case 4: // Se projekt aktiviteter
+                    List<ProjectActivityViewModel> activities = project.projectActivities;
+                    new ListProjectActivitiesView(activities).show();
+                    break;
+
+                case 5: // Tilføj projekt aktivitet
+                    new CreateProjectActivityView(project).show();
+                    reloadProject();
+                    break;
+
+                case 6:
                     return; // NOTICE THIS RETURN, not break
 
                 default:

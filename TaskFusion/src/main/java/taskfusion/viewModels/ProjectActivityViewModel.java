@@ -1,5 +1,8 @@
 package taskfusion.viewModels;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import taskfusion.domain.ProjectActivity;
 
 public class ProjectActivityViewModel extends ViewModel {
@@ -12,4 +15,14 @@ public class ProjectActivityViewModel extends ViewModel {
         this.startWeek = activity.getStartWeek();
         this.endWeek = activity.getEndWeek();
     }
+
+    public static List<ProjectActivityViewModel> listFromModels(List<ProjectActivity> projectActivityList) {
+        List<ProjectActivityViewModel> list = new ArrayList<ProjectActivityViewModel>();
+  
+        for(ProjectActivity projectActivity : projectActivityList) {
+          list.add(projectActivity.toViewModel());
+        }
+  
+        return list;
+      }
 }

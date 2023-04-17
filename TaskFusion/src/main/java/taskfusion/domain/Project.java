@@ -193,6 +193,10 @@ public class Project implements ConvertibleToViewModelInterface {
     return false;
   }
 
+  public List<ProjectActivity> getActivities() {
+    return activities;
+  }
+
   public ProjectActivity findProjectActivity(String title) throws NotFoundException {
     for (ProjectActivity projectActivity : this.activities) {
       if (projectActivity.getTitle().equals(title)) {

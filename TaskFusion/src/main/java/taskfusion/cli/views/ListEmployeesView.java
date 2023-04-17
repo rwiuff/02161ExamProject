@@ -3,6 +3,7 @@ package taskfusion.cli.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import taskfusion.cli.components.Header;
 import taskfusion.cli.components.Input;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
@@ -18,7 +19,6 @@ public class ListEmployeesView implements ViewInterface {
 
     public void show() {
 
-        Text.showError("DENNE FEATURE ER IKKE FULDT IMPLEMENTERET.");
 
         if(employees.size() == 0) {
             Text.showInfo("Ingen medarbejdere at vise");
@@ -35,14 +35,9 @@ public class ListEmployeesView implements ViewInterface {
             optionsKeyList.add(employee.initials);
         }
 
-
-        String choice = Menu.showListOptions(optionsKeyList, optionsTextList, "Vælg medarbejder", "Medarbejdere");
-
-        if(choice == null) {
-            return;
-        }
-
-        Text.showError("MANGLER IMPLEMENTERING");
+        Header.showHeader("Medarbejdere", 1);
+        taskfusion.cli.components.List.showMapList(optionsKeyList, optionsTextList);
+        Input.enterToContinue("Tryk på Enter for at gå tilbage");
 
         return;
     }
