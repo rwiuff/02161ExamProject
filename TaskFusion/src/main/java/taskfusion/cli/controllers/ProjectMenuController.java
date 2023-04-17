@@ -8,6 +8,7 @@ import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
 import taskfusion.cli.views.AssignEmployeeToProjectView;
 import taskfusion.cli.views.CreateProjectActivityView;
+import taskfusion.cli.views.GenerateProjectRaport;
 import taskfusion.cli.views.ListEmployeesView;
 import taskfusion.cli.views.ListProjectActivitiesView;
 import taskfusion.cli.views.ProjectInfoView;
@@ -31,6 +32,7 @@ public class ProjectMenuController implements ControllerInterface {
             "Påtag projektleder rolle",
             "Se projekt aktiviteter",
             "Tilføj projekt aktivitet",
+            "Projektrapport",
             "tilbage"
     };
 
@@ -73,6 +75,10 @@ public class ProjectMenuController implements ControllerInterface {
                     break;
 
                 case 6:
+                    new GenerateProjectRaport(project).show();
+                    break;
+
+                case 7:
                     return; // NOTICE THIS RETURN, not break
 
                 default:

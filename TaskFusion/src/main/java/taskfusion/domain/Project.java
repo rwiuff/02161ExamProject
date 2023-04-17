@@ -13,6 +13,7 @@ import taskfusion.helpers.DateHelper;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 import taskfusion.viewModels.ProjectViewModel;
+import taskfusion.viewModels.ReportViewModel;
 
 public class Project implements ConvertibleToViewModelInterface {
   private String projectNumber;
@@ -23,6 +24,7 @@ public class Project implements ConvertibleToViewModelInterface {
   private int endWeek;
   private Map<String, Employee> assignedEmployees = new HashMap<>();
   private List<ProjectActivity> activities = new ArrayList<ProjectActivity>();
+  private Report latestReport;
 
   public Project(String projectTitle, Calendar date) {
     this.projectTitle = projectTitle;
@@ -222,4 +224,9 @@ public class Project implements ConvertibleToViewModelInterface {
   public List<Employee> getListOfAssignedEmployees() {
     return this.assignedEmployees.values().stream().toList();
   }
+
+  public void addLatestReport(Report report) {
+    this.latestReport = report;
+  }
+
 }
