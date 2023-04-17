@@ -3,9 +3,12 @@ package taskfusion.cli.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Input;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
+import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.viewModels.RegularActivityViewModel;
 
 public class ListRegularActivitiesView implements ViewInterface {
@@ -18,8 +21,6 @@ public class ListRegularActivitiesView implements ViewInterface {
 
     public void show() {
 
-        Text.showError("DENNE FEATURE ER IKKE FULDT IMPLEMENTERET.");
-
         if(activities.size() == 0) {
             Text.showInfo("Du har ingen faste aktiviteter");
             Input.enterToContinue("Tryk på Enter for at gå tilbage");
@@ -30,23 +31,27 @@ public class ListRegularActivitiesView implements ViewInterface {
         List<String> optionsTextList = new ArrayList<String>();
         List<String> optionsKeyList = new ArrayList<String>();
 
-        Integer i = 0;
-
         for (RegularActivityViewModel activity : activities) {
-            i += 1;
             optionsTextList.add(activity.title + ": " + activity.startWeek + " - " + activity.endWeek);
-            optionsKeyList.add(""+i);
+            optionsKeyList.add(""+activity.id);
         }
 
-        String[] optionTexts = optionsTextList.toArray(new String[0]);
-        String[] optionKeys = optionsKeyList.toArray(new String[0]);
-
-        String choice = Menu.showListOptions(optionKeys, optionTexts, "Vælg aktivitet", "Dine faste aktiviteter");
+        String choice = Menu.showListOptions(optionsKeyList, optionsTextList, "Vælg aktivitet", "Dine faste aktiviteter");
 
         if(choice == null) {
             return;
         }
 
+        RegularActivityViewModel activity;
+        try {
+            activity = TaskFusionCLI.employeeFacade().getRegularActivityById(Integer.parseInt(choice));
+        } catch (Exception e) {
+            Text.showExceptionError(e);
+            return;
+        }
+
+        Text.showInfo(activity.title);
+        
         Text.showError("MANGLER IMPLEMENTERING");
 
         return;

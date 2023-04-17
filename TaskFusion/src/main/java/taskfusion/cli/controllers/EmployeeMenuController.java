@@ -39,7 +39,7 @@ public class EmployeeMenuController implements ControllerInterface {
                     break;
 
                 case 3: // Se faste aktiviteter
-                    List<RegularActivityViewModel> activities = new ArrayList<>();
+                    List<RegularActivityViewModel> activities = TaskFusionCLI.employeeFacade().getRegularActivities();
                     new ListRegularActivitiesView(activities).show();
                     break;
 
