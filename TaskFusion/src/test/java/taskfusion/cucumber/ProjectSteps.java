@@ -163,7 +163,7 @@ public class ProjectSteps {
 
     @When("the user requests a list of employees assigned to the project with project number {string}")
     public void theUserRequestsAListOfEmployeesAssignedToTheActivityTitledInTheProjectWithProjectNumber(String projectNumber) {
-        this.assignedEmployees = taskFusion.getProjectFacade().getAssignedEmployees(projectNumber);
+        this.assignedEmployees = taskFusion.getProjectFacade().getProjectEmployees(projectNumber);
     }
 
     @Then("the employee list contains {int} items")
