@@ -3,25 +3,19 @@
 <span class="nc" id="L3">public class TaskFusionDriver {</span>
     
     public static void main(String[] args) {
-        //TaskFusion taskFusion = new TaskFusion();
-
+<span class="nc" id="L6">        TaskFusion taskFusion = new TaskFusion();</span>
         try {
-            // taskFusion.registerEmployee(&quot;John&quot;, &quot;Dillermand&quot;);
-            // taskFusion.login(&quot;jodi&quot;);
-            
-            // taskFusion.createProject(&quot;Projektet&quot;);
+<span class="nc" id="L8">            taskFusion.getEmployeeFacade().registerEmployee(&quot;Rasmus&quot;, &quot;Wiuff&quot;);</span>
+<span class="nc" id="L9">            taskFusion.login(&quot;rawi&quot;);</span>
+<span class="nc" id="L10">            taskFusion.getProjectFacade().createProject(&quot;Web&quot;);</span>
+<span class="nc" id="L11">            taskFusion.getProjectFacade().takeProjectLeaderRole(&quot;23001&quot;);</span>
+<span class="nc" id="L12">            taskFusion.getProjectFacade().getTotalWorktimeRegistrationsForProject(&quot;23001&quot;);</span>
+<span class="nc" id="L13">            System.out.println(&quot;here&quot;);</span>
+<span class="nc" id="L14">        } catch (Exception e) {</span>
+<span class="nc" id="L15">            System.out.println(e.getMessage());</span>
+<span class="nc" id="L16">        }</span>
 
-            // Project p = taskFusion.findProjectByProjectNumber(&quot;23001&quot;);
-
-            // assertNotNull(p);
-            // assertEquals(&quot;Projektet&quot;, p.getProjectTitle());
-            // taskFusion.createProjectActivity(&quot;23001&quot;, &quot;testaktivitet&quot;, 01, 02);
-            // taskFusion.createProjectActivity(&quot;23001&quot;, &quot;testaktivitet&quot;, 01, 02);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-<span class="nc" id="L24">    }</span>
+<span class="nc" id="L18">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
