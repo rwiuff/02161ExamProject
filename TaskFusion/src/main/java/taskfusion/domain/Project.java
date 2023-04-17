@@ -215,4 +215,7 @@ public class Project implements ConvertibleToViewModelInterface {
 
   }
 
+  public List<Employee> getListOfAssignedEmployees() {
+    return this.assignedEmployees.values().stream().toList();
+  }
 }

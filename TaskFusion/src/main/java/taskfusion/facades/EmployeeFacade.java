@@ -1,5 +1,7 @@
 package taskfusion.facades;
 
+import java.util.List;
+
 import taskfusion.app.TaskFusion;
 import taskfusion.domain.Employee;
 import taskfusion.domain.RegularActivity;
@@ -8,6 +10,7 @@ import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.viewModels.EmployeeViewModel;
+import taskfusion.viewModels.RegularActivityViewModel;
 
 public class EmployeeFacade {
     private TaskFusion taskFusion;
@@ -66,6 +69,14 @@ public class EmployeeFacade {
 
     public boolean hasRegularActivity(String title, Integer startWeek, Integer endWeek) {
         return getLoggedInUserModel().hasRegularActivity(title, startWeek, endWeek);
+    }
+
+    public List<RegularActivity> getRegularActivities(String initials) {
+        return EmployeeRepository.getInstance().findByInitials(initials).getRegularActivities();
+    }
+
+    public List<RegularActivityViewModel> getAssignedEmployeesViewModel(String initials) {
+        return RegularActivityViewModel.listFromModels(getRegularActivities(initials));
     }
 
     /**

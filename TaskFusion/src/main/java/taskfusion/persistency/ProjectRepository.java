@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
 import taskfusion.domain.WorktimeRegistration;
 import taskfusion.exceptions.InvalidPropertyException;
@@ -132,6 +133,10 @@ public class ProjectRepository {
         }
 
         return lastId + 1;
+    }
+
+    public List<Employee> getListOfEmployees(String projectNumber) {
+      return this.projects.get(projectNumber).getListOfAssignedEmployees();
     }
 
 }
