@@ -107,10 +107,10 @@ public class Employee implements ConvertibleToViewModelInterface {
 <span class="fc" id="L107">    this.regularActivities.add(regularActivity);</span>
 <span class="fc" id="L108">  }</span>
 
-  public boolean hasRegularActivity(String title, int startWeek, int endWeek) {
+  public boolean hasRegularActivity(String title, String startWeek, String endWeek) {
 <span class="fc bfc" id="L111" title="All 2 branches covered.">    for (RegularActivity regularActivity : this.regularActivities) {</span>
-<span class="pc bpc" id="L112" title="3 of 4 branches missed.">      if (regularActivity.getTitle() == title &amp;&amp; regularActivity.getStartWeek() == startWeek</span>
-<span class="nc bnc" id="L113" title="All 2 branches missed.">          &amp;&amp; regularActivity.getEndWeek() == endWeek) {</span>
+<span class="pc bpc" id="L112" title="3 of 4 branches missed.">      if (regularActivity.getTitle() == title &amp;&amp; regularActivity.getStartWeek().equals(startWeek)</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">          &amp;&amp; regularActivity.getEndWeek().equals(endWeek)) {</span>
 <span class="nc" id="L114">        return true;</span>
       }
 <span class="fc" id="L116">    }</span>

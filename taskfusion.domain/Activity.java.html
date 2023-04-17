@@ -2,28 +2,28 @@
 
 public abstract class Activity {
   protected String title;
-  protected int startWeek;
-  protected int endWeek;
+  protected String startWeek;
+  protected String endWeek;
 
-<span class="fc" id="L8">  public Activity(String title, Integer startWeek, Integer endWeek) {</span>
+<span class="fc" id="L8">  public Activity(String title, String startWeek, String endWeek) {</span>
 <span class="fc" id="L9">    this.title = title;</span>
 <span class="fc" id="L10">    this.startWeek = startWeek;</span>
 <span class="fc" id="L11">    this.endWeek = endWeek;</span>
 <span class="fc" id="L12">  }</span>
 
-  public int getStartWeek() {
+  public String getStartWeek() {
 <span class="fc" id="L15">    return this.startWeek;</span>
   }
 
-  public void setStartWeek(int startWeek) {
+  public void setStartWeek(String startWeek) {
 <span class="nc" id="L19">    this.startWeek = startWeek;</span>
 <span class="nc" id="L20">  }</span>
 
-  public int getEndWeek() {
+  public String getEndWeek() {
 <span class="fc" id="L23">    return this.endWeek;</span>
   }
 
-  public void setEndWeek(int endWeek) {
+  public void setEndWeek(String endWeek) {
 <span class="nc" id="L27">    this.endWeek = endWeek;</span>
 <span class="nc" id="L28">  }</span>
 

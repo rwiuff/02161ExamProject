@@ -6,7 +6,7 @@ import taskfusion.viewModels.RegularActivityViewModel;
 public class RegularActivity extends Activity implements ConvertibleToViewModelInterface {
   private int id;
   
-  public RegularActivity(String title, int startWeek, int endWeek) {
+  public RegularActivity(String title, String startWeek, String endWeek) {
 <span class="fc" id="L10">    super(title, startWeek, endWeek);</span>
 <span class="fc" id="L11">    this.id = EmployeeRepository.getInstance().generateRegularActivityId();</span>
 <span class="fc" id="L12">  }</span>
