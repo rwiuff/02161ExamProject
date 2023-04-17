@@ -7,6 +7,7 @@ import taskfusion.domain.Employee;
 import taskfusion.domain.RegularActivity;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
+import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.viewModels.EmployeeViewModel;
@@ -35,6 +36,12 @@ public class EmployeeFacade {
 
         return null;
     }
+
+/**
+   * ###########################
+   * REGULAR ACTIVITIES
+   * ###########################
+   */
 
     // ALLE DISSE CHECKS, SKAL FOREGÅ I DOMAIN LAYER, SO I SELVE REGULARACTIVITY
     // KLASSEN
@@ -75,6 +82,29 @@ public class EmployeeFacade {
         return RegularActivityViewModel.listFromModels(EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials).getRegularActivities());
     }
 
+    public RegularActivityViewModel getRegularActivityById(int id) throws NotFoundException, OperationNotAllowedException {
+
+        if (!taskFusion.isLoggedIn()) {
+            throw new OperationNotAllowedException("Login krævet");
+        }
+
+        RegularActivity activity = employeeRepo.findRegularActivityById(id);
+        
+        if(!getLoggedInUserModel().hasRegularActivity(id)) {
+            throw new OperationNotAllowedException("Du har ikke rettighed til at se denne aktivitet");
+        }
+
+        return activity.toViewModel();
+    }
+
+    // public void deleteRegularActivity(int id) throws OperationNotAllowedException {
+        
+    //     requireLogin();
+
+    //     getLoggedInUserModel().deleteRegularActivity(id);
+
+    // }
+
     /**
    * ###########################
    * Helper methods
@@ -83,4 +113,11 @@ public class EmployeeFacade {
     private Employee getLoggedInUserModel() {
         return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);
     }
+
+    private void requireLogin() throws OperationNotAllowedException {
+        if (!taskFusion.isLoggedIn()) {
+            throw new OperationNotAllowedException("Login krævet");
+        }
+    }
+
 }

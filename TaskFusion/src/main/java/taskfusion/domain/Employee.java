@@ -118,6 +118,19 @@ public class Employee implements ConvertibleToViewModelInterface {
     return false;
   }
 
+  public boolean hasRegularActivity(int id) {
+    for (RegularActivity regularActivity : this.regularActivities) {
+      if(regularActivity.getId() == id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public void deleteRegularActivity(int id) {
+    
+  }
+
   public Map<String, Project> getProjects() {
 
     Map<String, Project> employeeProjects = new HashMap<>();

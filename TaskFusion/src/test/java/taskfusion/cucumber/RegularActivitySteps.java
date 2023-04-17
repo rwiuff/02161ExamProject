@@ -1,19 +1,23 @@
 package taskfusion.cucumber;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import taskfusion.app.TaskFusion;
+import taskfusion.domain.RegularActivity;
+import taskfusion.exceptions.NotFoundException;
+import taskfusion.persistency.EmployeeRepository;
 import taskfusion.viewModels.RegularActivityViewModel;
 
 public class RegularActivitySteps {
   private TaskFusion taskFusion;
   private ErrorMessageHolder errorMessageHolder;
-  private List<RegularActivityViewModel> regularActivities = new ArrayList<RegularActivityViewModel>();
+  private RegularActivityViewModel regularActivity;
+  private List<RegularActivityViewModel> regularActivityList;
 
   public RegularActivitySteps(ErrorMessageHolder errorMessageHolder, TaskFusion taskFusion) {
     this.taskFusion = taskFusion;
@@ -38,7 +42,6 @@ public class RegularActivitySteps {
   public void theUserCreatesTheRegularActivityWithStartWeekAndEndWeek(String string, String string2, Integer int1) {
     try {
       this.taskFusion.getEmployeeFacade().createRegularActivity(string, null, int1);
-      ;
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -53,13 +56,37 @@ public class RegularActivitySteps {
     }
   }
 
-  @When("the user with initials {string} requests a list of their regular activities")
-  public void theUserRequestsAListOfTheirRegularActivities(String initials) {
-    this.regularActivities = this.taskFusion.getEmployeeFacade().getRegularActivities();
+  @Then("the regular activity with id {int} does not exist")
+  public void the_regular_activity_with_id_does_not_exist(int id) throws NotFoundException {
+    RegularActivity activity = EmployeeRepository.getInstance().findRegularActivityById(id);
+    assertNull(activity);
   }
 
-  @Then("the list of regular activities has size {int}")
-  public void theListOfRegularActivitiesHasSize(Integer int1) {
-    assertTrue(this.regularActivities.size() == 3);
+  @Then("a regular activity is returned with id {int}, title {string}, start week {int} and end week {int}")
+  public void a_regular_activity_is_returned_with_id_title_start_week_and_end_week(int id, String title, int startWeek,
+      int endWeek) {
+    assertEquals(title, this.regularActivity.title);
+    assertEquals(id, this.regularActivity.id);
+    assertEquals(startWeek, this.regularActivity.startWeek);
+    assertEquals(endWeek, this.regularActivity.endWeek);
+  }
+
+  @When("the user requests a regular activity with id {int}")
+  public void the_user_requests_a_regular_activity_with_id(int id) {
+    try {
+      this.regularActivity = taskFusion.getEmployeeFacade().getRegularActivityById(id);
+    } catch (Exception e) {
+      this.errorMessageHolder.setErrorMessage(e.getMessage());
+    }
+  }
+
+  @Then("the regular activities list contains {int} items")
+  public void the_regular_activities_list_contains_items(int amount) {
+    assertEquals(amount, this.regularActivityList.size());
+  }
+
+  @When("the user requests a list of own regular activities")
+  public void the_user_requests_a_list_of_own_regular_activities() {
+    this.regularActivityList = taskFusion.getEmployeeFacade().getRegularActivities();
   }
 }
