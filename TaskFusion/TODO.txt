@@ -1,13 +1,24 @@
 ######################
 ## TODO
 ######################
-- Cucumber feature implementations
+- Gennemgå klassediagram class_persistency.puml 
+- Gennemgå sequence diagrammer
+- White box tests 
+- 100% code coverage
 
-
-
-
-
-
+- (Max) Mangler facade for at få en liste af projekt medarbejdere
+- (Max) Mangler facade for at få en liste af brugerens faste aktiviteter
+- (Kasper) Mangler facade for at finde 1 fast aktivitet, identificeret med ??? (id)
+- Mangler facade til at rette fast aktivitet; Title, startuge, slutuge
+- Mangler facade for at finde 1 projektaktivitet aktivitet, identificeret med projektnummer og aktivitet titel
+- (Rasmus) Mangler raport generering (Rasmus), 
+    - Title, projektnummer, projektleder 
+    - Medarbejdere
+    - Budget  
+    - Aktiviteter 
+        - Tidsregisteringerne
+- (Mathies) startweek og endweek skal være i Strings istedet for integers.
+- (Kasper) CLI
 
 
 
@@ -18,7 +29,4 @@
 ######################
 - Man kan godt oprette faste aktiviteter med forkerte ugenumre, fx accepteres værdien 2
 - Skal man kunne redigere i faste aktiviter? I så fald mangler facade.
-- startweek og endweek skal nok være i Strings, måske?
-- Mangler facade for at få projekt medarbejdere
-- Mangler facade for at få faste aktiviteter
-- Mangler facade for at finde 1 fast aktivitet.
+
