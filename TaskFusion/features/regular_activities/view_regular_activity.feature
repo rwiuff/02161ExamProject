@@ -10,10 +10,10 @@ Feature: View regular activity
     And the user creates the regular activity "Syg" with start week 2304 and end week 2306
     And the user logs out
 
-#   Scenario: 1. A employee can view a list of their regular activites
-#     Given the user logs in using initials "mila"
-#     When the user requests a list of own regular activities
-#     Then the regular activities list contains 2 items
+  Scenario: 1. A employee can view a list of their regular activites
+    Given the user logs in using initials "mila"
+    When the user requests a list of own regular activities
+    Then the regular activities list contains 2 items
 
   Scenario: 2. A employee can view a regular activity
     Given the user logs in using initials "mila"
