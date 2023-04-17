@@ -1,12 +1,19 @@
 package taskfusion.cucumber;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import taskfusion.app.TaskFusion;
+import taskfusion.domain.RegularActivity;
 
 public class RegularActivitySteps {
   private TaskFusion taskFusion;
   private ErrorMessageHolder errorMessageHolder;
+  private List<RegularActivity> regularActivities = new ArrayList<RegularActivity>();
 
   public RegularActivitySteps(ErrorMessageHolder errorMessageHolder, TaskFusion taskFusion) {
     this.taskFusion = taskFusion;
@@ -44,5 +51,15 @@ public class RegularActivitySteps {
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
+  }
+
+  @When("the user with initials {string} requests a list of their regular activities")
+  public void theUserRequestsAListOfTheirRegularActivities(String initials) {
+    this.regularActivities = this.taskFusion.getEmployeeFacade().employeeRepo.findByInitials(initials).getRegularActivities();
+  }
+
+  @Then("the list of regular activities has size {int}")
+  public void theListOfRegularActivitiesHasSize(Integer int1) {
+    assertTrue(this.regularActivities.size() == 3);
   }
 }

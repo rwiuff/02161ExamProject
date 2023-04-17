@@ -13,6 +13,7 @@ import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
+import taskfusion.viewModels.EmployeeViewModel;
 import taskfusion.viewModels.ProjectViewModel;
 import taskfusion.viewModels.WorktimeRegistrationViewModel;
 
@@ -194,6 +195,14 @@ public class ProjectFacade {
         return ProjectViewModel.listFromModels(projects);
     }
 
+    public List<Employee> getAssignedEmployees(String projectNumber) {
+      return ProjectRepository.getInstance().getListOfEmployees(projectNumber);
+    }
+
+    public List<EmployeeViewModel> getAssignedEmployeesViewModel(String projectNumber) {
+      return EmployeeViewModel.listFromModels(getAssignedEmployees(projectNumber));
+    }
+
     /**
      * ###########################
      * Helper methods
@@ -202,5 +211,4 @@ public class ProjectFacade {
     private Employee getLoggedInUserModel() {
         return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);
     }
-
 }

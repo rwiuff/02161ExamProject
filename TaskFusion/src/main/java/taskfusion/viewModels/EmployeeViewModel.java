@@ -1,5 +1,8 @@
 package taskfusion.viewModels;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import taskfusion.domain.Employee;
 
 public class EmployeeViewModel extends ViewModel {
@@ -15,4 +18,13 @@ public class EmployeeViewModel extends ViewModel {
         this.fullName = employee.getFullName();
     }
 
+    public static List<EmployeeViewModel> listFromModels(List<Employee> employeeList) {
+      List<EmployeeViewModel> list = new ArrayList<EmployeeViewModel>();
+
+      for(Employee employee : employeeList) {
+        list.add(employee.toViewModel());
+      }
+
+      return list;
+    }
 }

@@ -12,6 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.helpers.MockDateHolder;
 import taskfusion.persistency.ProjectRepository;
@@ -20,6 +23,7 @@ public class ProjectSteps {
   private TaskFusion taskFusion;
   private ErrorMessageHolder errorMessageHolder;
   private MockDateHolder mockDateHolder;
+  private List<Employee> assignedEmployees = new ArrayList<Employee>();
 
   public ProjectSteps(ErrorMessageHolder errorMessageHolder, TaskFusion taskFusion,
       MockDateHolder mockDateHolder) {
@@ -156,4 +160,13 @@ public class ProjectSteps {
       assertFalse(ProjectRepository.getInstance().findByProjectNumber(projectNumber).isInternal());
     }
 
+    @When("the user requests a list of employees assigned to the project with project number {string}")
+    public void theUserRequestsAListOfEmployeesAssignedToTheActivityTitledInTheProjectWithProjectNumber(String projectNumber) {
+        this.assignedEmployees = taskFusion.getProjectFacade().getAssignedEmployees(projectNumber);
+    }
+
+    @Then("the employee list contains {int} items")
+    public void theEmployeeListContainsItems(Integer int1) {
+        assertTrue(this.assignedEmployees.size() == 2);
+    }
 }
