@@ -71,12 +71,8 @@ public class EmployeeFacade {
 <span class="fc" id="L71">        return getLoggedInUserModel().hasRegularActivity(title, startWeek, endWeek);</span>
     }
 
-    public List&lt;RegularActivity&gt; getRegularActivities(String initials) {
-<span class="nc" id="L75">        return EmployeeRepository.getInstance().findByInitials(initials).getRegularActivities();</span>
-    }
-
-    public List&lt;RegularActivityViewModel&gt; getAssignedEmployeesViewModel(String initials) {
-<span class="nc" id="L79">        return RegularActivityViewModel.listFromModels(getRegularActivities(initials));</span>
+    public List&lt;RegularActivityViewModel&gt; getRegularActivities() {
+<span class="fc" id="L75">        return RegularActivityViewModel.listFromModels(EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials).getRegularActivities());</span>
     }
 
     /**
@@ -85,7 +81,7 @@ public class EmployeeFacade {
    * ###########################
    */
     private Employee getLoggedInUserModel() {
-<span class="fc" id="L88">        return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);</span>
+<span class="fc" id="L84">        return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

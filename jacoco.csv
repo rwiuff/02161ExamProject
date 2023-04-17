@@ -1,6 +1,6 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 TaskFusion,taskfusion.domain,Project,22,281,2,36,9,72,7,37,5,20
-TaskFusion,taskfusion.domain,RegularActivity,5,8,0,0,1,2,1,1,1,1
+TaskFusion,taskfusion.domain,RegularActivity,0,13,0,0,0,3,0,2,0,2
 TaskFusion,taskfusion.domain,Employee,53,188,9,15,11,42,9,19,3,13
 TaskFusion,taskfusion.domain,Activity,12,23,0,0,6,8,3,4,3,4
 TaskFusion,taskfusion.domain,ProjectActivity,11,95,0,4,2,21,2,12,2,10
@@ -8,11 +8,11 @@ TaskFusion,taskfusion.domain,WorktimeRegistration,3,34,0,0,1,12,1,6,1,6
 TaskFusion,taskfusion.domain,Report,3,0,0,0,1,0,1,0,1,0
 TaskFusion,taskfusion.helpers,PrintHelper,22,46,2,4,5,8,3,4,2,2
 TaskFusion,taskfusion.helpers,DateHelper,3,6,0,0,1,1,1,1,1,1
-TaskFusion,taskfusion.facades,ProjectFacade,56,310,5,27,11,69,8,28,4,16
-TaskFusion,taskfusion.facades,EmployeeFacade,15,103,1,13,3,25,3,12,2,6
-TaskFusion,taskfusion.viewModels,EmployeeViewModel,22,19,2,0,5,6,2,1,1,1
+TaskFusion,taskfusion.facades,ProjectFacade,51,311,5,27,10,69,7,28,3,16
+TaskFusion,taskfusion.facades,EmployeeFacade,5,112,1,13,1,26,1,13,0,7
+TaskFusion,taskfusion.viewModels,EmployeeViewModel,0,41,0,2,0,11,0,3,0,2
 TaskFusion,taskfusion.viewModels,ViewModel,0,3,0,0,0,1,0,1,0,1
-TaskFusion,taskfusion.viewModels,RegularActivityViewModel,37,0,2,0,10,0,3,0,2,0
+TaskFusion,taskfusion.viewModels,RegularActivityViewModel,0,37,0,2,0,10,0,3,0,2
 TaskFusion,taskfusion.viewModels,ProjectActivityViewModel,15,0,0,0,5,0,1,0,1,0
 TaskFusion,taskfusion.viewModels,ProjectViewModel,58,0,4,0,15,0,4,0,2,0
 TaskFusion,taskfusion.viewModels,WorktimeRegistrationViewModel,0,37,0,2,0,10,0,3,0,2

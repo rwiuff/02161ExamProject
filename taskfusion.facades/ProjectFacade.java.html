@@ -195,12 +195,8 @@ public class ProjectFacade {
 <span class="nc" id="L195">        return ProjectViewModel.listFromModels(projects);</span>
     }
 
-    public List&lt;Employee&gt; getAssignedEmployees(String projectNumber) {
-<span class="fc" id="L199">      return ProjectRepository.getInstance().getListOfEmployees(projectNumber);</span>
-    }
-
-    public List&lt;EmployeeViewModel&gt; getAssignedEmployeesViewModel(String projectNumber) {
-<span class="nc" id="L203">      return EmployeeViewModel.listFromModels(getAssignedEmployees(projectNumber));</span>
+    public List&lt;EmployeeViewModel&gt; getProjectEmployees(String projectNumber) {
+<span class="fc" id="L199">      return EmployeeViewModel.listFromModels(ProjectRepository.getInstance().getListOfEmployees(projectNumber));</span>
     }
 
     /**
@@ -209,7 +205,7 @@ public class ProjectFacade {
      * ###########################
      */
     private Employee getLoggedInUserModel() {
-<span class="fc" id="L212">        return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);</span>
+<span class="fc" id="L208">        return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

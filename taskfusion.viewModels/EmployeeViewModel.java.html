@@ -19,13 +19,13 @@ public class EmployeeViewModel extends ViewModel {
 <span class="fc" id="L19">    }</span>
 
     public static List&lt;EmployeeViewModel&gt; listFromModels(List&lt;Employee&gt; employeeList) {
-<span class="nc" id="L22">      List&lt;EmployeeViewModel&gt; list = new ArrayList&lt;EmployeeViewModel&gt;();</span>
+<span class="fc" id="L22">      List&lt;EmployeeViewModel&gt; list = new ArrayList&lt;EmployeeViewModel&gt;();</span>
 
-<span class="nc bnc" id="L24" title="All 2 branches missed.">      for(Employee employee : employeeList) {</span>
-<span class="nc" id="L25">        list.add(employee.toViewModel());</span>
-<span class="nc" id="L26">      }</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">      for(Employee employee : employeeList) {</span>
+<span class="fc" id="L25">        list.add(employee.toViewModel());</span>
+<span class="fc" id="L26">      }</span>
 
-<span class="nc" id="L28">      return list;</span>
+<span class="fc" id="L28">      return list;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
