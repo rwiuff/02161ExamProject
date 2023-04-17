@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
 import taskfusion.domain.WorktimeRegistration;
 import taskfusion.exceptions.InvalidPropertyException;
@@ -18,7 +19,7 @@ import taskfusion.exceptions.OperationNotAllowedException;
  */
 public class ProjectRepository {
 
-<span class="fc" id="L21">    private Map&lt;String, Project&gt; projects = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L22">    private Map&lt;String, Project&gt; projects = new HashMap&lt;&gt;();</span>
 
     /**
      * SINGLETON related
@@ -27,111 +28,115 @@ public class ProjectRepository {
     private static ProjectRepository instance;
 
     // Private constructor to prevent instantiation from other classes
-<span class="fc" id="L30">    private ProjectRepository() {</span>
+<span class="fc" id="L31">    private ProjectRepository() {</span>
 
-<span class="fc" id="L32">    }</span>
+<span class="fc" id="L33">    }</span>
 
     // Public method to get the Singleton instance
     public static ProjectRepository getInstance() {
-<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (instance == null) {</span>
-<span class="fc" id="L37">            instance = new ProjectRepository();</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">        if (instance == null) {</span>
+<span class="fc" id="L38">            instance = new ProjectRepository();</span>
         }
-<span class="fc" id="L39">        return instance;</span>
+<span class="fc" id="L40">        return instance;</span>
     }
 
     public static void resetInstance() {
-<span class="fc" id="L43">        instance = null;</span>
-<span class="fc" id="L44">    }</span>
+<span class="fc" id="L44">        instance = null;</span>
+<span class="fc" id="L45">    }</span>
 
     /**
      * REPOSITORY related
      */
 
      public Map&lt;String, Project&gt; all() {
-<span class="fc" id="L51">        return projects;</span>
+<span class="fc" id="L52">        return projects;</span>
      }
 
     public Project create(String projectTitle, Calendar date)
             throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
 
-<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (projectTitle.length() &lt; 2) {</span>
-<span class="fc" id="L58">            throw new InvalidPropertyException(&quot;En projekttitel mangler&quot;);</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (projectTitle.length() &lt; 2) {</span>
+<span class="fc" id="L59">            throw new InvalidPropertyException(&quot;En projekttitel mangler&quot;);</span>
         }
 
-<span class="fc" id="L61">        Project p = new Project(projectTitle, date);</span>
-<span class="fc" id="L62">        String projectNumber = p.getProjectNumber();</span>
+<span class="fc" id="L62">        Project p = new Project(projectTitle, date);</span>
+<span class="fc" id="L63">        String projectNumber = p.getProjectNumber();</span>
 
-<span class="fc" id="L64">        this.projects.put(projectNumber, p);</span>
-<span class="fc" id="L65">        return p;</span>
+<span class="fc" id="L65">        this.projects.put(projectNumber, p);</span>
+<span class="fc" id="L66">        return p;</span>
     }
 
     public Project findByProjectNumber(String projectNumber) throws NotFoundException {
-<span class="fc" id="L69">        Project project = projects.get(projectNumber);</span>
-<span class="fc bfc" id="L70" title="All 2 branches covered.">        if (project == null) {</span>
-<span class="fc" id="L71">            throw new NotFoundException(&quot;Projektet kunne ikke findes i samlingen af projekter&quot;);</span>
+<span class="fc" id="L70">        Project project = projects.get(projectNumber);</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (project == null) {</span>
+<span class="fc" id="L72">            throw new NotFoundException(&quot;Projektet kunne ikke findes i samlingen af projekter&quot;);</span>
         }
-<span class="fc" id="L73">        return projects.get(projectNumber);</span>
+<span class="fc" id="L74">        return projects.get(projectNumber);</span>
 
     }
 
     public Project findByTitle(String projectTitle) throws NotFoundException {
-<span class="nc" id="L78">        Project returnProject = null;</span>
-<span class="nc bnc" id="L79" title="All 2 branches missed.">        for (Entry&lt;String, Project&gt; entry: projects.entrySet()){</span>
-<span class="nc bnc" id="L80" title="All 2 branches missed.">            if(entry.getValue().getProjectTitle().equals(projectTitle)){</span>
-<span class="nc" id="L81">                returnProject = entry.getValue();</span>
+<span class="nc" id="L79">        Project returnProject = null;</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">        for (Entry&lt;String, Project&gt; entry: projects.entrySet()){</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">            if(entry.getValue().getProjectTitle().equals(projectTitle)){</span>
+<span class="nc" id="L82">                returnProject = entry.getValue();</span>
             }
-<span class="nc" id="L83">        }</span>
-<span class="nc bnc" id="L84" title="All 2 branches missed.">        if(returnProject == null){</span>
-<span class="nc" id="L85">            throw new NotFoundException(&quot;Projektet kunne ikke findes i samlingen af projekter&quot;);</span>
+<span class="nc" id="L84">        }</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        if(returnProject == null){</span>
+<span class="nc" id="L86">            throw new NotFoundException(&quot;Projektet kunne ikke findes i samlingen af projekter&quot;);</span>
         }
-<span class="nc" id="L87">        return returnProject;</span>
+<span class="nc" id="L88">        return returnProject;</span>
     }
 
     private List&lt;WorktimeRegistration&gt; allWorktimeRegistrations() {
 
-<span class="fc" id="L92">        List&lt;WorktimeRegistration&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L93">        List&lt;WorktimeRegistration&gt; list = new ArrayList&lt;&gt;();</span>
 
-<span class="fc bfc" id="L94" title="All 2 branches covered.">        for (Entry&lt;String, Project&gt; entry: projects.entrySet()){</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        for (Entry&lt;String, Project&gt; entry: projects.entrySet()){</span>
 
-<span class="fc" id="L96">            Project project = entry.getValue();</span>
+<span class="fc" id="L97">            Project project = entry.getValue();</span>
 
-<span class="fc" id="L98">            list.addAll(project.getWorktimeRegistrations());</span>
-<span class="fc" id="L99">        }</span>
-<span class="fc" id="L100">        return list;</span>
+<span class="fc" id="L99">            list.addAll(project.getWorktimeRegistrations());</span>
+<span class="fc" id="L100">        }</span>
+<span class="fc" id="L101">        return list;</span>
     }
 
     /**REMOVE THIS */
     public List&lt;WorktimeRegistration&gt; getAllWorktimeRegistrations() {
-<span class="nc" id="L105">        return allWorktimeRegistrations();</span>
+<span class="nc" id="L106">        return allWorktimeRegistrations();</span>
     }
 
     public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
 
-<span class="fc" id="L110">        List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();</span>
+<span class="fc" id="L111">        List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();</span>
 
-<span class="fc bfc" id="L112" title="All 2 branches covered.">        for(WorktimeRegistration worktimeRegistration : list) {</span>
-<span class="fc bfc" id="L113" title="All 2 branches covered.">            if(worktimeRegistration.getId().equals(id)) {</span>
-<span class="fc" id="L114">                return worktimeRegistration;</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        for(WorktimeRegistration worktimeRegistration : list) {</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">            if(worktimeRegistration.getId().equals(id)) {</span>
+<span class="fc" id="L115">                return worktimeRegistration;</span>
             }
-<span class="fc" id="L116">        }</span>
+<span class="fc" id="L117">        }</span>
 
-<span class="fc" id="L118">        throw new NotFoundException(&quot;Ukendt tidsregistrering&quot;);</span>
+<span class="fc" id="L119">        throw new NotFoundException(&quot;Ukendt tidsregistrering&quot;);</span>
 
     }
 
     public Integer generateWorktimeRegistrationId() {
-<span class="fc" id="L123">        Integer lastId = 0;</span>
+<span class="fc" id="L124">        Integer lastId = 0;</span>
 
-<span class="fc" id="L125">        List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();</span>
+<span class="fc" id="L126">        List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();</span>
 
-<span class="fc bfc" id="L127" title="All 2 branches covered.">        for(WorktimeRegistration worktimeRegistration : list) {</span>
-<span class="fc" id="L128">            Integer id = worktimeRegistration.getId();</span>
-<span class="pc bpc" id="L129" title="1 of 2 branches missed.">            if(id &gt; lastId) {</span>
-<span class="fc" id="L130">                lastId = id;</span>
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        for(WorktimeRegistration worktimeRegistration : list) {</span>
+<span class="fc" id="L129">            Integer id = worktimeRegistration.getId();</span>
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">            if(id &gt; lastId) {</span>
+<span class="fc" id="L131">                lastId = id;</span>
             }
-<span class="fc" id="L132">        }</span>
+<span class="fc" id="L133">        }</span>
 
-<span class="fc" id="L134">        return lastId + 1;</span>
+<span class="fc" id="L135">        return lastId + 1;</span>
+    }
+
+    public List&lt;Employee&gt; getListOfEmployees(String projectNumber) {
+<span class="fc" id="L139">      return this.projects.get(projectNumber).getListOfAssignedEmployees();</span>
     }
 
 }

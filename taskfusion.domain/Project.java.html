@@ -215,5 +215,8 @@ public class Project implements ConvertibleToViewModelInterface {
 
   }
 
+  public List&lt;Employee&gt; getListOfAssignedEmployees() {
+<span class="fc" id="L219">    return this.assignedEmployees.values().stream().toList();</span>
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

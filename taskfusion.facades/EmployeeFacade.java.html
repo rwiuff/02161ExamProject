@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmployeeFacade.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TaskFusion</a> &gt; <a href="index.source.html" class="el_package">taskfusion.facades</a> &gt; <span class="el_source">EmployeeFacade.java</span></div><h1>EmployeeFacade.java</h1><pre class="source lang-java linenums">package taskfusion.facades;
 
+import java.util.List;
+
 import taskfusion.app.TaskFusion;
 import taskfusion.domain.Employee;
 import taskfusion.domain.RegularActivity;
@@ -8,64 +10,73 @@ import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.viewModels.EmployeeViewModel;
+import taskfusion.viewModels.RegularActivityViewModel;
 
 public class EmployeeFacade {
     private TaskFusion taskFusion;
-<span class="fc" id="L14">    public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();</span>
+<span class="fc" id="L17">    public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();</span>
 
-<span class="fc" id="L16">    public EmployeeFacade(TaskFusion taskFusion) {</span>
-<span class="fc" id="L17">        this.taskFusion = taskFusion;</span>
-<span class="fc" id="L18">    }</span>
+<span class="fc" id="L19">    public EmployeeFacade(TaskFusion taskFusion) {</span>
+<span class="fc" id="L20">        this.taskFusion = taskFusion;</span>
+<span class="fc" id="L21">    }</span>
 
     public void registerEmployee(String firstName, String lastName)
             throws InvalidPropertyException, ExhaustedOptionsException {
-<span class="fc" id="L22">        employeeRepo.create(firstName, lastName);</span>
-<span class="fc" id="L23">    }</span>
+<span class="fc" id="L25">        employeeRepo.create(firstName, lastName);</span>
+<span class="fc" id="L26">    }</span>
 
     public EmployeeViewModel findEmployeeByInitials(String initials) {
 
-<span class="fc" id="L27">        Employee employee = employeeRepo.findByInitials(initials);</span>
+<span class="fc" id="L30">        Employee employee = employeeRepo.findByInitials(initials);</span>
 
-<span class="fc bfc" id="L29" title="All 2 branches covered.">        if(employee != null) {</span>
-<span class="fc" id="L30">            return employee.toViewModel();</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if(employee != null) {</span>
+<span class="fc" id="L33">            return employee.toViewModel();</span>
         }
 
-<span class="fc" id="L33">        return null;</span>
+<span class="fc" id="L36">        return null;</span>
     }
 
     // ALLE DISSE CHECKS, SKAL FOREGÅ I DOMAIN LAYER, SO I SELVE REGULARACTIVITY
     // KLASSEN
     public void createRegularActivity(String title, Integer startWeek, Integer endWeek)
             throws OperationNotAllowedException, InvalidPropertyException {
-<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (title == &quot;&quot;) {</span>
-<span class="fc" id="L41">            throw new InvalidPropertyException(&quot;En titel mangler&quot;);</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (title == &quot;&quot;) {</span>
+<span class="fc" id="L44">            throw new InvalidPropertyException(&quot;En titel mangler&quot;);</span>
         }
 
-<span class="fc bfc" id="L44" title="All 2 branches covered.">        if (startWeek == null) {</span>
-<span class="fc" id="L45">            throw new InvalidPropertyException(&quot;En start uge mangler&quot;);</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        if (startWeek == null) {</span>
+<span class="fc" id="L48">            throw new InvalidPropertyException(&quot;En start uge mangler&quot;);</span>
         }
 
-<span class="fc bfc" id="L48" title="All 2 branches covered.">        if (endWeek == null) {</span>
-<span class="fc" id="L49">            throw new InvalidPropertyException(&quot;En slut uge mangler&quot;);</span>
+<span class="fc bfc" id="L51" title="All 2 branches covered.">        if (endWeek == null) {</span>
+<span class="fc" id="L52">            throw new InvalidPropertyException(&quot;En slut uge mangler&quot;);</span>
         }
 
-<span class="fc bfc" id="L52" title="All 2 branches covered.">        if (startWeek &gt; endWeek) {</span>
-<span class="fc" id="L53">            throw new InvalidPropertyException(&quot;Start uge skal være før slut uge&quot;);</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (startWeek &gt; endWeek) {</span>
+<span class="fc" id="L56">            throw new InvalidPropertyException(&quot;Start uge skal være før slut uge&quot;);</span>
         }
 
-<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (endWeek &lt; startWeek) {</span>
-<span class="nc" id="L57">            throw new InvalidPropertyException(&quot;Slut uge skal være før eller lig med start uge&quot;);</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (endWeek &lt; startWeek) {</span>
+<span class="nc" id="L60">            throw new InvalidPropertyException(&quot;Slut uge skal være før eller lig med start uge&quot;);</span>
         }
 
-<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (taskFusion.isLoggedIn()) {</span>
-<span class="fc" id="L61">            getLoggedInUserModel().addRegularActivity(new RegularActivity(title, startWeek, endWeek));</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">        if (taskFusion.isLoggedIn()) {</span>
+<span class="fc" id="L64">            getLoggedInUserModel().addRegularActivity(new RegularActivity(title, startWeek, endWeek));</span>
         } else {
-<span class="fc" id="L63">            throw new OperationNotAllowedException(&quot;Kun medarbejdere kan oprette en fast aktivitet&quot;);</span>
+<span class="fc" id="L66">            throw new OperationNotAllowedException(&quot;Kun medarbejdere kan oprette en fast aktivitet&quot;);</span>
         }
-<span class="fc" id="L65">    }</span>
+<span class="fc" id="L68">    }</span>
 
     public boolean hasRegularActivity(String title, Integer startWeek, Integer endWeek) {
-<span class="fc" id="L68">        return getLoggedInUserModel().hasRegularActivity(title, startWeek, endWeek);</span>
+<span class="fc" id="L71">        return getLoggedInUserModel().hasRegularActivity(title, startWeek, endWeek);</span>
+    }
+
+    public List&lt;RegularActivity&gt; getRegularActivities(String initials) {
+<span class="nc" id="L75">        return EmployeeRepository.getInstance().findByInitials(initials).getRegularActivities();</span>
+    }
+
+    public List&lt;RegularActivityViewModel&gt; getAssignedEmployeesViewModel(String initials) {
+<span class="nc" id="L79">        return RegularActivityViewModel.listFromModels(getRegularActivities(initials));</span>
     }
 
     /**
@@ -74,7 +85,7 @@ public class EmployeeFacade {
    * ###########################
    */
     private Employee getLoggedInUserModel() {
-<span class="fc" id="L77">        return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);</span>
+<span class="fc" id="L88">        return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
