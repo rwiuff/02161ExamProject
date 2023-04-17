@@ -13,7 +13,7 @@ TaskFusion,taskfusion.facades,EmployeeFacade,10,180,2,24,3,36,2,20,1,8
 TaskFusion,taskfusion.viewModels,EmployeeViewModel,0,41,0,2,0,11,0,3,0,2
 TaskFusion,taskfusion.viewModels,ViewModel,0,3,0,0,0,1,0,1,0,1
 TaskFusion,taskfusion.viewModels,RegularActivityViewModel,0,42,0,2,0,11,0,3,0,2
-TaskFusion,taskfusion.viewModels,ProjectActivityViewModel,37,0,2,0,10,0,3,0,2,0
+TaskFusion,taskfusion.viewModels,ProjectActivityViewModel,42,0,2,0,11,0,3,0,2,0
 TaskFusion,taskfusion.viewModels,ProjectViewModel,63,0,4,0,16,0,4,0,2,0
 TaskFusion,taskfusion.viewModels,WorktimeRegistrationViewModel,0,41,0,2,0,11,0,3,0,2
 TaskFusion,taskfusion.persistency,Seeder,3,209,0,4,2,45,0,9,0,7

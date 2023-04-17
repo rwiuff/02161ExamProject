@@ -9,21 +9,23 @@ public class ProjectActivityViewModel extends ViewModel {
     public String title;
     public String startWeek;
     public String endWeek;
+    public List&lt;WorktimeRegistrationViewModel&gt; worktimeRegistrations;
 
-<span class="nc" id="L13">    public ProjectActivityViewModel(ProjectActivity activity) {</span>
-<span class="nc" id="L14">        this.title = activity.getTitle();</span>
-<span class="nc" id="L15">        this.startWeek = activity.getStartWeek();</span>
-<span class="nc" id="L16">        this.endWeek = activity.getEndWeek();</span>
-<span class="nc" id="L17">    }</span>
+<span class="nc" id="L14">    public ProjectActivityViewModel(ProjectActivity activity) {</span>
+<span class="nc" id="L15">        this.title = activity.getTitle();</span>
+<span class="nc" id="L16">        this.startWeek = activity.getStartWeek();</span>
+<span class="nc" id="L17">        this.endWeek = activity.getEndWeek();</span>
+<span class="nc" id="L18">        this.worktimeRegistrations = WorktimeRegistrationViewModel.listFromModels(activity.getWorktimeRegistrations());</span>
+<span class="nc" id="L19">    }</span>
 
     public static List&lt;ProjectActivityViewModel&gt; listFromModels(List&lt;ProjectActivity&gt; projectActivityList) {
-<span class="nc" id="L20">        List&lt;ProjectActivityViewModel&gt; list = new ArrayList&lt;ProjectActivityViewModel&gt;();</span>
+<span class="nc" id="L22">        List&lt;ProjectActivityViewModel&gt; list = new ArrayList&lt;ProjectActivityViewModel&gt;();</span>
   
-<span class="nc bnc" id="L22" title="All 2 branches missed.">        for(ProjectActivity projectActivity : projectActivityList) {</span>
-<span class="nc" id="L23">          list.add(projectActivity.toViewModel());</span>
-<span class="nc" id="L24">        }</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">        for(ProjectActivity projectActivity : projectActivityList) {</span>
+<span class="nc" id="L25">          list.add(projectActivity.toViewModel());</span>
+<span class="nc" id="L26">        }</span>
   
-<span class="nc" id="L26">        return list;</span>
+<span class="nc" id="L28">        return list;</span>
       }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
