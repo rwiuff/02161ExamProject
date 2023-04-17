@@ -7,8 +7,6 @@ import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Input;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
-import taskfusion.exceptions.NotFoundException;
-import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.viewModels.RegularActivityViewModel;
 
 public class ListRegularActivitiesView implements ViewInterface {
