@@ -8,12 +8,12 @@ import java.util.List;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import taskfusion.app.TaskFusion;
-import taskfusion.domain.RegularActivity;
+import taskfusion.viewModels.RegularActivityViewModel;
 
 public class RegularActivitySteps {
   private TaskFusion taskFusion;
   private ErrorMessageHolder errorMessageHolder;
-  private List<RegularActivity> regularActivities = new ArrayList<RegularActivity>();
+  private List<RegularActivityViewModel> regularActivities = new ArrayList<RegularActivityViewModel>();
 
   public RegularActivitySteps(ErrorMessageHolder errorMessageHolder, TaskFusion taskFusion) {
     this.taskFusion = taskFusion;
@@ -55,7 +55,7 @@ public class RegularActivitySteps {
 
   @When("the user with initials {string} requests a list of their regular activities")
   public void theUserRequestsAListOfTheirRegularActivities(String initials) {
-    this.regularActivities = this.taskFusion.getEmployeeFacade().employeeRepo.findByInitials(initials).getRegularActivities();
+    this.regularActivities = this.taskFusion.getEmployeeFacade().getRegularActivities();
   }
 
   @Then("the list of regular activities has size {int}")

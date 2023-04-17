@@ -18,12 +18,13 @@ import java.util.List;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.helpers.MockDateHolder;
 import taskfusion.persistency.ProjectRepository;
+import taskfusion.viewModels.EmployeeViewModel;
 
 public class ProjectSteps {
   private TaskFusion taskFusion;
   private ErrorMessageHolder errorMessageHolder;
   private MockDateHolder mockDateHolder;
-  private List<Employee> assignedEmployees = new ArrayList<Employee>();
+  private List<EmployeeViewModel> assignedEmployees = new ArrayList<EmployeeViewModel>();
 
   public ProjectSteps(ErrorMessageHolder errorMessageHolder, TaskFusion taskFusion,
       MockDateHolder mockDateHolder) {
@@ -162,7 +163,7 @@ public class ProjectSteps {
 
     @When("the user requests a list of employees assigned to the project with project number {string}")
     public void theUserRequestsAListOfEmployeesAssignedToTheActivityTitledInTheProjectWithProjectNumber(String projectNumber) {
-        this.assignedEmployees = taskFusion.getProjectFacade().getAssignedEmployees(projectNumber);
+        this.assignedEmployees = taskFusion.getProjectFacade().getProjectEmployees(projectNumber);
     }
 
     @Then("the employee list contains {int} items")
