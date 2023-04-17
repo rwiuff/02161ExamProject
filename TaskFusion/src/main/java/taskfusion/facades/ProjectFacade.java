@@ -72,11 +72,11 @@ public class ProjectFacade {
 
         if (!taskFusion.isLoggedIn()) {
             throw new OperationNotAllowedException("Login krævet");
-        } 
-        
+        }
+
         Project project = projectRepo.findByProjectNumber(projectNumber);
         project.createProjectActivity(new ProjectActivity(title, startWeek, endWeek), getLoggedInUserModel());
-        
+
     }
 
     public void setTimeBudget(String projectNumber, String projectActivityTitle, Integer timeBudget)
@@ -88,7 +88,7 @@ public class ProjectFacade {
         if (projectRepo.findByProjectNumber(projectNumber).getProjectLeader() != null) {
             if (!getLoggedInUserModel().getInitials()
                     .equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials())) {
-                //System.out.println(getLoggedInUserModel().getInitials().equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials()));
+                // System.out.println(getLoggedInUserModel().getInitials().equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials()));
                 throw new OperationNotAllowedException("Kun projektlederen kan tildele tidsbudgetter");
             }
         }
@@ -132,8 +132,9 @@ public class ProjectFacade {
             throw new OperationNotAllowedException("Login krævet");
         }
 
-        List<WorktimeRegistration> worktimeRegistrationList = projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
-        .getWorkTimeRegistrationsForEmployee(getLoggedInUserModel().getInitials());
+        List<WorktimeRegistration> worktimeRegistrationList = projectRepo.findByProjectNumber(projectNumber)
+                .findProjectActivity(activityTitle)
+                .getWorkTimeRegistrationsForEmployee(getLoggedInUserModel().getInitials());
 
         return WorktimeRegistrationViewModel.listFromModels(worktimeRegistrationList);
     }
@@ -146,6 +147,17 @@ public class ProjectFacade {
 
         return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
                 .getTotalWorkTimeForEmployee(getLoggedInUserModel().getInitials());
+    }
+
+    public List<WorktimeRegistrationViewModel> getTotalWorktimeRegistrationsForProjectActivity(String activityTitle,
+            String projectNumber) throws OperationNotAllowedException, NotFoundException {
+        if (!taskFusion.isLoggedIn()) {
+            throw new OperationNotAllowedException("Login krævet");
+        }
+        List<WorktimeRegistration> worktimeRegistrations = projectRepo.findByProjectNumber(projectNumber)
+                .findProjectActivity(activityTitle)
+                .getWorktimeRegistrations();
+        return WorktimeRegistrationViewModel.listFromModels(worktimeRegistrations);
     }
 
     public void editWorktimeRegistration(int id, double hours) throws OperationNotAllowedException, NotFoundException {
@@ -163,12 +175,13 @@ public class ProjectFacade {
         worktimeRegistration.setTime(hours);
 
     }
+
     public Double getRemainingWorktimeForActivity(String projectNumber, String activityTitle) throws NotFoundException {
         return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getRemainingWorktime();
     }
 
     public List<ProjectViewModel> getUserProjects() {
-        
+
         List<Project> projects = new ArrayList<Project>(getLoggedInUserModel().getProjects().values());
 
         return ProjectViewModel.listFromModels(projects);

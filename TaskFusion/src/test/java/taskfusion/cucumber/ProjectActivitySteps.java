@@ -152,4 +152,15 @@ public class ProjectActivitySteps {
     public void the_activity_returns_hours(double remainingTimeOnActivity) {
         assertEquals(this.remainingWorkTime, remainingTimeOnActivity, .1);
     }
+
+    @When("the user requests a list of all worktime registrations for the activity titled {string} in the project with project number {string}")
+    public void the_user_requests_a_list_of_all_worktime_registrations_for_the_activity_titled_in_the_project_with_project_number(String activityTitle, String projectNumber) {
+      try {
+        this.worktimeRegistrations = taskFusion.getProjectFacade()
+            .getTotalWorktimeRegistrationsForProjectActivity(activityTitle, projectNumber);
+        // PrintHelper.printWorktimeRegistrations(this.worktimeRegistrations);
+      } catch (Exception e) {
+        this.errorMessageHolder.setErrorMessage(e.getMessage());
+      }
+    }
 }

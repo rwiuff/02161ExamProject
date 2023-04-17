@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import taskfusion.viewModels.ProjectActivityViewModel;
+import taskfusion.viewModels.WorktimeRegistrationViewModel;
 
 public class ProjectActivity extends Activity implements ConvertibleToViewModelInterface {
   
@@ -67,4 +68,5 @@ public class ProjectActivity extends Activity implements ConvertibleToViewModelI
 public Double getRemainingWorktime() {
     return timeBudget - sumWorktime(worktimeRegistrations);
 }
+
 }
