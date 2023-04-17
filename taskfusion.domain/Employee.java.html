@@ -118,34 +118,47 @@ public class Employee implements ConvertibleToViewModelInterface {
 <span class="fc" id="L118">    return false;</span>
   }
 
+  public boolean hasRegularActivity(int id) {
+<span class="fc bfc" id="L122" title="All 2 branches covered.">    for (RegularActivity regularActivity : this.regularActivities) {</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">      if(regularActivity.getId() == id) {</span>
+<span class="fc" id="L124">        return true;</span>
+      }
+<span class="nc" id="L126">    }</span>
+<span class="fc" id="L127">    return false;</span>
+  }
+
+  public void deleteRegularActivity(int id) {
+    
+<span class="nc" id="L132">  }</span>
+
   public Map&lt;String, Project&gt; getProjects() {
 
-<span class="fc" id="L123">    Map&lt;String, Project&gt; employeeProjects = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L136">    Map&lt;String, Project&gt; employeeProjects = new HashMap&lt;&gt;();</span>
 
-<span class="fc bfc" id="L125" title="All 2 branches covered.">    for (Map.Entry&lt;String, Project&gt; projectEntry : ProjectRepository.getInstance().all().entrySet()) {</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">    for (Map.Entry&lt;String, Project&gt; projectEntry : ProjectRepository.getInstance().all().entrySet()) {</span>
 
-<span class="fc" id="L127">        Project project = projectEntry.getValue();</span>
+<span class="fc" id="L140">        Project project = projectEntry.getValue();</span>
 
-<span class="fc bfc" id="L129" title="All 2 branches covered.">        if(project.getAssignedEmployee(initials) != null) {</span>
-<span class="fc" id="L130">          employeeProjects.put(project.getProjectNumber(),project);</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">        if(project.getAssignedEmployee(initials) != null) {</span>
+<span class="fc" id="L143">          employeeProjects.put(project.getProjectNumber(),project);</span>
         }
-<span class="fc" id="L132">    }</span>
+<span class="fc" id="L145">    }</span>
 
-<span class="fc" id="L134">    return employeeProjects;</span>
+<span class="fc" id="L147">    return employeeProjects;</span>
 
   }
 
   public Project findProject(String projectNumber) {
-<span class="nc" id="L139">    return this.getProjects().get(projectNumber);</span>
+<span class="nc" id="L152">    return this.getProjects().get(projectNumber);</span>
   }
 
   public void addProject(Project project) throws AlreadyExistsException, NotFoundException {
-<span class="nc bnc" id="L143" title="All 2 branches missed.">    if (findProject(project.getProjectNumber()) == null) {</span>
-<span class="nc" id="L144">      this.projects.put(project.getProjectNumber(), project);</span>
+<span class="nc bnc" id="L156" title="All 2 branches missed.">    if (findProject(project.getProjectNumber()) == null) {</span>
+<span class="nc" id="L157">      this.projects.put(project.getProjectNumber(), project);</span>
     } else {
-<span class="nc" id="L146">      throw new AlreadyExistsException(&quot;Projektet findes allerede&quot;);</span>
+<span class="nc" id="L159">      throw new AlreadyExistsException(&quot;Projektet findes allerede&quot;);</span>
     }
-<span class="nc" id="L148">  }</span>
+<span class="nc" id="L161">  }</span>
 
   // public void addProjectActivity(String projectNumber, ProjectActivity projectActivity) throws AlreadyExistsException, NotFoundException {
   //   Project project = findProject(projectNumber);
@@ -153,8 +166,8 @@ public class Employee implements ConvertibleToViewModelInterface {
   // }
 
   public void setTimeBudgetProjectActivity(String projectNumber, String title, Integer timeBudget) throws NotFoundException {
-<span class="nc" id="L156">    Project project = findProject(projectNumber);</span>
-<span class="nc" id="L157">    project.findProjectActivity(title).setTimeBudget(timeBudget);</span>
-<span class="nc" id="L158">  }</span>
+<span class="nc" id="L169">    Project project = findProject(projectNumber);</span>
+<span class="nc" id="L170">    project.findProjectActivity(title).setTimeBudget(timeBudget);</span>
+<span class="nc" id="L171">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
