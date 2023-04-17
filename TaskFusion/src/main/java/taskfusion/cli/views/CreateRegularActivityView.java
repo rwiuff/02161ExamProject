@@ -19,17 +19,17 @@ public class CreateRegularActivityView implements ViewInterface {
                 return;
             }
             Text.lineBreak();
-            Text.showInfo("Format: ugenummer med 2 tal, efterfulgt af sidste 2 tal af årstal. ex: 0123 for uge 1 i 2023.");
+            Text.showInfo("Format: sidste 2 tal af årstal, efterfuldt af ugenummer med 2 tal . ex: 2301 for uge 1 i 2023.");
             Text.showInfo("Startuge starter fra mandag i den angivne uge.");
-            String startWeek = Input.lineWithCancel("Indtast startuge [UUYY]");
+            String startWeek = Input.lineWithCancel("Indtast startuge [YYUU]");
             
             if(startWeek == null) {
                 return;
             }
             Text.lineBreak();
-            Text.showInfo("Format: ugenummer med 2 tal, efterfulgt af sidste 2 tal af årstal. ex: 0123 for uge 1 i 2023.");
+            Text.showInfo("Format: sidste 2 tal af årstal, efterfuldt af ugenummer med 2 tal . ex: 2301 for uge 1 i 2023.");
             Text.showInfo("Slutuge ender ved fredagen i den angivne uge.");
-            String endWeek = Input.lineWithCancel("Indtast slutuge [UUYY]");
+            String endWeek = Input.lineWithCancel("Indtast slutuge [YYUU]");
             
             if(endWeek == null) {
                 return;

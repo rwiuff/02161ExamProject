@@ -106,8 +106,8 @@ salt
 title OPRET FAST AKTIVITET
 header CreateRegularActivityView
 <&terminal> Indtast titel
-<&terminal> Indtast start uge [UUYY]
-<&terminal> Indtast slut uge [UUYY]
+<&terminal> Indtast start uge [YYUU]
+<&terminal> Indtast slut uge [YYUU]
 }
 }}
 " as CreateRegularActivityView
