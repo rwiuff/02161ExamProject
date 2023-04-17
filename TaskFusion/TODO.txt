@@ -6,10 +6,8 @@
 - White box tests 
 - 100% code coverage
 
-- (Max) Mangler facade for at få en liste af projekt medarbejdere
-- (Max) Mangler facade for at få en liste af brugerens faste aktiviteter
-- (Kasper) Mangler facade for at finde 1 fast aktivitet, identificeret med ??? (id)
-- Mangler facade til at rette fast aktivitet; Title, startuge, slutuge
+- Mangler facade til at rette fast aktivitet; Title, startuge, slutuge. Der er oprettet cucumbers
+- Mangler facade til at slette en fast aktivitet activity, der er oprettet cucumbers
 - Mangler facade for at finde 1 projektaktivitet aktivitet, identificeret med projektnummer og aktivitet titel
 - (Rasmus) Mangler raport generering (Rasmus), 
     - Title, projektnummer, projektleder 
@@ -19,6 +17,7 @@
         - Tidsregisteringerne
 - (Mathies) startweek og endweek skal være i Strings istedet for integers.
 - (Kasper) CLI
+
 
 
 

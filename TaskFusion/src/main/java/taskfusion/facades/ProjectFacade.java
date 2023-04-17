@@ -27,14 +27,13 @@ public class ProjectFacade {
 
     public void createProject(String projectTitle)
             throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, AlreadyExistsException {
-        if (!taskFusion.isLoggedIn()) {
-            throw new OperationNotAllowedException("Kun medarbejdere kan oprette et projekt");
-        } else {
-            Project project = projectRepo.create(projectTitle, taskFusion.getDate());
-            // assign the user to the project
-            String initials = taskFusion.getLoggedInUser().initials;
-            project.assignEmployee(initials, EmployeeRepository.getInstance().findByInitials(initials));
-        }
+        requireLogin();
+
+        Project project = projectRepo.create(projectTitle, taskFusion.getDate());
+        // assign the user to the project
+        String initials = taskFusion.getLoggedInUser().initials;
+        project.assignEmployee(initials, EmployeeRepository.getInstance().findByInitials(initials));
+
     }
 
     public void assignCustomerToProject(String projectNumber, String customer) throws NotFoundException {
@@ -67,12 +66,10 @@ public class ProjectFacade {
 
     public void createProjectActivity(String projectNumber, String title, Integer startWeek, Integer endWeek)
             throws NotFoundException, OperationNotAllowedException, AlreadyExistsException, InvalidPropertyException {
+        requireLogin();
+
         if (startWeek > endWeek) {
             throw new InvalidPropertyException("Starttid skal være før eller ens med sluttid");
-        }
-
-        if (!taskFusion.isLoggedIn()) {
-            throw new OperationNotAllowedException("Login krævet");
         }
 
         Project project = projectRepo.findByProjectNumber(projectNumber);
@@ -82,9 +79,7 @@ public class ProjectFacade {
 
     public void setTimeBudget(String projectNumber, String projectActivityTitle, Integer timeBudget)
             throws NotFoundException, OperationNotAllowedException {
-        if (!taskFusion.isLoggedIn()) {
-            throw new OperationNotAllowedException("Login krævet");
-        }
+        requireLogin();
 
         if (projectRepo.findByProjectNumber(projectNumber).getProjectLeader() != null) {
             if (!getLoggedInUserModel().getInitials()
@@ -101,9 +96,8 @@ public class ProjectFacade {
 
     public void registerWorkTime(String projectNumber, String activityTitle, double worktTime)
             throws NotFoundException, OperationNotAllowedException {
-        if (!taskFusion.isLoggedIn()) {
-            throw new OperationNotAllowedException("Login krævet");
-        }
+        requireLogin();
+
         projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
                 .registerWorkTime(getLoggedInUserModel().getInitials(), taskFusion.getDate(), worktTime);
     }
@@ -111,27 +105,23 @@ public class ProjectFacade {
     public double getTotalWorkTimeForEmployee(String projectNumber, String activityTitle, double workTime)
             throws NotFoundException, OperationNotAllowedException {
 
-        if (!taskFusion.isLoggedIn()) {
-            throw new OperationNotAllowedException("Login krævet");
-        }
+        requireLogin();
+
         return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
                 .getTotalWorkTimeForEmployee(getLoggedInUserModel().getInitials());
     }
 
     public Double getTotalWorktimeForActivity(String projectNumber, String activityTitle)
             throws NotFoundException, OperationNotAllowedException {
-        if (!taskFusion.isLoggedIn()) {
-            throw new OperationNotAllowedException("Login krævet");
-        }
+        requireLogin();
+
         return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getTotalWorkTime();
     }
 
     public List<WorktimeRegistrationViewModel> getUserWorktimeRegistrationsForProjectActivity(String activityTitle,
             String projectNumber) throws NotFoundException, OperationNotAllowedException {
 
-        if (!taskFusion.isLoggedIn()) {
-            throw new OperationNotAllowedException("Login krævet");
-        }
+        requireLogin();
 
         List<WorktimeRegistration> worktimeRegistrationList = projectRepo.findByProjectNumber(projectNumber)
                 .findProjectActivity(activityTitle)
@@ -142,9 +132,7 @@ public class ProjectFacade {
 
     public double getUserWorktimeForProjectActivity(String activityTitle, String projectNumber)
             throws NotFoundException, OperationNotAllowedException {
-        if (!taskFusion.isLoggedIn()) {
-            throw new OperationNotAllowedException("Login krævet");
-        }
+        requireLogin();
 
         return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
                 .getTotalWorkTimeForEmployee(getLoggedInUserModel().getInitials());
@@ -152,9 +140,8 @@ public class ProjectFacade {
 
     public List<WorktimeRegistrationViewModel> getTotalWorktimeRegistrationsForProject(String projectNumber)
             throws OperationNotAllowedException, NotFoundException {
-        if (!taskFusion.isLoggedIn()) {
-            throw new OperationNotAllowedException("Login krævet");
-        }
+        requireLogin();
+
         String projectLeader = projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials();
         if (!taskFusion.getLoggedInUser().initials.equals(projectLeader)) {
             throw new OperationNotAllowedException(
@@ -170,9 +157,7 @@ public class ProjectFacade {
 
     public void editWorktimeRegistration(int id, double hours) throws OperationNotAllowedException, NotFoundException {
 
-        if (!taskFusion.isLoggedIn()) {
-            throw new OperationNotAllowedException("Login krævet");
-        }
+        requireLogin();
 
         WorktimeRegistration worktimeRegistration = projectRepo.findWorktimeRegistrationById(id);
 
@@ -196,7 +181,7 @@ public class ProjectFacade {
     }
 
     public List<EmployeeViewModel> getProjectEmployees(String projectNumber) {
-      return EmployeeViewModel.listFromModels(ProjectRepository.getInstance().getListOfEmployees(projectNumber));
+        return EmployeeViewModel.listFromModels(ProjectRepository.getInstance().getListOfEmployees(projectNumber));
     }
 
     /**
@@ -206,5 +191,11 @@ public class ProjectFacade {
      */
     private Employee getLoggedInUserModel() {
         return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);
+    }
+
+    private void requireLogin() throws OperationNotAllowedException {
+        if (!taskFusion.isLoggedIn()) {
+            throw new OperationNotAllowedException("Login krævet");
+        }
     }
 }
