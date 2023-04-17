@@ -75,12 +75,12 @@ header ProjectMenuController
 Projekt nummer:    23001
 Projekt leder:     kasy
 Medarbejdere:      4
-<color:Red>Aktiviteter:       3
+Aktiviteter:       3
 ______________________________
 <&chevron-right> Se medarbejdere
 <&chevron-right> Tilføj medarbejder til projekt
-<color:Red><&chevron-right> Se aktiviteter
-<color:Red><&chevron-right> Tilføj aktivitet
+<&chevron-right> Se aktiviteter
+<&chevron-right> Tilføj aktivitet
 <&chevron-right> påtag projektleder rolle
 <color:Red><&chevron-right> Generer rapport
 <&chevron-right> tilbage
@@ -118,7 +118,7 @@ salt
 {+
 title DINE FASTE AKTIVITETER
 header ListRegularActivitiesView
-<color:Red>Mangler facade
+Mangler facade
 <&menu> 1. Syg: 0423 - 0523
 <&menu> 2. Ferie: 0723 - 0923
 <&menu> 3. Syg: 1023 - 1023
@@ -188,7 +188,7 @@ ProjectMenuController --> "
 {{
 salt
 {+
-title <color:Red>PROJEKT AKTIVITETER
+title PROJEKT AKTIVITETER
 header ListProjectActivitiesView
 <&menu> 1. Kravspecifikation
 <&menu> 2. Design
@@ -234,7 +234,7 @@ ListProjectActivitiesView --> "
 {{
 salt
 {+
-title <color:Red>PROJECT AKTIVITET MENU
+title PROJECT AKTIVITET MENU
 header ProjectActivityMenuController
 Aktivitet titel:    Ferie
 ______________________________
@@ -260,8 +260,8 @@ ProjectActivityMenuController --> "
 {{
 salt
 {+
-title <color:Red>PROJEKT AKTIVITETER
-header ListProjectActivitiesView
+title <color:Red>TIDSREGISTRERINGER
+header ListWorktimeRegistrationsView
 <&menu> 56. 02/03-2023 : 1.5
 <&menu> 99. 02/07-2023 : 4.0
 <&menu> 103. 02/10-2023 : 1.0

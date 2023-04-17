@@ -18,6 +18,7 @@ public class ProjectInfoView implements ViewInterface {
         System.out.println("Projekt nummber: " + project.projectNumber);
         System.out.println("Projekt leder: " + (project.projectLeaderFullName == null ? "_____" : project.projectLeaderFullName) );
         System.out.println("Medarbejdere: " + project.assignedEmployeesAmount);
+        System.out.println("Aktiviteter: " + project.projectActivities.size());
 
         Line.showLine(4);
     }

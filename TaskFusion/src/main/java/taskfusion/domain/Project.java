@@ -169,18 +169,20 @@ public class Project implements ConvertibleToViewModelInterface {
     return false;
   }
 
-  public void createProjectActivity(ProjectActivity projectActivity, Employee loggedInUser) throws AlreadyExistsException, OperationNotAllowedException {
+  public void createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser) throws AlreadyExistsException, OperationNotAllowedException {
     if (projectLeader != null) {
       if (!projectLeader.getInitials().equals(loggedInUser.getInitials())) {
         throw new OperationNotAllowedException("Kun projektlederen kan redigere denne projekt aktivitet");
       }
     }
     
-    if (hasProjectActivity(projectActivity.getTitle())) {
+    if (hasProjectActivity(title)) {
       throw new AlreadyExistsException("Projekt aktivitet findes allerede");
     }
+
+    ProjectActivity activity = new ProjectActivity(title,startWeek,endWeek);
     
-    this.activities.add(projectActivity);
+    this.activities.add(activity);
   }
 
   public boolean hasProjectActivity(String title) {

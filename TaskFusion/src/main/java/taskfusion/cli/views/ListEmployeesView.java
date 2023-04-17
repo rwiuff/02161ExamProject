@@ -31,7 +31,7 @@ public class ListEmployeesView implements ViewInterface {
         List<String> optionsKeyList = new ArrayList<String>();
 
         for (EmployeeViewModel employee : employees) {
-            optionsTextList.add(employee.initials + ": " + employee.fullName);
+            optionsTextList.add(employee.fullName);
             optionsKeyList.add(employee.initials);
         }
 
