@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import taskfusion.viewModels.ProjectActivityViewModel;
+import taskfusion.viewModels.WorktimeRegistrationViewModel;
 
 public class ProjectActivity extends Activity implements ConvertibleToViewModelInterface {
   
@@ -12,60 +13,61 @@ public class ProjectActivity extends Activity implements ConvertibleToViewModelI
   private List&lt;WorktimeRegistration&gt; worktimeRegistrations;
 
   public ProjectActivity(String title, int startWeek, int endWeek) {
-<span class="fc" id="L15">    super(title, startWeek, endWeek);</span>
-<span class="fc" id="L16">    this.timeBudget = 0;</span>
-<span class="fc" id="L17">    this.worktimeRegistrations = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L18">  }</span>
+<span class="fc" id="L16">    super(title, startWeek, endWeek);</span>
+<span class="fc" id="L17">    this.timeBudget = 0;</span>
+<span class="fc" id="L18">    this.worktimeRegistrations = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L19">  }</span>
 
 
   public ProjectActivityViewModel toViewModel() {
-<span class="nc" id="L22">    return new ProjectActivityViewModel(this);</span>
+<span class="nc" id="L23">    return new ProjectActivityViewModel(this);</span>
   }
 
   public int getTimeBudget() {
-<span class="fc" id="L26">    return this.timeBudget;</span>
+<span class="fc" id="L27">    return this.timeBudget;</span>
   }
 
   public void setTimeBudget(int timeBudget) {
-<span class="fc" id="L30">    this.timeBudget = timeBudget;</span>
-<span class="fc" id="L31">  }</span>
+<span class="fc" id="L31">    this.timeBudget = timeBudget;</span>
+<span class="fc" id="L32">  }</span>
 
   public void registerWorkTime(String initials, Calendar date, double workTime) {
-<span class="fc" id="L34">    worktimeRegistrations.add(new WorktimeRegistration(initials, date, workTime));</span>
-<span class="fc" id="L35">  }</span>
+<span class="fc" id="L35">    worktimeRegistrations.add(new WorktimeRegistration(initials, date, workTime));</span>
+<span class="fc" id="L36">  }</span>
 
 
   public List&lt;WorktimeRegistration&gt; getWorktimeRegistrations() {
-<span class="fc" id="L39">    return worktimeRegistrations;</span>
+<span class="fc" id="L40">    return worktimeRegistrations;</span>
   }
 
   public List&lt;WorktimeRegistration&gt; getWorkTimeRegistrationsForEmployee(String initials) {
-<span class="fc" id="L43">    List&lt;WorktimeRegistration&gt; workTimes = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L44" title="All 2 branches covered.">    for (WorktimeRegistration registration : worktimeRegistrations) {</span>
-<span class="fc bfc" id="L45" title="All 2 branches covered.">      if (registration.getInitials().equals(initials)) {</span>
-<span class="fc" id="L46">        workTimes.add(registration);</span>
+<span class="fc" id="L44">    List&lt;WorktimeRegistration&gt; workTimes = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">    for (WorktimeRegistration registration : worktimeRegistrations) {</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">      if (registration.getInitials().equals(initials)) {</span>
+<span class="fc" id="L47">        workTimes.add(registration);</span>
       }
-<span class="fc" id="L48">    }</span>
-<span class="fc" id="L49">    return workTimes;</span>
+<span class="fc" id="L49">    }</span>
+<span class="fc" id="L50">    return workTimes;</span>
   }
 
   public double sumWorktime(List&lt;WorktimeRegistration&gt; worktimeRegistrations) {
-<span class="fc" id="L53">    Double workTime = worktimeRegistrations.stream().mapToDouble(w -&gt; w.getTime()).sum();</span>
-<span class="fc" id="L54">    return workTime;</span>
+<span class="fc" id="L54">    Double workTime = worktimeRegistrations.stream().mapToDouble(w -&gt; w.getTime()).sum();</span>
+<span class="fc" id="L55">    return workTime;</span>
   }
 
   public double getTotalWorkTimeForEmployee(String initials) {
-<span class="fc" id="L58">    List&lt;WorktimeRegistration&gt; workTimeRegistrations = getWorkTimeRegistrationsForEmployee(initials);</span>
-<span class="fc" id="L59">    return sumWorktime(workTimeRegistrations);</span>
+<span class="fc" id="L59">    List&lt;WorktimeRegistration&gt; workTimeRegistrations = getWorkTimeRegistrationsForEmployee(initials);</span>
+<span class="fc" id="L60">    return sumWorktime(workTimeRegistrations);</span>
   }
 
   public Double getTotalWorkTime() {
-<span class="nc" id="L63">    return sumWorktime(worktimeRegistrations);</span>
+<span class="nc" id="L64">    return sumWorktime(worktimeRegistrations);</span>
   }
 
 
 public Double getRemainingWorktime() {
-<span class="fc" id="L68">    return timeBudget - sumWorktime(worktimeRegistrations);</span>
+<span class="fc" id="L69">    return timeBudget - sumWorktime(worktimeRegistrations);</span>
 }
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
