@@ -62,5 +62,10 @@ public class ProjectActivity extends Activity implements ConvertibleToViewModelI
   public Double getTotalWorkTime() {
 <span class="nc" id="L63">    return sumWorktime(worktimeRegistrations);</span>
   }
+
+
+public Double getRemainingWorktime() {
+<span class="fc" id="L68">    return timeBudget - sumWorktime(worktimeRegistrations);</span>
+}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

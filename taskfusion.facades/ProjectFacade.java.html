@@ -163,12 +163,15 @@ public class ProjectFacade {
 <span class="fc" id="L163">        worktimeRegistration.setTime(hours);</span>
 
 <span class="fc" id="L165">    }</span>
+    public Double getRemainingWorktimeForActivity(String projectNumber, String activityTitle) throws NotFoundException {
+<span class="fc" id="L167">        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getRemainingWorktime();</span>
+    }
 
     public List&lt;ProjectViewModel&gt; getUserProjects() {
         
-<span class="nc" id="L169">        List&lt;Project&gt; projects = new ArrayList&lt;Project&gt;(getLoggedInUserModel().getProjects().values());</span>
+<span class="nc" id="L172">        List&lt;Project&gt; projects = new ArrayList&lt;Project&gt;(getLoggedInUserModel().getProjects().values());</span>
 
-<span class="nc" id="L171">        return ProjectViewModel.listFromModels(projects);</span>
+<span class="nc" id="L174">        return ProjectViewModel.listFromModels(projects);</span>
     }
 
     /**
@@ -177,9 +180,8 @@ public class ProjectFacade {
      * ###########################
      */
     private Employee getLoggedInUserModel() {
-<span class="fc" id="L180">        return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);</span>
+<span class="fc" id="L183">        return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);</span>
     }
-
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
