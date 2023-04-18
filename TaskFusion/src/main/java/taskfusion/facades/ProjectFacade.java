@@ -5,7 +5,6 @@ import java.util.List;
 import taskfusion.app.TaskFusion;
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
-import taskfusion.domain.ProjectActivity;
 import taskfusion.domain.Report;
 import taskfusion.domain.WorktimeRegistration;
 import taskfusion.exceptions.AlreadyExistsException;
@@ -63,7 +62,7 @@ public class ProjectFacade {
         requireLogin();
         if (getLoggedInUserModel().getInitials().equals(project.getProjectLeader().getInitials())) {
             Report report = new Report(project, taskFusion.getDate());
-            project.addLatestReport(report);
+            project.addLatestReport(report.getDateAsString(), report);
             return report.toViewModel();
         } else {
             throw new OperationNotAllowedException("Kun projektlederen kan generere rapporter");

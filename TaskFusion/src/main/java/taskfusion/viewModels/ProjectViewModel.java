@@ -1,8 +1,11 @@
 package taskfusion.viewModels;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import taskfusion.domain.Project;
+import taskfusion.domain.Report;
 
 public class ProjectViewModel extends ViewModel {
     public String projectNumber;
@@ -13,6 +16,7 @@ public class ProjectViewModel extends ViewModel {
     public String projectLeaderFullName;
     public int assignedEmployeesAmount;
     public List<ProjectActivityViewModel> projectActivities;
+    public Map<String, ReportViewModel> reports;
 
     public ProjectViewModel(Project project) {
         this.projectNumber = project.getProjectNumber();
@@ -27,6 +31,15 @@ public class ProjectViewModel extends ViewModel {
         }
 
         this.assignedEmployeesAmount = project.getAssignedEmployees().size();
+        importReports(project);
+    }
+
+    private void importReports(Project project) {
+        Map<String, Report> importedReports = project.getReports();
+        Set<String> dates = project.getReports().keySet();
+        for(String date : dates){
+            this.reports.put(date, importedReports.get(date).toViewModel());
+        }
     }
 
     public static List<ProjectViewModel> listFromModels(List<Project> modelList) {

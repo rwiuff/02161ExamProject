@@ -1,6 +1,5 @@
 package taskfusion.viewModels;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,8 +35,7 @@ public class ReportViewModel extends ViewModel {
         for (ProjectActivity activity : activityList) {
             activities.add(activity.toViewModel());
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
-        this.reportDate = sdf.format(report.getReportDate().getTime());
+        this.reportDate = report.getDateAsString();
     }
 
 }

@@ -13,7 +13,6 @@ import taskfusion.helpers.DateHelper;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 import taskfusion.viewModels.ProjectViewModel;
-import taskfusion.viewModels.ReportViewModel;
 
 public class Project implements ConvertibleToViewModelInterface {
   private String projectNumber;
@@ -24,7 +23,7 @@ public class Project implements ConvertibleToViewModelInterface {
   private int endWeek;
   private Map<String, Employee> assignedEmployees = new HashMap<>();
   private List<ProjectActivity> activities = new ArrayList<ProjectActivity>();
-  private Report latestReport;
+  private Map<String, Report> reports = new HashMap<>();
 
   public Project(String projectTitle, Calendar date) {
     this.projectTitle = projectTitle;
@@ -161,19 +160,20 @@ public class Project implements ConvertibleToViewModelInterface {
     return false;
   }
 
-  public void createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser) throws AlreadyExistsException, OperationNotAllowedException {
+  public void createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
+      throws AlreadyExistsException, OperationNotAllowedException {
     if (projectLeader != null) {
       if (!projectLeader.getInitials().equals(loggedInUser.getInitials())) {
         throw new OperationNotAllowedException("Kun projektlederen kan redigere denne projekt aktivitet");
       }
     }
-    
+
     if (hasProjectActivity(title)) {
       throw new AlreadyExistsException("Projekt aktivitet findes allerede");
     }
 
-    ProjectActivity activity = new ProjectActivity(title,startWeek,endWeek);
-    
+    ProjectActivity activity = new ProjectActivity(title, startWeek, endWeek);
+
     this.activities.add(activity);
   }
 
@@ -217,12 +217,16 @@ public class Project implements ConvertibleToViewModelInterface {
     return this.assignedEmployees.values().stream().toList();
   }
 
-  public void addLatestReport(Report report) {
-    this.latestReport = report;
+  public void addLatestReport(String date, Report report) {
+    this.reports.put(date, report);
   }
 
   public void saveReport() {
 
+  }
+
+  public Map<String, Report> getReports() {
+    return reports;
   }
 
 }

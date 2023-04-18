@@ -1,5 +1,6 @@
 package taskfusion.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -74,6 +75,11 @@ public class Report implements ConvertibleToViewModelInterface {
 
     public Calendar getReportDate() {
         return reportDate;
+    }
+
+    public String getDateAsString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
+        return sdf.format(reportDate.getTime());
     }
 
 }
