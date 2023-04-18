@@ -102,23 +102,27 @@ public class ProjectRepository {
 
     }
 
+    // public Integer generateWorktimeRegistrationId() {
+    //     Integer lastId = 0;
+
+    //     List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();
+
+    //     for(WorktimeRegistration worktimeRegistration : list) {
+    //         Integer id = worktimeRegistration.getId();
+    //         //if(id &gt; lastId) {
+    //         lastId = id;
+    //         //}
+    //     }
+
+    //     return lastId + 1;
+    // }
+
     public Integer generateWorktimeRegistrationId() {
-<span class="fc" id="L106">        Integer lastId = 0;</span>
-
-<span class="fc" id="L108">        List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();</span>
-
-<span class="fc bfc" id="L110" title="All 2 branches covered.">        for(WorktimeRegistration worktimeRegistration : list) {</span>
-<span class="fc" id="L111">            Integer id = worktimeRegistration.getId();</span>
-<span class="pc bpc" id="L112" title="1 of 2 branches missed.">            if(id &gt; lastId) {</span>
-<span class="fc" id="L113">                lastId = id;</span>
-            }
-<span class="fc" id="L115">        }</span>
-
-<span class="fc" id="L117">        return lastId + 1;</span>
+<span class="fc" id="L121">        return allWorktimeRegistrations().size() + 1;</span>
     }
 
     public List&lt;Employee&gt; getListOfEmployees(String projectNumber) {
-<span class="fc" id="L121">      return this.projects.get(projectNumber).getListOfAssignedEmployees();</span>
+<span class="fc" id="L125">      return this.projects.get(projectNumber).getListOfAssignedEmployees();</span>
     }
 
 }
