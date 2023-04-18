@@ -116,9 +116,9 @@ public class Project implements ConvertibleToViewModelInterface {
 
     int nextProjectNumber = (year * 1000) + lastNum + 1;
 
-    if(nextProjectNumber < 10000) {
+    if (nextProjectNumber < 10000) {
       return "0" + nextProjectNumber;
-    } 
+    }
 
     return "" + nextProjectNumber;
 
@@ -151,12 +151,11 @@ public class Project implements ConvertibleToViewModelInterface {
       throw new NotFoundException("Ukendt medarbejder");
     }
 
-    if(!allowAssignEmployeeToProject(loggedInUser)) {
+    if (!allowAssignEmployeeToProject(loggedInUser)) {
       throw new OperationNotAllowedException("Kun projektleder kan tildele medarbejdere til projektet");
     }
 
     assignedEmployees.put(employee.getInitials(), employee);
-
 
   }
 
@@ -171,17 +170,18 @@ public class Project implements ConvertibleToViewModelInterface {
     return false;
   }
 
-  public void createProjectActivity(ProjectActivity projectActivity, Employee loggedInUser) throws AlreadyExistsException, OperationNotAllowedException {
+  public void createProjectActivity(ProjectActivity projectActivity, Employee loggedInUser)
+      throws AlreadyExistsException, OperationNotAllowedException {
     if (projectLeader != null) {
       if (!projectLeader.getInitials().equals(loggedInUser.getInitials())) {
         throw new OperationNotAllowedException("Kun projektlederen kan redigere denne projekt aktivitet");
       }
     }
-    
+
     if (hasProjectActivity(projectActivity.getTitle())) {
       throw new AlreadyExistsException("Projekt aktivitet findes allerede");
     }
-    
+
     this.activities.add(projectActivity);
   }
 
@@ -227,6 +227,10 @@ public class Project implements ConvertibleToViewModelInterface {
 
   public void addLatestReport(Report report) {
     this.latestReport = report;
+  }
+
+  public void saveReport() {
+
   }
 
 }

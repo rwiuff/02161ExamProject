@@ -4,6 +4,7 @@ import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Header;
 import taskfusion.cli.components.Input;
 import taskfusion.cli.components.Text;
+import taskfusion.exceptions.NotFoundException;
 import taskfusion.viewModels.ProjectViewModel;
 import taskfusion.viewModels.ReportViewModel;
 
@@ -52,6 +53,11 @@ public class GenerateProjectRaport {
     }
 
     private void saveReport() {
+        try {
+            TaskFusionCLI.projectFacade().saveReport(project.projectNumber);
+        } catch (Exception e) {
+            Text.showExceptionError(e);
+        }
     }
 
 }

@@ -36,4 +36,44 @@ public class Report implements ConvertibleToViewModelInterface {
         return new ReportViewModel(this);
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public String getProjectNumber() {
+        return projectNumber;
+    }
+
+    public Employee getProjectLeader() {
+        return projectLeader;
+    }
+
+    public Map<String, Employee> getEmployees() {
+        return employees;
+    }
+
+    public Employee getEmployee(String initials){
+        return employees.get(initials);
+    }
+
+    public String getCustomer() {
+        return customer;
+    }
+
+    public int getStartWeek() {
+        return startWeek;
+    }
+
+    public int getEndWeeek() {
+        return endWeeek;
+    }
+
+    public List<ProjectActivity> getActivities() {
+        return activities;
+    }
+
+    public Calendar getReportDate() {
+        return reportDate;
+    }
+
 }

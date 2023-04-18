@@ -57,16 +57,22 @@ public class ProjectFacade {
         return project.toViewModel();
     }
 
-    public ReportViewModel generateProjectRaport(String projectNumber) throws NotFoundException, OperationNotAllowedException {
+    public ReportViewModel generateProjectRaport(String projectNumber)
+            throws NotFoundException, OperationNotAllowedException {
         Project project = projectRepo.findByProjectNumber(projectNumber);
         requireLogin();
-        if(getLoggedInUserModel().getInitials().equals(project.getProjectLeader().getInitials())){
+        if (getLoggedInUserModel().getInitials().equals(project.getProjectLeader().getInitials())) {
             Report report = new Report(project, taskFusion.getDate());
             project.addLatestReport(report);
             return report.toViewModel();
         } else {
             throw new OperationNotAllowedException("Kun projektlederen kan generere rapporter");
         }
+    }
+
+    public void saveReport(String projectNumber) throws NotFoundException {
+        Project project = projectRepo.findByProjectNumber(projectNumber);
+        project.saveReport();
     }
 
     /**
@@ -219,5 +225,4 @@ public class ProjectFacade {
             throw new OperationNotAllowedException("Login krævet");
         }
     }
-
 }
