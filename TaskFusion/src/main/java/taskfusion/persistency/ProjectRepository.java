@@ -102,19 +102,23 @@ public class ProjectRepository {
 
     }
 
+    // public Integer generateWorktimeRegistrationId() {
+    //     Integer lastId = 0;
+
+    //     List<WorktimeRegistration> list = allWorktimeRegistrations();
+
+    //     for(WorktimeRegistration worktimeRegistration : list) {
+    //         Integer id = worktimeRegistration.getId();
+    //         //if(id > lastId) {
+    //         lastId = id;
+    //         //}
+    //     }
+
+    //     return lastId + 1;
+    // }
+
     public Integer generateWorktimeRegistrationId() {
-        Integer lastId = 0;
-
-        List<WorktimeRegistration> list = allWorktimeRegistrations();
-
-        for(WorktimeRegistration worktimeRegistration : list) {
-            Integer id = worktimeRegistration.getId();
-            if(id > lastId) {
-                lastId = id;
-            }
-        }
-
-        return lastId + 1;
+        return allWorktimeRegistrations().size() + 1;
     }
 
     public List<Employee> getListOfEmployees(String projectNumber) {

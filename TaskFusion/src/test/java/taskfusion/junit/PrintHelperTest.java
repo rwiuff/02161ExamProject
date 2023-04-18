@@ -34,6 +34,9 @@ public class PrintHelperTest {
 
         ProjectRepository.getInstance().create("Demo 1", new DateServer().getDate());
         PrintHelper.printProjects(ProjectRepository.getInstance().all());
+
+        ProjectRepository.getInstance().create("Demo 1", new DateServer().getDate());
+
     }
 
 
