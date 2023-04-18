@@ -80,20 +80,25 @@ public class EmployeeRepository {
 
     }
 
+    // public int generateRegularActivityId() {
+    //     Integer lastId = 0;
+
+    //     List<RegularActivity> list = allRegularActivities();
+
+    //     for(RegularActivity regularActivity : list) {
+    //         Integer id = regularActivity.getId();
+    //         if(id > lastId) {
+    //             lastId = id;
+    //         }
+    //     }
+
+    //     return lastId + 1;
+    // }
+
     public int generateRegularActivityId() {
-        Integer lastId = 0;
-
-        List<RegularActivity> list = allRegularActivities();
-
-        for(RegularActivity regularActivity : list) {
-            Integer id = regularActivity.getId();
-            if(id > lastId) {
-                lastId = id;
-            }
-        }
-
-        return lastId + 1;
+        return allRegularActivities().size() + 1;
     }
+
 
     private List<RegularActivity> allRegularActivities() {
         List<RegularActivity> list = new ArrayList<>();

@@ -100,7 +100,7 @@ public class ProjectFacade {
         }
 
         Project project = projectRepo.findByProjectNumber(projectNumber);
-        project.createProjectActivity(new ProjectActivity(title, startWeek, endWeek), getLoggedInUserModel());
+        project.createProjectActivity(title,startWeek,endWeek, getLoggedInUserModel());
 
     }
 

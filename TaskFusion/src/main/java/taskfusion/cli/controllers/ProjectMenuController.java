@@ -66,7 +66,7 @@ public class ProjectMenuController implements ControllerInterface {
 
                 case 4: // Se projekt aktiviteter
                     List<ProjectActivityViewModel> activities = project.projectActivities;
-                    new ListProjectActivitiesView(activities).show();
+                    new ListProjectActivitiesView(activities,project).show();
                     break;
 
                 case 5: // Tilføj projekt aktivitet

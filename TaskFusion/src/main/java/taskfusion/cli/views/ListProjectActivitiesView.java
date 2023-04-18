@@ -8,13 +8,16 @@ import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
 import taskfusion.cli.controllers.ProjectActivityMenuController;
 import taskfusion.viewModels.ProjectActivityViewModel;
+import taskfusion.viewModels.ProjectViewModel;
 
 public class ListProjectActivitiesView implements ViewInterface {
     
     private List<ProjectActivityViewModel> activities;
+    private ProjectViewModel project;
 
-    public ListProjectActivitiesView(List<ProjectActivityViewModel> activities) {
+    public ListProjectActivitiesView(List<ProjectActivityViewModel> activities, ProjectViewModel project) {
         this.activities = activities;
+        this.project = project;
     }
 
     public void show() {
@@ -45,7 +48,7 @@ public class ListProjectActivitiesView implements ViewInterface {
 
         ProjectActivityViewModel activity = activities.get(i-1);
   
-        new ProjectActivityMenuController(activity).showMenu();
+        new ProjectActivityMenuController(project,activity).showMenu();
         
         return;
     }

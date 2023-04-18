@@ -6,27 +6,54 @@
 - White box tests 
 - 100% code coverage
 
-- Mangler facade til at rette fast aktivitet; Title, startuge, slutuge. Der er oprettet cucumbers
-- Mangler facade til at slette en fast aktivitet activity, der er oprettet cucumbers
-- Mangler facade til at at få alle projekt aktiviterer for et projekt
-- Mangler facade for at finde 1 projektaktivitet aktivitet, identificeret med projektnummer og aktivitet titel
 - (Rasmus) Mangler raport generering (Rasmus), 
     - Title, projektnummer, projektleder 
     - Medarbejdere
     - Budget  
     - Aktiviteter 
         - Tidsregisteringerne
-- (Mathies) startweek og endweek skal være i Strings istedet for integers.
 - (Kasper) CLI
 
+- Javadocs for hvem der har skrevet hvad.
+
+######################
+## PLAN
+######################
+
+- d. 19 onsdag
+-------------
+- generer rapport inkl. cli (Rasmus)
+
+- d. 21 fredag 
+--------------
+- CLI færdig
+- Alle cucumber features er ikke kommenteret
+- 100% code coverage (Max, Mathies)
+
+- d. 24 mandag 
+--------------
+
+
+- d. 28 fredag 
+--------------
 
 
 
+- d. 1 mandag 
+--------------
 
 
+
+- d. 5 fredag
+--------------
+
+
+--------------
+- 8. maj Afælevering
+--------------
 ######################
 ## Known bugs
 ######################
-- Man kan godt oprette faste aktiviteter med forkerte ugenumre, fx accepteres værdien 2
-- Skal man kunne redigere i faste aktiviter? I så fald mangler facade.
+
+
 

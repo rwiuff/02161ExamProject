@@ -16,6 +16,7 @@ public class LoginView implements ViewInterface {
 
             if (TaskFusionCLI.taskFusion().isLoggedIn()) {
                 new EmployeeMenuController().showMenu();
+                return;
             }
             
             String initials = Input.lineWithCancel("Indtast dine initialer");
