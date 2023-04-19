@@ -58,9 +58,14 @@ Scenario: 3c. A start week needs to be before or the same as the end week
   And the user assigns the project activity "Graphics design" to project "23001" with startWeek "2302" and endWeek "2203"
   Then the error message "Start år skal være før eller ens med slut år" is given
 
-Scenario: 3d. A start week needs to be before or the same as the end week
+Scenario: 3d. A start week needs to be four digits
   Given the user logs in using initials "mila"
   And the user assigns the project activity "Graphics design" to project "23001" with startWeek "232" and endWeek "2203"
+  Then the error message "Start uge og slut uge skal angives med fire cifre" is given
+
+Scenario: 3e. A end week needs to be four digits
+  Given the user logs in using initials "mila"
+  And the user assigns the project activity "Graphics design" to project "23001" with startWeek "2203" and endWeek "23211"
   Then the error message "Start uge og slut uge skal angives med fire cifre" is given
 
 Scenario: 4a. A guest is not able to set an end week on a project activity
