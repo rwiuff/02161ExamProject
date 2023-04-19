@@ -88,7 +88,7 @@ public class EmployeeFacade {
 
 <span class="fc" id="L89">        RegularActivity activity = employeeRepo.findRegularActivityById(id);</span>
         
-<span class="fc bfc" id="L91" title="All 2 branches covered.">        if(!getLoggedInUserModel().hasRegularActivity(id)) {</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        if(!getLoggedInUserModel().hasRegularActivityByID(id)) {</span>
 <span class="fc" id="L92">            throw new OperationNotAllowedException(&quot;Du har ikke rettighed til at se denne aktivitet&quot;);</span>
         }
 
