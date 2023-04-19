@@ -70,34 +70,29 @@ public class EmployeeFacade {
 <span class="fc" id="L70">            throw new InvalidPropertyException(&quot;Start uge skal være før slut uge&quot;);</span>
         }
 
-<span class="fc bfc" id="L73" title="All 2 branches covered.">        if (taskFusion.isLoggedIn()) {</span>
-<span class="fc" id="L74">            getLoggedInUserModel().addRegularActivity(new RegularActivity(title, startWeek, endWeek));</span>
-        } else {
-<span class="fc" id="L76">            throw new OperationNotAllowedException(&quot;Kun medarbejdere kan oprette en fast aktivitet&quot;);</span>
-        }
-<span class="fc" id="L78">    }</span>
+<span class="fc" id="L73">        requireLogin();</span>
+<span class="fc" id="L74">        getLoggedInUserModel().addRegularActivity(new RegularActivity(title, startWeek, endWeek));</span>
+<span class="fc" id="L75">    }</span>
 
     public boolean hasRegularActivity(String title, String startWeek, String endWeek) {
-<span class="fc" id="L81">        return getLoggedInUserModel().hasRegularActivity(title, startWeek, endWeek);</span>
+<span class="fc" id="L78">        return getLoggedInUserModel().hasRegularActivity(title, startWeek, endWeek);</span>
     }
 
     public List&lt;RegularActivityViewModel&gt; getRegularActivities() {
-<span class="fc" id="L85">        return RegularActivityViewModel.listFromModels(EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials).getRegularActivities());</span>
+<span class="fc" id="L82">        return RegularActivityViewModel.listFromModels(EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials).getRegularActivities());</span>
     }
 
     public RegularActivityViewModel getRegularActivityById(int id) throws NotFoundException, OperationNotAllowedException {
 
-<span class="fc bfc" id="L90" title="All 2 branches covered.">        if (!taskFusion.isLoggedIn()) {</span>
-<span class="fc" id="L91">            throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
-        }
+<span class="fc" id="L87">        requireLogin();</span>
 
-<span class="fc" id="L94">        RegularActivity activity = employeeRepo.findRegularActivityById(id);</span>
+<span class="fc" id="L89">        RegularActivity activity = employeeRepo.findRegularActivityById(id);</span>
         
-<span class="fc bfc" id="L96" title="All 2 branches covered.">        if(!getLoggedInUserModel().hasRegularActivity(id)) {</span>
-<span class="fc" id="L97">            throw new OperationNotAllowedException(&quot;Du har ikke rettighed til at se denne aktivitet&quot;);</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        if(!getLoggedInUserModel().hasRegularActivity(id)) {</span>
+<span class="fc" id="L92">            throw new OperationNotAllowedException(&quot;Du har ikke rettighed til at se denne aktivitet&quot;);</span>
         }
 
-<span class="fc" id="L100">        return activity.toViewModel();</span>
+<span class="fc" id="L95">        return activity.toViewModel();</span>
     }
 
     // public void deleteRegularActivity(int id) throws OperationNotAllowedException {
@@ -114,14 +109,14 @@ public class EmployeeFacade {
    * ###########################
    */
     private Employee getLoggedInUserModel() {
-<span class="fc" id="L117">        return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);</span>
+<span class="fc" id="L112">        return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);</span>
     }
 
     private void requireLogin() throws OperationNotAllowedException {
-<span class="nc bnc" id="L121" title="All 2 branches missed.">        if (!taskFusion.isLoggedIn()) {</span>
-<span class="nc" id="L122">            throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        if (!taskFusion.isLoggedIn()) {</span>
+<span class="fc" id="L117">            throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
         }
-<span class="nc" id="L124">    }</span>
+<span class="fc" id="L119">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
