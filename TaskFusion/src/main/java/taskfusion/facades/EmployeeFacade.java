@@ -88,7 +88,7 @@ public class EmployeeFacade {
 
         RegularActivity activity = employeeRepo.findRegularActivityById(id);
         
-        if(!getLoggedInUserModel().hasRegularActivity(id)) {
+        if(!getLoggedInUserModel().hasRegularActivityByID(id)) {
             throw new OperationNotAllowedException("Du har ikke rettighed til at se denne aktivitet");
         }
 
