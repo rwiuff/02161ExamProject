@@ -74,7 +74,7 @@ public class ProjectFacade {
         
 <span class="fc bfc" id="L75" title="All 2 branches covered.">        if (Integer.parseInt(startWeek.substring(0,2)) &gt; Integer.parseInt(endWeek.substring(0,2))) {</span>
 <span class="fc" id="L76">            throw new InvalidPropertyException(&quot;Start år skal være før eller ens med slut år&quot;);</span>
-<span class="pc bpc" id="L77" title="1 of 2 branches missed.">        } else if (Integer.parseInt(startWeek.substring(0,2)) == Integer.parseInt(endWeek.substring(0,2)) &amp;&amp;</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        } else if (Integer.parseInt(startWeek.substring(0,2)) == Integer.parseInt(endWeek.substring(0,2)) &amp;&amp;</span>
 <span class="fc bfc" id="L78" title="All 2 branches covered.">                Integer.parseInt(startWeek.substring(2,4)) &gt; Integer.parseInt(endWeek.substring(2,4))) {</span>
 <span class="fc" id="L79">            throw new InvalidPropertyException(&quot;Start uge skal være før eller ens med slut uge&quot;);</span>
         }

@@ -8,7 +8,7 @@ TaskFusion,taskfusion.domain,WorktimeRegistration,0,37,0,0,0,13,0,7,0,7
 TaskFusion,taskfusion.domain,Report,3,0,0,0,1,0,1,0,1,0
 TaskFusion,taskfusion.helpers,PrintHelper,22,46,2,4,5,8,3,4,2,2
 TaskFusion,taskfusion.helpers,DateHelper,3,6,0,0,1,1,1,1,1,1
-TaskFusion,taskfusion.facades,ProjectFacade,29,314,1,21,6,71,4,27,3,17
+TaskFusion,taskfusion.facades,ProjectFacade,29,314,0,22,6,71,3,28,3,17
 TaskFusion,taskfusion.facades,EmployeeFacade,0,175,0,22,0,37,0,20,0,9
 TaskFusion,taskfusion.viewModels,EmployeeViewModel,0,41,0,2,0,11,0,3,0,2
 TaskFusion,taskfusion.viewModels,ViewModel,0,3,0,0,0,1,0,1,0,1
