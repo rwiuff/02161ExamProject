@@ -17,7 +17,7 @@ Scenario: 1. Creating a regular activity
 Scenario: 1a. A guest is not able to create a regular activity
     Given the user logs out
     When the user creates the regular activity "Ferie" with start week "2304" and end week "2306"
-    Then the error message "Kun medarbejdere kan oprette en fast aktivitet" is given
+    Then the error message "Login krævet" is given
 
 Scenario: 1b. A title is required to create a regular activity
     When the user creates the regular activity "" with start week "2304" and end week "2306"

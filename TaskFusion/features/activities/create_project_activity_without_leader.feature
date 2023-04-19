@@ -14,7 +14,7 @@ Scenario: 1. Creating a project activity
   Then the project with the project number "23001" has a project activity titled "Graphics design"
 
 Scenario: 2. A time budget can be added to a project activity
-  Given the user assigns the project activity "Graphics design" to project "23001" with startWeek "2301" and endWeek "2302"
+  Given the user assigns the project activity "Graphics design" to project "23001" with startWeek "2301" and endWeek "2402"
   When the user sets the time budget to 50 hours on the project activity with the title "Graphics design" and project number "23001"
   Then the project activity with the title "Graphics design" and project number "23001" has a time budget of 50 hours
 
@@ -58,9 +58,14 @@ Scenario: 3c. A start week needs to be before or the same as the end week
   And the user assigns the project activity "Graphics design" to project "23001" with startWeek "2302" and endWeek "2203"
   Then the error message "Start år skal være før eller ens med slut år" is given
 
-Scenario: 3d. A start week needs to be before or the same as the end week
+Scenario: 3d. A start week needs to be four digits
   Given the user logs in using initials "mila"
   And the user assigns the project activity "Graphics design" to project "23001" with startWeek "232" and endWeek "2203"
+  Then the error message "Start uge og slut uge skal angives med fire cifre" is given
+
+Scenario: 3e. A end week needs to be four digits
+  Given the user logs in using initials "mila"
+  And the user assigns the project activity "Graphics design" to project "23001" with startWeek "2203" and endWeek "23211"
   Then the error message "Start uge og slut uge skal angives med fire cifre" is given
 
 Scenario: 4a. A guest is not able to set an end week on a project activity

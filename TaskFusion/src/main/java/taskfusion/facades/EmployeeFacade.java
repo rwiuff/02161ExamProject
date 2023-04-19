@@ -70,11 +70,8 @@ public class EmployeeFacade {
             throw new InvalidPropertyException("Start uge skal være før slut uge");
         }
 
-        if (taskFusion.isLoggedIn()) {
-            getLoggedInUserModel().addRegularActivity(new RegularActivity(title, startWeek, endWeek));
-        } else {
-            throw new OperationNotAllowedException("Kun medarbejdere kan oprette en fast aktivitet");
-        }
+        requireLogin();
+        getLoggedInUserModel().addRegularActivity(new RegularActivity(title, startWeek, endWeek));
     }
 
     public boolean hasRegularActivity(String title, String startWeek, String endWeek) {
@@ -87,13 +84,11 @@ public class EmployeeFacade {
 
     public RegularActivityViewModel getRegularActivityById(int id) throws NotFoundException, OperationNotAllowedException {
 
-        if (!taskFusion.isLoggedIn()) {
-            throw new OperationNotAllowedException("Login krævet");
-        }
+        requireLogin();
 
         RegularActivity activity = employeeRepo.findRegularActivityById(id);
         
-        if(!getLoggedInUserModel().hasRegularActivity(id)) {
+        if(!getLoggedInUserModel().hasRegularActivityByID(id)) {
             throw new OperationNotAllowedException("Du har ikke rettighed til at se denne aktivitet");
         }
 

@@ -17,8 +17,8 @@ Feature: View regular activity
 
   Scenario: 2. A employee can view a regular activity
     Given the user logs in using initials "mila"
-    When the user requests a regular activity with id 1
-    Then a regular activity is returned with id 1, title "Ferie", start week "2304" and end week "2306"
+    When the user requests a regular activity with id 2
+    Then a regular activity is returned with id 2, title "Syg", start week "2304" and end week "2306"
 
 #ALTERNATIVE SCENARIOS
   Scenario: 2a. Only owners of a regular activity can view it
@@ -37,3 +37,8 @@ Feature: View regular activity
     When the user requests a regular activity with id 3
     Then the error message "Kunne ikke finde fast aktivitet" is given
 
+  Scenario: 2d. A non existing parameter list is given
+    Given the user registers an employee with first name "Mette Frederiksen", last name "Frederiksen"
+    And the user logs in using initials "mefr"
+    When the user requests a regular activity "Ferie" with start week "2404" and end week "2305"
+    Then the user does not have such a regular activity

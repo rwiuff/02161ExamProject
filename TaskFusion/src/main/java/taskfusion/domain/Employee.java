@@ -109,7 +109,7 @@ public class Employee implements ConvertibleToViewModelInterface {
 
   public boolean hasRegularActivity(String title, String startWeek, String endWeek) {
     for (RegularActivity regularActivity : this.regularActivities) {
-      if (regularActivity.getTitle() == title && regularActivity.getStartWeek().equals(startWeek)
+      if (regularActivity.getTitle().equals(title) && regularActivity.getStartWeek().equals(startWeek)
           && regularActivity.getEndWeek().equals(endWeek)) {
         return true;
       }
@@ -118,7 +118,7 @@ public class Employee implements ConvertibleToViewModelInterface {
     return false;
   }
 
-  public boolean hasRegularActivity(int id) {
+  public boolean hasRegularActivityByID(int id) {
     for (RegularActivity regularActivity : this.regularActivities) {
       if(regularActivity.getId() == id) {
         return true;
@@ -127,9 +127,11 @@ public class Employee implements ConvertibleToViewModelInterface {
     return false;
   }
 
+  /* 
   public void deleteRegularActivity(int id) {
     
   }
+  */
 
   public Map<String, Project> getProjects() {
 
