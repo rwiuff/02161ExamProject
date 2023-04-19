@@ -37,3 +37,8 @@ Feature: View regular activity
     When the user requests a regular activity with id 3
     Then the error message "Kunne ikke finde fast aktivitet" is given
 
+  Scenario: 2d. A non existing parameter list is given
+    Given the user registers an employee with first name "Mette Frederiksen", last name "Frederiksen"
+    And the user logs in using initials "mefr"
+    When the user requests a regular activity "Ferie" with start week "2404" and end week "2305"
+    Then the user does not have such a regular activity

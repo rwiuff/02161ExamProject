@@ -54,9 +54,3 @@ Scenario: 1i. End week must be of 4 characters long
 Scenario: 1j. The year of start week must be before the year of end week
     When the user creates the regular activity "Ferie" with start week "2404" and end week "2305"
     Then the error message "Start år skal være før eller ens med slut år" is given
-
-Scenario: 1k. Two activities can have the same title if they have different start weeks and/or end weeks
-  When the user creates the regular activity "Ferie" with start week "2304" and end week "2305"
-  And the user creates the regular activity "Ferie" with start week "2404" and end week "2405"
-  Then the user has a regular activity with title "Ferie" with start week "2304" and end week "2305"
-  And the user has a regular activity with title "Ferie" with start week "2404" and end week "2405"

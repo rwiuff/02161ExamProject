@@ -109,7 +109,7 @@ public class Employee implements ConvertibleToViewModelInterface {
 
   public boolean hasRegularActivity(String title, String startWeek, String endWeek) {
     for (RegularActivity regularActivity : this.regularActivities) {
-      if (regularActivity.getTitle() == title && regularActivity.getStartWeek().equals(startWeek)
+      if (regularActivity.getTitle().equals(title) && regularActivity.getStartWeek().equals(startWeek)
           && regularActivity.getEndWeek().equals(endWeek)) {
         return true;
       }

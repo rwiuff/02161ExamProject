@@ -1,6 +1,7 @@
 package taskfusion.cucumber;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class RegularActivitySteps {
   private ErrorMessageHolder errorMessageHolder;
   private RegularActivityViewModel regularActivity;
   private List<RegularActivityViewModel> regularActivityList;
+  boolean hasRegularActivity;
 
   public RegularActivitySteps(ErrorMessageHolder errorMessageHolder, TaskFusion taskFusion) {
     this.taskFusion = taskFusion;
@@ -71,4 +73,14 @@ public class RegularActivitySteps {
   public void the_user_requests_a_list_of_own_regular_activities() {
     this.regularActivityList = taskFusion.getEmployeeFacade().getRegularActivities();
   }
+
+  @When("the user requests a regular activity {string} with start week {string} and end week {string}")
+  public void the_user_requests_a_regular_activity_with_start_week_and_end_week(String title, String startWeek, String endWeek) {
+      this.hasRegularActivity = EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials).hasRegularActivity(title, startWeek, endWeek);
+  }
+
+  @Then("the user does not have such a regular activity")
+  public void theUserDoesNotHaveSuchARegularActivity() {
+    assertFalse(this.hasRegularActivity);
+  }   
 }
