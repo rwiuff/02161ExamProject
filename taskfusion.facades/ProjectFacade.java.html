@@ -68,7 +68,7 @@ public class ProjectFacade {
             throws NotFoundException, OperationNotAllowedException, AlreadyExistsException, InvalidPropertyException {
 <span class="fc" id="L69">        requireLogin();</span>
         
-<span class="pc bpc" id="L71" title="1 of 4 branches missed.">        if (startWeek.length() != 4 || endWeek.length() != 4) {</span>
+<span class="fc bfc" id="L71" title="All 4 branches covered.">        if (startWeek.length() != 4 || endWeek.length() != 4) {</span>
 <span class="fc" id="L72">            throw new OperationNotAllowedException(&quot;Start uge og slut uge skal angives med fire cifre&quot;);</span>
         }
         
