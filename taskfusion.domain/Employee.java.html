@@ -120,36 +120,38 @@ public class Employee implements ConvertibleToViewModelInterface {
 
   public boolean hasRegularActivity(int id) {
 <span class="fc bfc" id="L122" title="All 2 branches covered.">    for (RegularActivity regularActivity : this.regularActivities) {</span>
-<span class="pc bpc" id="L123" title="1 of 2 branches missed.">      if(regularActivity.getId() == id) {</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">      if(regularActivity.getId() == id) {</span>
 <span class="fc" id="L124">        return true;</span>
       }
-<span class="nc" id="L126">    }</span>
+<span class="fc" id="L126">    }</span>
 <span class="fc" id="L127">    return false;</span>
   }
 
+  /* 
   public void deleteRegularActivity(int id) {
     
-<span class="nc" id="L132">  }</span>
+  }
+  */
 
   public Map&lt;String, Project&gt; getProjects() {
 
-<span class="fc" id="L136">    Map&lt;String, Project&gt; employeeProjects = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L138">    Map&lt;String, Project&gt; employeeProjects = new HashMap&lt;&gt;();</span>
 
-<span class="fc bfc" id="L138" title="All 2 branches covered.">    for (Map.Entry&lt;String, Project&gt; projectEntry : ProjectRepository.getInstance().all().entrySet()) {</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">    for (Map.Entry&lt;String, Project&gt; projectEntry : ProjectRepository.getInstance().all().entrySet()) {</span>
 
-<span class="fc" id="L140">        Project project = projectEntry.getValue();</span>
+<span class="fc" id="L142">        Project project = projectEntry.getValue();</span>
 
-<span class="fc bfc" id="L142" title="All 2 branches covered.">        if(project.getAssignedEmployee(initials) != null) {</span>
-<span class="fc" id="L143">          employeeProjects.put(project.getProjectNumber(),project);</span>
+<span class="fc bfc" id="L144" title="All 2 branches covered.">        if(project.getAssignedEmployee(initials) != null) {</span>
+<span class="fc" id="L145">          employeeProjects.put(project.getProjectNumber(),project);</span>
         }
-<span class="fc" id="L145">    }</span>
+<span class="fc" id="L147">    }</span>
 
-<span class="fc" id="L147">    return employeeProjects;</span>
+<span class="fc" id="L149">    return employeeProjects;</span>
 
   }
 
   public Project findProject(String projectNumber) {
-<span class="nc" id="L152">    return this.getProjects().get(projectNumber);</span>
+<span class="nc" id="L154">    return this.getProjects().get(projectNumber);</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

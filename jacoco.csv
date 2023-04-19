@@ -1,7 +1,7 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 TaskFusion,taskfusion.domain,Project,20,290,2,36,8,71,7,38,5,21
 TaskFusion,taskfusion.domain,RegularActivity,0,19,0,0,0,5,0,3,0,3
-TaskFusion,taskfusion.domain,Employee,20,215,6,20,5,47,6,23,2,14
+TaskFusion,taskfusion.domain,Employee,18,216,5,21,3,48,4,24,1,14
 TaskFusion,taskfusion.domain,Activity,0,21,0,0,0,8,0,4,0,4
 TaskFusion,taskfusion.domain,ProjectActivity,11,93,0,4,2,21,2,12,2,10
 TaskFusion,taskfusion.domain,WorktimeRegistration,0,37,0,0,0,13,0,7,0,7
