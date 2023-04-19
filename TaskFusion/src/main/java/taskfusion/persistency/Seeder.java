@@ -73,6 +73,7 @@ public class Seeder {
 
         for(ProjectActivity activity : project.getActivities()) {
             seedWorktimeRegistrationsForProjectActivity(activity);
+            activity.setTimeBudget(30);
         }
     }
 

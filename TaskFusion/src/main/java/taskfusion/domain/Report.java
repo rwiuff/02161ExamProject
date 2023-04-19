@@ -78,7 +78,7 @@ public class Report implements ConvertibleToViewModelInterface {
     }
 
     public String getDateAsString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
         return sdf.format(reportDate.getTime());
     }
 

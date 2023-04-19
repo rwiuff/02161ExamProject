@@ -208,7 +208,6 @@ public class Project implements ConvertibleToViewModelInterface {
     for (ProjectActivity projectActivity : this.activities) {
       list.addAll(projectActivity.getWorktimeRegistrations());
     }
-
     return list;
 
   }

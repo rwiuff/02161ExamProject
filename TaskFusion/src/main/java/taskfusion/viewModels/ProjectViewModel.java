@@ -1,5 +1,6 @@
 package taskfusion.viewModels;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,7 +17,7 @@ public class ProjectViewModel extends ViewModel {
     public String projectLeaderFullName;
     public int assignedEmployeesAmount;
     public List<ProjectActivityViewModel> projectActivities;
-    public Map<String, ReportViewModel> reports;
+    public Map<String, ReportViewModel> reports = new HashMap<>();
 
     public ProjectViewModel(Project project) {
         this.projectNumber = project.getProjectNumber();

@@ -1,6 +1,5 @@
 package taskfusion.cli.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,10 +8,11 @@ import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
 import taskfusion.cli.views.AssignEmployeeToProjectView;
 import taskfusion.cli.views.CreateProjectActivityView;
+import taskfusion.cli.views.GenerateProjectReportView;
 import taskfusion.cli.views.ListEmployeesView;
 import taskfusion.cli.views.ListProjectActivitiesView;
+import taskfusion.cli.views.ListProjectReportView;
 import taskfusion.cli.views.ProjectInfoView;
-import taskfusion.cli.views.ProjectRaportView;
 import taskfusion.cli.views.TakeProjectLeaderRoleView;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.viewModels.EmployeeViewModel;
@@ -34,7 +34,8 @@ public class ProjectMenuController implements ControllerInterface {
             "Påtag projektleder rolle",
             "Se projekt aktiviteter",
             "Tilføj projekt aktivitet",
-            "Projektrapport",
+            "Opret projekrapport",
+            "Projektrapporter",
             "tilbage"
     };
 
@@ -77,12 +78,16 @@ public class ProjectMenuController implements ControllerInterface {
                     reloadProject();
                     break;
 
-                case 6:
-                    Map<String, ReportViewModel> reports = project.reports;
-                    new ProjectRaportView(project, reports).show();
+                case 6: // Opret projekrapport
+                    new GenerateProjectReportView(project).show();
+                    reloadProject();
                     break;
 
-                case 7:
+                case 7: // Projektrapporter
+                    Map<String, ReportViewModel> reports = project.reports;
+                    new ListProjectReportView(project, reports).show();
+                    break;
+                case 8:
                     return; // NOTICE THIS RETURN, not break
 
                 default:
