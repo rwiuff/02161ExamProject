@@ -65,8 +65,8 @@ public class Employee implements ConvertibleToViewModelInterface {
 
 <span class="fc" id="L66">    EmployeeRepository employeeRepo = EmployeeRepository.getInstance();</span>
 
-<span class="pc bpc" id="L68" title="1 of 2 branches missed.">    for (int l1 = 0; l1 &lt; lastName.length(); l1++) {</span>
-<span class="pc bpc" id="L69" title="1 of 2 branches missed.">      for (int l2 = l1 + 1; l2 &lt; lastName.length(); l2++) {</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">    for (int l1 = 0; l1 &lt; lastName.length(); l1++) {</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">      for (int l2 = l1 + 1; l2 &lt; lastName.length(); l2++) {</span>
 <span class="fc" id="L70">        String init = firstName.substring(0, 2)</span>
 <span class="fc" id="L71">            + lastName.substring(l1, Math.min(l1 + 1, lastName.length()))</span>
 <span class="fc" id="L72">            + lastName.substring(l2, Math.min(l2 + 1, lastName.length()));</span>
@@ -79,7 +79,7 @@ public class Employee implements ConvertibleToViewModelInterface {
       }
     }
 
-<span class="nc" id="L82">    throw new ExhaustedOptionsException(&quot;Kunne ikke generere unikke initialer&quot;);</span>
+<span class="fc" id="L82">    throw new ExhaustedOptionsException(&quot;Kunne ikke generere unikke initialer&quot;);</span>
 
   }
 
