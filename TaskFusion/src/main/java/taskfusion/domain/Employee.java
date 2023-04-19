@@ -127,9 +127,11 @@ public class Employee implements ConvertibleToViewModelInterface {
     return false;
   }
 
+  /* 
   public void deleteRegularActivity(int id) {
     
   }
+  */
 
   public Map<String, Project> getProjects() {
 

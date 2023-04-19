@@ -17,8 +17,8 @@ Feature: View regular activity
 
   Scenario: 2. A employee can view a regular activity
     Given the user logs in using initials "mila"
-    When the user requests a regular activity with id 1
-    Then a regular activity is returned with id 1, title "Ferie", start week "2304" and end week "2306"
+    When the user requests a regular activity with id 2
+    Then a regular activity is returned with id 2, title "Syg", start week "2304" and end week "2306"
 
 #ALTERNATIVE SCENARIOS
   Scenario: 2a. Only owners of a regular activity can view it
