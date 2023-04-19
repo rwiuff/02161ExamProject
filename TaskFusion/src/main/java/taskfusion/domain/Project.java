@@ -69,16 +69,8 @@ public class Project implements ConvertibleToViewModelInterface {
     return this.projectTitle;
   }
 
-  public void setProjectTitle(String projectTitle) {
-    this.projectTitle = projectTitle;
-  }
-
   public String getProjectNumber() {
     return this.projectNumber;
-  }
-
-  public void setProjectNumber(String projectNumber) {
-    this.projectNumber = projectNumber;
   }
 
   /**
