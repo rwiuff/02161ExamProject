@@ -13,9 +13,7 @@ import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 import taskfusion.persistency.Seeder;
 
-
 public class SeederTest {
-
 
 	@BeforeEach
 	public void resetSingletons() {
@@ -23,7 +21,7 @@ public class SeederTest {
 	}
 
 	@Test
-	public void testSeedEmployees(){
+	public void testSeedEmployees() {
 
 		EmployeeRepository employeeRepository = EmployeeRepository.getInstance();
 		assertEquals(0, employeeRepository.all().size());
@@ -34,6 +32,7 @@ public class SeederTest {
 		assertEquals(4, employeeRepository.all().size());
 
 	}
+
 	@Test
 	public void testSeedProjects() {
 		ProjectRepository projectRepository = ProjectRepository.getInstance();
@@ -44,13 +43,12 @@ public class SeederTest {
 
 		assertEquals(4, projectRepository.all().size());
 
-		//Assert users assigned
+		// Assert users assigned
 		for (Map.Entry<String, Project> projectEntry : ProjectRepository.getInstance().all().entrySet()) {
 
-            Project project = projectEntry.getValue();
+			Project project = projectEntry.getValue();
 
 			assertEquals(4, project.getAssignedEmployees().size());
-
 
 		}
 	}

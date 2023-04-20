@@ -8,14 +8,14 @@ import taskfusion.cli.TaskFusionCLI;
 public class Input {
 
     /**
-     * Ask for a line input, returns the line as a string. If user wants to cancel, returns null.
+     * Ask for a line input, returns the line as a string. If user wants to cancel,
+     * returns null.
      */
     public static String lineWithCancel(String prompt) {
         Text.showInstruction("Fortryd og for at gå tilbage, indtaste \"fortryd\"");
-        
 
         Scanner scanner = TaskFusionCLI.scanner();
-        
+
         Text.showInputPrompt(prompt);
         scanner.skip("\\s*");
 
@@ -29,9 +29,9 @@ public class Input {
     }
 
     public static boolean confirm() {
-        
+
         Scanner scanner = TaskFusionCLI.scanner();
-        
+
         Text.showInputPrompt("Er du sikker? Skriv ja / nej");
         scanner.skip("\\s*");
 

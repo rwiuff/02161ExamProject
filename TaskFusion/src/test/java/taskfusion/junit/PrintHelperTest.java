@@ -14,23 +14,23 @@ import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 
 public class PrintHelperTest {
-    
 
     @BeforeEach
-	public void resetSingletons() {
-		SingletonHelpers.resetSingletons();
-	}
+    public void resetSingletons() {
+        SingletonHelpers.resetSingletons();
+    }
 
-	@Test
-    public void testPrintEmployees() throws InvalidPropertyException, ExhaustedOptionsException  {
+    @Test
+    public void testPrintEmployees() throws InvalidPropertyException, ExhaustedOptionsException {
         EmployeeRepository.getInstance().create("Michael", "Laudrup");
         PrintHelper.printEmployees(EmployeeRepository.getInstance().all());
     }
 
-    @Test 
-    public void testPrintProjects() throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, ExhaustedOptionsException {
+    @Test
+    public void testPrintProjects() throws OperationNotAllowedException, InvalidPropertyException, NotFoundException,
+            ExhaustedOptionsException {
         EmployeeRepository.getInstance().create("Michael", "Laudrup");
-        //Employee creator = EmployeeRepository.getInstance().findByInitials("mila");
+        // Employee creator = EmployeeRepository.getInstance().findByInitials("mila");
 
         ProjectRepository.getInstance().create("Demo 1", new DateServer().getDate());
         PrintHelper.printProjects(ProjectRepository.getInstance().all());
@@ -38,7 +38,5 @@ public class PrintHelperTest {
         ProjectRepository.getInstance().create("Demo 1", new DateServer().getDate());
 
     }
-
-
 
 }

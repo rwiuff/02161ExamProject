@@ -7,7 +7,7 @@ import java.util.List;
 import taskfusion.viewModels.ProjectActivityViewModel;
 
 public class ProjectActivity extends Activity implements ConvertibleToViewModelInterface {
-  
+
   private int timeBudget;
   private List<WorktimeRegistration> worktimeRegistrations;
 
@@ -16,7 +16,6 @@ public class ProjectActivity extends Activity implements ConvertibleToViewModelI
     this.timeBudget = 0;
     this.worktimeRegistrations = new ArrayList<>();
   }
-
 
   public ProjectActivityViewModel toViewModel() {
     return new ProjectActivityViewModel(this);
@@ -33,7 +32,6 @@ public class ProjectActivity extends Activity implements ConvertibleToViewModelI
   public void registerWorkTime(String initials, Calendar date, double workTime) {
     worktimeRegistrations.add(new WorktimeRegistration(initials, date, workTime));
   }
-
 
   public List<WorktimeRegistration> getWorktimeRegistrations() {
     return worktimeRegistrations;
@@ -63,9 +61,8 @@ public class ProjectActivity extends Activity implements ConvertibleToViewModelI
     return sumWorktime(worktimeRegistrations);
   }
 
-
-public Double getRemainingWorktime() {
+  public Double getRemainingWorktime() {
     return timeBudget - sumWorktime(worktimeRegistrations);
-}
+  }
 
 }

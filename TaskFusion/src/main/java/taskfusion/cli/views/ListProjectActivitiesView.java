@@ -11,7 +11,7 @@ import taskfusion.viewModels.ProjectActivityViewModel;
 import taskfusion.viewModels.ProjectViewModel;
 
 public class ListProjectActivitiesView implements ViewInterface {
-    
+
     private List<ProjectActivityViewModel> activities;
     private ProjectViewModel project;
 
@@ -22,13 +22,13 @@ public class ListProjectActivitiesView implements ViewInterface {
 
     public void show() {
 
-        if(activities.size() == 0) {
+        if (activities.size() == 0) {
             Text.showInfo("Ingen aktiviteter at vise");
             Input.enterToContinue("Tryk på Enter for at gå tilbage");
             return;
         }
 
-        //Get titles
+        // Get titles
         List<String> optionsTextList = new ArrayList<String>();
         List<String> optionsKeyList = new ArrayList<String>();
 
@@ -37,19 +37,19 @@ public class ListProjectActivitiesView implements ViewInterface {
         for (ProjectActivityViewModel activity : activities) {
             i += 1;
             optionsTextList.add(activity.title + ": " + activity.startWeek + " - " + activity.endWeek);
-            optionsKeyList.add(""+i);
+            optionsKeyList.add("" + i);
         }
 
         String choice = Menu.showListOptions(optionsKeyList, optionsTextList, "Vælg aktivitet", "projekt aktiviteter");
 
-        if(choice == null) {
+        if (choice == null) {
             return;
         }
 
-        ProjectActivityViewModel activity = activities.get(i-1);
-  
-        new ProjectActivityMenuController(project,activity).showMenu();
-        
+        ProjectActivityViewModel activity = activities.get(i - 1);
+
+        new ProjectActivityMenuController(project, activity).showMenu();
+
         return;
     }
 

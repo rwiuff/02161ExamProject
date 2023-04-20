@@ -1,7 +1,7 @@
 package taskfusion.cli;
 
 import java.io.IOException;
-import java.util.Scanner; 
+import java.util.Scanner;
 
 import taskfusion.app.TaskFusion;
 import taskfusion.cli.controllers.GuestMenuController;
@@ -10,14 +10,13 @@ import taskfusion.facades.EmployeeFacade;
 import taskfusion.facades.ProjectFacade;
 import taskfusion.persistency.Seeder;
 
-public class TaskFusionCLI  {
+public class TaskFusionCLI {
 
 	private boolean seedDemoData = true;
-    
+
 	private static TaskFusionCLI instance;
 
-    private TaskFusion taskFusion;
-	
+	private TaskFusion taskFusion;
 
 	private Scanner scanner;
 
@@ -25,19 +24,19 @@ public class TaskFusionCLI  {
 	 * Application initialisation
 	 */
 
-    private TaskFusionCLI() {
+	private TaskFusionCLI() {
 		seedDemoData();
 
-        taskFusion = new TaskFusion();
+		taskFusion = new TaskFusion();
 		scanner = new Scanner(System.in);
-		
-    }
 
-    public static void main(String[] args) throws Exception {
+	}
+
+	public static void main(String[] args) throws Exception {
 		TaskFusionCLI.getInstance().mainLoop();
 	}
 
-    public void mainLoop() throws IOException {
+	public void mainLoop() throws IOException {
 		new WelcomeView().show();
 		new GuestMenuController().showMenu();
 		scanner.close();
@@ -47,7 +46,7 @@ public class TaskFusionCLI  {
 	 * Seeding
 	 */
 	private void seedDemoData() {
-		if(seedDemoData) {
+		if (seedDemoData) {
 			Seeder seeder = new Seeder();
 			seeder.seedDemoData();
 		}
@@ -57,38 +56,38 @@ public class TaskFusionCLI  {
 	 * Singleton methods
 	 */
 
-    public static void resetInstance() {
-        instance = null;
-    }
+	public static void resetInstance() {
+		instance = null;
+	}
 
 	public static TaskFusionCLI getInstance() {
-        if (instance == null) {
-            instance = new TaskFusionCLI();
-        }
-        return instance;
-    }
+		if (instance == null) {
+			instance = new TaskFusionCLI();
+		}
+		return instance;
+	}
 
 	/**
 	 * Getters
 	 */
 
-	 public static TaskFusion taskFusion() {
+	public static TaskFusion taskFusion() {
 		TaskFusionCLI taskFusionCLI = TaskFusionCLI.getInstance();
 		return taskFusionCLI.taskFusion;
-	 }
+	}
 
-	 public static ProjectFacade projectFacade() {
+	public static ProjectFacade projectFacade() {
 		TaskFusionCLI taskFusionCLI = TaskFusionCLI.getInstance();
 		return taskFusionCLI.taskFusion.getProjectFacade();
-	 }
+	}
 
-	 public static EmployeeFacade employeeFacade() {
+	public static EmployeeFacade employeeFacade() {
 		TaskFusionCLI taskFusionCLI = TaskFusionCLI.getInstance();
 		return taskFusionCLI.taskFusion.getEmployeeFacade();
-	 }
+	}
 
-	 public static Scanner scanner() {
+	public static Scanner scanner() {
 		TaskFusionCLI taskFusionCLI = TaskFusionCLI.getInstance();
 		return taskFusionCLI.scanner;
-	 }
+	}
 }

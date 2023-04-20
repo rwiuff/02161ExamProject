@@ -1,14 +1,14 @@
 package taskfusion.cli.components;
 
 public class Header {
-    
+
     public static void showHeader(String header, int level) {
 
-        if(header == null) {
+        if (header == null) {
             return;
-        } 
-        
-        if(header.isEmpty()) {
+        }
+
+        if (header.isEmpty()) {
             return;
         }
 

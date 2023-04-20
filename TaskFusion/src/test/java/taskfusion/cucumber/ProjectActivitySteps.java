@@ -140,32 +140,35 @@ public class ProjectActivitySteps {
   }
 
   @When("the user requests the remaining time on {string} on project {string}")
-    public void the_user_requests_the_remaining_time_on_on_project(String activityTitle, String projectNumber) {
-      try{
-        this.remainingWorkTime = taskFusion.getProjectFacade().getRemainingWorktimeForActivity(projectNumber, activityTitle);
-      } catch (Exception e) {
-        this.errorMessageHolder.setErrorMessage(e.getMessage());
-      }
+  public void the_user_requests_the_remaining_time_on_on_project(String activityTitle, String projectNumber) {
+    try {
+      this.remainingWorkTime = taskFusion.getProjectFacade().getRemainingWorktimeForActivity(projectNumber,
+          activityTitle);
+    } catch (Exception e) {
+      this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
+  }
 
-    @Then("the activity returns {double} hours")
-    public void the_activity_returns_hours(double remainingTimeOnActivity) {
-        assertEquals(this.remainingWorkTime, remainingTimeOnActivity, .1);
+  @Then("the activity returns {double} hours")
+  public void the_activity_returns_hours(double remainingTimeOnActivity) {
+    assertEquals(this.remainingWorkTime, remainingTimeOnActivity, .1);
+  }
+
+  @When("the user requests a list of all worktime registrations for the activity titled {string} in the project with project number {string}")
+  public void the_user_requests_a_list_of_all_worktime_registrations_for_the_activity_titled_in_the_project_with_project_number(
+      String activityTitle, String projectNumber) {
+
+  }
+
+  @When("the user requests a list of all worktime registrations for the project with project number {string}")
+  public void the_user_requests_a_list_of_all_worktime_registrations_for_the_project_with_project_number(
+      String projectNumber) {
+    try {
+      this.worktimeRegistrations = taskFusion.getProjectFacade()
+          .getTotalWorktimeRegistrationsForProject(projectNumber);
+      // PrintHelper.printWorktimeRegistrations(this.worktimeRegistrations);
+    } catch (Exception e) {
+      this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
-
-    @When("the user requests a list of all worktime registrations for the activity titled {string} in the project with project number {string}")
-    public void the_user_requests_a_list_of_all_worktime_registrations_for_the_activity_titled_in_the_project_with_project_number(String activityTitle, String projectNumber) {
-
-    }
-
-    @When("the user requests a list of all worktime registrations for the project with project number {string}")
-    public void the_user_requests_a_list_of_all_worktime_registrations_for_the_project_with_project_number(String projectNumber) {
-      try {
-        this.worktimeRegistrations = taskFusion.getProjectFacade()
-            .getTotalWorktimeRegistrationsForProject(projectNumber);
-        // PrintHelper.printWorktimeRegistrations(this.worktimeRegistrations);
-      } catch (Exception e) {
-        this.errorMessageHolder.setErrorMessage(e.getMessage());
-      }
-    }
+  }
 }

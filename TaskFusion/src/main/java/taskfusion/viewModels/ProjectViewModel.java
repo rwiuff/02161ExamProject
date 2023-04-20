@@ -1,4 +1,5 @@
 package taskfusion.viewModels;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +27,8 @@ public class ProjectViewModel extends ViewModel {
         this.startWeek = project.getStartWeek();
         this.endWeek = project.getEndWeek();
         this.projectActivities = ProjectActivityViewModel.listFromModels(project.getActivities());
-        
-        if(project.getProjectLeader() != null) {
+
+        if (project.getProjectLeader() != null) {
             this.projectLeaderFullName = project.getProjectLeader().getFullName();
         }
 
@@ -38,16 +39,16 @@ public class ProjectViewModel extends ViewModel {
     private void importReports(Project project) {
         Map<String, Report> importedReports = project.getReports();
         Set<String> dates = project.getReports().keySet();
-        for(String date : dates){
+        for (String date : dates) {
             this.reports.put(date, importedReports.get(date).toViewModel());
         }
     }
 
     public static List<ProjectViewModel> listFromModels(List<Project> modelList) {
-        
+
         List<ProjectViewModel> list = new ArrayList<ProjectViewModel>();
 
-        for(Project item : modelList) {
+        for (Project item : modelList) {
             list.add(item.toViewModel());
         }
 

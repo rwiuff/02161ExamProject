@@ -48,9 +48,9 @@ public class ProjectRepository {
      * REPOSITORY related
      */
 
-     public Map<String, Project> all() {
+    public Map<String, Project> all() {
         return projects;
-     }
+    }
 
     public Project create(String projectTitle, Calendar date)
             throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
@@ -79,7 +79,7 @@ public class ProjectRepository {
 
         List<WorktimeRegistration> list = new ArrayList<>();
 
-        for (Entry<String, Project> entry: projects.entrySet()){
+        for (Entry<String, Project> entry : projects.entrySet()) {
 
             Project project = entry.getValue();
 
@@ -92,8 +92,8 @@ public class ProjectRepository {
 
         List<WorktimeRegistration> list = allWorktimeRegistrations();
 
-        for(WorktimeRegistration worktimeRegistration : list) {
-            if(worktimeRegistration.getId().equals(id)) {
+        for (WorktimeRegistration worktimeRegistration : list) {
+            if (worktimeRegistration.getId().equals(id)) {
                 return worktimeRegistration;
             }
         }
@@ -103,18 +103,18 @@ public class ProjectRepository {
     }
 
     // public Integer generateWorktimeRegistrationId() {
-    //     Integer lastId = 0;
+    // Integer lastId = 0;
 
-    //     List<WorktimeRegistration> list = allWorktimeRegistrations();
+    // List<WorktimeRegistration> list = allWorktimeRegistrations();
 
-    //     for(WorktimeRegistration worktimeRegistration : list) {
-    //         Integer id = worktimeRegistration.getId();
-    //         //if(id > lastId) {
-    //         lastId = id;
-    //         //}
-    //     }
+    // for(WorktimeRegistration worktimeRegistration : list) {
+    // Integer id = worktimeRegistration.getId();
+    // //if(id > lastId) {
+    // lastId = id;
+    // //}
+    // }
 
-    //     return lastId + 1;
+    // return lastId + 1;
     // }
 
     public Integer generateWorktimeRegistrationId() {
@@ -122,7 +122,7 @@ public class ProjectRepository {
     }
 
     public List<Employee> getListOfEmployees(String projectNumber) {
-      return this.projects.get(projectNumber).getListOfAssignedEmployees();
+        return this.projects.get(projectNumber).getListOfAssignedEmployees();
     }
 
 }

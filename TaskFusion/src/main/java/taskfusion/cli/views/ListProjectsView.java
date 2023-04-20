@@ -18,8 +18,8 @@ public class ListProjectsView implements ViewInterface {
     }
 
     public void show() {
-    
-        //Get titles
+
+        // Get titles
         List<String> optionsTextList = new ArrayList<String>();
         List<String> optionsKeyList = new ArrayList<String>();
 
@@ -28,10 +28,10 @@ public class ListProjectsView implements ViewInterface {
             optionsKeyList.add(project.projectNumber);
         }
 
-        while(true) {
+        while (true) {
             String choice = Menu.showListOptions(optionsKeyList, optionsTextList, "Vælg projekt", "Dine projekter");
 
-            if(choice == null) {
+            if (choice == null) {
                 return;
             }
 
@@ -47,7 +47,5 @@ public class ListProjectsView implements ViewInterface {
         }
 
     }
-
-
 
 }

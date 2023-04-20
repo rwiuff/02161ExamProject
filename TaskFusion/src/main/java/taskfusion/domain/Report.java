@@ -53,7 +53,7 @@ public class Report implements ConvertibleToViewModelInterface {
         return employees;
     }
 
-    public Employee getEmployee(String initials){
+    public Employee getEmployee(String initials) {
         return employees.get(initials);
     }
 

@@ -7,8 +7,6 @@ import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
 import taskfusion.cli.views.CreateWorktimeRegistrationView;
 import taskfusion.cli.views.ListWorktimeRegistrationsView;
-import taskfusion.exceptions.NotFoundException;
-import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.viewModels.ProjectActivityViewModel;
 import taskfusion.viewModels.ProjectViewModel;
 import taskfusion.viewModels.WorktimeRegistrationViewModel;
@@ -18,7 +16,7 @@ public class ProjectActivityMenuController implements ControllerInterface {
     private ProjectActivityViewModel activity;
     private ProjectViewModel project;
 
-    public ProjectActivityMenuController(ProjectViewModel project, ProjectActivityViewModel activity){
+    public ProjectActivityMenuController(ProjectViewModel project, ProjectActivityViewModel activity) {
         this.activity = activity;
         this.project = project;
     }
@@ -32,13 +30,14 @@ public class ProjectActivityMenuController implements ControllerInterface {
     public void showMenu() {
 
         while (true) {
-           
+
             int selectedMenuItem = Menu.showMenu(menuOptions, activity.title);
 
             switch (selectedMenuItem) {
                 case 1: // Se tidsregistreringer
                     try {
-                        List<WorktimeRegistrationViewModel> registrations = TaskFusionCLI.projectFacade().getUserWorktimeRegistrationsForProjectActivity(activity.title,project.projectNumber);
+                        List<WorktimeRegistrationViewModel> registrations = TaskFusionCLI.projectFacade()
+                                .getUserWorktimeRegistrationsForProjectActivity(activity.title, project.projectNumber);
                         new ListWorktimeRegistrationsView(registrations).show();
                     } catch (Exception e) {
                         Text.showExceptionError(e);
@@ -51,7 +50,7 @@ public class ProjectActivityMenuController implements ControllerInterface {
                     new CreateWorktimeRegistrationView(project, activity).show();
                     break;
 
-                case 3: //tilbage
+                case 3: // tilbage
                     return; // NOTICE THIS RETURN, not break
 
                 default:
@@ -59,7 +58,6 @@ public class ProjectActivityMenuController implements ControllerInterface {
                     return; // NOTICE THIS RETURN, not break
             }
         }
-    } 
+    }
 
-    
 }

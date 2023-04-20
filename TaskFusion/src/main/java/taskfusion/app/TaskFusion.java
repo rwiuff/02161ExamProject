@@ -14,7 +14,6 @@ public class TaskFusion {
   private EmployeeFacade employeeFacade;
   private ProjectFacade projectFacade;
 
-
   public TaskFusion() {
     this.employeeFacade = new EmployeeFacade(this);
     this.projectFacade = new ProjectFacade(this);
@@ -60,7 +59,6 @@ public class TaskFusion {
     return this.dateServer.getDate();
   }
 
-
   /**
    * ###########################
    * FACADES
@@ -74,6 +72,5 @@ public class TaskFusion {
   public ProjectFacade getProjectFacade() {
     return this.projectFacade;
   }
-  
 
 }

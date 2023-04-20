@@ -68,7 +68,6 @@ public class ProjectSteps {
     }
   }
 
-
   @When("the user sets customer {string} on project {string}")
   public void the_user_sets_customer_on_project(String customer, String projectNumber) {
     try {
@@ -117,7 +116,8 @@ public class ProjectSteps {
   @Then("{string} is the project leader on project {string}")
   public void is_the_project_leader_on_project(String initials, String projectNumber) {
     try {
-      assertEquals(initials, ProjectRepository.getInstance().findByProjectNumber(projectNumber).getProjectLeader().getInitials());
+      assertEquals(initials,
+          ProjectRepository.getInstance().findByProjectNumber(projectNumber).getProjectLeader().getInitials());
     } catch (NotFoundException e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -145,29 +145,30 @@ public class ProjectSteps {
     }
   }
 
-    @Then("there is {int} projects in the application")
-    public void there_is_projects_in_the_application(int i) {
-      assertEquals(i, ProjectRepository.getInstance().all().size());
-        // Write code here that turns the phrase above into concrete actions
-    }
+  @Then("there is {int} projects in the application")
+  public void there_is_projects_in_the_application(int i) {
+    assertEquals(i, ProjectRepository.getInstance().all().size());
+    // Write code here that turns the phrase above into concrete actions
+  }
 
-    @Then("the project {string} is an internal project")
-    public void the_project_is_an_internal_project(String projectNumber) throws NotFoundException {
-        assertTrue(ProjectRepository.getInstance().findByProjectNumber(projectNumber).isInternal());
-    }
+  @Then("the project {string} is an internal project")
+  public void the_project_is_an_internal_project(String projectNumber) throws NotFoundException {
+    assertTrue(ProjectRepository.getInstance().findByProjectNumber(projectNumber).isInternal());
+  }
 
-    @Then("the project {string} is an external project")
-    public void the_project_is_an_external_project(String projectNumber) throws NotFoundException {
-      assertFalse(ProjectRepository.getInstance().findByProjectNumber(projectNumber).isInternal());
-    }
+  @Then("the project {string} is an external project")
+  public void the_project_is_an_external_project(String projectNumber) throws NotFoundException {
+    assertFalse(ProjectRepository.getInstance().findByProjectNumber(projectNumber).isInternal());
+  }
 
-    @When("the user requests a list of employees assigned to the project with project number {string}")
-    public void theUserRequestsAListOfEmployeesAssignedToTheActivityTitledInTheProjectWithProjectNumber(String projectNumber) {
-        this.assignedEmployees = taskFusion.getProjectFacade().getProjectEmployees(projectNumber);
-    }
+  @When("the user requests a list of employees assigned to the project with project number {string}")
+  public void theUserRequestsAListOfEmployeesAssignedToTheActivityTitledInTheProjectWithProjectNumber(
+      String projectNumber) {
+    this.assignedEmployees = taskFusion.getProjectFacade().getProjectEmployees(projectNumber);
+  }
 
-    @Then("the employee list contains {int} items")
-    public void theEmployeeListContainsItems(Integer int1) {
-        assertTrue(this.assignedEmployees.size() == 2);
-    }
+  @Then("the employee list contains {int} items")
+  public void theEmployeeListContainsItems(Integer int1) {
+    assertTrue(this.assignedEmployees.size() == 2);
+  }
 }

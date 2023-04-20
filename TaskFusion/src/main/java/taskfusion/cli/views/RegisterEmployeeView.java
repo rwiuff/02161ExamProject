@@ -6,22 +6,22 @@ import taskfusion.cli.components.Input;
 import taskfusion.cli.components.Text;
 
 public class RegisterEmployeeView implements ViewInterface {
-    
+
     public void show() {
 
         Header.showHeader("Opret medarbejder", 1);
 
-        while(true) {
-            
+        while (true) {
+
             String firstName = Input.lineWithCancel("Indtast fornavn");
-            
-            if(firstName == null) {
+
+            if (firstName == null) {
                 return;
             }
 
             String lastName = Input.lineWithCancel("Indtast efternavn");
-            
-            if(lastName == null) {
+
+            if (lastName == null) {
                 return;
             }
 

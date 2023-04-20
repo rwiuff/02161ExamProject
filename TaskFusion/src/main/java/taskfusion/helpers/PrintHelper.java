@@ -8,7 +8,6 @@ import taskfusion.domain.Project;
 import taskfusion.domain.WorktimeRegistration;
 
 public class PrintHelper {
-    
 
     public static void printEmployees(Map<String, Employee> map) {
         for (Map.Entry<String, Employee> entry : map.entrySet()) {

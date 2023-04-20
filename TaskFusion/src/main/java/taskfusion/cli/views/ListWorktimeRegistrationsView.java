@@ -6,12 +6,11 @@ import java.util.List;
 import taskfusion.cli.components.Formatter;
 import taskfusion.cli.components.Header;
 import taskfusion.cli.components.Input;
-import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
 import taskfusion.viewModels.WorktimeRegistrationViewModel;
 
 public class ListWorktimeRegistrationsView implements ViewInterface {
-    
+
     private List<WorktimeRegistrationViewModel> worktimeRegistrations;
 
     public ListWorktimeRegistrationsView(List<WorktimeRegistrationViewModel> worktimeRegistrations) {
@@ -20,18 +19,19 @@ public class ListWorktimeRegistrationsView implements ViewInterface {
 
     public void show() {
 
-        if(worktimeRegistrations.size() == 0) {
+        if (worktimeRegistrations.size() == 0) {
             Text.showInfo("Ingen tidsregistreringer at vise");
             Input.enterToContinue("Tryk på Enter for at gå tilbage");
             return;
         }
 
-        //Get titles
+        // Get titles
         List<String> optionsTextList = new ArrayList<String>();
         List<String> optionsKeyList = new ArrayList<String>();
 
         for (WorktimeRegistrationViewModel worktimeRegistration : worktimeRegistrations) {
-            optionsTextList.add(Formatter.dateToString(worktimeRegistration.date) + " : " + worktimeRegistration.time + "("+ worktimeRegistration.initials +")");
+            optionsTextList.add(Formatter.dateToString(worktimeRegistration.date) + " : " + worktimeRegistration.time
+                    + "(" + worktimeRegistration.initials + ")");
             optionsKeyList.add("" + worktimeRegistration.id);
         }
 

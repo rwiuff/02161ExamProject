@@ -85,7 +85,7 @@ public class ProjectMenuController implements ControllerInterface {
 
                 case 7: // Projektrapporter
                     Map<String, ReportViewModel> reports = project.reports;
-                    new ListProjectReportView(project, reports).show();
+                    new ListProjectReportView(reports).show();
                     break;
                 case 8:
                     return; // NOTICE THIS RETURN, not break

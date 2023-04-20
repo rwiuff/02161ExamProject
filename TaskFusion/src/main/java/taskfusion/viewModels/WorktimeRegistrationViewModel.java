@@ -21,10 +21,10 @@ public class WorktimeRegistrationViewModel extends ViewModel {
     }
 
     public static List<WorktimeRegistrationViewModel> listFromModels(List<WorktimeRegistration> modelList) {
-        
+
         List<WorktimeRegistrationViewModel> list = new ArrayList<WorktimeRegistrationViewModel>();
 
-        for(WorktimeRegistration item : modelList) {
+        for (WorktimeRegistration item : modelList) {
             list.add(item.toViewModel());
         }
 
@@ -35,5 +35,5 @@ public class WorktimeRegistrationViewModel extends ViewModel {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
         return sdf.format(this.date.getTime());
     }
-    
+
 }

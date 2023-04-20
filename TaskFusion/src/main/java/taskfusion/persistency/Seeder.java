@@ -61,17 +61,19 @@ public class Seeder {
 
     }
 
-    private void seedEmployeesToProject(Project project, Employee user) throws NotFoundException, OperationNotAllowedException {
+    private void seedEmployeesToProject(Project project, Employee user)
+            throws NotFoundException, OperationNotAllowedException {
         project.assignEmployee("rawi", user);
         project.assignEmployee("mach", user);
         project.assignEmployee("masc", user);
     }
 
-    private void seedProjectActivitesToProject(Project project, Employee user) throws AlreadyExistsException, OperationNotAllowedException {
-        project.createProjectActivity("Brainstorm","2301","2302", user);
-        project.createProjectActivity("Dokumentation","2305","2305", user);
+    private void seedProjectActivitesToProject(Project project, Employee user)
+            throws AlreadyExistsException, OperationNotAllowedException {
+        project.createProjectActivity("Brainstorm", "2301", "2302", user);
+        project.createProjectActivity("Dokumentation", "2305", "2305", user);
 
-        for(ProjectActivity activity : project.getActivities()) {
+        for (ProjectActivity activity : project.getActivities()) {
             seedWorktimeRegistrationsForProjectActivity(activity);
             activity.setTimeBudget(30);
         }

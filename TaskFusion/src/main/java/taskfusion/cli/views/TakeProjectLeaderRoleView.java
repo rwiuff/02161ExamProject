@@ -7,7 +7,7 @@ import taskfusion.cli.components.Text;
 import taskfusion.viewModels.ProjectViewModel;
 
 public class TakeProjectLeaderRoleView implements ViewInterface {
-    
+
     private ProjectViewModel project;
 
     public TakeProjectLeaderRoleView(ProjectViewModel project) {
@@ -20,16 +20,16 @@ public class TakeProjectLeaderRoleView implements ViewInterface {
 
         boolean confirm = Input.confirm();
 
-        if(confirm) {
+        if (confirm) {
             try {
                 TaskFusionCLI.projectFacade().takeProjectLeaderRole(project.projectNumber);
-                Text.showSuccess("Du er nu projektleder på projekt "+ project.projectNumber);
+                Text.showSuccess("Du er nu projektleder på projekt " + project.projectNumber);
             } catch (Exception e) {
                 Text.showExceptionError(e);
                 return;
             }
         }
-        
+
         return;
 
     }

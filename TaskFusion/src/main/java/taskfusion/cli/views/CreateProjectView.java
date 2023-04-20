@@ -6,16 +6,16 @@ import taskfusion.cli.components.Input;
 import taskfusion.cli.components.Text;
 
 public class CreateProjectView implements ViewInterface {
-    
+
     public void show() {
 
         Header.showHeader("Opret projekt", 1);
 
-        while(true) {
-            
+        while (true) {
+
             String projectTitle = Input.lineWithCancel("Projekt titel");
-            
-            if(projectTitle == null) {
+
+            if (projectTitle == null) {
                 return;
             }
 

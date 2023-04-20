@@ -7,7 +7,7 @@ public class Hooks {
     @Before
     public void beforeEachScenario() {
 
-        //Clean singletons between tests
+        // Clean singletons between tests
         SingletonHelpers.resetSingletons();
     }
 }

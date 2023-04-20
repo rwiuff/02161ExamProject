@@ -30,23 +30,23 @@ public class EmployeeFacade {
 
         Employee employee = employeeRepo.findByInitials(initials);
 
-        if(employee != null) {
+        if (employee != null) {
             return employee.toViewModel();
         }
 
         return null;
     }
 
-/**
-   * ###########################
-   * REGULAR ACTIVITIES
-   * ###########################
-   */
+    /**
+     * ###########################
+     * REGULAR ACTIVITIES
+     * ###########################
+     */
 
     // ALLE DISSE CHECKS, SKAL FOREGÅ I DOMAIN LAYER, SO I SELVE REGULARACTIVITY
     // KLASSEN
     public void createRegularActivity(String title, String startWeek, String endWeek)
-            throws OperationNotAllowedException, InvalidPropertyException {            
+            throws OperationNotAllowedException, InvalidPropertyException {
         if (title == "") {
             throw new InvalidPropertyException("En titel mangler");
         }
@@ -63,10 +63,10 @@ public class EmployeeFacade {
             throw new InvalidPropertyException("Start uge og slut uge skal angives med fire cifre");
         }
 
-        if (Integer.parseInt(startWeek.substring(0,2)) > Integer.parseInt(endWeek.substring(0,2))) {
+        if (Integer.parseInt(startWeek.substring(0, 2)) > Integer.parseInt(endWeek.substring(0, 2))) {
             throw new InvalidPropertyException("Start år skal være før eller ens med slut år");
-        } else if (Integer.parseInt(startWeek.substring(0,2)) == Integer.parseInt(endWeek.substring(0,2)) &&
-                Integer.parseInt(startWeek.substring(2,4)) > Integer.parseInt(endWeek.substring(2,4))) {
+        } else if (Integer.parseInt(startWeek.substring(0, 2)) == Integer.parseInt(endWeek.substring(0, 2)) &&
+                Integer.parseInt(startWeek.substring(2, 4)) > Integer.parseInt(endWeek.substring(2, 4))) {
             throw new InvalidPropertyException("Start uge skal være før slut uge");
         }
 
@@ -79,35 +79,38 @@ public class EmployeeFacade {
     }
 
     public List<RegularActivityViewModel> getRegularActivities() {
-        return RegularActivityViewModel.listFromModels(EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials).getRegularActivities());
+        return RegularActivityViewModel.listFromModels(EmployeeRepository.getInstance()
+                .findByInitials(taskFusion.getLoggedInUser().initials).getRegularActivities());
     }
 
-    public RegularActivityViewModel getRegularActivityById(int id) throws NotFoundException, OperationNotAllowedException {
+    public RegularActivityViewModel getRegularActivityById(int id)
+            throws NotFoundException, OperationNotAllowedException {
 
         requireLogin();
 
         RegularActivity activity = employeeRepo.findRegularActivityById(id);
-        
-        if(!getLoggedInUserModel().hasRegularActivityByID(id)) {
+
+        if (!getLoggedInUserModel().hasRegularActivityByID(id)) {
             throw new OperationNotAllowedException("Du har ikke rettighed til at se denne aktivitet");
         }
 
         return activity.toViewModel();
     }
 
-    // public void deleteRegularActivity(int id) throws OperationNotAllowedException {
-        
-    //     requireLogin();
+    // public void deleteRegularActivity(int id) throws OperationNotAllowedException
+    // {
 
-    //     getLoggedInUserModel().deleteRegularActivity(id);
+    // requireLogin();
+
+    // getLoggedInUserModel().deleteRegularActivity(id);
 
     // }
 
     /**
-   * ###########################
-   * Helper methods
-   * ###########################
-   */
+     * ###########################
+     * Helper methods
+     * ###########################
+     */
     private Employee getLoggedInUserModel() {
         return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);
     }

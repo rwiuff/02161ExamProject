@@ -8,23 +8,22 @@ import taskfusion.viewModels.EmployeeViewModel;
 import taskfusion.viewModels.ProjectViewModel;
 
 public class AssignEmployeeToProjectView implements ViewInterface {
-    
+
     private ProjectViewModel project;
 
     public AssignEmployeeToProjectView(ProjectViewModel project) {
         this.project = project;
     }
 
-
     public void show() {
 
         Header.showHeader("Tilføj medarbejder til projekt " + project.projectNumber, 1);
 
-        while(true) {
-            
+        while (true) {
+
             String initials = Input.lineWithCancel("Medarbejder initialer");
-            
-            if(initials == null) {
+
+            if (initials == null) {
                 return;
             }
 

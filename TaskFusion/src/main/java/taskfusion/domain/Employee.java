@@ -5,17 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
-import taskfusion.exceptions.NotFoundException;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 import taskfusion.viewModels.EmployeeViewModel;
 
 public class Employee implements ConvertibleToViewModelInterface {
   private List<RegularActivity> regularActivities = new ArrayList<RegularActivity>();
-  private Map<String, Project> projects = new HashMap<>();
   private String firstName;
   private String lastName;
   private String initials;
@@ -27,7 +24,7 @@ public class Employee implements ConvertibleToViewModelInterface {
 
   }
 
-  public EmployeeViewModel toViewModel(){
+  public EmployeeViewModel toViewModel() {
     return new EmployeeViewModel(this);
   }
 
@@ -120,18 +117,18 @@ public class Employee implements ConvertibleToViewModelInterface {
 
   public boolean hasRegularActivityByID(int id) {
     for (RegularActivity regularActivity : this.regularActivities) {
-      if(regularActivity.getId() == id) {
+      if (regularActivity.getId() == id) {
         return true;
       }
     }
     return false;
   }
 
-  /* 
-  public void deleteRegularActivity(int id) {
-    
-  }
-  */
+  /*
+   * public void deleteRegularActivity(int id) {
+   * 
+   * }
+   */
 
   public Map<String, Project> getProjects() {
 
@@ -139,11 +136,11 @@ public class Employee implements ConvertibleToViewModelInterface {
 
     for (Map.Entry<String, Project> projectEntry : ProjectRepository.getInstance().all().entrySet()) {
 
-        Project project = projectEntry.getValue();
+      Project project = projectEntry.getValue();
 
-        if(project.getAssignedEmployee(initials) != null) {
-          employeeProjects.put(project.getProjectNumber(),project);
-        }
+      if (project.getAssignedEmployee(initials) != null) {
+        employeeProjects.put(project.getProjectNumber(), project);
+      }
     }
 
     return employeeProjects;

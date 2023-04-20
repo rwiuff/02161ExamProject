@@ -75,7 +75,6 @@ public class EmployeeSteps {
         assertEquals(projects, EmployeeRepository.getInstance().findByInitials(initials).getProjects().size());
     }
 
-
     @Given("print exception")
     public void print_exception() {
         System.out.println("------ PRINTING EXCEPTION ------");

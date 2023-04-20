@@ -1,7 +1,6 @@
 package taskfusion.cli.components;
 
 public class Text {
-    
 
     public static void showInputPrompt(String prompt) {
         System.out.println(" ");
