@@ -1,6 +1,5 @@
 package taskfusion.junit;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,7 +27,7 @@ public class EmployeeTest {
   }
 
   @Test
-  public void testBreakInitialGeneration() throws InvalidPropertyException, ExhaustedOptionsException {
+  public void testInitialGeneration() throws InvalidPropertyException, ExhaustedOptionsException {
     assertTrue(EmployeeRepository.getInstance().all().size() == 0);
     Object[] allValidInitialsForMichaelLaudrupInOrder = new Object[] {
       "mila", "milu", "mild", "milr", "milp", "miau", "miad", "miar", "miap",
