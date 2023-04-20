@@ -1,6 +1,7 @@
 package taskfusion.junit;
 
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,15 +27,20 @@ public class EmployeeTest {
   }
 
   @Test
-  public void testBreakInitialGeneration() throws InvalidPropertyException, ExhaustedOptionsException {
-    Object[] allValidInitialsForMichaelLaudrup = { "mila", "miau", "miup", "mild", "mirp", "miur", "miad", "miru",
-        "miuu", "milr", "milp", "milu", "miap", "miud", "midr", "midp", "miar", "midu" };
+  public void testInitialGeneration() throws InvalidPropertyException, ExhaustedOptionsException {
+    assertTrue(EmployeeRepository.getInstance().all().size() == 0);
+    Object[] allValidInitialsForMichaelLaudrupInOrder = new Object[] {
+      "mila", "milu", "mild", "milr", "milp", "miau", "miad", "miar", "miap",
+      "miud", "miur", "miuu", "miup", "midr", "midu", "midp",  "miru", "mirp"
+    };
+
+    // Tests that generation order fits description, and verifies that there may be at most 18 Michael Laudrups
     for (int i = 0; i < 18; i++) {
+      assertFalse(EmployeeRepository.getInstance().all().containsKey(allValidInitialsForMichaelLaudrupInOrder[i]));
       EmployeeRepository.getInstance().create("Michael", "Laudrup");
+      assertTrue(EmployeeRepository.getInstance().all().containsKey(allValidInitialsForMichaelLaudrupInOrder[i]));
     }
 
-    Object[] initials = EmployeeRepository.getInstance().all().keySet().stream().toArray();
-    assertArrayEquals(allValidInitialsForMichaelLaudrup, initials);
     try {
       EmployeeRepository.getInstance().create("Michael", "Laudrup");
     } catch (Exception e) {
