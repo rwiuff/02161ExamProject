@@ -20,7 +20,7 @@ public class WorkTimeSteps {
             double worktTime,
             String activityTitle, String projectNumber) {
         try {
-            this.taskFusion.registerWorkTime(projectNumber, activityTitle, worktTime);
+            this.taskFusion.getProjectFacade().registerWorkTime(projectNumber, activityTitle, worktTime);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }
@@ -30,7 +30,8 @@ public class WorkTimeSteps {
     public void theUserHasHoursOfRegisteredWorkTimeOnTheProjectActivityWithTitleAndProjectNumber(double workTime,
             String activityTitle, String projectNumber) {
         try {
-            assertEquals(workTime, this.taskFusion.getWorkTime(projectNumber, activityTitle, workTime), .1);
+            assertEquals(workTime, this.taskFusion.getProjectFacade().getTotalWorkTimeForEmployee(projectNumber,
+                    activityTitle, workTime), .1);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }

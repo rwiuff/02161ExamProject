@@ -1,12 +1,15 @@
 package taskfusion.persistency;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
+import taskfusion.domain.WorktimeRegistration;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
@@ -45,11 +48,11 @@ public class ProjectRepository {
      * REPOSITORY related
      */
 
-     public Map<String, Project> all() {
+    public Map<String, Project> all() {
         return projects;
-     }
+    }
 
-    public void create(String projectTitle, Employee creator, Calendar date)
+    public Project create(String projectTitle, Calendar date)
             throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
 
         if (projectTitle.length() < 2) {
@@ -57,10 +60,10 @@ public class ProjectRepository {
         }
 
         Project p = new Project(projectTitle, date);
-        p.assignEmployee(creator.getInitials(), creator);
         String projectNumber = p.getProjectNumber();
 
         this.projects.put(projectNumber, p);
+        return p;
     }
 
     public Project findByProjectNumber(String projectNumber) throws NotFoundException {
@@ -72,17 +75,54 @@ public class ProjectRepository {
 
     }
 
-    public Project findByTitle(String projectTitle) throws NotFoundException {
-        Project returnProject = null;
-        for (Entry<String, Project> entry: projects.entrySet()){
-            if(entry.getValue().getProjectTitle().equals(projectTitle)){
-                returnProject = entry.getValue();
+    private List<WorktimeRegistration> allWorktimeRegistrations() {
+
+        List<WorktimeRegistration> list = new ArrayList<>();
+
+        for (Entry<String, Project> entry : projects.entrySet()) {
+
+            Project project = entry.getValue();
+
+            list.addAll(project.getWorktimeRegistrations());
+        }
+        return list;
+    }
+
+    public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
+
+        List<WorktimeRegistration> list = allWorktimeRegistrations();
+
+        for (WorktimeRegistration worktimeRegistration : list) {
+            if (worktimeRegistration.getId().equals(id)) {
+                return worktimeRegistration;
             }
         }
-        if(returnProject == null){
-            throw new NotFoundException("Projektet kunne ikke findes i samlingen af projekter");
-        }
-        return returnProject;
+
+        throw new NotFoundException("Ukendt tidsregistrering");
+
+    }
+
+    // public Integer generateWorktimeRegistrationId() {
+    // Integer lastId = 0;
+
+    // List<WorktimeRegistration> list = allWorktimeRegistrations();
+
+    // for(WorktimeRegistration worktimeRegistration : list) {
+    // Integer id = worktimeRegistration.getId();
+    // //if(id > lastId) {
+    // lastId = id;
+    // //}
+    // }
+
+    // return lastId + 1;
+    // }
+
+    public Integer generateWorktimeRegistrationId() {
+        return allWorktimeRegistrations().size() + 1;
+    }
+
+    public List<Employee> getListOfEmployees(String projectNumber) {
+        return this.projects.get(projectNumber).getListOfAssignedEmployees();
     }
 
 }

@@ -1,12 +1,16 @@
 package taskfusion.cli.controllers;
 
+import java.util.List;
+
 import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
 import taskfusion.cli.views.CreateProjectView;
+import taskfusion.cli.views.CreateRegularActivityView;
 import taskfusion.cli.views.ListProjectsView;
-import taskfusion.domain.Project;
-import taskfusion.exceptions.NotFoundException;
+import taskfusion.cli.views.ListRegularActivitiesView;
+import taskfusion.viewModels.ProjectViewModel;
+import taskfusion.viewModels.RegularActivityViewModel;
 
 public class EmployeeMenuController implements ControllerInterface {
 
@@ -25,20 +29,8 @@ public class EmployeeMenuController implements ControllerInterface {
 
             switch (selectedMenuItem) {
                 case 1: // Se projekter
-
-                    Project selectedProject = null;
-                    try {
-                        selectedProject = new ListProjectsView().select();
-                    } catch (NotFoundException e) {
-                        Text.showExceptionError(e);
-                    }    
-
-                    if(selectedProject == null) {
-                        continue;
-                    }
-
-                    new ProjectMenuController(selectedProject).showMenu();
-
+                    List<ProjectViewModel> projects = TaskFusionCLI.projectFacade().getUserProjects();
+                    new ListProjectsView(projects).show();
                     break;
 
                 case 2: // Opret projekt
@@ -46,11 +38,12 @@ public class EmployeeMenuController implements ControllerInterface {
                     break;
 
                 case 3: // Se faste aktiviteter
-                    Text.showError("MANGLER IMPLEMENTERING");
+                    List<RegularActivityViewModel> activities = TaskFusionCLI.employeeFacade().getRegularActivities();
+                    new ListRegularActivitiesView(activities).show();
                     break;
 
                 case 4: // Opret fast aktivitet
-                    Text.showError("MANGLER IMPLEMENTERING");
+                    new CreateRegularActivityView().show();
                     break;
 
                 case 5:
@@ -58,7 +51,7 @@ public class EmployeeMenuController implements ControllerInterface {
                     return; // NOTICE THIS RETURN, not break
 
                 default:
-                    Text.showError("Uventet menupunkt");
+                    Text.showError("Ukendt menupunkt");
                     return; // NOTICE THIS RETURN, not break
             }
         }

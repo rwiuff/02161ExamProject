@@ -1,6 +1,5 @@
 package taskfusion.cli.controllers;
 
-import taskfusion.cli.TaskFusionCLI;
 import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
 import taskfusion.cli.views.LoginView;
@@ -22,11 +21,6 @@ public class GuestMenuController implements ControllerInterface {
             switch (selectedMenuItem) {
                 case 1:
                     new LoginView().show();
-
-                    if (TaskFusionCLI.taskFusion().isLoggedIn()) {
-                        new EmployeeMenuController().showMenu();
-                    }
-
                     break;
                 case 2:
                     new RegisterEmployeeView().show();

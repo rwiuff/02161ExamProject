@@ -1,0 +1,258 @@
+@startuml
+left to right direction
+(*) --> "
+{{
+salt
+{+
+title GÆST MENU 
+header GuestMenuController
+<&chevron-right> Login
+<&chevron-right> Opret medarbejder
+<&chevron-right> Luk
+}
+}}
+" as GuestMenuController
+
+GuestMenuController --> "
+{{
+salt
+{+
+title LOGIN
+header LoginView
+<&terminal> Indtast dine initialer
+}
+}}
+" as LoginView 
+
+LoginView --> "
+{{
+salt
+{+
+title MEDARBEJDER MENU
+header EmployeeMenuController
+<&chevron-right> Se projekter
+<&chevron-right> Opret projekt
+<&chevron-right> Se faste aktiviteter
+<&chevron-right> Opret fast aktivitet
+<&chevron-right> Logud
+}
+}}
+" as EmployeeMenuController
+
+GuestMenuController --> "
+{{
+salt
+{+
+title OPRET MEDARBEJDER
+header RegisterEmployeeView
+<&terminal> Indtast fornavn
+<&terminal> Indtast efternavn
+}
+}}
+" as RegisterEmployeeView
+
+EmployeeMenuController --> "
+{{
+salt
+{+
+title DINE PROJEKTER
+header ListProjectsView
+<&menu> 23001. Kravspecifikationer
+<&menu> 23002. Programdesign
+<&menu> 23003. Implementering
+<&menu> ...
+<&terminal> Vælg projekt
+}
+}}
+" as ListProjectsView
+
+ListProjectsView --> "
+{{
+salt
+{+
+title PROJEKT MENU
+header ProjectMenuController
+Projekt nummer:    23001
+Projekt leder:     kasy
+Medarbejdere:      4
+Aktiviteter:       3
+______________________________
+<&chevron-right> Se medarbejdere
+<&chevron-right> Tilføj medarbejder til projekt
+<&chevron-right> Se aktiviteter
+<&chevron-right> Tilføj aktivitet
+<&chevron-right> påtag projektleder rolle
+<color:Red><&chevron-right> Generer rapport
+<&chevron-right> tilbage
+}
+}}
+" as ProjectMenuController
+
+EmployeeMenuController --> "
+{{
+salt
+{+
+title OPRET PROJEKT
+header CreateProjectView
+<&terminal> Indtast projekt title
+}
+}}
+" as CreateProjectView
+
+EmployeeMenuController --> "
+{{
+salt
+{+
+title OPRET FAST AKTIVITET
+header CreateRegularActivityView
+<&terminal> Indtast titel
+<&terminal> Indtast start uge [YYUU]
+<&terminal> Indtast slut uge [YYUU]
+}
+}}
+" as CreateRegularActivityView
+
+EmployeeMenuController --> "
+{{
+salt
+{+
+title FASTE AKTIVITETER
+header ListRegularActivitiesView
+Mangler facade
+<&menu> Syg: 0423 - 0523
+<&menu> Ferie: 0723 - 0923
+<&menu> Syg: 1023 - 1023
+<&menu> ...
+<&terminal> Tryk enter for at gå tilbage
+}
+}}
+" as ListRegularActivitiesView
+
+ProjectMenuController --> "
+{{
+salt
+{+
+title MEDARBEJDERE
+header ListEmployeesView
+<&menu> kasy : Kasper Sylvest
+<&menu> rakr : Rasmus Kronborg
+<&menu> mach : Mathies Christian
+<&menu> masc : Max-Emil Scotten
+<&menu> ...
+<&terminal> Tryk enter for at gå tilbage
+}
+}}
+" as ListEmployeesView
+
+ProjectMenuController --> "
+{{
+salt
+{+
+title TILFØJ MEDARBEJDER TIL PROJEKT
+header AssignEmployeeToProjectView
+<&terminal> Indtast medarbejder initialer
+}
+}}
+" as AssignEmployeeToProjectView
+
+ProjectMenuController --> "
+{{
+salt
+{+
+title PÅTAG PROJEKTLEDER ROLLE
+header AssignProjectLeaderToProjectView
+Er du sikker?
+<&terminal> Indtast ja/nej
+}
+}}
+" as AssignProjectLeaderToProjectView
+
+ProjectMenuController --> "
+{{
+salt
+{+
+title PROJEKT AKTIVITETER
+header ListProjectActivitiesView
+<&menu> 1. Kravspecifikation
+<&menu> 2. Design
+<&menu> 3. Half-Life 3
+<&menu> ...
+<&terminal> Vælg aktivitet:
+}
+}}
+" as ListProjectActivitiesView
+
+ProjectMenuController --> "
+{{
+salt
+{+
+title OPRET PROJEKT AKTIVITET
+header CreateProjectActivityView
+<&terminal> Indtast titel:
+<&terminal> Indtast start uge [YYUU]:
+<&terminal> Indtast slut uge [YYUU]:
+}
+}}
+" as CreateProjectActivityView
+
+ProjectMenuController --> "
+{{
+salt
+{+
+title <color:Red>PROJEKT RAPPORT
+header ProjectReportView
+Projekt nummer:    23001
+Projekt leder:     kasy
+Medarbejdere:      4
+Aktiviteter:       3
+Tidsbudget:       300
+Registreret tid:       150
+Andel:              50.0%
+<&terminal> Tryk enter for at vende tilbage:
+}
+}}
+" as ProjectReportView
+
+ListProjectActivitiesView --> "
+{{
+salt
+{+
+title PROJECT AKTIVITET MENU
+header ProjectActivityMenuController
+Aktivitet titel:    Ferie
+______________________________
+<&chevron-right> Se tidsregistreringer
+<&chevron-right> Opret tidsregistrering
+<&chevron-right> tilbage
+}
+}}
+" as ProjectActivityMenuController
+
+ProjectActivityMenuController --> "
+{{
+salt
+{+
+title OPRET TIDSREGISTRERING
+header CreateWorktimeRegistrationView
+<&terminal> Indtast timer:
+}
+}}
+" as CreateWorktimeRegistrationView
+
+ProjectActivityMenuController --> "
+{{
+salt
+{+
+title TIDSREGISTRERINGER
+header ListWorktimeRegistrationsView
+<&menu> 56. 02/03-2023 : 1.5
+<&menu> 99. 02/07-2023 : 4.0
+<&menu> 103. 02/10-2023 : 1.0
+<&menu> ...
+<&terminal> Tryk enter for at vende tilbage
+}
+}}
+" as ListWorktimeRegistrationsView
+
+
+@enduml

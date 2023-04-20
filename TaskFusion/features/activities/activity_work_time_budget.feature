@@ -1,22 +1,26 @@
-# Feature: Set time budget for a regular activity
-# Description: Project leader assigns the time bugdet for a given activity
-# Actors: Project manager
+Feature: Set time budget for a regular activity
+Description: Project leader assigns the time bugdet for a given activity
+Actors: Project manager
 
-# #MAIN SCENARIO
-# Scenario: Project manager assigns a time budget
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
-#     And a project with title "Projektplanlægning" with project number 23001 exists in the application
-#     And "mila" takes the role as project leader on project 23001
-#     And an activity with the title "Graphics design" exists within the project with project number 23001
-#     And the user logs in using initials "mila"
-#     And the user assigns a time budget of "32" hours to the activity titled "Graphics design"
-#     Then the activity titled "Graphics design" has a time budget of "32" hours
+#BACKGROUND
+Background:
+  Given the user registers an employee with first name "Michael", last name "Laudrup"
+  And the user registers an employee with first name "Mette", last name "Frederiksen"
+  And the year is 2015
+  And the user logs in using initials "mila"
+  And the user creates a project with title "Projektplanlægning"
+  And the user takes the role as project leader on project "15001"
+  And the user assigns the project activity "Graphics design" to project "15001" with startWeek "2301" and endWeek "2305"
+  And the user logs out
 
-# #ALTERNATIVE SCENARIOS
-# Scenario: Employee assigns time buget
-#     Given the application has a registered employee with first name "Michael", last name "Laudrup"
-#     And a project with title "Projektplanlægning" with project number 23001 exists in the application
-#     And an activity with the title "Graphics design" exists within the project with project number 23001
-#     And the user logs in using initials "mila"
-#     And the user assigns a time budget of "32" hours to the activity titled "Graphics design"
-#     Then the activity titled "Graphics design" returns the error message "Only project managers can assign timebudgets"
+#MAIN SCENARIO
+Scenario: 1. Project manager assigns a time budget
+    Given the user logs in using initials "mila"
+    And the user sets the time budget to 32 hours on the project activity with the title "Graphics design" and project number "15001"
+    Then the project activity with the title "Graphics design" and project number "15001" has a time budget of 32 hours
+
+#ALTERNATIVE SCENARIOS
+Scenario: 1a. Employee assigns time buget
+    Given the user logs in using initials "mefr"
+    And the user sets the time budget to 32 hours on the project activity with the title "Graphics design" and project number "15001"
+    Then the error message "Kun projektlederen kan tildele tidsbudgetter" is given

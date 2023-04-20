@@ -5,16 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
-import taskfusion.exceptions.NotFoundException;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
+import taskfusion.viewModels.EmployeeViewModel;
 
-public class Employee {
+public class Employee implements ConvertibleToViewModelInterface {
   private List<RegularActivity> regularActivities = new ArrayList<RegularActivity>();
-  private Map<String, Project> projects = new HashMap<>();
   private String firstName;
   private String lastName;
   private String initials;
@@ -24,6 +22,10 @@ public class Employee {
     this.lastName = validateLastName(lastName);
     createInitials();
 
+  }
+
+  public EmployeeViewModel toViewModel() {
+    return new EmployeeViewModel(this);
   }
 
   private String validateFirstName(String firstName) throws InvalidPropertyException {
@@ -102,10 +104,10 @@ public class Employee {
     this.regularActivities.add(regularActivity);
   }
 
-  public boolean hasRegularActivity(String title, int startWeek, int endWeek) {
+  public boolean hasRegularActivity(String title, String startWeek, String endWeek) {
     for (RegularActivity regularActivity : this.regularActivities) {
-      if (regularActivity.getTitle() == title && regularActivity.getStartWeek() == startWeek
-          && regularActivity.getEndWeek() == endWeek) {
+      if (regularActivity.getTitle().equals(title) && regularActivity.getStartWeek().equals(startWeek)
+          && regularActivity.getEndWeek().equals(endWeek)) {
         return true;
       }
     }
@@ -113,17 +115,32 @@ public class Employee {
     return false;
   }
 
+  public boolean hasRegularActivityByID(int id) {
+    for (RegularActivity regularActivity : this.regularActivities) {
+      if (regularActivity.getId() == id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /*
+   * public void deleteRegularActivity(int id) {
+   * 
+   * }
+   */
+
   public Map<String, Project> getProjects() {
 
     Map<String, Project> employeeProjects = new HashMap<>();
 
     for (Map.Entry<String, Project> projectEntry : ProjectRepository.getInstance().all().entrySet()) {
 
-        Project project = projectEntry.getValue();
+      Project project = projectEntry.getValue();
 
-        if(project.getAssignedEmployee(initials) != null) {
-          employeeProjects.put(project.getProjectNumber(),project);
-        }
+      if (project.getAssignedEmployee(initials) != null) {
+        employeeProjects.put(project.getProjectNumber(), project);
+      }
     }
 
     return employeeProjects;
@@ -132,23 +149,5 @@ public class Employee {
 
   public Project findProject(String projectNumber) {
     return this.getProjects().get(projectNumber);
-  }
-
-  public void addProject(Project project) throws AlreadyExistsException, NotFoundException {
-    if (findProject(project.getProjectNumber()) == null) {
-      this.projects.put(project.getProjectNumber(), project);
-    } else {
-      throw new AlreadyExistsException("Projektet findes allerede");
-    }
-  }
-
-  public void addProjectActivity(String projectNumber, ProjectActivity projectActivity) throws AlreadyExistsException, NotFoundException {
-    Project project = findProject(projectNumber);
-    project.createProjectActivity(projectActivity);
-  }
-
-  public void setTimeBudgetProjectActivity(String projectNumber, String title, Integer timeBudget) throws NotFoundException {
-    Project project = findProject(projectNumber);
-    project.findProjectActivity(title).setTimeBudget(timeBudget);
   }
 }

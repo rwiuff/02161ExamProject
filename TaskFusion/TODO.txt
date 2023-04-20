@@ -1,19 +1,56 @@
 ######################
 ## TODO
 ######################
+- Gennemgå klassediagram class_persistency.puml 
+- Gennemgå sequence diagrammer
+- White box tests 
+- 100% code coverage
+
+- (Rasmus) Mangler raport generering (Rasmus), 
+    - Niceness på rapport
+    - Acceptance tests og unit tests
+- (Kasper) CLI
+
+- Javadocs for hvem der har skrevet hvad.
+
+######################
+## PLAN
+######################
+
+- d. 19 onsdag
+-------------
+- generer rapport inkl. cli (Rasmus)
+
+- d. 21 fredag 
+--------------
+- CLI færdig
+- Alle cucumber features er ikke kommenteret
+- 100% code coverage (Max, Mathies)
+
+- d. 24 mandag 
+--------------
+
+
+- d. 28 fredag 
+--------------
 
 
 
+- d. 1 mandag 
+--------------
 
 
 
+- d. 5 fredag
+--------------
 
 
-
-
-
-
+--------------
+- 8. maj Aflevering
+--------------
 ######################
 ## Known bugs
 ######################
-- Kan ikke oprette mere end 2 projekter i seeder, af een eller anden årsag.
+
+
+

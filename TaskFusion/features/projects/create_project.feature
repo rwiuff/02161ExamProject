@@ -46,7 +46,7 @@ Scenario: 1a. A guest is not able to create a project
     Given the user logs out
     And the year is 2023
     When the user creates a project with title "Projektplanlægning" 
-    Then the error message "Kun medarbejdere kan oprette et projekt" is given
+    Then the error message "Login krævet" is given
 
 Scenario: 1b. A title is required to create a project
     When the user creates a project with title ""

@@ -21,7 +21,7 @@ Scenario: 1. Employee assigns employee to project
 
 Scenario: 2. Project manager assigns an employee
     Given the user logs in using initials "mila"
-    And "mila" takes the role as project leader on project "23001"
+    And the user takes the role as project leader on project "23001"
     And the user registers an employee with first name "Brian", last name "Laudrup"
     When the user assigns "brla" to the project "23001"
     Then the employee "brla" is assigned to the project "23001"
@@ -31,7 +31,7 @@ Scenario: 2. Project manager assigns an employee
 
 Scenario: 1a. Employee assigns employee to project, with other employee as project leader
     Given the user logs in using initials "mila"
-    And "mila" takes the role as project leader on project "23001"
+    And the user takes the role as project leader on project "23001"
     And the user registers an employee with first name "Brian", last name "Laudrup"
     And the user registers an employee with first name "Pape", last name "Poulsen"
     And the user logs out

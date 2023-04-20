@@ -12,8 +12,9 @@ import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.helpers.DateHelper;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
+import taskfusion.viewModels.ProjectViewModel;
 
-public class Project {
+public class Project implements ConvertibleToViewModelInterface {
   private String projectNumber;
   private String projectTitle;
   private String customer;
@@ -22,10 +23,15 @@ public class Project {
   private int endWeek;
   private Map<String, Employee> assignedEmployees = new HashMap<>();
   private List<ProjectActivity> activities = new ArrayList<ProjectActivity>();
+  private Map<String, Report> reports = new HashMap<>();
 
   public Project(String projectTitle, Calendar date) {
     this.projectTitle = projectTitle;
     this.projectNumber = generateProjectNumber(date);
+  }
+
+  public ProjectViewModel toViewModel() {
+    return new ProjectViewModel(this);
   }
 
   public int getStartWeek() {
@@ -49,16 +55,7 @@ public class Project {
   }
 
   public boolean isInternal() {
-
-    if (customer == null) {
-      return true;
-    }
-
-    if (customer.length() == 0) {
-      return true;
-    }
-
-    return false;
+    return customer == null;
   }
 
   public void setCustomer(String customer) {
@@ -73,16 +70,8 @@ public class Project {
     return this.projectTitle;
   }
 
-  public void setProjectTitle(String projectTitle) {
-    this.projectTitle = projectTitle;
-  }
-
   public String getProjectNumber() {
     return this.projectNumber;
-  }
-
-  public void setProjectNumber(String projectNumber) {
-    this.projectNumber = projectNumber;
   }
 
   /**
@@ -108,6 +97,11 @@ public class Project {
     }
 
     int nextProjectNumber = (year * 1000) + lastNum + 1;
+
+    if (nextProjectNumber < 10000) {
+      return "0" + nextProjectNumber;
+    }
+
     return "" + nextProjectNumber;
 
   }
@@ -139,12 +133,11 @@ public class Project {
       throw new NotFoundException("Ukendt medarbejder");
     }
 
-    if(!allowAssignEmployeeToProject(loggedInUser)) {
+    if (!allowAssignEmployeeToProject(loggedInUser)) {
       throw new OperationNotAllowedException("Kun projektleder kan tildele medarbejdere til projektet");
     }
 
     assignedEmployees.put(employee.getInitials(), employee);
-
 
   }
 
@@ -159,12 +152,21 @@ public class Project {
     return false;
   }
 
-  public void createProjectActivity(ProjectActivity projectActivity) throws AlreadyExistsException {
-    if (hasProjectActivity(projectActivity.getTitle())) {
+  public void createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
+      throws AlreadyExistsException, OperationNotAllowedException {
+    if (projectLeader != null) {
+      if (!projectLeader.getInitials().equals(loggedInUser.getInitials())) {
+        throw new OperationNotAllowedException("Kun projektlederen kan redigere denne projekt aktivitet");
+      }
+    }
+
+    if (hasProjectActivity(title)) {
       throw new AlreadyExistsException("Projekt aktivitet findes allerede");
     }
-    
-    this.activities.add(projectActivity);
+
+    ProjectActivity activity = new ProjectActivity(title, startWeek, endWeek);
+
+    this.activities.add(activity);
   }
 
   public boolean hasProjectActivity(String title) {
@@ -177,6 +179,10 @@ public class Project {
     return false;
   }
 
+  public List<ProjectActivity> getActivities() {
+    return activities;
+  }
+
   public ProjectActivity findProjectActivity(String title) throws NotFoundException {
     for (ProjectActivity projectActivity : this.activities) {
       if (projectActivity.getTitle().equals(title)) {
@@ -186,4 +192,28 @@ public class Project {
 
     throw new NotFoundException("Projektaktiviteten findes ikke.");
   }
+
+  public List<WorktimeRegistration> getWorktimeRegistrations() {
+
+    List<WorktimeRegistration> list = new ArrayList<>();
+
+    for (ProjectActivity projectActivity : this.activities) {
+      list.addAll(projectActivity.getWorktimeRegistrations());
+    }
+    return list;
+
+  }
+
+  public List<Employee> getListOfAssignedEmployees() {
+    return this.assignedEmployees.values().stream().toList();
+  }
+
+  public void addLatestReport(String date, Report report) {
+    this.reports.put(date, report);
+  }
+
+  public Map<String, Report> getReports() {
+    return reports;
+  }
+
 }

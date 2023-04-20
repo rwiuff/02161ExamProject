@@ -1,7 +1,6 @@
 package taskfusion.cli.components;
 
 public class Text {
-    
 
     public static void showInputPrompt(String prompt) {
         System.out.println(" ");
@@ -32,6 +31,10 @@ public class Text {
 
     public static void showSlogan(String slogan) {
         System.out.println("      ~~~~~ " + slogan + " ~~~~~");
+    }
+
+    public static void lineBreak() {
+        System.out.println("");
     }
 
 }
