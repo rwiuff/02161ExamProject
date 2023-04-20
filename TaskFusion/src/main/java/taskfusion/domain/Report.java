@@ -21,7 +21,7 @@ public class Report implements ConvertibleToViewModelInterface {
     private Calendar reportDate;
 
     public Report(Project project, Calendar date) {
-        reportDate = date;
+        this.reportDate = date;
         this.title = project.getProjectTitle();
         this.projectNumber = project.getProjectNumber();
         this.projectLeader = project.getProjectLeader();
@@ -80,6 +80,10 @@ public class Report implements ConvertibleToViewModelInterface {
     public String getDateAsString() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
         return sdf.format(reportDate.getTime());
+    }
+
+    public void saveReport() {
+        new ReportPDFGenerator(this).save();
     }
 
 }

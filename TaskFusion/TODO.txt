@@ -7,7 +7,7 @@
 - 100% code coverage
 
 - (Rasmus) Mangler raport generering (Rasmus), 
-    - Raport fil eksport
+    - Niceness på rapport
     - Acceptance tests og unit tests
 - (Kasper) CLI
 

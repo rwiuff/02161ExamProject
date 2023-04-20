@@ -69,9 +69,10 @@ public class ProjectFacade {
         }
     }
 
-    public void saveReport(String projectNumber) throws NotFoundException {
+    public void saveReport(String projectNumber, String reportDate) throws NotFoundException {
         Project project = projectRepo.findByProjectNumber(projectNumber);
-        project.saveReport();
+        Report report = project.getReports().get(reportDate);
+        report.saveReport();
     }
 
     /**

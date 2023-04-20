@@ -212,10 +212,6 @@ public class Project implements ConvertibleToViewModelInterface {
     this.reports.put(date, report);
   }
 
-  public void saveReport() {
-
-  }
-
   public Map<String, Report> getReports() {
     return reports;
   }
