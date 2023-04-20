@@ -21,7 +21,7 @@ public class Report implements ConvertibleToViewModelInterface {
     private Calendar reportDate;
 
 <span class="nc" id="L23">    public Report(Project project, Calendar date) {</span>
-<span class="nc" id="L24">        reportDate = date;</span>
+<span class="nc" id="L24">        this.reportDate = date;</span>
 <span class="nc" id="L25">        this.title = project.getProjectTitle();</span>
 <span class="nc" id="L26">        this.projectNumber = project.getProjectNumber();</span>
 <span class="nc" id="L27">        this.projectLeader = project.getProjectLeader();</span>
@@ -81,6 +81,10 @@ public class Report implements ConvertibleToViewModelInterface {
 <span class="nc" id="L81">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy MMM dd&quot;);</span>
 <span class="nc" id="L82">        return sdf.format(reportDate.getTime());</span>
     }
+
+    public void saveReport() {
+<span class="nc" id="L86">        new ReportPDFGenerator(this).save();</span>
+<span class="nc" id="L87">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

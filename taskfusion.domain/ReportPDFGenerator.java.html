@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReportPDFGenerator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TaskFusion</a> &gt; <a href="index.source.html" class="el_package">taskfusion.domain</a> &gt; <span class="el_source">ReportPDFGenerator.java</span></div><h1>ReportPDFGenerator.java</h1><pre class="source lang-java linenums">package taskfusion.domain;
+
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.lowagie.text.Cell;
+import com.lowagie.text.Chunk;
+import com.lowagie.text.Document;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.HeaderFooter;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.Table;
+import com.lowagie.text.alignment.HorizontalAlignment;
+import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.draw.LineSeparator;
+
+public class ReportPDFGenerator {
+    private String title;
+    private String reportDate;
+    private String projectLeader;
+    private String projectNumber;
+    private String startWeek;
+    private String endWeek;
+    private String customer;
+<span class="nc" id="L35">    private Map&lt;String, Employee&gt; employees = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L36">    private List&lt;ProjectActivity&gt; activities = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L38">    public ReportPDFGenerator(Report report) {</span>
+<span class="nc" id="L39">        this.title = report.getTitle();</span>
+<span class="nc" id="L40">        this.reportDate = getDateAsString(report.getReportDate());</span>
+<span class="nc" id="L41">        this.projectLeader = report.getProjectLeader().getInitials();</span>
+<span class="nc" id="L42">        this.projectNumber = report.getProjectNumber();</span>
+<span class="nc" id="L43">        this.startWeek = report.getStartWeek() + &quot;&quot;;</span>
+<span class="nc" id="L44">        this.endWeek = report.getEndWeeek() + &quot;&quot;;</span>
+<span class="nc" id="L45">        this.customer = report.getCustomer();</span>
+<span class="nc" id="L46">        this.employees = report.getEmployees();</span>
+<span class="nc" id="L47">        this.activities = report.getActivities();</span>
+<span class="nc" id="L48">    }</span>
+
+    public void save() {
+<span class="nc" id="L51">        Document document = new Document(PageSize.A4, // New A4 document</span>
+                40f, // Left margin
+                40f, // Right margin
+                40f, // Top margin
+                40f); // Bottom margin
+        // Fonts
+<span class="nc" id="L57">        Font titleFont = new Font(Font.COURIER, 20f, Font.BOLD);</span>
+<span class="nc" id="L58">        Font headerFont = new Font(Font.COURIER, 15f, Font.BOLD);</span>
+<span class="nc" id="L59">        Font cellFont = new Font(Font.COURIER, 12f);</span>
+<span class="nc" id="L60">        Font cellHeaderFont = new Font(Font.COURIER, 12f, Font.BOLD);</span>
+        try {
+<span class="nc" id="L62">            PdfWriter writer = PdfWriter.getInstance(document,</span>
+                    new FileOutputStream(&quot;./&quot; + projectNumber + &quot; &quot; + title + &quot; &quot; + reportDate + &quot;.pdf&quot;)); // Stream to
+                                                                                                           // save
+                                                                                                           // document
+                                                                                                           // as pdf
+
+            // Header and footer
+<span class="nc" id="L69">            HeaderFooter footer = new HeaderFooter(new Phrase(&quot;Side &quot;, new Font(Font.COURIER, 12f)), true);</span>
+<span class="nc" id="L70">            footer.setAlignment(Element.ALIGN_CENTER);</span>
+<span class="nc" id="L71">            document.setFooter(footer);</span>
+
+<span class="nc" id="L73">            document.open(); // Edit document</span>
+
+            // Add metadata
+<span class="nc" id="L76">            document.addAuthor(projectLeader);</span>
+<span class="nc" id="L77">            document.addCreator(&quot;TaskFusion&quot;);</span>
+<span class="nc" id="L78">            document.addCreationDate();</span>
+<span class="nc" id="L79">            document.addTitle(title);</span>
+
+            // Set up title
+<span class="nc" id="L82">            Paragraph titleParagraph = new Paragraph(&quot;Projekt: &quot; + title, titleFont);</span>
+<span class="nc" id="L83">            titleParagraph.setAlignment(Element.ALIGN_CENTER);</span>
+<span class="nc" id="L84">            document.add(titleParagraph);</span>
+<span class="nc" id="L85">            document.add(new Paragraph(Chunk.NEWLINE));</span>
+
+            // Add infobox
+<span class="nc" id="L88">            Table infoBox = new Table(2);</span>
+<span class="nc" id="L89">            infoBox.setPadding(1f);</span>
+<span class="nc" id="L90">            infoBox.setSpacing(1f);</span>
+<span class="nc" id="L91">            infoBox.setWidth(100f);</span>
+<span class="nc" id="L92">            String[][] infoStrings = { { &quot;Løbenr.: &quot; + projectNumber, reportDate },</span>
+                    { &quot;Startuge: &quot; + startWeek, &quot;Leder: &quot; + projectLeader },
+                    { &quot;Slutuge: &quot; + endWeek, &quot;Kunde: &quot; + customer } };
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            for (int i = 0; i &lt; 3; i++) {</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">                for (int j = 0; j &lt; 2; j++) {</span>
+<span class="nc" id="L97">                    Cell cell = new Cell(new Phrase(infoStrings[i][j], cellFont));</span>
+<span class="nc" id="L98">                    infoBox.addCell(cell, i, j);</span>
+                }
+            }
+<span class="nc bnc" id="L101" title="All 2 branches missed.">            for (int i = 0; i &lt; 3; i++) {</span>
+<span class="nc" id="L102">                Cell tmp = (Cell) infoBox.getElement(i, 1);</span>
+<span class="nc" id="L103">                tmp.setHorizontalAlignment(HorizontalAlignment.RIGHT);</span>
+            }
+<span class="nc" id="L105">            removeBorders(infoBox);</span>
+<span class="nc" id="L106">            document.add(infoBox);</span>
+<span class="nc" id="L107">            document.add(new Paragraph(Chunk.NEWLINE));</span>
+<span class="nc" id="L108">            document.add(new LineSeparator());</span>
+            // document.add(new Paragraph(Chunk.NEWLINE));
+
+            // Add employeelist
+<span class="nc" id="L112">            Paragraph employeeHeader = new Paragraph(&quot;Medarbejdere&quot;,</span>
+                    headerFont);
+<span class="nc" id="L114">            employeeHeader.setAlignment(Element.ALIGN_CENTER);</span>
+<span class="nc" id="L115">            document.add(employeeHeader);</span>
+<span class="nc" id="L116">            Table employeeBox = new Table(3);</span>
+<span class="nc" id="L117">            employeeBox.setPadding(1f);</span>
+<span class="nc" id="L118">            employeeBox.setSpacing(1f);</span>
+<span class="nc" id="L119">            employeeBox.setWidth(100f);</span>
+<span class="nc" id="L120">            String[] employeeTableHeader = { &quot;Efternavn&quot;, &quot;Fornavn&quot;, &quot;Initialer&quot; };</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">            for (int i = 0; i &lt; 3; i++) {</span>
+<span class="nc" id="L122">                Cell cell = new Cell(new Phrase(employeeTableHeader[i], cellHeaderFont));</span>
+<span class="nc" id="L123">                employeeBox.addCell(cell, 0, i);</span>
+            }
+<span class="nc" id="L125">            Set&lt;String&gt; employeesKeySet = employees.keySet();</span>
+<span class="nc" id="L126">            int row = 1;</span>
+<span class="nc bnc" id="L127" title="All 2 branches missed.">            for (String employee : employeesKeySet) {</span>
+<span class="nc" id="L128">                Cell lastName = new Cell(new Phrase(employees.get(employee).getLastName(), cellFont));</span>
+<span class="nc" id="L129">                Cell firstName = new Cell(new Phrase(employees.get(employee).getFirstName(), cellFont));</span>
+<span class="nc" id="L130">                Cell initials = new Cell(new Phrase(employees.get(employee).getInitials(), cellFont));</span>
+<span class="nc" id="L131">                employeeBox.addCell(lastName, row, 0);</span>
+<span class="nc" id="L132">                employeeBox.addCell(firstName, row, 1);</span>
+<span class="nc" id="L133">                employeeBox.addCell(initials, row, 2);</span>
+<span class="nc" id="L134">                row++;</span>
+<span class="nc" id="L135">            }</span>
+<span class="nc" id="L136">            removeBorders(employeeBox);</span>
+<span class="nc" id="L137">            document.add(employeeBox);</span>
+<span class="nc" id="L138">            document.add(new Paragraph(Chunk.NEWLINE));</span>
+<span class="nc" id="L139">            document.add(new LineSeparator());</span>
+            // document.add(new Paragraph(Chunk.NEWLINE));
+
+            // Add activity info
+<span class="nc" id="L143">            Paragraph activityHeader = new Paragraph(&quot;Projektaktiviteter&quot;,</span>
+                    headerFont);
+<span class="nc" id="L145">            activityHeader.setAlignment(Element.ALIGN_CENTER);</span>
+<span class="nc" id="L146">            document.add(activityHeader);</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">            for (ProjectActivity activity : activities) {</span>
+<span class="nc" id="L148">                Table activityInfoBox = new Table(2);</span>
+<span class="nc" id="L149">                activityInfoBox.setPadding(1f);</span>
+<span class="nc" id="L150">                activityInfoBox.setSpacing(1f);</span>
+<span class="nc" id="L151">                activityInfoBox.setWidth(100f);</span>
+<span class="nc" id="L152">                Table worktimeInfoBox = new Table(3);</span>
+<span class="nc" id="L153">                worktimeInfoBox.setPadding(1f);</span>
+<span class="nc" id="L154">                worktimeInfoBox.setSpacing(1f);</span>
+<span class="nc" id="L155">                worktimeInfoBox.setWidth(100f);</span>
+<span class="nc" id="L156">                Cell activityTitleCell = new Cell(new Phrase(&quot;Aktivitet: &quot; + activity.title, cellHeaderFont));</span>
+<span class="nc" id="L157">                Cell timeBudgetCell = new Cell(</span>
+<span class="nc" id="L158">                        new Phrase(&quot;Budgeteret tid: &quot; + activity.getTimeBudget(), cellHeaderFont));</span>
+<span class="nc" id="L159">                Cell starWeekCell = new Cell(new Phrase(&quot;Startuge: &quot; + activity.startWeek, cellHeaderFont));</span>
+<span class="nc" id="L160">                Cell endWeekCell = new Cell(new Phrase(&quot;Slutuge: &quot; + activity.endWeek, cellHeaderFont));</span>
+<span class="nc" id="L161">                timeBudgetCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);</span>
+<span class="nc" id="L162">                endWeekCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);</span>
+<span class="nc" id="L163">                activityInfoBox.addCell(activityTitleCell, 0, 0);</span>
+<span class="nc" id="L164">                activityInfoBox.addCell(timeBudgetCell, 0, 1);</span>
+<span class="nc" id="L165">                activityInfoBox.addCell(starWeekCell, 1, 0);</span>
+<span class="nc" id="L166">                activityInfoBox.addCell(endWeekCell, 1, 1);</span>
+<span class="nc" id="L167">                removeBorders(activityInfoBox);</span>
+<span class="nc" id="L168">                document.add(activityInfoBox);</span>
+<span class="nc" id="L169">                row = 0;</span>
+<span class="nc bnc" id="L170" title="All 2 branches missed.">                for (WorktimeRegistration worktimeRegistration : activity.getWorktimeRegistrations()) {</span>
+<span class="nc" id="L171">                    Cell dateCell = new Cell(new Phrase(getDateAsString(worktimeRegistration.getDate()), cellFont));</span>
+<span class="nc" id="L172">                    Cell employeeCell = new Cell(new Phrase(worktimeRegistration.getInitials(), cellFont));</span>
+<span class="nc" id="L173">                    Cell worktimeCell = new Cell(new Phrase(worktimeRegistration.getTime() + &quot;&quot;, cellFont));</span>
+<span class="nc" id="L174">                    worktimeCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);</span>
+<span class="nc" id="L175">                    worktimeInfoBox.addCell(dateCell, row, 0);</span>
+<span class="nc" id="L176">                    worktimeInfoBox.addCell(employeeCell, row, 1);</span>
+<span class="nc" id="L177">                    worktimeInfoBox.addCell(worktimeCell, row, 2);</span>
+<span class="nc" id="L178">                    row++;</span>
+<span class="nc" id="L179">                }</span>
+<span class="nc" id="L180">                removeBorders(worktimeInfoBox);</span>
+<span class="nc" id="L181">                document.add(worktimeInfoBox);</span>
+<span class="nc" id="L182">            }</span>
+
+            // Close streams, document saved
+<span class="nc" id="L185">            document.close();</span>
+<span class="nc" id="L186">            writer.close();</span>
+<span class="nc" id="L187">        } catch (Exception e) {</span>
+<span class="nc" id="L188">            e.printStackTrace();</span>
+<span class="nc" id="L189">        }</span>
+<span class="nc" id="L190">    }</span>
+
+    public void removeBorders(Table table) {
+<span class="nc" id="L193">        table.disableBorderSide(Rectangle.LEFT);</span>
+<span class="nc" id="L194">        table.disableBorderSide(Rectangle.RIGHT);</span>
+<span class="nc" id="L195">        table.disableBorderSide(Rectangle.TOP);</span>
+<span class="nc" id="L196">        table.disableBorderSide(Rectangle.BOTTOM);</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">        for (int i = 0; i &lt; table.getDimension().height; i++) {</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">            for (int j = 0; j &lt; table.getDimension().width; j++) {</span>
+<span class="nc" id="L199">                Cell tmp = (Cell) table.getElement(i, j);</span>
+<span class="nc" id="L200">                tmp.disableBorderSide(Rectangle.LEFT);</span>
+<span class="nc" id="L201">                tmp.disableBorderSide(Rectangle.RIGHT);</span>
+<span class="nc" id="L202">                tmp.disableBorderSide(Rectangle.TOP);</span>
+<span class="nc" id="L203">                tmp.disableBorderSide(Rectangle.BOTTOM);</span>
+            }
+        }
+<span class="nc" id="L206">    }</span>
+
+    public String getDateAsString(Calendar date) {
+<span class="nc" id="L209">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy MMM dd&quot;);</span>
+<span class="nc" id="L210">        return sdf.format(date.getTime());</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
