@@ -9,16 +9,28 @@
 \begin{figure}[H]
     \caption{Mappestrukturen i Java projektet TaskFusion}\label{fig:tree}
     \dirtree{%
-        .1 TaskFusion \ldots{} \begin{minipage}[t]{10cm} Rodmappen indeholder \emph{pom.xml}, \emph{.project} og \emph{.classpath} \end{minipage}.
-        .2 features \ldots{} \begin{minipage}[t]{5cm} Feature filer \end{minipage}.
+        .1 TaskFusion \ldots{} \begin{minipage}[t]{10cm} Rootfolder contains \emph{pom.xml}, \emph{.project} and \emph{.classpath} \end{minipage}.
+        .2 features \ldots{} \begin{minipage}[t]{5cm} Feature files \end{minipage}.
         .2 src.
         .3 main.
         .4 java.
         .5 taskfusion \ldots{} \begin{minipage}[t]{5cm} \mintinline{java}|.java| filer \end{minipage}.
+        .6 app.
+        .6 domain \ldots{} \begin{minipage}[t]{5cm} Domain layer \end{minipage}.
+        .6 exceptions \ldots{} \begin{minipage}[t]{5cm} Exception types \end{minipage}.
+        .6 helpers \ldots{} \begin{minipage}[t]{5cm} Misc helper classes \end{minipage}.
+        .6 persistency \ldots{} \begin{minipage}[t]{5cm} Persistency layer \end{minipage}.
+        .6 viewModels \ldots{} \begin{minipage}[t]{5cm} View models \end{minipage}.
+        .6 facades \ldots{} \begin{minipage}[t]{5cm} Facade layer \end{minipage}.
+        .6 cli \ldots{} \begin{minipage}[t]{5cm} CLI presentation layer \end{minipage}.
+        .7 controllers \ldots{} \begin{minipage}[t]{5cm} Menu controllers \end{minipage}.
+        .7 views \ldots{} \begin{minipage}[t]{5cm} Views with content \end{minipage}.
+        .7 components \ldots{} \begin{minipage}[t]{5cm} Reusable cli components \end{minipage}.
         .3 test.
         .4 java.
         .5 taskfusion.
         .6 cucumber \ldots{} \begin{minipage}[t]{5cm} acceptance tests \end{minipage}.
+        .6 helpers \ldots{} \begin{minipage}[t]{5cm} Helper classes to assist tests \end{minipage}.
         .6 junit \ldots{} \begin{minipage}[t]{5cm} unit tests \end{minipage}.
         .4 resources \ldots{} \begin{minipage}[t]{5cm} \emph{cucumber.properties} \end{minipage}.
     }
