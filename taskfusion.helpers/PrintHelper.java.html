@@ -8,24 +8,23 @@ import taskfusion.domain.Project;
 import taskfusion.domain.WorktimeRegistration;
 
 <span class="nc" id="L10">public class PrintHelper {</span>
-    
 
     public static void printEmployees(Map&lt;String, Employee&gt; map) {
-<span class="fc bfc" id="L14" title="All 2 branches covered.">        for (Map.Entry&lt;String, Employee&gt; entry : map.entrySet()) {</span>
-<span class="fc" id="L15">            System.out.println(entry.getKey() + &quot;:&quot; + entry.getValue().getFullName());</span>
-<span class="fc" id="L16">        }</span>
-<span class="fc" id="L17">    }</span>
+<span class="fc bfc" id="L13" title="All 2 branches covered.">        for (Map.Entry&lt;String, Employee&gt; entry : map.entrySet()) {</span>
+<span class="fc" id="L14">            System.out.println(entry.getKey() + &quot;:&quot; + entry.getValue().getFullName());</span>
+<span class="fc" id="L15">        }</span>
+<span class="fc" id="L16">    }</span>
 
     public static void printProjects(Map&lt;String, Project&gt; map) {
-<span class="fc bfc" id="L20" title="All 2 branches covered.">        for (Map.Entry&lt;String, Project&gt; entry : map.entrySet()) {</span>
-<span class="fc" id="L21">            System.out.println(entry.getKey() + &quot;:&quot; + entry.getValue().getProjectTitle());</span>
-<span class="fc" id="L22">        }</span>
-<span class="fc" id="L23">    }</span>
+<span class="fc bfc" id="L19" title="All 2 branches covered.">        for (Map.Entry&lt;String, Project&gt; entry : map.entrySet()) {</span>
+<span class="fc" id="L20">            System.out.println(entry.getKey() + &quot;:&quot; + entry.getValue().getProjectTitle());</span>
+<span class="fc" id="L21">        }</span>
+<span class="fc" id="L22">    }</span>
 
     public static void printWorktimeRegistrations(List&lt;WorktimeRegistration&gt; list) {
-<span class="nc bnc" id="L26" title="All 2 branches missed.">        for (WorktimeRegistration item : list) {</span>
-<span class="nc" id="L27">            System.out.println(item.getId() + &quot;:&quot; + item.getTime());</span>
-<span class="nc" id="L28">        }</span>
-<span class="nc" id="L29">    }</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        for (WorktimeRegistration item : list) {</span>
+<span class="nc" id="L26">            System.out.println(item.getId() + &quot;:&quot; + item.getTime());</span>
+<span class="nc" id="L27">        }</span>
+<span class="nc" id="L28">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

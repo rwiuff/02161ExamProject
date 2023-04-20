@@ -48,9 +48,9 @@ public class ProjectRepository {
      * REPOSITORY related
      */
 
-     public Map&lt;String, Project&gt; all() {
+    public Map&lt;String, Project&gt; all() {
 <span class="fc" id="L52">        return projects;</span>
-     }
+    }
 
     public Project create(String projectTitle, Calendar date)
             throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
@@ -79,7 +79,7 @@ public class ProjectRepository {
 
 <span class="fc" id="L80">        List&lt;WorktimeRegistration&gt; list = new ArrayList&lt;&gt;();</span>
 
-<span class="fc bfc" id="L82" title="All 2 branches covered.">        for (Entry&lt;String, Project&gt; entry: projects.entrySet()){</span>
+<span class="fc bfc" id="L82" title="All 2 branches covered.">        for (Entry&lt;String, Project&gt; entry : projects.entrySet()) {</span>
 
 <span class="fc" id="L84">            Project project = entry.getValue();</span>
 
@@ -92,8 +92,8 @@ public class ProjectRepository {
 
 <span class="fc" id="L93">        List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();</span>
 
-<span class="fc bfc" id="L95" title="All 2 branches covered.">        for(WorktimeRegistration worktimeRegistration : list) {</span>
-<span class="fc bfc" id="L96" title="All 2 branches covered.">            if(worktimeRegistration.getId().equals(id)) {</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        for (WorktimeRegistration worktimeRegistration : list) {</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">            if (worktimeRegistration.getId().equals(id)) {</span>
 <span class="fc" id="L97">                return worktimeRegistration;</span>
             }
 <span class="fc" id="L99">        }</span>
@@ -103,18 +103,18 @@ public class ProjectRepository {
     }
 
     // public Integer generateWorktimeRegistrationId() {
-    //     Integer lastId = 0;
+    // Integer lastId = 0;
 
-    //     List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();
+    // List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();
 
-    //     for(WorktimeRegistration worktimeRegistration : list) {
-    //         Integer id = worktimeRegistration.getId();
-    //         //if(id &gt; lastId) {
-    //         lastId = id;
-    //         //}
-    //     }
+    // for(WorktimeRegistration worktimeRegistration : list) {
+    // Integer id = worktimeRegistration.getId();
+    // //if(id &gt; lastId) {
+    // lastId = id;
+    // //}
+    // }
 
-    //     return lastId + 1;
+    // return lastId + 1;
     // }
 
     public Integer generateWorktimeRegistrationId() {
@@ -122,7 +122,7 @@ public class ProjectRepository {
     }
 
     public List&lt;Employee&gt; getListOfEmployees(String projectNumber) {
-<span class="fc" id="L125">      return this.projects.get(projectNumber).getListOfAssignedEmployees();</span>
+<span class="fc" id="L125">        return this.projects.get(projectNumber).getListOfAssignedEmployees();</span>
     }
 
 }

@@ -28,7 +28,7 @@ public class EmployeeRepository {
 
     // Private constructor to prevent instantiation from other classes
 <span class="fc" id="L30">    private EmployeeRepository() {</span>
-        
+
 <span class="fc" id="L32">    }</span>
 
     // Public method to get the Singleton instance
@@ -50,7 +50,7 @@ public class EmployeeRepository {
 
     public void create(String firstName, String lastName)
             throws InvalidPropertyException, ExhaustedOptionsException {
-        
+
 <span class="fc" id="L54">        Employee employee = new Employee(firstName, lastName);</span>
 <span class="fc" id="L55">        String initials = employee.getInitials();</span>
 
@@ -70,46 +70,45 @@ public class EmployeeRepository {
 
 <span class="fc" id="L71">        List&lt;RegularActivity&gt; list = allRegularActivities();</span>
 
-<span class="fc bfc" id="L73" title="All 2 branches covered.">        for(RegularActivity regularActivity : list) {</span>
-<span class="fc bfc" id="L74" title="All 2 branches covered.">            if(regularActivity.getId() == id) {</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        for (RegularActivity regularActivity : list) {</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">            if (regularActivity.getId() == id) {</span>
 <span class="fc" id="L75">                return regularActivity;</span>
             }
 <span class="fc" id="L77">        }</span>
-        
+
 <span class="fc" id="L79">        throw new NotFoundException(&quot;Kunne ikke finde fast aktivitet&quot;);</span>
 
     }
 
     // public int generateRegularActivityId() {
-    //     Integer lastId = 0;
+    // Integer lastId = 0;
 
-    //     List&lt;RegularActivity&gt; list = allRegularActivities();
+    // List&lt;RegularActivity&gt; list = allRegularActivities();
 
-    //     for(RegularActivity regularActivity : list) {
-    //         Integer id = regularActivity.getId();
-    //         if(id &gt; lastId) {
-    //             lastId = id;
-    //         }
-    //     }
+    // for(RegularActivity regularActivity : list) {
+    // Integer id = regularActivity.getId();
+    // if(id &gt; lastId) {
+    // lastId = id;
+    // }
+    // }
 
-    //     return lastId + 1;
+    // return lastId + 1;
     // }
 
     public int generateRegularActivityId() {
 <span class="fc" id="L99">        return allRegularActivities().size() + 1;</span>
     }
 
-
     private List&lt;RegularActivity&gt; allRegularActivities() {
-<span class="fc" id="L104">        List&lt;RegularActivity&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L103">        List&lt;RegularActivity&gt; list = new ArrayList&lt;&gt;();</span>
 
-<span class="fc bfc" id="L106" title="All 2 branches covered.">        for (Entry&lt;String, Employee&gt; entry: employees.entrySet()){</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">        for (Entry&lt;String, Employee&gt; entry : employees.entrySet()) {</span>
 
-<span class="fc" id="L108">            Employee employee = entry.getValue();</span>
+<span class="fc" id="L107">            Employee employee = entry.getValue();</span>
 
-<span class="fc" id="L110">            list.addAll(employee.getRegularActivities());</span>
-<span class="fc" id="L111">        }</span>
-<span class="fc" id="L112">        return list;</span>
+<span class="fc" id="L109">            list.addAll(employee.getRegularActivities());</span>
+<span class="fc" id="L110">        }</span>
+<span class="fc" id="L111">        return list;</span>
     }
 
 }

@@ -6,26 +6,26 @@ import java.util.List;
 import taskfusion.domain.RegularActivity;
 
 public class RegularActivityViewModel extends ViewModel {
-    public int id;
-    public String title;
-    public String startWeek;
-    public String endWeek;
+  public int id;
+  public String title;
+  public String startWeek;
+  public String endWeek;
 
-<span class="fc" id="L14">    public RegularActivityViewModel(RegularActivity activity) {</span>
-<span class="fc" id="L15">        this.id = activity.getId();</span>
-<span class="fc" id="L16">        this.title = activity.getTitle();</span>
-<span class="fc" id="L17">        this.startWeek = activity.getStartWeek();</span>
-<span class="fc" id="L18">        this.endWeek = activity.getEndWeek();</span>
-<span class="fc" id="L19">    }</span>
+<span class="fc" id="L14">  public RegularActivityViewModel(RegularActivity activity) {</span>
+<span class="fc" id="L15">    this.id = activity.getId();</span>
+<span class="fc" id="L16">    this.title = activity.getTitle();</span>
+<span class="fc" id="L17">    this.startWeek = activity.getStartWeek();</span>
+<span class="fc" id="L18">    this.endWeek = activity.getEndWeek();</span>
+<span class="fc" id="L19">  }</span>
 
-    public static List&lt;RegularActivityViewModel&gt; listFromModels(List&lt;RegularActivity&gt; regularActivityList) {
-<span class="fc" id="L22">      List&lt;RegularActivityViewModel&gt; list = new ArrayList&lt;RegularActivityViewModel&gt;();</span>
+  public static List&lt;RegularActivityViewModel&gt; listFromModels(List&lt;RegularActivity&gt; regularActivityList) {
+<span class="fc" id="L22">    List&lt;RegularActivityViewModel&gt; list = new ArrayList&lt;RegularActivityViewModel&gt;();</span>
 
-<span class="fc bfc" id="L24" title="All 2 branches covered.">      for(RegularActivity regularActivity : regularActivityList) {</span>
-<span class="fc" id="L25">        list.add(regularActivity.toViewModel());</span>
-<span class="fc" id="L26">      }</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">    for (RegularActivity regularActivity : regularActivityList) {</span>
+<span class="fc" id="L25">      list.add(regularActivity.toViewModel());</span>
+<span class="fc" id="L26">    }</span>
 
-<span class="fc" id="L28">      return list;</span>
-    }
+<span class="fc" id="L28">    return list;</span>
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

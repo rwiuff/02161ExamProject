@@ -21,10 +21,10 @@ public class WorktimeRegistrationViewModel extends ViewModel {
 <span class="fc" id="L21">    }</span>
 
     public static List&lt;WorktimeRegistrationViewModel&gt; listFromModels(List&lt;WorktimeRegistration&gt; modelList) {
-        
+
 <span class="fc" id="L25">        List&lt;WorktimeRegistrationViewModel&gt; list = new ArrayList&lt;WorktimeRegistrationViewModel&gt;();</span>
 
-<span class="fc bfc" id="L27" title="All 2 branches covered.">        for(WorktimeRegistration item : modelList) {</span>
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        for (WorktimeRegistration item : modelList) {</span>
 <span class="fc" id="L28">            list.add(item.toViewModel());</span>
 <span class="fc" id="L29">        }</span>
 
@@ -35,6 +35,6 @@ public class WorktimeRegistrationViewModel extends ViewModel {
 <span class="nc" id="L35">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy MMM dd&quot;);</span>
 <span class="nc" id="L36">        return sdf.format(this.date.getTime());</span>
     }
-    
+
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

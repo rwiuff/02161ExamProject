@@ -14,11 +14,10 @@ public class TaskFusion {
   private EmployeeFacade employeeFacade;
   private ProjectFacade projectFacade;
 
-
-<span class="fc" id="L18">  public TaskFusion() {</span>
-<span class="fc" id="L19">    this.employeeFacade = new EmployeeFacade(this);</span>
-<span class="fc" id="L20">    this.projectFacade = new ProjectFacade(this);</span>
-<span class="fc" id="L21">  }</span>
+<span class="fc" id="L17">  public TaskFusion() {</span>
+<span class="fc" id="L18">    this.employeeFacade = new EmployeeFacade(this);</span>
+<span class="fc" id="L19">    this.projectFacade = new ProjectFacade(this);</span>
+<span class="fc" id="L20">  }</span>
 
   /**
    * ###########################
@@ -26,25 +25,25 @@ public class TaskFusion {
    * ###########################
    */
   public EmployeeViewModel getLoggedInUser() {
-<span class="fc" id="L29">    return loggedInUser;</span>
+<span class="fc" id="L28">    return loggedInUser;</span>
   }
 
   public void login(String initials) throws NotFoundException {
-<span class="fc" id="L33">    loggedInUser = employeeFacade.findEmployeeByInitials(initials);</span>
+<span class="fc" id="L32">    loggedInUser = employeeFacade.findEmployeeByInitials(initials);</span>
 
-<span class="fc bfc" id="L35" title="All 2 branches covered.">    if (loggedInUser == null) {</span>
-<span class="fc" id="L36">      throw new NotFoundException(&quot;Ukendt medarbejder&quot;);</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">    if (loggedInUser == null) {</span>
+<span class="fc" id="L35">      throw new NotFoundException(&quot;Ukendt medarbejder&quot;);</span>
     }
-<span class="fc" id="L38">  }</span>
+<span class="fc" id="L37">  }</span>
 
   public boolean isLoggedIn() {
     // return true;
-<span class="fc bfc" id="L42" title="All 2 branches covered.">    return loggedInUser != null;</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">    return loggedInUser != null;</span>
   }
 
   public void logout() {
-<span class="fc" id="L46">    loggedInUser = null;</span>
-<span class="fc" id="L47">  }</span>
+<span class="fc" id="L45">    loggedInUser = null;</span>
+<span class="fc" id="L46">  }</span>
 
   /**
    * ###########################
@@ -53,13 +52,12 @@ public class TaskFusion {
    */
 
   public void setDateServer(DateServer dateServer) {
-<span class="fc" id="L56">    this.dateServer = dateServer;</span>
-<span class="fc" id="L57">  }</span>
+<span class="fc" id="L55">    this.dateServer = dateServer;</span>
+<span class="fc" id="L56">  }</span>
 
   public Calendar getDate() {
-<span class="fc" id="L60">    return this.dateServer.getDate();</span>
+<span class="fc" id="L59">    return this.dateServer.getDate();</span>
   }
-
 
   /**
    * ###########################
@@ -68,13 +66,12 @@ public class TaskFusion {
    */
 
   public EmployeeFacade getEmployeeFacade() {
-<span class="fc" id="L71">    return this.employeeFacade;</span>
+<span class="fc" id="L69">    return this.employeeFacade;</span>
   }
 
   public ProjectFacade getProjectFacade() {
-<span class="fc" id="L75">    return this.projectFacade;</span>
+<span class="fc" id="L73">    return this.projectFacade;</span>
   }
-  
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

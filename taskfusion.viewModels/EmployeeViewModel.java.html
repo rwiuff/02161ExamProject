@@ -6,26 +6,26 @@ import java.util.List;
 import taskfusion.domain.Employee;
 
 public class EmployeeViewModel extends ViewModel {
-    public String firstName;
-    public String lastName;
-    public String initials;
-    public String fullName;
+  public String firstName;
+  public String lastName;
+  public String initials;
+  public String fullName;
 
-<span class="fc" id="L14">    public EmployeeViewModel(Employee employee) {</span>
-<span class="fc" id="L15">        this.firstName = employee.getFirstName();</span>
-<span class="fc" id="L16">        this.lastName = employee.getLastName();</span>
-<span class="fc" id="L17">        this.initials = employee.getInitials();</span>
-<span class="fc" id="L18">        this.fullName = employee.getFullName();</span>
-<span class="fc" id="L19">    }</span>
+<span class="fc" id="L14">  public EmployeeViewModel(Employee employee) {</span>
+<span class="fc" id="L15">    this.firstName = employee.getFirstName();</span>
+<span class="fc" id="L16">    this.lastName = employee.getLastName();</span>
+<span class="fc" id="L17">    this.initials = employee.getInitials();</span>
+<span class="fc" id="L18">    this.fullName = employee.getFullName();</span>
+<span class="fc" id="L19">  }</span>
 
-    public static List&lt;EmployeeViewModel&gt; listFromModels(List&lt;Employee&gt; employeeList) {
-<span class="fc" id="L22">      List&lt;EmployeeViewModel&gt; list = new ArrayList&lt;EmployeeViewModel&gt;();</span>
+  public static List&lt;EmployeeViewModel&gt; listFromModels(List&lt;Employee&gt; employeeList) {
+<span class="fc" id="L22">    List&lt;EmployeeViewModel&gt; list = new ArrayList&lt;EmployeeViewModel&gt;();</span>
 
-<span class="fc bfc" id="L24" title="All 2 branches covered.">      for(Employee employee : employeeList) {</span>
-<span class="fc" id="L25">        list.add(employee.toViewModel());</span>
-<span class="fc" id="L26">      }</span>
+<span class="fc bfc" id="L24" title="All 2 branches covered.">    for (Employee employee : employeeList) {</span>
+<span class="fc" id="L25">      list.add(employee.toViewModel());</span>
+<span class="fc" id="L26">    }</span>
 
-<span class="fc" id="L28">      return list;</span>
-    }
+<span class="fc" id="L28">    return list;</span>
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

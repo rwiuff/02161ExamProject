@@ -61,36 +61,38 @@ public class Seeder {
 
 <span class="fc" id="L62">    }</span>
 
-    private void seedEmployeesToProject(Project project, Employee user) throws NotFoundException, OperationNotAllowedException {
-<span class="fc" id="L65">        project.assignEmployee(&quot;rawi&quot;, user);</span>
-<span class="fc" id="L66">        project.assignEmployee(&quot;mach&quot;, user);</span>
-<span class="fc" id="L67">        project.assignEmployee(&quot;masc&quot;, user);</span>
-<span class="fc" id="L68">    }</span>
+    private void seedEmployeesToProject(Project project, Employee user)
+            throws NotFoundException, OperationNotAllowedException {
+<span class="fc" id="L66">        project.assignEmployee(&quot;rawi&quot;, user);</span>
+<span class="fc" id="L67">        project.assignEmployee(&quot;mach&quot;, user);</span>
+<span class="fc" id="L68">        project.assignEmployee(&quot;masc&quot;, user);</span>
+<span class="fc" id="L69">    }</span>
 
-    private void seedProjectActivitesToProject(Project project, Employee user) throws AlreadyExistsException, OperationNotAllowedException {
-<span class="fc" id="L71">        project.createProjectActivity(&quot;Brainstorm&quot;,&quot;2301&quot;,&quot;2302&quot;, user);</span>
-<span class="fc" id="L72">        project.createProjectActivity(&quot;Dokumentation&quot;,&quot;2305&quot;,&quot;2305&quot;, user);</span>
+    private void seedProjectActivitesToProject(Project project, Employee user)
+            throws AlreadyExistsException, OperationNotAllowedException {
+<span class="fc" id="L73">        project.createProjectActivity(&quot;Brainstorm&quot;, &quot;2301&quot;, &quot;2302&quot;, user);</span>
+<span class="fc" id="L74">        project.createProjectActivity(&quot;Dokumentation&quot;, &quot;2305&quot;, &quot;2305&quot;, user);</span>
 
-<span class="fc bfc" id="L74" title="All 2 branches covered.">        for(ProjectActivity activity : project.getActivities()) {</span>
-<span class="fc" id="L75">            seedWorktimeRegistrationsForProjectActivity(activity);</span>
-<span class="fc" id="L76">            activity.setTimeBudget(30);</span>
-<span class="fc" id="L77">        }</span>
-<span class="fc" id="L78">    }</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        for (ProjectActivity activity : project.getActivities()) {</span>
+<span class="fc" id="L77">            seedWorktimeRegistrationsForProjectActivity(activity);</span>
+<span class="fc" id="L78">            activity.setTimeBudget(30);</span>
+<span class="fc" id="L79">        }</span>
+<span class="fc" id="L80">    }</span>
 
     private void seedWorktimeRegistrationsForProjectActivity(ProjectActivity activity) {
 
-<span class="fc" id="L82">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 1);</span>
-<span class="fc" id="L83">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 5.5);</span>
+<span class="fc" id="L84">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 1);</span>
+<span class="fc" id="L85">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 5.5);</span>
 
-<span class="fc" id="L85">        activity.registerWorkTime(&quot;mach&quot;, dateServer.getDate(), 1);</span>
-<span class="fc" id="L86">        activity.registerWorkTime(&quot;mach&quot;, dateServer.getDate(), 5.5);</span>
+<span class="fc" id="L87">        activity.registerWorkTime(&quot;mach&quot;, dateServer.getDate(), 1);</span>
+<span class="fc" id="L88">        activity.registerWorkTime(&quot;mach&quot;, dateServer.getDate(), 5.5);</span>
 
-<span class="fc" id="L88">        activity.registerWorkTime(&quot;kasy&quot;, dateServer.getDate(), 1);</span>
-<span class="fc" id="L89">        activity.registerWorkTime(&quot;kasy&quot;, dateServer.getDate(), 5.5);</span>
+<span class="fc" id="L90">        activity.registerWorkTime(&quot;kasy&quot;, dateServer.getDate(), 1);</span>
+<span class="fc" id="L91">        activity.registerWorkTime(&quot;kasy&quot;, dateServer.getDate(), 5.5);</span>
 
-<span class="fc" id="L91">        activity.registerWorkTime(&quot;masc&quot;, dateServer.getDate(), 1);</span>
-<span class="fc" id="L92">        activity.registerWorkTime(&quot;masc&quot;, dateServer.getDate(), 5.5);</span>
-<span class="fc" id="L93">    }</span>
+<span class="fc" id="L93">        activity.registerWorkTime(&quot;masc&quot;, dateServer.getDate(), 1);</span>
+<span class="fc" id="L94">        activity.registerWorkTime(&quot;masc&quot;, dateServer.getDate(), 5.5);</span>
+<span class="fc" id="L95">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
