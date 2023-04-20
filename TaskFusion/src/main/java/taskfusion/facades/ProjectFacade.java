@@ -5,7 +5,7 @@ import java.util.List;
 import taskfusion.app.TaskFusion;
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
-import taskfusion.domain.ProjectActivity;
+import taskfusion.domain.Report;
 import taskfusion.domain.WorktimeRegistration;
 import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.InvalidPropertyException;
@@ -15,6 +15,7 @@ import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 import taskfusion.viewModels.EmployeeViewModel;
 import taskfusion.viewModels.ProjectViewModel;
+import taskfusion.viewModels.ReportViewModel;
 import taskfusion.viewModels.WorktimeRegistrationViewModel;
 
 public class ProjectFacade {
@@ -55,6 +56,24 @@ public class ProjectFacade {
         return project.toViewModel();
     }
 
+    public ReportViewModel generateProjectRaport(String projectNumber)
+            throws NotFoundException, OperationNotAllowedException {
+        Project project = projectRepo.findByProjectNumber(projectNumber);
+        requireLogin();
+        if (getLoggedInUserModel().getInitials().equals(project.getProjectLeader().getInitials())) {
+            Report report = new Report(project, taskFusion.getDate());
+            project.addLatestReport(report.getDateAsString(), report);
+            return report.toViewModel();
+        } else {
+            throw new OperationNotAllowedException("Kun projektlederen kan generere rapporter");
+        }
+    }
+
+    public void saveReport(String projectNumber) throws NotFoundException {
+        Project project = projectRepo.findByProjectNumber(projectNumber);
+        project.saveReport();
+    }
+
     /**
      * ###########################
      * PROJECT ACTIVITY facades
@@ -67,15 +86,15 @@ public class ProjectFacade {
     public void createProjectActivity(String projectNumber, String title, String startWeek, String endWeek)
             throws NotFoundException, OperationNotAllowedException, AlreadyExistsException, InvalidPropertyException {
         requireLogin();
-        
+
         if (startWeek.length() != 4 || endWeek.length() != 4) {
             throw new OperationNotAllowedException("Start uge og slut uge skal angives med fire cifre");
         }
-        
-        if (Integer.parseInt(startWeek.substring(0,2)) > Integer.parseInt(endWeek.substring(0,2))) {
+
+        if (Integer.parseInt(startWeek.substring(0, 2)) > Integer.parseInt(endWeek.substring(0, 2))) {
             throw new InvalidPropertyException("Start år skal være før eller ens med slut år");
-        } else if (Integer.parseInt(startWeek.substring(0,2)) == Integer.parseInt(endWeek.substring(0,2)) &&
-                Integer.parseInt(startWeek.substring(2,4)) > Integer.parseInt(endWeek.substring(2,4))) {
+        } else if (Integer.parseInt(startWeek.substring(0, 2)) == Integer.parseInt(endWeek.substring(0, 2)) &&
+                Integer.parseInt(startWeek.substring(2, 4)) > Integer.parseInt(endWeek.substring(2, 4))) {
             throw new InvalidPropertyException("Start uge skal være før eller ens med slut uge");
         }
 

@@ -1,5 +1,6 @@
 package taskfusion.viewModels;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -29,4 +30,10 @@ public class WorktimeRegistrationViewModel extends ViewModel {
 
         return list;
     }
+
+    public String getDateAsString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
+        return sdf.format(this.date.getTime());
+    }
+    
 }

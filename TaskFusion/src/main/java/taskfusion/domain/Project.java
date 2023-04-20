@@ -23,6 +23,7 @@ public class Project implements ConvertibleToViewModelInterface {
   private int endWeek;
   private Map<String, Employee> assignedEmployees = new HashMap<>();
   private List<ProjectActivity> activities = new ArrayList<ProjectActivity>();
+  private Map<String, Report> reports = new HashMap<>();
 
   public Project(String projectTitle, Calendar date) {
     this.projectTitle = projectTitle;
@@ -97,9 +98,9 @@ public class Project implements ConvertibleToViewModelInterface {
 
     int nextProjectNumber = (year * 1000) + lastNum + 1;
 
-    if(nextProjectNumber < 10000) {
+    if (nextProjectNumber < 10000) {
       return "0" + nextProjectNumber;
-    } 
+    }
 
     return "" + nextProjectNumber;
 
@@ -132,12 +133,11 @@ public class Project implements ConvertibleToViewModelInterface {
       throw new NotFoundException("Ukendt medarbejder");
     }
 
-    if(!allowAssignEmployeeToProject(loggedInUser)) {
+    if (!allowAssignEmployeeToProject(loggedInUser)) {
       throw new OperationNotAllowedException("Kun projektleder kan tildele medarbejdere til projektet");
     }
 
     assignedEmployees.put(employee.getInitials(), employee);
-
 
   }
 
@@ -152,19 +152,20 @@ public class Project implements ConvertibleToViewModelInterface {
     return false;
   }
 
-  public void createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser) throws AlreadyExistsException, OperationNotAllowedException {
+  public void createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
+      throws AlreadyExistsException, OperationNotAllowedException {
     if (projectLeader != null) {
       if (!projectLeader.getInitials().equals(loggedInUser.getInitials())) {
         throw new OperationNotAllowedException("Kun projektlederen kan redigere denne projekt aktivitet");
       }
     }
-    
+
     if (hasProjectActivity(title)) {
       throw new AlreadyExistsException("Projekt aktivitet findes allerede");
     }
 
-    ProjectActivity activity = new ProjectActivity(title,startWeek,endWeek);
-    
+    ProjectActivity activity = new ProjectActivity(title, startWeek, endWeek);
+
     this.activities.add(activity);
   }
 
@@ -199,7 +200,6 @@ public class Project implements ConvertibleToViewModelInterface {
     for (ProjectActivity projectActivity : this.activities) {
       list.addAll(projectActivity.getWorktimeRegistrations());
     }
-
     return list;
 
   }
@@ -207,4 +207,17 @@ public class Project implements ConvertibleToViewModelInterface {
   public List<Employee> getListOfAssignedEmployees() {
     return this.assignedEmployees.values().stream().toList();
   }
+
+  public void addLatestReport(String date, Report report) {
+    this.reports.put(date, report);
+  }
+
+  public void saveReport() {
+
+  }
+
+  public Map<String, Report> getReports() {
+    return reports;
+  }
+
 }

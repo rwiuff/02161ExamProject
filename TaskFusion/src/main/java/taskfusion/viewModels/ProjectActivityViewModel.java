@@ -9,12 +9,16 @@ public class ProjectActivityViewModel extends ViewModel {
     public String title;
     public String startWeek;
     public String endWeek;
+    public double timeBudget;
+    public double totalWorktime;
     public List<WorktimeRegistrationViewModel> worktimeRegistrations;
 
     public ProjectActivityViewModel(ProjectActivity activity) {
         this.title = activity.getTitle();
         this.startWeek = activity.getStartWeek();
         this.endWeek = activity.getEndWeek();
+        this.timeBudget = activity.getTimeBudget();
+        this.totalWorktime = activity.getTotalWorkTime();
         this.worktimeRegistrations = WorktimeRegistrationViewModel.listFromModels(activity.getWorktimeRegistrations());
     }
 
