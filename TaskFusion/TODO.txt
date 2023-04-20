@@ -7,11 +7,8 @@
 - 100% code coverage
 
 - (Rasmus) Mangler raport generering (Rasmus), 
-    - Title, projektnummer, projektleder 
-    - Medarbejdere
-    - Budget  
-    - Aktiviteter 
-        - Tidsregisteringerne
+    - Raport fil eksport
+    - Acceptance tests og unit tests
 - (Kasper) CLI
 
 - Javadocs for hvem der har skrevet hvad.
@@ -49,7 +46,7 @@
 
 
 --------------
-- 8. maj Afælevering
+- 8. maj Aflevering
 --------------
 ######################
 ## Known bugs
