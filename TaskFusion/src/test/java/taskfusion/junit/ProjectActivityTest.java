@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import taskfusion.app.DateServer;
 import taskfusion.domain.ProjectActivity;
+import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.helpers.SingletonHelpers;
 import taskfusion.viewModels.ProjectActivityViewModel;
 
@@ -18,7 +19,7 @@ public class ProjectActivityTest {
 
 
   @Test
-  public void testProjectActivityViewModel() {
+  public void testProjectActivityViewModel() throws InvalidPropertyException {
 
     String title = "Planlægning";
     String startWeek = "2301";

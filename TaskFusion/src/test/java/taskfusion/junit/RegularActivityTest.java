@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import taskfusion.app.DateServer;
 import taskfusion.domain.RegularActivity;
+import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.helpers.SingletonHelpers;
 import taskfusion.viewModels.RegularActivityViewModel;
 
@@ -18,7 +19,7 @@ public class RegularActivityTest {
 
 
   @Test
-  public void testRegularActivityViewModel() {
+  public void testRegularActivityViewModel() throws InvalidPropertyException {
 
     String title = "Ferie";
     String startWeek = "2301";
