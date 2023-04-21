@@ -52,28 +52,24 @@ public class ProjectFacade {
 <span class="fc" id="L52">    }</span>
 
     public ProjectViewModel findProjectByProjectNumber(String projectNumber) throws NotFoundException {
-<span class="nc" id="L55">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
-<span class="nc" id="L56">        return project.toViewModel();</span>
+<span class="fc" id="L55">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
+<span class="fc" id="L56">        return project.toViewModel();</span>
     }
 
     public ReportViewModel generateProjectRaport(String projectNumber)
             throws NotFoundException, OperationNotAllowedException {
-<span class="nc" id="L61">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
-<span class="nc" id="L62">        requireLogin();</span>
-<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (getLoggedInUserModel().getInitials().equals(project.getProjectLeader().getInitials())) {</span>
-<span class="nc" id="L64">            Report report = new Report(project, taskFusion.getDate());</span>
-<span class="nc" id="L65">            project.addLatestReport(report.getDateAsString(), report);</span>
-<span class="nc" id="L66">            return report.toViewModel();</span>
-        } else {
-<span class="nc" id="L68">            throw new OperationNotAllowedException(&quot;Kun projektlederen kan generere rapporter&quot;);</span>
-        }
+<span class="fc" id="L61">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
+<span class="fc" id="L62">        requireLogin();</span>
+<span class="fc" id="L63">        Report report = new Report(project, taskFusion.getDate(), getLoggedInUserModel());</span>
+<span class="fc" id="L64">        project.addLatestReport(report.getDateAsString(), report);</span>
+<span class="fc" id="L65">        return report.toViewModel();</span>
     }
 
     public void saveReport(String projectNumber, String reportDate) throws NotFoundException {
-<span class="nc" id="L73">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
-<span class="nc" id="L74">        Report report = project.getReports().get(reportDate);</span>
-<span class="nc" id="L75">        report.saveReport();</span>
-<span class="nc" id="L76">    }</span>
+<span class="nc" id="L69">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
+<span class="nc" id="L70">        Report report = project.getReports().get(reportDate);</span>
+<span class="nc" id="L71">        report.saveReport();</span>
+<span class="nc" id="L72">    }</span>
 
     /**
      * ###########################
@@ -86,118 +82,118 @@ public class ProjectFacade {
 
     public void createProjectActivity(String projectNumber, String title, String startWeek, String endWeek)
             throws NotFoundException, OperationNotAllowedException, AlreadyExistsException, InvalidPropertyException {
-<span class="fc" id="L89">        requireLogin();</span>
+<span class="fc" id="L85">        requireLogin();</span>
 
-<span class="fc" id="L91">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
-<span class="fc" id="L92">        project.createProjectActivity(title, startWeek, endWeek, getLoggedInUserModel());</span>
+<span class="fc" id="L87">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
+<span class="fc" id="L88">        project.createProjectActivity(title, startWeek, endWeek, getLoggedInUserModel());</span>
 
-<span class="fc" id="L94">    }</span>
+<span class="fc" id="L90">    }</span>
 
     public void setTimeBudget(String projectNumber, String projectActivityTitle, Integer timeBudget)
             throws NotFoundException, OperationNotAllowedException {
-<span class="fc" id="L98">        requireLogin();</span>
+<span class="fc" id="L94">        requireLogin();</span>
 
-<span class="fc bfc" id="L100" title="All 2 branches covered.">        if (projectRepo.findByProjectNumber(projectNumber).getProjectLeader() != null) {</span>
-<span class="fc" id="L101">            if (!getLoggedInUserModel().getInitials()</span>
-<span class="fc bfc" id="L102" title="All 2 branches covered.">                    .equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials())) {</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        if (projectRepo.findByProjectNumber(projectNumber).getProjectLeader() != null) {</span>
+<span class="fc" id="L97">            if (!getLoggedInUserModel().getInitials()</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">                    .equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials())) {</span>
                 // System.out.println(getLoggedInUserModel().getInitials().equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials()));
-<span class="fc" id="L104">                throw new OperationNotAllowedException(&quot;Kun projektlederen kan tildele tidsbudgetter&quot;);</span>
+<span class="fc" id="L100">                throw new OperationNotAllowedException(&quot;Kun projektlederen kan tildele tidsbudgetter&quot;);</span>
             }
         }
 
-<span class="fc" id="L108">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
-<span class="fc" id="L109">        project.findProjectActivity(projectActivityTitle).setTimeBudget(timeBudget);</span>
+<span class="fc" id="L104">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
+<span class="fc" id="L105">        project.findProjectActivity(projectActivityTitle).setTimeBudget(timeBudget);</span>
 
-<span class="fc" id="L111">    }</span>
+<span class="fc" id="L107">    }</span>
 
     public void registerWorkTime(String projectNumber, String activityTitle, double worktTime)
             throws NotFoundException, OperationNotAllowedException {
-<span class="fc" id="L115">        requireLogin();</span>
+<span class="fc" id="L111">        requireLogin();</span>
 
-<span class="fc" id="L117">        projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
-<span class="fc" id="L118">                .registerWorkTime(getLoggedInUserModel().getInitials(), taskFusion.getDate(), worktTime);</span>
-<span class="fc" id="L119">    }</span>
+<span class="fc" id="L113">        projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
+<span class="fc" id="L114">                .registerWorkTime(getLoggedInUserModel().getInitials(), taskFusion.getDate(), worktTime);</span>
+<span class="fc" id="L115">    }</span>
 
     public double getTotalWorkTimeForEmployee(String projectNumber, String activityTitle, double workTime)
             throws NotFoundException, OperationNotAllowedException {
 
-<span class="fc" id="L124">        requireLogin();</span>
+<span class="fc" id="L120">        requireLogin();</span>
 
-<span class="fc" id="L126">        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
-<span class="fc" id="L127">                .getTotalWorkTimeForEmployee(getLoggedInUserModel().getInitials());</span>
+<span class="fc" id="L122">        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
+<span class="fc" id="L123">                .getTotalWorkTimeForEmployee(getLoggedInUserModel().getInitials());</span>
     }
 
     public Double getTotalWorktimeForActivity(String projectNumber, String activityTitle)
             throws NotFoundException, OperationNotAllowedException {
-<span class="nc" id="L132">        requireLogin();</span>
+<span class="nc" id="L128">        requireLogin();</span>
 
-<span class="nc" id="L134">        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getTotalWorkTime();</span>
+<span class="nc" id="L130">        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getTotalWorkTime();</span>
     }
 
     public List&lt;WorktimeRegistrationViewModel&gt; getUserWorktimeRegistrationsForProjectActivity(String activityTitle,
             String projectNumber) throws NotFoundException, OperationNotAllowedException {
 
-<span class="fc" id="L140">        requireLogin();</span>
+<span class="fc" id="L136">        requireLogin();</span>
 
-<span class="fc" id="L142">        List&lt;WorktimeRegistration&gt; worktimeRegistrationList = projectRepo.findByProjectNumber(projectNumber)</span>
-<span class="fc" id="L143">                .findProjectActivity(activityTitle)</span>
-<span class="fc" id="L144">                .getWorkTimeRegistrationsForEmployee(getLoggedInUserModel().getInitials());</span>
+<span class="fc" id="L138">        List&lt;WorktimeRegistration&gt; worktimeRegistrationList = projectRepo.findByProjectNumber(projectNumber)</span>
+<span class="fc" id="L139">                .findProjectActivity(activityTitle)</span>
+<span class="fc" id="L140">                .getWorkTimeRegistrationsForEmployee(getLoggedInUserModel().getInitials());</span>
 
-<span class="fc" id="L146">        return WorktimeRegistrationViewModel.listFromModels(worktimeRegistrationList);</span>
+<span class="fc" id="L142">        return WorktimeRegistrationViewModel.listFromModels(worktimeRegistrationList);</span>
     }
 
     public double getUserWorktimeForProjectActivity(String activityTitle, String projectNumber)
             throws NotFoundException, OperationNotAllowedException {
-<span class="fc" id="L151">        requireLogin();</span>
+<span class="fc" id="L147">        requireLogin();</span>
 
-<span class="fc" id="L153">        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
-<span class="fc" id="L154">                .getTotalWorkTimeForEmployee(getLoggedInUserModel().getInitials());</span>
+<span class="fc" id="L149">        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)</span>
+<span class="fc" id="L150">                .getTotalWorkTimeForEmployee(getLoggedInUserModel().getInitials());</span>
     }
 
     public List&lt;WorktimeRegistrationViewModel&gt; getTotalWorktimeRegistrationsForProject(String projectNumber)
             throws OperationNotAllowedException, NotFoundException {
-<span class="fc" id="L159">        requireLogin();</span>
+<span class="fc" id="L155">        requireLogin();</span>
 
-<span class="fc" id="L161">        String projectLeader = projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials();</span>
-<span class="fc bfc" id="L162" title="All 2 branches covered.">        if (!taskFusion.getLoggedInUser().initials.equals(projectLeader)) {</span>
-<span class="fc" id="L163">            throw new OperationNotAllowedException(</span>
+<span class="fc" id="L157">        String projectLeader = projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials();</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">        if (!taskFusion.getLoggedInUser().initials.equals(projectLeader)) {</span>
+<span class="fc" id="L159">            throw new OperationNotAllowedException(</span>
                     &quot;Kun projektlederen kan tilgå oversigten af arbejdstid for projektet&quot;);
         }
-<span class="fc" id="L166">        List&lt;WorktimeRegistration&gt; worktimeRegistrations = projectRepo.findByProjectNumber(projectNumber)</span>
-<span class="fc" id="L167">                .getWorktimeRegistrations();</span>
-<span class="fc bfc" id="L168" title="All 2 branches covered.">        if (worktimeRegistrations.size() == 0) {</span>
-<span class="fc" id="L169">            throw new NotFoundException(&quot;Ingen arbejdstid er registreret under dette projekt endnu&quot;);</span>
+<span class="fc" id="L162">        List&lt;WorktimeRegistration&gt; worktimeRegistrations = projectRepo.findByProjectNumber(projectNumber)</span>
+<span class="fc" id="L163">                .getWorktimeRegistrations();</span>
+<span class="fc bfc" id="L164" title="All 2 branches covered.">        if (worktimeRegistrations.size() == 0) {</span>
+<span class="fc" id="L165">            throw new NotFoundException(&quot;Ingen arbejdstid er registreret under dette projekt endnu&quot;);</span>
         }
-<span class="fc" id="L171">        return WorktimeRegistrationViewModel.listFromModels(worktimeRegistrations);</span>
+<span class="fc" id="L167">        return WorktimeRegistrationViewModel.listFromModels(worktimeRegistrations);</span>
     }
 
     public void editWorktimeRegistration(int id, double hours) throws OperationNotAllowedException, NotFoundException {
 
-<span class="fc" id="L176">        requireLogin();</span>
+<span class="fc" id="L172">        requireLogin();</span>
 
-<span class="fc" id="L178">        WorktimeRegistration worktimeRegistration = projectRepo.findWorktimeRegistrationById(id);</span>
+<span class="fc" id="L174">        WorktimeRegistration worktimeRegistration = projectRepo.findWorktimeRegistrationById(id);</span>
 
-<span class="fc bfc" id="L180" title="All 2 branches covered.">        if (!worktimeRegistration.getInitials().equals(getLoggedInUserModel().getInitials())) {</span>
-<span class="fc" id="L181">            throw new OperationNotAllowedException(&quot;Du har ikke rettighed til at redigere denne registrering&quot;);</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">        if (!worktimeRegistration.getInitials().equals(getLoggedInUserModel().getInitials())) {</span>
+<span class="fc" id="L177">            throw new OperationNotAllowedException(&quot;Du har ikke rettighed til at redigere denne registrering&quot;);</span>
         }
 
-<span class="fc" id="L184">        worktimeRegistration.setTime(hours);</span>
+<span class="fc" id="L180">        worktimeRegistration.setTime(hours);</span>
 
-<span class="fc" id="L186">    }</span>
+<span class="fc" id="L182">    }</span>
 
     public Double getRemainingWorktimeForActivity(String projectNumber, String activityTitle) throws NotFoundException {
-<span class="fc" id="L189">        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getRemainingWorktime();</span>
+<span class="fc" id="L185">        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getRemainingWorktime();</span>
     }
 
     public List&lt;ProjectViewModel&gt; getUserProjects() {
 
-<span class="nc" id="L194">        List&lt;Project&gt; projects = new ArrayList&lt;Project&gt;(getLoggedInUserModel().getProjects().values());</span>
+<span class="nc" id="L190">        List&lt;Project&gt; projects = new ArrayList&lt;Project&gt;(getLoggedInUserModel().getProjects().values());</span>
 
-<span class="nc" id="L196">        return ProjectViewModel.listFromModels(projects);</span>
+<span class="nc" id="L192">        return ProjectViewModel.listFromModels(projects);</span>
     }
 
     public List&lt;EmployeeViewModel&gt; getProjectEmployees(String projectNumber) {
-<span class="fc" id="L200">        return EmployeeViewModel.listFromModels(ProjectRepository.getInstance().getListOfEmployees(projectNumber));</span>
+<span class="fc" id="L196">        return EmployeeViewModel.listFromModels(ProjectRepository.getInstance().getListOfEmployees(projectNumber));</span>
     }
 
     /**
@@ -206,13 +202,13 @@ public class ProjectFacade {
      * ###########################
      */
     private Employee getLoggedInUserModel() {
-<span class="fc" id="L209">        return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);</span>
+<span class="fc" id="L205">        return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);</span>
     }
 
     private void requireLogin() throws OperationNotAllowedException {
-<span class="fc bfc" id="L213" title="All 2 branches covered.">        if (!taskFusion.isLoggedIn()) {</span>
-<span class="fc" id="L214">            throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
+<span class="fc bfc" id="L209" title="All 2 branches covered.">        if (!taskFusion.isLoggedIn()) {</span>
+<span class="fc" id="L210">            throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
         }
-<span class="fc" id="L216">    }</span>
+<span class="fc" id="L212">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
