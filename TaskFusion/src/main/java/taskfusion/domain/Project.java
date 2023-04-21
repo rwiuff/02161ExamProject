@@ -91,9 +91,7 @@ public class Project implements ConvertibleToViewModelInterface {
     for (String projectNumber : ProjectRepository.getInstance().all().keySet()) {
       if (projectNumber.startsWith(String.format("%02d", year))) {
         int num = Integer.parseInt(projectNumber.substring(2));
-        if (num > lastNum) {
-          lastNum = num;
-        }
+        lastNum = num > lastNum ? num : lastNum;
       }
     }
 
@@ -164,9 +162,7 @@ public class Project implements ConvertibleToViewModelInterface {
     if (hasProjectActivity(title)) {
       throw new AlreadyExistsException("Projekt aktivitet findes allerede");
     }
-
     ProjectActivity activity = new ProjectActivity(title, startWeek, endWeek);
-
     this.activities.add(activity);
   }
 
@@ -176,7 +172,6 @@ public class Project implements ConvertibleToViewModelInterface {
         return true;
       }
     }
-
     return false;
   }
 
@@ -190,7 +185,6 @@ public class Project implements ConvertibleToViewModelInterface {
         return projectActivity;
       }
     }
-
     throw new NotFoundException("Projektaktiviteten findes ikke.");
   }
 
@@ -201,7 +195,6 @@ public class Project implements ConvertibleToViewModelInterface {
     for (ProjectActivity projectActivity : this.activities) {
       list.addAll(projectActivity.getWorktimeRegistrations());
     }
-
     return list;
   }
 
