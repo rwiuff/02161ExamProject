@@ -6,34 +6,32 @@ import java.util.Calendar;
 import java.util.List;
 
 import taskfusion.domain.WorktimeRegistration;
+import taskfusion.helpers.DateHelper;
 
 public class WorktimeRegistrationViewModel extends ViewModel {
     public Integer id;
     public String initials;
     public double time;
     public Calendar date;
+    public String dateString;
 
-<span class="fc" id="L16">    public WorktimeRegistrationViewModel(WorktimeRegistration worktimeRegistration) {</span>
-<span class="fc" id="L17">        this.id = worktimeRegistration.getId();</span>
-<span class="fc" id="L18">        this.initials = worktimeRegistration.getInitials();</span>
-<span class="fc" id="L19">        this.time = worktimeRegistration.getTime();</span>
-<span class="fc" id="L20">        this.date = worktimeRegistration.getDate();</span>
-<span class="fc" id="L21">    }</span>
+<span class="fc" id="L18">    public WorktimeRegistrationViewModel(WorktimeRegistration worktimeRegistration) {</span>
+<span class="fc" id="L19">        this.id = worktimeRegistration.getId();</span>
+<span class="fc" id="L20">        this.initials = worktimeRegistration.getInitials();</span>
+<span class="fc" id="L21">        this.time = worktimeRegistration.getTime();</span>
+<span class="fc" id="L22">        this.date = worktimeRegistration.getDate();</span>
+<span class="fc" id="L23">        this.dateString = DateHelper.getDateAsString(this.date);</span>
+<span class="fc" id="L24">    }</span>
 
     public static List&lt;WorktimeRegistrationViewModel&gt; listFromModels(List&lt;WorktimeRegistration&gt; modelList) {
 
-<span class="fc" id="L25">        List&lt;WorktimeRegistrationViewModel&gt; list = new ArrayList&lt;WorktimeRegistrationViewModel&gt;();</span>
+<span class="fc" id="L28">        List&lt;WorktimeRegistrationViewModel&gt; list = new ArrayList&lt;WorktimeRegistrationViewModel&gt;();</span>
 
-<span class="fc bfc" id="L27" title="All 2 branches covered.">        for (WorktimeRegistration item : modelList) {</span>
-<span class="fc" id="L28">            list.add(item.toViewModel());</span>
-<span class="fc" id="L29">        }</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        for (WorktimeRegistration item : modelList) {</span>
+<span class="fc" id="L31">            list.add(item.toViewModel());</span>
+<span class="fc" id="L32">        }</span>
 
-<span class="fc" id="L31">        return list;</span>
-    }
-
-    public String getDateAsString() {
-<span class="nc" id="L35">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy MMM dd&quot;);</span>
-<span class="nc" id="L36">        return sdf.format(this.date.getTime());</span>
+<span class="fc" id="L34">        return list;</span>
     }
 
 }

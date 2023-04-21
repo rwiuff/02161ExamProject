@@ -7,79 +7,79 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import taskfusion.helpers.DateHelper;
 import taskfusion.viewModels.ReportViewModel;
 
 public class Report implements ConvertibleToViewModelInterface {
     private String title;
     private String projectNumber;
     private Employee projectLeader;
-<span class="nc" id="L16">    private Map&lt;String, Employee&gt; employees = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L17">    private Map&lt;String, Employee&gt; employees = new HashMap&lt;&gt;();</span>
     private String customer;
     private int startWeek;
     private int endWeeek;
-<span class="nc" id="L20">    private List&lt;ProjectActivity&gt; activities = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L21">    private List&lt;ProjectActivity&gt; activities = new ArrayList&lt;&gt;();</span>
     private Calendar reportDate;
 
-<span class="nc" id="L23">    public Report(Project project, Calendar date) {</span>
-<span class="nc" id="L24">        this.reportDate = date;</span>
-<span class="nc" id="L25">        this.title = project.getProjectTitle();</span>
-<span class="nc" id="L26">        this.projectNumber = project.getProjectNumber();</span>
-<span class="nc" id="L27">        this.projectLeader = project.getProjectLeader();</span>
-<span class="nc" id="L28">        this.employees = project.getAssignedEmployees();</span>
-<span class="nc" id="L29">        this.customer = project.getCustomer();</span>
-<span class="nc" id="L30">        this.startWeek = project.getStartWeek();</span>
-<span class="nc" id="L31">        this.endWeeek = project.getEndWeek();</span>
-<span class="nc" id="L32">        this.activities = project.getActivities();</span>
-<span class="nc" id="L33">    }</span>
+<span class="nc" id="L24">    public Report(Project project, Calendar date) {</span>
+<span class="nc" id="L25">        this.reportDate = date;</span>
+<span class="nc" id="L26">        this.title = project.getProjectTitle();</span>
+<span class="nc" id="L27">        this.projectNumber = project.getProjectNumber();</span>
+<span class="nc" id="L28">        this.projectLeader = project.getProjectLeader();</span>
+<span class="nc" id="L29">        this.employees = project.getAssignedEmployees();</span>
+<span class="nc" id="L30">        this.customer = project.getCustomer();</span>
+<span class="nc" id="L31">        this.startWeek = project.getStartWeek();</span>
+<span class="nc" id="L32">        this.endWeeek = project.getEndWeek();</span>
+<span class="nc" id="L33">        this.activities = project.getActivities();</span>
+<span class="nc" id="L34">    }</span>
 
     @Override
     public ReportViewModel toViewModel() {
-<span class="nc" id="L37">        return new ReportViewModel(this);</span>
+<span class="nc" id="L38">        return new ReportViewModel(this);</span>
     }
 
     public String getTitle() {
-<span class="nc" id="L41">        return title;</span>
+<span class="nc" id="L42">        return title;</span>
     }
 
     public String getProjectNumber() {
-<span class="nc" id="L45">        return projectNumber;</span>
+<span class="nc" id="L46">        return projectNumber;</span>
     }
 
     public Employee getProjectLeader() {
-<span class="nc" id="L49">        return projectLeader;</span>
+<span class="nc" id="L50">        return projectLeader;</span>
     }
 
     public Map&lt;String, Employee&gt; getEmployees() {
-<span class="nc" id="L53">        return employees;</span>
+<span class="nc" id="L54">        return employees;</span>
     }
 
     public Employee getEmployee(String initials) {
-<span class="nc" id="L57">        return employees.get(initials);</span>
+<span class="nc" id="L58">        return employees.get(initials);</span>
     }
 
     public String getCustomer() {
-<span class="nc" id="L61">        return customer;</span>
+<span class="nc" id="L62">        return customer;</span>
     }
 
     public int getStartWeek() {
-<span class="nc" id="L65">        return startWeek;</span>
+<span class="nc" id="L66">        return startWeek;</span>
     }
 
     public int getEndWeeek() {
-<span class="nc" id="L69">        return endWeeek;</span>
+<span class="nc" id="L70">        return endWeeek;</span>
     }
 
     public List&lt;ProjectActivity&gt; getActivities() {
-<span class="nc" id="L73">        return activities;</span>
+<span class="nc" id="L74">        return activities;</span>
     }
 
     public Calendar getReportDate() {
-<span class="nc" id="L77">        return reportDate;</span>
+<span class="nc" id="L78">        return reportDate;</span>
     }
 
     public String getDateAsString() {
-<span class="nc" id="L81">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy MMM dd&quot;);</span>
-<span class="nc" id="L82">        return sdf.format(reportDate.getTime());</span>
+<span class="nc" id="L82">        return DateHelper.getDateAsString(reportDate);</span>
     }
 
     public void saveReport() {

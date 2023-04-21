@@ -21,5 +21,10 @@ import java.util.Calendar;
 
 <span class="fc" id="L22">        return dateString1.equals(dateString2);</span>
     }
+
+    public static String getDateAsString(Calendar date) {
+<span class="fc" id="L26">        SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy MMM dd&quot;);</span>
+<span class="fc" id="L27">        return sdf.format(date.getTime());</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

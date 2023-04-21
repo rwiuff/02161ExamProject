@@ -25,9 +25,9 @@ public class ProjectActivityViewModel extends ViewModel {
   public static List&lt;ProjectActivityViewModel&gt; listFromModels(List&lt;ProjectActivity&gt; projectActivityList) {
 <span class="fc" id="L26">    List&lt;ProjectActivityViewModel&gt; list = new ArrayList&lt;ProjectActivityViewModel&gt;();</span>
 
-<span class="pc bpc" id="L28" title="1 of 2 branches missed.">    for (ProjectActivity projectActivity : projectActivityList) {</span>
-<span class="nc" id="L29">      list.add(projectActivity.toViewModel());</span>
-<span class="nc" id="L30">    }</span>
+<span class="fc bfc" id="L28" title="All 2 branches covered.">    for (ProjectActivity projectActivity : projectActivityList) {</span>
+<span class="fc" id="L29">      list.add(projectActivity.toViewModel());</span>
+<span class="fc" id="L30">    }</span>
 
 <span class="fc" id="L32">    return list;</span>
   }
