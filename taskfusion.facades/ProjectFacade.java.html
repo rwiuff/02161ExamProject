@@ -189,9 +189,9 @@ public class ProjectFacade {
 
     public List&lt;ProjectViewModel&gt; getUserProjects() {
 
-<span class="nc" id="L192">        List&lt;Project&gt; projects = new ArrayList&lt;Project&gt;(getLoggedInUserModel().getProjects().values());</span>
+<span class="fc" id="L192">        List&lt;Project&gt; projects = new ArrayList&lt;Project&gt;(getLoggedInUserModel().getProjects().values());</span>
 
-<span class="nc" id="L194">        return ProjectViewModel.listFromModels(projects);</span>
+<span class="fc" id="L194">        return ProjectViewModel.listFromModels(projects);</span>
     }
 
     public List&lt;EmployeeViewModel&gt; getProjectEmployees(String projectNumber) {
