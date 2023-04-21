@@ -124,12 +124,6 @@ public class ProjectFacade {
                 .getTotalWorkTimeForEmployee(getLoggedInUserModel().getInitials());
     }
 
-    public Double getTotalWorktimeForActivity(String projectNumber, String activityTitle)
-            throws NotFoundException, OperationNotAllowedException {
-        requireLogin();
-
-        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getTotalWorkTime();
-    }
 
     public List<WorktimeRegistrationViewModel> getUserWorktimeRegistrationsForProjectActivity(String activityTitle,
             String projectNumber) throws NotFoundException, OperationNotAllowedException {
