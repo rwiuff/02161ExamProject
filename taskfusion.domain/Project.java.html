@@ -49,11 +49,11 @@ public class Project implements ConvertibleToViewModelInterface {
 <span class="fc" id="L49">    return this.endWeek;</span>
   }
 
-  // public void setEndWeek(int endWeek) {
-  //   // Husk at kaste InvalidPropertyException, når
-  //   // du laver activities.
-  //   this.endWeek = endWeek;
-  // }
+  public void setEndWeek(int endWeek) {
+    // Husk at kaste InvalidPropertyException, når
+    // du laver activities.
+<span class="fc" id="L55">    this.endWeek = endWeek;</span>
+<span class="fc" id="L56">  }</span>
 
   public boolean isInternal() {
 <span class="fc bfc" id="L59" title="All 2 branches covered.">    return customer == null;</span>
