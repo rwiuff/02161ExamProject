@@ -44,7 +44,7 @@ public class WorktimeRegistrationTest {
   }
 
   @Test
-  public void testWorktimeRegistrationsListFromModels()  {
+  public void testWorktimeRegistrationsListFromModels() throws NotFoundException  {
 
     Calendar date = new DateServer().getDate();
 

@@ -48,7 +48,7 @@ public class PrintHelperTest {
     }
 
     @Test
-    public void testPrintWorktimeRegistrations() {
+    public void testPrintWorktimeRegistrations() throws NotFoundException {
         Calendar date = new DateServer().getDate();
 
         List<WorktimeRegistration> models = new ArrayList<>();
