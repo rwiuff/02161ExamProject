@@ -1,5 +1,6 @@
 package taskfusion.domain;
 
+import java.awt.Color;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -18,6 +19,7 @@ import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
 import com.lowagie.text.HeaderFooter;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
@@ -26,6 +28,8 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.Table;
 import com.lowagie.text.alignment.HorizontalAlignment;
+import com.lowagie.text.alignment.VerticalAlignment;
+import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.pdf.draw.LineSeparator;
 
@@ -70,21 +74,25 @@ public class ReportPDFGenerator {
                 40f, // Right margin
                 40f, // Top margin
                 40f); // Bottom margin
+        ClassLoader classLoader = getClass().getClassLoader();
+
         // Fonts
-        Font titleFont = new Font(Font.COURIER, 20f, Font.BOLD);
-        Font headerFont = new Font(Font.COURIER, 15f, Font.BOLD);
-        Font cellFont = new Font(Font.COURIER, 12f);
-        Font cellHeaderFont = new Font(Font.COURIER, 12f, Font.BOLD);
+        FontFactory.register(classLoader.getResource("CharterRegular.ttf").toString(), "charterRegular");
+        FontFactory.register(classLoader.getResource("CharterBold.ttf").toString(), "charterBold");
+        Font titleFont = FontFactory.getFont("charterBold", BaseFont.IDENTITY_H, true, 20f);
+        Font headerFont = FontFactory.getFont("charterBold", BaseFont.IDENTITY_H, true, 15f);
+        Font cellFont = FontFactory.getFont("charterRegular", BaseFont.IDENTITY_H, true, 12f);
+        Font cellHeaderFont = FontFactory.getFont("charterBold", BaseFont.IDENTITY_H, true, 12f);
 
         Path path = Paths.get(savePath);
         Files.createDirectories(path);
 
+        // Stream to save document as pdf
         PdfWriter writer = PdfWriter.getInstance(document,
                 new FileOutputStream(savePath + "/" + projectNumber + " " + title + " " + reportDate + ".pdf"));
-        // Stream to save document as pdf
 
         // Header and footer
-        HeaderFooter footer = new HeaderFooter(new Phrase("Side ", new Font(Font.COURIER, 12f)), true);
+        HeaderFooter footer = new HeaderFooter(new Phrase("Side ", cellFont), true);
         footer.setAlignment(Element.ALIGN_CENTER);
         document.setFooter(footer);
 
@@ -97,7 +105,6 @@ public class ReportPDFGenerator {
         document.addTitle(title);
 
         // Set up logo
-        ClassLoader classLoader = getClass().getClassLoader();
         Image logo = Image.getInstance(classLoader.getResource("TaskFusionAlt.png"));
         logo.setAlignment(Element.ALIGN_CENTER);
         logo.scalePercent(25f);
@@ -203,6 +210,32 @@ public class ReportPDFGenerator {
             }
             removeBorders(worktimeInfoBox);
             document.add(worktimeInfoBox);
+            float progress = Math.round(activity.getTotalWorkTime() / activity.getTimeBudget() * 100);
+            float remaning = Math.round(activity.getRemainingWorktime() / activity.getTimeBudget() * 100);
+            Table progressBar = new Table(2);
+            progressBar.setPadding(1f);
+            progressBar.setSpacing(1f);
+            progressBar.setWidth(100f);
+            Cell progressInfo = new Cell(new Phrase(activity.getTotalWorkTime() + " timer udført", cellHeaderFont));
+            progressInfo.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            progressInfo.setVerticalAlignment(VerticalAlignment.CENTER);
+            Cell remainingInfo = new Cell(
+                    new Phrase(activity.getRemainingWorktime() + " timer tilbage", cellHeaderFont));
+            remainingInfo.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            remainingInfo.setVerticalAlignment(VerticalAlignment.CENTER);
+            Cell progressCell = new Cell(new Phrase(progress + " %", cellHeaderFont));
+            progressCell.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            progressCell.setVerticalAlignment(VerticalAlignment.CENTER);
+            progressCell.setBackgroundColor(Color.LIGHT_GRAY);
+            progressBar.addCell(progressInfo);
+            progressBar.addCell(remainingInfo);
+            progressBar.addCell(progressCell);
+            progressBar.addCell(new Cell());
+            progressBar.setWidths(new float[] { progress, remaning });
+            removeBorders(progressBar);
+            document.add(progressBar);
+            document.add(new Paragraph(Chunk.NEWLINE));
+            document.add(new LineSeparator());
         }
 
         // Close streams, document saved
