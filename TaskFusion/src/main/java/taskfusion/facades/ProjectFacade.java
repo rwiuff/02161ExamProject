@@ -60,13 +60,9 @@ public class ProjectFacade {
             throws NotFoundException, OperationNotAllowedException {
         Project project = projectRepo.findByProjectNumber(projectNumber);
         requireLogin();
-        if (getLoggedInUserModel().getInitials().equals(project.getProjectLeader().getInitials())) {
-            Report report = new Report(project, taskFusion.getDate());
-            project.addLatestReport(report.getDateAsString(), report);
-            return report.toViewModel();
-        } else {
-            throw new OperationNotAllowedException("Kun projektlederen kan generere rapporter");
-        }
+        Report report = new Report(project, taskFusion.getDate(), getLoggedInUserModel());
+        project.addLatestReport(report.getDateAsString(), report);
+        return report.toViewModel();
     }
 
     public void saveReport(String projectNumber, String reportDate) throws NotFoundException {

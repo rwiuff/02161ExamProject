@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.viewModels.ReportViewModel;
 
 public class Report implements ConvertibleToViewModelInterface {
@@ -20,7 +22,7 @@ public class Report implements ConvertibleToViewModelInterface {
     private List<ProjectActivity> activities = new ArrayList<>();
     private Calendar reportDate;
 
-    public Report(Project project, Calendar date) {
+    public Report(Project project, Calendar date, Employee employee) throws NotFoundException, OperationNotAllowedException {
         this.reportDate = date;
         this.title = project.getProjectTitle();
         this.projectNumber = project.getProjectNumber();
@@ -30,6 +32,12 @@ public class Report implements ConvertibleToViewModelInterface {
         this.startWeek = project.getStartWeek();
         this.endWeeek = project.getEndWeek();
         this.activities = project.getActivities();
+        if(project.getProjectLeader() == null){
+            throw new NotFoundException("Projektet mangler en projektleder for at genererer rapporter");
+        }
+        if (!employee.getInitials().equals(projectLeader.getInitials())) {
+            throw new OperationNotAllowedException("Kun projektlederen kan generere rapporter");
+        }
     }
 
     @Override

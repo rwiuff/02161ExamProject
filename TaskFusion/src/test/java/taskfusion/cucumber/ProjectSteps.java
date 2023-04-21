@@ -33,15 +33,6 @@ public class ProjectSteps {
     this.mockDateHolder = mockDateHolder;
   }
 
-  @Given("the user logs in with initials {string}")
-  public void theUserLogsInWithInitials(String string) throws NotFoundException {
-    try {
-      this.taskFusion.login(string);
-    } catch (Exception e) {
-      this.errorMessageHolder.setErrorMessage(e.getMessage());
-    }
-  }
-
   @Given("the year is {int}")
   public void theYearIs(Integer year) {
     this.mockDateHolder.setYear(year);

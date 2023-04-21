@@ -78,7 +78,7 @@ public class ProjectRaportView implements ViewInterface {
                 System.out.printf("| %-15s %-15s %19s |%n", worktimeRegistration.getDateAsString(),
                         worktimeRegistration.initials, worktimeRegistration.time + " time(r)");
             }
-            System.out.printf("| %-50S  |%n", "Fremskridt");
+            System.out.printf("| %-50S  |%n", "Status");
             int progress = (int) Math.round((activity.totalWorktime / activity.timeBudget) * 49);
             System.out.printf("| [%-49s] |%n", "=".repeat(progress));
             System.out.println("|" + "-".repeat(53) + "|");
