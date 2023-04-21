@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.viewModels.ProjectActivityViewModel;
 
 public class ProjectActivity extends Activity implements ConvertibleToViewModelInterface {
@@ -11,7 +12,7 @@ public class ProjectActivity extends Activity implements ConvertibleToViewModelI
   private int timeBudget;
   private List<WorktimeRegistration> worktimeRegistrations;
 
-  public ProjectActivity(String title, String startWeek, String endWeek) {
+  public ProjectActivity(String title, String startWeek, String endWeek) throws InvalidPropertyException {
     super(title, startWeek, endWeek);
     this.timeBudget = 0;
     this.worktimeRegistrations = new ArrayList<>();

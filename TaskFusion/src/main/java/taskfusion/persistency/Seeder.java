@@ -8,6 +8,7 @@ import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
 import taskfusion.domain.ProjectActivity;
 import taskfusion.exceptions.AlreadyExistsException;
+import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
 
@@ -69,7 +70,7 @@ public class Seeder {
     }
 
     private void seedProjectActivitesToProject(Project project, Employee user)
-            throws AlreadyExistsException, OperationNotAllowedException {
+            throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
         project.createProjectActivity("Brainstorm", "2301", "2302", user);
         project.createProjectActivity("Dokumentation", "2305", "2305", user);
 

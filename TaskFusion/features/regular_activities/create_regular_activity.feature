@@ -33,7 +33,7 @@ Scenario: 1d. An end week is required to create a regular activity
 
 Scenario: 1e. Start week needs to be before end week
     When the user creates the regular activity "Ferie" with start week "2304" and end week "2303"
-    Then the error message "Start uge skal være før slut uge" is given
+    Then the error message "Start uge skal være før eller ens med slut uge" is given
 
 Scenario: 1f. Same start and end week is allowed
     When the user creates the regular activity "Ferie" with start week "2304" and end week "2304"
