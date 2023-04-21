@@ -194,15 +194,15 @@ public class Project implements ConvertibleToViewModelInterface {
 <span class="fc" id="L194">    throw new NotFoundException(&quot;Projektaktiviteten findes ikke.&quot;);</span>
   }
 
-  public List&lt;WorktimeRegistration&gt; getWorktimeRegistrations() {
+  public List&lt;WorktimeRegistration&gt; getWorktimeRegistrations() throws NotFoundException {
 
 <span class="fc" id="L199">    List&lt;WorktimeRegistration&gt; list = new ArrayList&lt;&gt;();</span>
 
 <span class="fc bfc" id="L201" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
 <span class="fc" id="L202">      list.addAll(projectActivity.getWorktimeRegistrations());</span>
 <span class="fc" id="L203">    }</span>
-<span class="fc" id="L204">    return list;</span>
 
+<span class="fc" id="L205">    return list;</span>
   }
 
   public List&lt;Employee&gt; getListOfAssignedEmployees() {

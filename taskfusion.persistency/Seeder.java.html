@@ -65,7 +65,7 @@ public class Seeder {
 <span class="fc" id="L65">    }</span>
 
     private void seedProjectActivitesToProject(Project project, Employee user)
-            throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
+            throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException, NotFoundException {
 <span class="fc" id="L69">        project.createProjectActivity(&quot;Brainstorm&quot;, &quot;2301&quot;, &quot;2302&quot;, user);</span>
 <span class="fc" id="L70">        project.createProjectActivity(&quot;Dokumentation&quot;, &quot;2305&quot;, &quot;2305&quot;, user);</span>
 
@@ -75,7 +75,7 @@ public class Seeder {
 <span class="fc" id="L75">        }</span>
 <span class="fc" id="L76">    }</span>
 
-    private void seedWorktimeRegistrationsForProjectActivity(ProjectActivity activity) {
+    private void seedWorktimeRegistrationsForProjectActivity(ProjectActivity activity) throws NotFoundException {
 
 <span class="fc" id="L80">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 1);</span>
 <span class="fc" id="L81">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 5.5);</span>

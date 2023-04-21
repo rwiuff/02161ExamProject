@@ -75,7 +75,7 @@ public class ProjectRepository {
 
     }
 
-    private List&lt;WorktimeRegistration&gt; allWorktimeRegistrations() {
+    private List&lt;WorktimeRegistration&gt; allWorktimeRegistrations() throws NotFoundException {
 
 <span class="fc" id="L80">        List&lt;WorktimeRegistration&gt; list = new ArrayList&lt;&gt;();</span>
 
@@ -117,7 +117,7 @@ public class ProjectRepository {
     // return lastId + 1;
     // }
 
-    public Integer generateWorktimeRegistrationId() {
+    public Integer generateWorktimeRegistrationId() throws NotFoundException {
 <span class="fc" id="L121">        return allWorktimeRegistrations().size() + 1;</span>
     }
 

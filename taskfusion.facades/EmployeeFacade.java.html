@@ -68,11 +68,12 @@ public class EmployeeFacade {
 
 <span class="fc" id="L69">        RegularActivity activity = employeeRepo.findRegularActivityById(id);</span>
 
-<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (!getLoggedInUserModel().hasRegularActivityByID(id)) {</span>
-<span class="fc" id="L72">            throw new OperationNotAllowedException(&quot;Du har ikke rettighed til at se denne aktivitet&quot;);</span>
+        // Skal ned i domæne
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        if (!getLoggedInUserModel().hasRegularActivityByID(id)) {</span>
+<span class="fc" id="L73">            throw new OperationNotAllowedException(&quot;Du har ikke rettighed til at se denne aktivitet&quot;);</span>
         }
 
-<span class="fc" id="L75">        return activity.toViewModel();</span>
+<span class="fc" id="L76">        return activity.toViewModel();</span>
     }
 
     // public void deleteRegularActivity(int id) throws OperationNotAllowedException
@@ -90,14 +91,14 @@ public class EmployeeFacade {
      * ###########################
      */
     private Employee getLoggedInUserModel() {
-<span class="fc" id="L93">        return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);</span>
+<span class="fc" id="L94">        return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);</span>
     }
 
     private void requireLogin() throws OperationNotAllowedException {
-<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (!taskFusion.isLoggedIn()) {</span>
-<span class="fc" id="L98">            throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">        if (!taskFusion.isLoggedIn()) {</span>
+<span class="fc" id="L99">            throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
         }
-<span class="fc" id="L100">    }</span>
+<span class="fc" id="L101">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
