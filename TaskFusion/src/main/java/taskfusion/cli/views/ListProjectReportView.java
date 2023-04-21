@@ -45,7 +45,7 @@ public class ListProjectReportView implements ViewInterface {
         }
 
         ReportViewModel report = reports.get(optionsTextList.get(i - 1));
-        new ProjectRaportView(report).show();
+        new ProjectReportView(report).show();
         return;
     }
 

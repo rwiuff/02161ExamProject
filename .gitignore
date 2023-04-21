@@ -650,4 +650,4 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/latex,java,python,visualstudiocode,windows,macos,eclipse
 
 /out
-/reports
+TaskFusion/reports/

@@ -9,7 +9,7 @@ import taskfusion.viewModels.ProjectActivityViewModel;
 import taskfusion.viewModels.ReportViewModel;
 import taskfusion.viewModels.WorktimeRegistrationViewModel;
 
-public class ProjectRaportView implements ViewInterface {
+public class ProjectReportView implements ViewInterface {
 
     private ReportViewModel report;
     private String[] exitMenu = {
@@ -17,7 +17,7 @@ public class ProjectRaportView implements ViewInterface {
             "Gem og afslut rapportvisning"
     };
 
-    public ProjectRaportView(ReportViewModel report) {
+    public ProjectReportView(ReportViewModel report) {
         this.report = report;
     }
 

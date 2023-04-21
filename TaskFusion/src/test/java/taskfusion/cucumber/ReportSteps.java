@@ -48,5 +48,4 @@ public class ReportSteps {
         Calendar calendar = new GregorianCalendar(day, month, year);
         mockDateHolder.setDate(calendar);
     }
-
 }

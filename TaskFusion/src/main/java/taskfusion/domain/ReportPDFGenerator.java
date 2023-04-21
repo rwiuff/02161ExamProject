@@ -1,7 +1,10 @@
 package taskfusion.domain;
 
 import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -60,12 +63,18 @@ public class ReportPDFGenerator {
         Font headerFont = new Font(Font.COURIER, 15f, Font.BOLD);
         Font cellFont = new Font(Font.COURIER, 12f);
         Font cellHeaderFont = new Font(Font.COURIER, 12f, Font.BOLD);
+
+        Path path = Paths.get("./reports/" + projectNumber);
+        try {
+            Files.createDirectories(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         try {
             PdfWriter writer = PdfWriter.getInstance(document,
-                    new FileOutputStream("./" + projectNumber + " " + title + " " + reportDate + ".pdf")); // Stream to
-                                                                                                           // save
-                                                                                                           // document
-                                                                                                           // as pdf
+                    new FileOutputStream("./reports/" + projectNumber + "/" + projectNumber + " " + title + " " + reportDate + ".pdf"));
+                    // Stream to save document as pdf
 
             // Header and footer
             HeaderFooter footer = new HeaderFooter(new Phrase("Side ", new Font(Font.COURIER, 12f)), true);

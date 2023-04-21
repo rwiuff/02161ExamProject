@@ -83,7 +83,6 @@ public class ProjectFacade {
     public void createProjectActivity(String projectNumber, String title, String startWeek, String endWeek)
             throws NotFoundException, OperationNotAllowedException, AlreadyExistsException, InvalidPropertyException {
         requireLogin();
-
         Project project = projectRepo.findByProjectNumber(projectNumber);
         project.createProjectActivity(title, startWeek, endWeek, getLoggedInUserModel());
 
