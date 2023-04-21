@@ -1,6 +1,7 @@
 package taskfusion.domain;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -90,7 +91,7 @@ public class Report implements ConvertibleToViewModelInterface {
         return DateHelper.getDateAsString(reportDate);
     }
 
-    public void saveReport() throws IOException {
+    public void saveReport() throws IOException, URISyntaxException {
         new ReportPDFGenerator(this).save();
     }
 

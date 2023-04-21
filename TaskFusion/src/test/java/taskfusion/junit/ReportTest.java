@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
@@ -84,7 +85,7 @@ public class ReportTest {
 
     @Test
     public void testReportPDFGeneration() throws NotFoundException, AlreadyExistsException,
-            OperationNotAllowedException, InvalidPropertyException, ExhaustedOptionsException, IOException {
+            OperationNotAllowedException, InvalidPropertyException, ExhaustedOptionsException, IOException, URISyntaxException {
         taskFusion.login("rawi");
         taskFusion.getProjectFacade().takeProjectLeaderRole(projectNumber);
         ReportViewModel reportViewModel = taskFusion.getProjectFacade().generateProjectRaport(projectNumber);

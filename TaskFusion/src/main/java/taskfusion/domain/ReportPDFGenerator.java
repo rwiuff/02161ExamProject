@@ -2,6 +2,7 @@ package taskfusion.domain;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,6 +19,7 @@ import com.lowagie.text.Document;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.HeaderFooter;
+import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
@@ -52,17 +54,17 @@ public class ReportPDFGenerator {
         this.activities = report.getActivities();
     }
 
-    public void save() throws IOException {
+    public void save() throws IOException, URISyntaxException {
         String savePath = "./reports/" + projectNumber;
         generatePDF(savePath);
     }
 
-    public void save(String saveDir) throws IOException {
+    public void save(String saveDir) throws IOException, URISyntaxException {
         String savePath = saveDir + projectNumber;
         generatePDF(savePath);
     }
 
-    public void generatePDF(String savePath) throws IOException {
+    public void generatePDF(String savePath) throws IOException, URISyntaxException {
         Document document = new Document(PageSize.A4, // New A4 document
                 40f, // Left margin
                 40f, // Right margin
@@ -94,6 +96,12 @@ public class ReportPDFGenerator {
         document.addCreationDate();
         document.addTitle(title);
 
+        // Set up logo
+        ClassLoader classLoader = getClass().getClassLoader();
+        Image logo = Image.getInstance(classLoader.getResource("TaskFusionAlt.png"));
+        logo.setAlignment(Element.ALIGN_CENTER);
+        logo.scalePercent(25f);
+        document.add(logo);
         // Set up title
         Paragraph titleParagraph = new Paragraph("Projekt: " + title, titleFont);
         titleParagraph.setAlignment(Element.ALIGN_CENTER);
