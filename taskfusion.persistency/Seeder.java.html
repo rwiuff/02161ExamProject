@@ -22,78 +22,73 @@ public class Seeder {
 
 <span class="fc" id="L23">    }</span>
 
-    public void seedDemoData() {
-        try {
-<span class="fc" id="L27">            seedEmployees();</span>
-<span class="fc" id="L28">            seedProjects();</span>
-
-<span class="nc" id="L30">        } catch (Exception e) {</span>
-<span class="nc" id="L31">            e.printStackTrace();</span>
-<span class="fc" id="L32">        }</span>
-<span class="fc" id="L33">    }</span>
+    public void seedDemoData() throws Exception {
+<span class="fc" id="L26">        seedEmployees();</span>
+<span class="fc" id="L27">        seedProjects();</span>
+<span class="fc" id="L28">    }</span>
 
     public void seedEmployees() throws Exception {
 
-<span class="fc" id="L37">        employeeRepository.create(&quot;Kasper&quot;, &quot;Sylvest&quot;);</span>
-<span class="fc" id="L38">        employeeRepository.create(&quot;Rasmus&quot;, &quot;Wiuff&quot;);</span>
-<span class="fc" id="L39">        employeeRepository.create(&quot;Mathies&quot;, &quot;Christian&quot;);</span>
-<span class="fc" id="L40">        employeeRepository.create(&quot;Max-Emil&quot;, &quot;Scotten&quot;);</span>
+<span class="fc" id="L32">        employeeRepository.create(&quot;Kasper&quot;, &quot;Sylvest&quot;);</span>
+<span class="fc" id="L33">        employeeRepository.create(&quot;Rasmus&quot;, &quot;Wiuff&quot;);</span>
+<span class="fc" id="L34">        employeeRepository.create(&quot;Mathies&quot;, &quot;Christian&quot;);</span>
+<span class="fc" id="L35">        employeeRepository.create(&quot;Max-Emil&quot;, &quot;Scotten&quot;);</span>
 
-<span class="fc" id="L42">    }</span>
+<span class="fc" id="L37">    }</span>
 
     public void seedProjects() throws Exception {
-<span class="fc" id="L45">        Calendar date = dateServer.getDate();</span>
+<span class="fc" id="L40">        Calendar date = dateServer.getDate();</span>
 
-<span class="fc" id="L47">        Employee creator = EmployeeRepository.getInstance().findByInitials(&quot;kasy&quot;);</span>
+<span class="fc" id="L42">        Employee creator = EmployeeRepository.getInstance().findByInitials(&quot;kasy&quot;);</span>
 
-<span class="fc" id="L49">        projectRepository.create(&quot;Kravspecifikationer&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
-<span class="fc" id="L50">        projectRepository.create(&quot;Programdesign&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
-<span class="fc" id="L51">        projectRepository.create(&quot;Implementering&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
-<span class="fc" id="L52">        projectRepository.create(&quot;Test&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
+<span class="fc" id="L44">        projectRepository.create(&quot;Kravspecifikationer&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
+<span class="fc" id="L45">        projectRepository.create(&quot;Programdesign&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
+<span class="fc" id="L46">        projectRepository.create(&quot;Implementering&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
+<span class="fc" id="L47">        projectRepository.create(&quot;Test&quot;, date).assignEmployee(creator.getInitials(), creator);</span>
 
         // Assign users to projects
-<span class="fc bfc" id="L55" title="All 2 branches covered.">        for (Map.Entry&lt;String, Project&gt; projectEntry : ProjectRepository.getInstance().all().entrySet()) {</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        for (Map.Entry&lt;String, Project&gt; projectEntry : ProjectRepository.getInstance().all().entrySet()) {</span>
 
-<span class="fc" id="L57">            Project project = projectEntry.getValue();</span>
+<span class="fc" id="L52">            Project project = projectEntry.getValue();</span>
 
-<span class="fc" id="L59">            seedEmployeesToProject(project, creator);</span>
-<span class="fc" id="L60">            seedProjectActivitesToProject(project, creator);</span>
-<span class="fc" id="L61">        }</span>
+<span class="fc" id="L54">            seedEmployeesToProject(project, creator);</span>
+<span class="fc" id="L55">            seedProjectActivitesToProject(project, creator);</span>
+<span class="fc" id="L56">        }</span>
 
-<span class="fc" id="L63">    }</span>
+<span class="fc" id="L58">    }</span>
 
     private void seedEmployeesToProject(Project project, Employee user)
             throws NotFoundException, OperationNotAllowedException {
-<span class="fc" id="L67">        project.assignEmployee(&quot;rawi&quot;, user);</span>
-<span class="fc" id="L68">        project.assignEmployee(&quot;mach&quot;, user);</span>
-<span class="fc" id="L69">        project.assignEmployee(&quot;masc&quot;, user);</span>
-<span class="fc" id="L70">    }</span>
+<span class="fc" id="L62">        project.assignEmployee(&quot;rawi&quot;, user);</span>
+<span class="fc" id="L63">        project.assignEmployee(&quot;mach&quot;, user);</span>
+<span class="fc" id="L64">        project.assignEmployee(&quot;masc&quot;, user);</span>
+<span class="fc" id="L65">    }</span>
 
     private void seedProjectActivitesToProject(Project project, Employee user)
             throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
-<span class="fc" id="L74">        project.createProjectActivity(&quot;Brainstorm&quot;, &quot;2301&quot;, &quot;2302&quot;, user);</span>
-<span class="fc" id="L75">        project.createProjectActivity(&quot;Dokumentation&quot;, &quot;2305&quot;, &quot;2305&quot;, user);</span>
+<span class="fc" id="L69">        project.createProjectActivity(&quot;Brainstorm&quot;, &quot;2301&quot;, &quot;2302&quot;, user);</span>
+<span class="fc" id="L70">        project.createProjectActivity(&quot;Dokumentation&quot;, &quot;2305&quot;, &quot;2305&quot;, user);</span>
 
-<span class="fc bfc" id="L77" title="All 2 branches covered.">        for (ProjectActivity activity : project.getActivities()) {</span>
-<span class="fc" id="L78">            seedWorktimeRegistrationsForProjectActivity(activity);</span>
-<span class="fc" id="L79">            activity.setTimeBudget(30);</span>
-<span class="fc" id="L80">        }</span>
-<span class="fc" id="L81">    }</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        for (ProjectActivity activity : project.getActivities()) {</span>
+<span class="fc" id="L73">            seedWorktimeRegistrationsForProjectActivity(activity);</span>
+<span class="fc" id="L74">            activity.setTimeBudget(30);</span>
+<span class="fc" id="L75">        }</span>
+<span class="fc" id="L76">    }</span>
 
     private void seedWorktimeRegistrationsForProjectActivity(ProjectActivity activity) {
 
-<span class="fc" id="L85">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 1);</span>
-<span class="fc" id="L86">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 5.5);</span>
+<span class="fc" id="L80">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 1);</span>
+<span class="fc" id="L81">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 5.5);</span>
 
-<span class="fc" id="L88">        activity.registerWorkTime(&quot;mach&quot;, dateServer.getDate(), 1);</span>
-<span class="fc" id="L89">        activity.registerWorkTime(&quot;mach&quot;, dateServer.getDate(), 5.5);</span>
+<span class="fc" id="L83">        activity.registerWorkTime(&quot;mach&quot;, dateServer.getDate(), 1);</span>
+<span class="fc" id="L84">        activity.registerWorkTime(&quot;mach&quot;, dateServer.getDate(), 5.5);</span>
 
-<span class="fc" id="L91">        activity.registerWorkTime(&quot;kasy&quot;, dateServer.getDate(), 1);</span>
-<span class="fc" id="L92">        activity.registerWorkTime(&quot;kasy&quot;, dateServer.getDate(), 5.5);</span>
+<span class="fc" id="L86">        activity.registerWorkTime(&quot;kasy&quot;, dateServer.getDate(), 1);</span>
+<span class="fc" id="L87">        activity.registerWorkTime(&quot;kasy&quot;, dateServer.getDate(), 5.5);</span>
 
-<span class="fc" id="L94">        activity.registerWorkTime(&quot;masc&quot;, dateServer.getDate(), 1);</span>
-<span class="fc" id="L95">        activity.registerWorkTime(&quot;masc&quot;, dateServer.getDate(), 5.5);</span>
-<span class="fc" id="L96">    }</span>
+<span class="fc" id="L89">        activity.registerWorkTime(&quot;masc&quot;, dateServer.getDate(), 1);</span>
+<span class="fc" id="L90">        activity.registerWorkTime(&quot;masc&quot;, dateServer.getDate(), 5.5);</span>
+<span class="fc" id="L91">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
