@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 import taskfusion.app.TaskFusion;
+import taskfusion.cli.components.Text;
 import taskfusion.cli.controllers.GuestMenuController;
 import taskfusion.cli.views.WelcomeView;
 import taskfusion.facades.EmployeeFacade;
@@ -48,7 +49,13 @@ public class TaskFusionCLI {
 	private void seedDemoData() {
 		if (seedDemoData) {
 			Seeder seeder = new Seeder();
-			seeder.seedDemoData();
+
+			try {
+				seeder.seedDemoData();
+			} catch (Exception e) {
+				Text.showExceptionError(e);
+				e.printStackTrace();
+			}
 		}
 	}
 

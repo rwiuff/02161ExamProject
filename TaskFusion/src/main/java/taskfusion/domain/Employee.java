@@ -157,7 +157,4 @@ public class Employee implements ConvertibleToViewModelInterface {
 
   }
 
-  public Project findProject(String projectNumber) {
-    return this.getProjects().get(projectNumber);
-  }
 }

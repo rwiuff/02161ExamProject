@@ -49,6 +49,6 @@ public class RegularActivityTest {
 
     List<RegularActivityViewModel> viewModels = RegularActivityViewModel.listFromModels(models);
     assertEquals(models.size(), viewModels.size());
-
   }
+  
 }

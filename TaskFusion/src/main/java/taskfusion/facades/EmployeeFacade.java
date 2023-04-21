@@ -68,6 +68,7 @@ public class EmployeeFacade {
 
         RegularActivity activity = employeeRepo.findRegularActivityById(id);
 
+        // Skal ned i domæne
         if (!getLoggedInUserModel().hasRegularActivityByID(id)) {
             throw new OperationNotAllowedException("Du har ikke rettighed til at se denne aktivitet");
         }

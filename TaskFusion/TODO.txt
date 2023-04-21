@@ -19,14 +19,18 @@
 -------------
 - generer rapport inkl. cli (Rasmus)
 
+
 - d. 21 fredag 
 --------------
 - CLI færdig
 - Alle cucumber features er ikke kommenteret
-- 100% code coverage (Max, Mathies)
+
 
 - d. 24 mandag 
 --------------
+- 100% code coverage
+- Exceptions væk fra facade
+
 
 
 - d. 28 fredag 

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import taskfusion.domain.Employee;
+import taskfusion.domain.RegularActivity;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.helpers.SingletonHelpers;
@@ -59,4 +60,21 @@ public class EmployeeTest {
     assertEquals("mila", employeeViewModel.initials);
     assertEquals("Michael Laudrup", employeeViewModel.fullName);
   }
+
+
+  @Test
+  public void testHasRegularActivity() throws InvalidPropertyException, ExhaustedOptionsException {
+
+    Employee employee = new Employee("Michael", "Laudrup");
+    
+    employee.addRegularActivity(new RegularActivity("Ferie", "2301", "2306"));
+    employee.addRegularActivity(new RegularActivity("Syg", "1901", "1901"));
+
+    assertFalse(employee.hasRegularActivity("blabla", "2301", "2306"));
+    assertFalse(employee.hasRegularActivity("Ferie", "1234", "2306"));
+    assertFalse(employee.hasRegularActivity("Ferie", "2301", "1234"));
+    assertTrue(employee.hasRegularActivity("Ferie", "2301", "2306"));
+
+  }
+
 }

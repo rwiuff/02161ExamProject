@@ -92,6 +92,7 @@ public class ProjectFacade {
             throws NotFoundException, OperationNotAllowedException {
         requireLogin();
 
+        // Skal ned i domæne
         if (projectRepo.findByProjectNumber(projectNumber).getProjectLeader() != null) {
             if (!getLoggedInUserModel().getInitials()
                     .equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials())) {
@@ -105,12 +106,12 @@ public class ProjectFacade {
 
     }
 
-    public void registerWorkTime(String projectNumber, String activityTitle, double worktTime)
+    public void registerWorkTime(String projectNumber, String activityTitle, double workTime)
             throws NotFoundException, OperationNotAllowedException {
         requireLogin();
 
         projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
-                .registerWorkTime(getLoggedInUserModel().getInitials(), taskFusion.getDate(), worktTime);
+                .registerWorkTime(getLoggedInUserModel().getInitials(), taskFusion.getDate(), workTime);
     }
 
     public double getTotalWorkTimeForEmployee(String projectNumber, String activityTitle, double workTime)
@@ -122,12 +123,6 @@ public class ProjectFacade {
                 .getTotalWorkTimeForEmployee(getLoggedInUserModel().getInitials());
     }
 
-    public Double getTotalWorktimeForActivity(String projectNumber, String activityTitle)
-            throws NotFoundException, OperationNotAllowedException {
-        requireLogin();
-
-        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getTotalWorkTime();
-    }
 
     public List<WorktimeRegistrationViewModel> getUserWorktimeRegistrationsForProjectActivity(String activityTitle,
             String projectNumber) throws NotFoundException, OperationNotAllowedException {
@@ -154,15 +149,15 @@ public class ProjectFacade {
         requireLogin();
 
         String projectLeader = projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials();
+
+        // Skal ned i domæne
         if (!taskFusion.getLoggedInUser().initials.equals(projectLeader)) {
             throw new OperationNotAllowedException(
                     "Kun projektlederen kan tilgå oversigten af arbejdstid for projektet");
         }
         List<WorktimeRegistration> worktimeRegistrations = projectRepo.findByProjectNumber(projectNumber)
                 .getWorktimeRegistrations();
-        if (worktimeRegistrations.size() == 0) {
-            throw new NotFoundException("Ingen arbejdstid er registreret under dette projekt endnu");
-        }
+
         return WorktimeRegistrationViewModel.listFromModels(worktimeRegistrations);
     }
 
@@ -172,6 +167,7 @@ public class ProjectFacade {
 
         WorktimeRegistration worktimeRegistration = projectRepo.findWorktimeRegistrationById(id);
 
+        // Skal ned i domæne
         if (!worktimeRegistration.getInitials().equals(getLoggedInUserModel().getInitials())) {
             throw new OperationNotAllowedException("Du har ikke rettighed til at redigere denne registrering");
         }
