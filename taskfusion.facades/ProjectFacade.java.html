@@ -66,10 +66,10 @@ public class ProjectFacade {
     }
 
     public void saveReport(String projectNumber, String reportDate) throws NotFoundException {
-<span class="fc" id="L69">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
-<span class="fc" id="L70">        Report report = project.getReports().get(reportDate);</span>
-<span class="fc" id="L71">        report.saveReport();</span>
-<span class="fc" id="L72">    }</span>
+<span class="nc" id="L69">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
+<span class="nc" id="L70">        Report report = project.getReports().get(reportDate);</span>
+<span class="nc" id="L71">        report.saveReport();</span>
+<span class="nc" id="L72">    }</span>
 
     /**
      * ###########################
