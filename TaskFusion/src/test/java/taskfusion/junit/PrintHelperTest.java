@@ -19,7 +19,6 @@ import taskfusion.helpers.PrintHelper;
 import taskfusion.helpers.SingletonHelpers;
 import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
-import taskfusion.viewModels.WorktimeRegistrationViewModel;
 
 public class PrintHelperTest {
 

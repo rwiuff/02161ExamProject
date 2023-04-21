@@ -8,7 +8,6 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import taskfusion.app.DateServer;
 import taskfusion.domain.RegularActivity;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.helpers.SingletonHelpers;

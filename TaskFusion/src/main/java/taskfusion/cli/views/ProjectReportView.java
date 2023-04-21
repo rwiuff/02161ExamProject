@@ -41,6 +41,7 @@ public class ProjectReportView implements ViewInterface {
                     return;
                 case 2:
                     saveReport();
+                    Text.showSuccess("Rapport gemt");
                     return;
                 default:
                     Text.showError("Uventet menupunkt");

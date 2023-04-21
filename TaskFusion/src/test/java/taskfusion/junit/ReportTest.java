@@ -1,17 +1,22 @@
 package taskfusion.junit;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import java.util.GregorianCalendar;
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import taskfusion.app.TaskFusion;
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
+import taskfusion.domain.Report;
+import taskfusion.domain.ReportPDFGenerator;
 import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
@@ -27,10 +32,13 @@ public class ReportTest {
     private Project project;
     private String projectNumber;
     private Map<String, Employee> employees = new HashMap<>();
-    private GregorianCalendar date;
+
+    @TempDir
+    File tmp;
 
     @BeforeEach
-    public void resetSingletons() throws InvalidPropertyException, ExhaustedOptionsException, OperationNotAllowedException, NotFoundException, AlreadyExistsException {
+    public void resetSingletons() throws InvalidPropertyException, ExhaustedOptionsException,
+            OperationNotAllowedException, NotFoundException, AlreadyExistsException {
         SingletonHelpers.resetSingletons();
         testSetup();
     }
@@ -38,7 +46,6 @@ public class ReportTest {
     private void testSetup() throws InvalidPropertyException, ExhaustedOptionsException, OperationNotAllowedException,
             NotFoundException, AlreadyExistsException {
         this.taskFusion = new TaskFusion();
-        this.date = new GregorianCalendar();
         for (int i = 0; i < employeeStrings.length; i++) {
             taskFusion.getEmployeeFacade().registerEmployee(employeeStrings[i][0], employeeStrings[i][1]);
         }
@@ -67,17 +74,23 @@ public class ReportTest {
     }
 
     @Test
-    public void testReportGeneration() throws NotFoundException, AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException, ExhaustedOptionsException {
+    public void testReportGeneration() throws NotFoundException, AlreadyExistsException, OperationNotAllowedException,
+            InvalidPropertyException, ExhaustedOptionsException {
         taskFusion.login("rawi");
         taskFusion.getProjectFacade().takeProjectLeaderRole(projectNumber);
         assertNotNull(taskFusion.getProjectFacade().generateProjectRaport(projectNumber));
     }
 
     @Test
-    public void testReportPDFGeneration() throws NotFoundException, AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException, ExhaustedOptionsException {
+    public void testReportPDFGeneration() throws NotFoundException, AlreadyExistsException,
+            OperationNotAllowedException, InvalidPropertyException, ExhaustedOptionsException {
         taskFusion.login("rawi");
         taskFusion.getProjectFacade().takeProjectLeaderRole(projectNumber);
-        ReportViewModel report = taskFusion.getProjectFacade().generateProjectRaport(projectNumber);
-        taskFusion.getProjectFacade().saveReport(projectNumber, report.reportDate);
+        ReportViewModel reportViewModel = taskFusion.getProjectFacade().generateProjectRaport(projectNumber);
+        Report report = project.getReports().get(reportViewModel.reportDate);
+        new ReportPDFGenerator(report).save(tmp.getAbsolutePath());
+        File pdf = Paths.get(tmp.getAbsolutePath() + projectNumber + "/" + projectNumber + " "
+                + project.getProjectTitle() + " " + reportViewModel.reportDate + ".pdf").toFile();
+        assertTrue(pdf.exists());
     }
 }

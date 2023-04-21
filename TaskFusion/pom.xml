@@ -100,6 +100,12 @@
 			<version>5.9.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>5.9.2</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- These two dependencies allow to run JUnit 4 tests and Cucumber tests. -->
 		<dependency>
 			<groupId>org.junit.vintage</groupId>

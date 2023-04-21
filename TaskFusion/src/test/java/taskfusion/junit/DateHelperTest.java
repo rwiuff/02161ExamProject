@@ -1,6 +1,5 @@
 package taskfusion.junit;
 
-import java.sql.Date;
 import java.util.Calendar;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

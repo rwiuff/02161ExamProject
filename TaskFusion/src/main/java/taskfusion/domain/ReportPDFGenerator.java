@@ -53,6 +53,16 @@ public class ReportPDFGenerator {
     }
 
     public void save() {
+        String savePath = "./reports/" + projectNumber;
+        generatePDF(savePath);
+    }
+
+    public void save(String saveDir) {
+        String savePath = saveDir + projectNumber;
+        generatePDF(savePath);
+    }
+
+    public void generatePDF(String savePath) {
         Document document = new Document(PageSize.A4, // New A4 document
                 40f, // Left margin
                 40f, // Right margin
@@ -64,7 +74,7 @@ public class ReportPDFGenerator {
         Font cellFont = new Font(Font.COURIER, 12f);
         Font cellHeaderFont = new Font(Font.COURIER, 12f, Font.BOLD);
 
-        Path path = Paths.get("./reports/" + projectNumber);
+        Path path = Paths.get(savePath);
         try {
             Files.createDirectories(path);
         } catch (IOException e) {
@@ -73,8 +83,8 @@ public class ReportPDFGenerator {
 
         try {
             PdfWriter writer = PdfWriter.getInstance(document,
-                    new FileOutputStream("./reports/" + projectNumber + "/" + projectNumber + " " + title + " " + reportDate + ".pdf"));
-                    // Stream to save document as pdf
+                    new FileOutputStream(savePath + "/" + projectNumber + " " + title + " " + reportDate + ".pdf"));
+            // Stream to save document as pdf
 
             // Header and footer
             HeaderFooter footer = new HeaderFooter(new Phrase("Side ", new Font(Font.COURIER, 12f)), true);
