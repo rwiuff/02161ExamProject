@@ -11,6 +11,7 @@ import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.helpers.SingletonHelpers;
 import taskfusion.persistency.EmployeeRepository;
+import taskfusion.viewModels.EmployeeViewModel;
 
 public class EmployeeTest {
 
@@ -46,5 +47,16 @@ public class EmployeeTest {
     } catch (Exception e) {
       assertEquals("Kunne ikke generere unikke initialer", e.getMessage());
     }
+  }
+
+  @Test
+  public void testEmployeeViewModel() throws InvalidPropertyException, ExhaustedOptionsException {
+    Employee employee = new Employee("Michael", "Laudrup");
+    EmployeeViewModel employeeViewModel = employee.toViewModel();
+
+    assertEquals("Michael", employeeViewModel.firstName);
+    assertEquals("Laudrup", employeeViewModel.lastName);
+    assertEquals("mila", employeeViewModel.initials);
+    assertEquals("Michael Laudrup", employeeViewModel.fullName);
   }
 }
