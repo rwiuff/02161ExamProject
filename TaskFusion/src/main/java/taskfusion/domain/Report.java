@@ -1,5 +1,6 @@
 package taskfusion.domain;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -89,7 +90,7 @@ public class Report implements ConvertibleToViewModelInterface {
         return DateHelper.getDateAsString(reportDate);
     }
 
-    public void saveReport() {
+    public void saveReport() throws IOException {
         new ReportPDFGenerator(this).save();
     }
 

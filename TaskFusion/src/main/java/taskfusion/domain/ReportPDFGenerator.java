@@ -52,17 +52,17 @@ public class ReportPDFGenerator {
         this.activities = report.getActivities();
     }
 
-    public void save() {
+    public void save() throws IOException {
         String savePath = "./reports/" + projectNumber;
         generatePDF(savePath);
     }
 
-    public void save(String saveDir) {
+    public void save(String saveDir) throws IOException {
         String savePath = saveDir + projectNumber;
         generatePDF(savePath);
     }
 
-    public void generatePDF(String savePath) {
+    public void generatePDF(String savePath) throws IOException {
         Document document = new Document(PageSize.A4, // New A4 document
                 40f, // Left margin
                 40f, // Right margin
@@ -75,139 +75,131 @@ public class ReportPDFGenerator {
         Font cellHeaderFont = new Font(Font.COURIER, 12f, Font.BOLD);
 
         Path path = Paths.get(savePath);
-        try {
-            Files.createDirectories(path);
-        } catch (IOException e) {
-            e.printStackTrace();
+        Files.createDirectories(path);
+
+        PdfWriter writer = PdfWriter.getInstance(document,
+                new FileOutputStream(savePath + "/" + projectNumber + " " + title + " " + reportDate + ".pdf"));
+        // Stream to save document as pdf
+
+        // Header and footer
+        HeaderFooter footer = new HeaderFooter(new Phrase("Side ", new Font(Font.COURIER, 12f)), true);
+        footer.setAlignment(Element.ALIGN_CENTER);
+        document.setFooter(footer);
+
+        document.open(); // Edit document
+
+        // Add metadata
+        document.addAuthor(projectLeader);
+        document.addCreator("TaskFusion");
+        document.addCreationDate();
+        document.addTitle(title);
+
+        // Set up title
+        Paragraph titleParagraph = new Paragraph("Projekt: " + title, titleFont);
+        titleParagraph.setAlignment(Element.ALIGN_CENTER);
+        document.add(titleParagraph);
+        document.add(new Paragraph(Chunk.NEWLINE));
+
+        // Add infobox
+        Table infoBox = new Table(2);
+        infoBox.setPadding(1f);
+        infoBox.setSpacing(1f);
+        infoBox.setWidth(100f);
+        String[][] infoStrings = { { "Løbenr.: " + projectNumber, reportDate },
+                { "Startuge: " + startWeek, "Leder: " + projectLeader },
+                { "Slutuge: " + endWeek, "Kunde: " + customer } };
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 2; j++) {
+                Cell cell = new Cell(new Phrase(infoStrings[i][j], cellFont));
+                infoBox.addCell(cell, i, j);
+            }
         }
+        for (int i = 0; i < 3; i++) {
+            Cell tmp = (Cell) infoBox.getElement(i, 1);
+            tmp.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+        }
+        removeBorders(infoBox);
+        document.add(infoBox);
+        document.add(new Paragraph(Chunk.NEWLINE));
+        document.add(new LineSeparator());
+        // document.add(new Paragraph(Chunk.NEWLINE));
 
-        try {
-            PdfWriter writer = PdfWriter.getInstance(document,
-                    new FileOutputStream(savePath + "/" + projectNumber + " " + title + " " + reportDate + ".pdf"));
-            // Stream to save document as pdf
+        // Add employeelist
+        Paragraph employeeHeader = new Paragraph("Medarbejdere",
+                headerFont);
+        employeeHeader.setAlignment(Element.ALIGN_CENTER);
+        document.add(employeeHeader);
+        Table employeeBox = new Table(3);
+        employeeBox.setPadding(1f);
+        employeeBox.setSpacing(1f);
+        employeeBox.setWidth(100f);
+        String[] employeeTableHeader = { "Efternavn", "Fornavn", "Initialer" };
+        for (int i = 0; i < 3; i++) {
+            Cell cell = new Cell(new Phrase(employeeTableHeader[i], cellHeaderFont));
+            employeeBox.addCell(cell, 0, i);
+        }
+        Set<String> employeesKeySet = employees.keySet();
+        int row = 1;
+        for (String employee : employeesKeySet) {
+            Cell lastName = new Cell(new Phrase(employees.get(employee).getLastName(), cellFont));
+            Cell firstName = new Cell(new Phrase(employees.get(employee).getFirstName(), cellFont));
+            Cell initials = new Cell(new Phrase(employees.get(employee).getInitials(), cellFont));
+            employeeBox.addCell(lastName, row, 0);
+            employeeBox.addCell(firstName, row, 1);
+            employeeBox.addCell(initials, row, 2);
+            row++;
+        }
+        removeBorders(employeeBox);
+        document.add(employeeBox);
+        document.add(new Paragraph(Chunk.NEWLINE));
+        document.add(new LineSeparator());
+        // document.add(new Paragraph(Chunk.NEWLINE));
 
-            // Header and footer
-            HeaderFooter footer = new HeaderFooter(new Phrase("Side ", new Font(Font.COURIER, 12f)), true);
-            footer.setAlignment(Element.ALIGN_CENTER);
-            document.setFooter(footer);
-
-            document.open(); // Edit document
-
-            // Add metadata
-            document.addAuthor(projectLeader);
-            document.addCreator("TaskFusion");
-            document.addCreationDate();
-            document.addTitle(title);
-
-            // Set up title
-            Paragraph titleParagraph = new Paragraph("Projekt: " + title, titleFont);
-            titleParagraph.setAlignment(Element.ALIGN_CENTER);
-            document.add(titleParagraph);
-            document.add(new Paragraph(Chunk.NEWLINE));
-
-            // Add infobox
-            Table infoBox = new Table(2);
-            infoBox.setPadding(1f);
-            infoBox.setSpacing(1f);
-            infoBox.setWidth(100f);
-            String[][] infoStrings = { { "Løbenr.: " + projectNumber, reportDate },
-                    { "Startuge: " + startWeek, "Leder: " + projectLeader },
-                    { "Slutuge: " + endWeek, "Kunde: " + customer } };
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 2; j++) {
-                    Cell cell = new Cell(new Phrase(infoStrings[i][j], cellFont));
-                    infoBox.addCell(cell, i, j);
-                }
-            }
-            for (int i = 0; i < 3; i++) {
-                Cell tmp = (Cell) infoBox.getElement(i, 1);
-                tmp.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-            }
-            removeBorders(infoBox);
-            document.add(infoBox);
-            document.add(new Paragraph(Chunk.NEWLINE));
-            document.add(new LineSeparator());
-            // document.add(new Paragraph(Chunk.NEWLINE));
-
-            // Add employeelist
-            Paragraph employeeHeader = new Paragraph("Medarbejdere",
-                    headerFont);
-            employeeHeader.setAlignment(Element.ALIGN_CENTER);
-            document.add(employeeHeader);
-            Table employeeBox = new Table(3);
-            employeeBox.setPadding(1f);
-            employeeBox.setSpacing(1f);
-            employeeBox.setWidth(100f);
-            String[] employeeTableHeader = { "Efternavn", "Fornavn", "Initialer" };
-            for (int i = 0; i < 3; i++) {
-                Cell cell = new Cell(new Phrase(employeeTableHeader[i], cellHeaderFont));
-                employeeBox.addCell(cell, 0, i);
-            }
-            Set<String> employeesKeySet = employees.keySet();
-            int row = 1;
-            for (String employee : employeesKeySet) {
-                Cell lastName = new Cell(new Phrase(employees.get(employee).getLastName(), cellFont));
-                Cell firstName = new Cell(new Phrase(employees.get(employee).getFirstName(), cellFont));
-                Cell initials = new Cell(new Phrase(employees.get(employee).getInitials(), cellFont));
-                employeeBox.addCell(lastName, row, 0);
-                employeeBox.addCell(firstName, row, 1);
-                employeeBox.addCell(initials, row, 2);
+        // Add activity info
+        Paragraph activityHeader = new Paragraph("Projektaktiviteter",
+                headerFont);
+        activityHeader.setAlignment(Element.ALIGN_CENTER);
+        document.add(activityHeader);
+        for (ProjectActivity activity : activities) {
+            Table activityInfoBox = new Table(2);
+            activityInfoBox.setPadding(1f);
+            activityInfoBox.setSpacing(1f);
+            activityInfoBox.setWidth(100f);
+            Table worktimeInfoBox = new Table(3);
+            worktimeInfoBox.setPadding(1f);
+            worktimeInfoBox.setSpacing(1f);
+            worktimeInfoBox.setWidth(100f);
+            Cell activityTitleCell = new Cell(new Phrase("Aktivitet: " + activity.title, cellHeaderFont));
+            Cell timeBudgetCell = new Cell(
+                    new Phrase("Budgeteret tid: " + activity.getTimeBudget(), cellHeaderFont));
+            Cell starWeekCell = new Cell(new Phrase("Startuge: " + activity.startWeek, cellHeaderFont));
+            Cell endWeekCell = new Cell(new Phrase("Slutuge: " + activity.endWeek, cellHeaderFont));
+            timeBudgetCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+            endWeekCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+            activityInfoBox.addCell(activityTitleCell, 0, 0);
+            activityInfoBox.addCell(timeBudgetCell, 0, 1);
+            activityInfoBox.addCell(starWeekCell, 1, 0);
+            activityInfoBox.addCell(endWeekCell, 1, 1);
+            removeBorders(activityInfoBox);
+            document.add(activityInfoBox);
+            row = 0;
+            for (WorktimeRegistration worktimeRegistration : activity.getWorktimeRegistrations()) {
+                Cell dateCell = new Cell(new Phrase(getDateAsString(worktimeRegistration.getDate()), cellFont));
+                Cell employeeCell = new Cell(new Phrase(worktimeRegistration.getInitials(), cellFont));
+                Cell worktimeCell = new Cell(new Phrase(worktimeRegistration.getTime() + "", cellFont));
+                worktimeCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+                worktimeInfoBox.addCell(dateCell, row, 0);
+                worktimeInfoBox.addCell(employeeCell, row, 1);
+                worktimeInfoBox.addCell(worktimeCell, row, 2);
                 row++;
             }
-            removeBorders(employeeBox);
-            document.add(employeeBox);
-            document.add(new Paragraph(Chunk.NEWLINE));
-            document.add(new LineSeparator());
-            // document.add(new Paragraph(Chunk.NEWLINE));
-
-            // Add activity info
-            Paragraph activityHeader = new Paragraph("Projektaktiviteter",
-                    headerFont);
-            activityHeader.setAlignment(Element.ALIGN_CENTER);
-            document.add(activityHeader);
-            for (ProjectActivity activity : activities) {
-                Table activityInfoBox = new Table(2);
-                activityInfoBox.setPadding(1f);
-                activityInfoBox.setSpacing(1f);
-                activityInfoBox.setWidth(100f);
-                Table worktimeInfoBox = new Table(3);
-                worktimeInfoBox.setPadding(1f);
-                worktimeInfoBox.setSpacing(1f);
-                worktimeInfoBox.setWidth(100f);
-                Cell activityTitleCell = new Cell(new Phrase("Aktivitet: " + activity.title, cellHeaderFont));
-                Cell timeBudgetCell = new Cell(
-                        new Phrase("Budgeteret tid: " + activity.getTimeBudget(), cellHeaderFont));
-                Cell starWeekCell = new Cell(new Phrase("Startuge: " + activity.startWeek, cellHeaderFont));
-                Cell endWeekCell = new Cell(new Phrase("Slutuge: " + activity.endWeek, cellHeaderFont));
-                timeBudgetCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-                endWeekCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-                activityInfoBox.addCell(activityTitleCell, 0, 0);
-                activityInfoBox.addCell(timeBudgetCell, 0, 1);
-                activityInfoBox.addCell(starWeekCell, 1, 0);
-                activityInfoBox.addCell(endWeekCell, 1, 1);
-                removeBorders(activityInfoBox);
-                document.add(activityInfoBox);
-                row = 0;
-                for (WorktimeRegistration worktimeRegistration : activity.getWorktimeRegistrations()) {
-                    Cell dateCell = new Cell(new Phrase(getDateAsString(worktimeRegistration.getDate()), cellFont));
-                    Cell employeeCell = new Cell(new Phrase(worktimeRegistration.getInitials(), cellFont));
-                    Cell worktimeCell = new Cell(new Phrase(worktimeRegistration.getTime() + "", cellFont));
-                    worktimeCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-                    worktimeInfoBox.addCell(dateCell, row, 0);
-                    worktimeInfoBox.addCell(employeeCell, row, 1);
-                    worktimeInfoBox.addCell(worktimeCell, row, 2);
-                    row++;
-                }
-                removeBorders(worktimeInfoBox);
-                document.add(worktimeInfoBox);
-            }
-
-            // Close streams, document saved
-            document.close();
-            writer.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            removeBorders(worktimeInfoBox);
+            document.add(worktimeInfoBox);
         }
+
+        // Close streams, document saved
+        document.close();
+        writer.close();
     }
 
     public void removeBorders(Table table) {

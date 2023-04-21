@@ -1,5 +1,6 @@
 package taskfusion.facades;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import taskfusion.app.TaskFusion;
@@ -65,7 +66,7 @@ public class ProjectFacade {
         return report.toViewModel();
     }
 
-    public void saveReport(String projectNumber, String reportDate) throws NotFoundException {
+    public void saveReport(String projectNumber, String reportDate) throws NotFoundException, IOException {
         Project project = projectRepo.findByProjectNumber(projectNumber);
         Report report = project.getReports().get(reportDate);
         report.saveReport();
