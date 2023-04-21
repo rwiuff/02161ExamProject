@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import taskfusion.exceptions.AlreadyExistsException;
+import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.helpers.DateHelper;
@@ -153,7 +154,7 @@ public class Project implements ConvertibleToViewModelInterface {
   }
 
   public void createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
-      throws AlreadyExistsException, OperationNotAllowedException {
+      throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
     if (projectLeader != null) {
       if (!projectLeader.getInitials().equals(loggedInUser.getInitials())) {
         throw new OperationNotAllowedException("Kun projektlederen kan redigere denne projekt aktivitet");

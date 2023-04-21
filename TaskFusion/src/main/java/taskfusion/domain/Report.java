@@ -1,12 +1,12 @@
 package taskfusion.domain;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import taskfusion.helpers.DateHelper;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.viewModels.ReportViewModel;
@@ -86,8 +86,7 @@ public class Report implements ConvertibleToViewModelInterface {
     }
 
     public String getDateAsString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
-        return sdf.format(reportDate.getTime());
+        return DateHelper.getDateAsString(reportDate);
     }
 
     public void saveReport() {

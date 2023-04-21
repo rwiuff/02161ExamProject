@@ -75,7 +75,7 @@ public class ProjectRaportView implements ViewInterface {
                     "Budgeteret tid: " + activity.timeBudget);
             System.out.printf("| %-25s %25s |%n", "Startuge: " + activity.startWeek, "Slutuge: " + activity.endWeek);
             for (WorktimeRegistrationViewModel worktimeRegistration : activity.worktimeRegistrations) {
-                System.out.printf("| %-15s %-15s %19s |%n", worktimeRegistration.getDateAsString(),
+                System.out.printf("| %-15s %-15s %19s |%n", worktimeRegistration.dateString,
                         worktimeRegistration.initials, worktimeRegistration.time + " time(r)");
             }
             System.out.printf("| %-50S  |%n", "Status");

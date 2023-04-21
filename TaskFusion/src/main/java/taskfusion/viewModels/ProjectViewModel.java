@@ -13,8 +13,8 @@ public class ProjectViewModel extends ViewModel {
     public String projectNumber;
     public String projectTitle;
     public String customer;
-    public int startWeek;
-    public int endWeek;
+    //public int startWeek;
+    //public int endWeek;
     public String projectLeaderFullName;
     public int assignedEmployeesAmount;
     public List<ProjectActivityViewModel> projectActivities;
@@ -24,8 +24,8 @@ public class ProjectViewModel extends ViewModel {
         this.projectNumber = project.getProjectNumber();
         this.projectTitle = project.getProjectTitle();
         this.customer = project.getCustomer();
-        this.startWeek = project.getStartWeek();
-        this.endWeek = project.getEndWeek();
+        //this.startWeek = project.getStartWeek();
+        //this.endWeek = project.getEndWeek();
         this.projectActivities = ProjectActivityViewModel.listFromModels(project.getActivities());
 
         if (project.getProjectLeader() != null) {

@@ -4,14 +4,12 @@
 - Gennemgå klassediagram class_persistency.puml 
 - Gennemgå sequence diagrammer
 - White box tests 
-- 100% code coverage
-
 - (Rasmus) Mangler raport generering (Rasmus), 
-    - Niceness på rapport
     - Acceptance tests og unit tests
-- (Kasper) CLI
-
 - Javadocs for hvem der har skrevet hvad.
+- Unit tests til viewmodels 
+- Testing af rapporter
+
 
 ######################
 ## PLAN

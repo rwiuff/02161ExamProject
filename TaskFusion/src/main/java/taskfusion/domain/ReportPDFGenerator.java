@@ -24,6 +24,8 @@ import com.lowagie.text.alignment.HorizontalAlignment;
 import com.lowagie.text.pdf.PdfWriter;
 import com.lowagie.text.pdf.draw.LineSeparator;
 
+import taskfusion.helpers.DateHelper;
+
 public class ReportPDFGenerator {
     private String title;
     private String reportDate;
@@ -206,8 +208,7 @@ public class ReportPDFGenerator {
     }
 
     public String getDateAsString(Calendar date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
-        return sdf.format(date.getTime());
+        return DateHelper.getDateAsString(date);
     }
 
 }
