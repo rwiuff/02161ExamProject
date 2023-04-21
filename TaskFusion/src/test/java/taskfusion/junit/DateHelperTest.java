@@ -1,5 +1,6 @@
 package taskfusion.junit;
 
+import java.sql.Date;
 import java.util.Calendar;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -29,6 +30,12 @@ public class DateHelperTest {
         date2 = new DateServer().getDate();
         assertTrue(DateHelper.compareDates(date1, date2));
 
+    }
+
+    @Test
+    public void testConstructDateHelper() {
+        DateHelper dateHelper = new DateHelper();
+        assertTrue(dateHelper != null);
     }
 
 }
