@@ -21,7 +21,7 @@ public class SeederTest {
 	}
 
 	@Test
-	public void testSeedEmployees() {
+	public void testSeedEmployees() throws Exception {
 
 		EmployeeRepository employeeRepository = EmployeeRepository.getInstance();
 		assertEquals(0, employeeRepository.all().size());
@@ -34,7 +34,7 @@ public class SeederTest {
 	}
 
 	@Test
-	public void testSeedProjects() {
+	public void testSeedProjects() throws Exception {
 		ProjectRepository projectRepository = ProjectRepository.getInstance();
 		assertEquals(0, projectRepository.all().size());
 

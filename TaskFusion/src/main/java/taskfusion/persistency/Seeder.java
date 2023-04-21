@@ -22,14 +22,9 @@ public class Seeder {
 
     }
 
-    public void seedDemoData() {
-        try {
-            seedEmployees();
-            seedProjects();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void seedDemoData() throws Exception {
+        seedEmployees();
+        seedProjects();
     }
 
     public void seedEmployees() throws Exception {
