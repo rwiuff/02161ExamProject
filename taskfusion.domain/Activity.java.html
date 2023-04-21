@@ -1,26 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Activity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TaskFusion</a> &gt; <a href="index.source.html" class="el_package">taskfusion.domain</a> &gt; <span class="el_source">Activity.java</span></div><h1>Activity.java</h1><pre class="source lang-java linenums">package taskfusion.domain;
 
+import taskfusion.exceptions.InvalidPropertyException;
+
 public abstract class Activity {
   protected String title;
   protected String startWeek;
   protected String endWeek;
 
-<span class="fc" id="L8">  public Activity(String title, String startWeek, String endWeek) {</span>
-<span class="fc" id="L9">    this.title = title;</span>
-<span class="fc" id="L10">    this.startWeek = startWeek;</span>
-<span class="fc" id="L11">    this.endWeek = endWeek;</span>
-<span class="fc" id="L12">  }</span>
+<span class="fc" id="L10">  public Activity(String title, String startWeek, String endWeek) throws InvalidPropertyException {</span>
+    
+<span class="fc bfc" id="L12" title="All 2 branches covered.">    if (title == &quot;&quot;) {</span>
+<span class="fc" id="L13">      throw new InvalidPropertyException(&quot;En titel mangler&quot;);</span>
+    }
+
+<span class="fc bfc" id="L16" title="All 2 branches covered.">    if (startWeek.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L17">      throw new InvalidPropertyException(&quot;En start uge mangler&quot;);</span>
+    }
+
+<span class="fc bfc" id="L20" title="All 2 branches covered.">    if (endWeek.equals(&quot;&quot;)) {</span>
+<span class="fc" id="L21">      throw new InvalidPropertyException(&quot;En slut uge mangler&quot;);</span>
+    }
+
+<span class="fc bfc" id="L24" title="All 4 branches covered.">    if (startWeek.length() != 4 || endWeek.length() != 4) {</span>
+<span class="fc" id="L25">      throw new InvalidPropertyException(&quot;Start uge og slut uge skal angives med fire cifre&quot;);</span>
+    }
+
+<span class="fc bfc" id="L28" title="All 2 branches covered.">    if (Integer.parseInt(startWeek.substring(0, 2)) &gt; Integer.parseInt(endWeek.substring(0, 2))) {</span>
+<span class="fc" id="L29">      throw new InvalidPropertyException(&quot;Start år skal være før eller ens med slut år&quot;);</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">    } else if (Integer.parseInt(startWeek.substring(0, 2)) == Integer.parseInt(endWeek.substring(0, 2)) &amp;&amp;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">          Integer.parseInt(startWeek.substring(2, 4)) &gt; Integer.parseInt(endWeek.substring(2, 4))) {</span>
+<span class="fc" id="L32">      throw new InvalidPropertyException(&quot;Start uge skal være før eller ens med slut uge&quot;);</span>
+    }
+
+<span class="fc" id="L35">    this.title = title;</span>
+<span class="fc" id="L36">    this.startWeek = startWeek;</span>
+<span class="fc" id="L37">    this.endWeek = endWeek;</span>
+
+
+
+<span class="fc" id="L41">  }</span>
 
   public String getStartWeek() {
-<span class="fc" id="L15">    return this.startWeek;</span>
+<span class="fc" id="L44">    return this.startWeek;</span>
   }
 
   public String getEndWeek() {
-<span class="fc" id="L19">    return this.endWeek;</span>
+<span class="fc" id="L48">    return this.endWeek;</span>
   }
 
   public String getTitle() {
-<span class="fc" id="L23">    return this.title;</span>
+<span class="fc" id="L52">    return this.title;</span>
   }
 
 }

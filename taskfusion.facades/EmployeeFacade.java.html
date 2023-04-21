@@ -47,54 +47,32 @@ public class EmployeeFacade {
     // KLASSEN
     public void createRegularActivity(String title, String startWeek, String endWeek)
             throws OperationNotAllowedException, InvalidPropertyException {
-<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (title == &quot;&quot;) {</span>
-<span class="fc" id="L51">            throw new InvalidPropertyException(&quot;En titel mangler&quot;);</span>
-        }
 
-<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (startWeek.equals(&quot;&quot;)) {</span>
-<span class="fc" id="L55">            throw new InvalidPropertyException(&quot;En start uge mangler&quot;);</span>
-        }
-
-<span class="fc bfc" id="L58" title="All 2 branches covered.">        if (endWeek.equals(&quot;&quot;)) {</span>
-<span class="fc" id="L59">            throw new InvalidPropertyException(&quot;En slut uge mangler&quot;);</span>
-        }
-
-<span class="fc bfc" id="L62" title="All 4 branches covered.">        if (startWeek.length() != 4 || endWeek.length() != 4) {</span>
-<span class="fc" id="L63">            throw new InvalidPropertyException(&quot;Start uge og slut uge skal angives med fire cifre&quot;);</span>
-        }
-
-<span class="fc bfc" id="L66" title="All 2 branches covered.">        if (Integer.parseInt(startWeek.substring(0, 2)) &gt; Integer.parseInt(endWeek.substring(0, 2))) {</span>
-<span class="fc" id="L67">            throw new InvalidPropertyException(&quot;Start år skal være før eller ens med slut år&quot;);</span>
-<span class="fc bfc" id="L68" title="All 2 branches covered.">        } else if (Integer.parseInt(startWeek.substring(0, 2)) == Integer.parseInt(endWeek.substring(0, 2)) &amp;&amp;</span>
-<span class="fc bfc" id="L69" title="All 2 branches covered.">                Integer.parseInt(startWeek.substring(2, 4)) &gt; Integer.parseInt(endWeek.substring(2, 4))) {</span>
-<span class="fc" id="L70">            throw new InvalidPropertyException(&quot;Start uge skal være før slut uge&quot;);</span>
-        }
-
-<span class="fc" id="L73">        requireLogin();</span>
-<span class="fc" id="L74">        getLoggedInUserModel().addRegularActivity(new RegularActivity(title, startWeek, endWeek));</span>
-<span class="fc" id="L75">    }</span>
+<span class="fc" id="L51">        requireLogin();</span>
+<span class="fc" id="L52">        getLoggedInUserModel().addRegularActivity(new RegularActivity(title, startWeek, endWeek));</span>
+<span class="fc" id="L53">    }</span>
 
     public boolean hasRegularActivity(String title, String startWeek, String endWeek) {
-<span class="fc" id="L78">        return getLoggedInUserModel().hasRegularActivity(title, startWeek, endWeek);</span>
+<span class="fc" id="L56">        return getLoggedInUserModel().hasRegularActivity(title, startWeek, endWeek);</span>
     }
 
     public List&lt;RegularActivityViewModel&gt; getRegularActivities() {
-<span class="fc" id="L82">        return RegularActivityViewModel.listFromModels(EmployeeRepository.getInstance()</span>
-<span class="fc" id="L83">                .findByInitials(taskFusion.getLoggedInUser().initials).getRegularActivities());</span>
+<span class="fc" id="L60">        return RegularActivityViewModel.listFromModels(EmployeeRepository.getInstance()</span>
+<span class="fc" id="L61">                .findByInitials(taskFusion.getLoggedInUser().initials).getRegularActivities());</span>
     }
 
     public RegularActivityViewModel getRegularActivityById(int id)
             throws NotFoundException, OperationNotAllowedException {
 
-<span class="fc" id="L89">        requireLogin();</span>
+<span class="fc" id="L67">        requireLogin();</span>
 
-<span class="fc" id="L91">        RegularActivity activity = employeeRepo.findRegularActivityById(id);</span>
+<span class="fc" id="L69">        RegularActivity activity = employeeRepo.findRegularActivityById(id);</span>
 
-<span class="fc bfc" id="L93" title="All 2 branches covered.">        if (!getLoggedInUserModel().hasRegularActivityByID(id)) {</span>
-<span class="fc" id="L94">            throw new OperationNotAllowedException(&quot;Du har ikke rettighed til at se denne aktivitet&quot;);</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (!getLoggedInUserModel().hasRegularActivityByID(id)) {</span>
+<span class="fc" id="L72">            throw new OperationNotAllowedException(&quot;Du har ikke rettighed til at se denne aktivitet&quot;);</span>
         }
 
-<span class="fc" id="L97">        return activity.toViewModel();</span>
+<span class="fc" id="L75">        return activity.toViewModel();</span>
     }
 
     // public void deleteRegularActivity(int id) throws OperationNotAllowedException
@@ -112,14 +90,14 @@ public class EmployeeFacade {
      * ###########################
      */
     private Employee getLoggedInUserModel() {
-<span class="fc" id="L115">        return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);</span>
+<span class="fc" id="L93">        return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);</span>
     }
 
     private void requireLogin() throws OperationNotAllowedException {
-<span class="fc bfc" id="L119" title="All 2 branches covered.">        if (!taskFusion.isLoggedIn()) {</span>
-<span class="fc" id="L120">            throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (!taskFusion.isLoggedIn()) {</span>
+<span class="fc" id="L98">            throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
         }
-<span class="fc" id="L122">    }</span>
+<span class="fc" id="L100">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
