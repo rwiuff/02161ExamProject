@@ -162,4 +162,9 @@ public class ProjectSteps {
   public void theEmployeeListContainsItems(Integer int1) {
     assertTrue(this.assignedEmployees.size() == 2);
   }
+
+    @Then("the user have {int} projects")
+    public void the_user_have_projects(int i) {
+        assertEquals(1, taskFusion.getProjectFacade().getUserProjects().size());
+    }
 }
