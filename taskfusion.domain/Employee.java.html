@@ -107,16 +107,16 @@ public class Employee implements ConvertibleToViewModelInterface {
   public boolean hasRegularActivity(String title, String startWeek, String endWeek) {
 <span class="fc bfc" id="L108" title="All 2 branches covered.">    for (RegularActivity regularActivity : this.regularActivities) {</span>
 
-<span class="pc bpc" id="L110" title="1 of 2 branches missed.">      if (!regularActivity.getTitle().equals(title)) {</span>
-<span class="nc" id="L111">        continue;</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">      if (!regularActivity.getTitle().equals(title)) {</span>
+<span class="fc" id="L111">        continue;</span>
       }
       
-<span class="pc bpc" id="L114" title="1 of 2 branches missed.">      if(!regularActivity.getStartWeek().equals(startWeek)) {</span>
-<span class="nc" id="L115">        continue;</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">      if(!regularActivity.getStartWeek().equals(startWeek)) {</span>
+<span class="fc" id="L115">        continue;</span>
       }
 
-<span class="pc bpc" id="L118" title="1 of 2 branches missed.">      if(!regularActivity.getEndWeek().equals(endWeek)) {</span>
-<span class="nc" id="L119">        continue;</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">      if(!regularActivity.getEndWeek().equals(endWeek)) {</span>
+<span class="fc" id="L119">        continue;</span>
       }
 
 <span class="fc" id="L122">      return true;</span>
@@ -157,8 +157,5 @@ public class Employee implements ConvertibleToViewModelInterface {
 
   }
 
-  public Project findProject(String projectNumber) {
-<span class="nc" id="L161">    return this.getProjects().get(projectNumber);</span>
-  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
