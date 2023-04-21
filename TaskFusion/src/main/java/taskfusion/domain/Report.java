@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import taskfusion.helpers.DateHelper;
 import taskfusion.viewModels.ReportViewModel;
 
 public class Report implements ConvertibleToViewModelInterface {
@@ -78,8 +79,7 @@ public class Report implements ConvertibleToViewModelInterface {
     }
 
     public String getDateAsString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
-        return sdf.format(reportDate.getTime());
+        return DateHelper.getDateAsString(reportDate);
     }
 
     public void saveReport() {

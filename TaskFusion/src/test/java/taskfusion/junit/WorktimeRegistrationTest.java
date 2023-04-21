@@ -37,6 +37,7 @@ public class WorktimeRegistrationTest {
     assertEquals(initials, viewModel.initials);
     assertEquals(worktime, viewModel.time);
     assertTrue(DateHelper.compareDates(viewModel.date, model.getDate()));
+    assertEquals(DateHelper.getDateAsString(model.getDate()), viewModel.dateString);
 
   }
 }

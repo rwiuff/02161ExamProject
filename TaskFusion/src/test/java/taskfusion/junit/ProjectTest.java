@@ -1,6 +1,8 @@
 package taskfusion.junit;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,11 +18,6 @@ public class ProjectTest {
   @BeforeEach
   public void resetSingletons() {
     SingletonHelpers.resetSingletons();
-  }
-
-  @Test 
-  public void testGenerateProjectNumber() { // Up for debate tomorrow
-
   }
 
   @Test
@@ -39,6 +36,20 @@ public class ProjectTest {
     assertEquals(null, viewModel.projectLeaderFullName);
     assertEquals(0, viewModel.projectActivities.size());
     assertEquals(0, viewModel.reports.size());
-   
+  }
+
+  @Test
+  public void testProjectListFromModels()  {
+
+    Calendar date = new DateServer().getDate();
+
+    List<Project> models = new ArrayList<>();
+    
+    models.add(new Project("TaskFusion",date));
+    models.add(new Project("Half-Life 3", date));
+
+    List<ProjectViewModel> viewModels = ProjectViewModel.listFromModels(models);
+    assertEquals(models.size(), viewModels.size());
+
   }
 }

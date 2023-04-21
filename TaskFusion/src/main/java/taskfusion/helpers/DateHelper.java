@@ -21,4 +21,9 @@ public class DateHelper {
 
         return dateString1.equals(dateString2);
     }
+
+    public static String getDateAsString(Calendar date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
+        return sdf.format(date.getTime());
+    }
 }

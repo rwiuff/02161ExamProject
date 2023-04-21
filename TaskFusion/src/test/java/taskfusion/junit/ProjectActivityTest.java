@@ -1,6 +1,10 @@
 package taskfusion.junit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +14,7 @@ import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.helpers.SingletonHelpers;
 import taskfusion.viewModels.ProjectActivityViewModel;
 
-public class ProjectActivityTest {
+public class ProjectActivityTest { 
 
   @BeforeEach
   public void resetSingletons() {
@@ -53,4 +57,20 @@ public class ProjectActivityTest {
     assertEquals((time1 + time2), viewModel.totalWorktime);
 
   }
+
+  @Test
+  public void testProjectActivityListFromModels() throws InvalidPropertyException {
+
+    List<ProjectActivity> models = new ArrayList<>();
+    
+    models.add(new ProjectActivity("TaskFusion", "2301", "2306"));
+    models.add(new ProjectActivity("Half-Life 3", "2109", "2110"));
+    models.add(new ProjectActivity("Cure cancer", "2901", "3606"));
+
+    List<ProjectActivityViewModel> viewModels = ProjectActivityViewModel.listFromModels(models);
+    assertEquals(models.size(), viewModels.size());
+
+  }
+
+
 }
