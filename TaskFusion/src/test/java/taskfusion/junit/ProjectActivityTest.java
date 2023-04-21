@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import taskfusion.app.DateServer;
 import taskfusion.domain.ProjectActivity;
 import taskfusion.exceptions.InvalidPropertyException;
+import taskfusion.exceptions.NotFoundException;
 import taskfusion.helpers.SingletonHelpers;
 import taskfusion.viewModels.ProjectActivityViewModel;
 
@@ -23,7 +24,7 @@ public class ProjectActivityTest {
 
 
   @Test
-  public void testProjectActivityViewModel() throws InvalidPropertyException {
+  public void testProjectActivityViewModel() throws InvalidPropertyException, NotFoundException {
 
     String title = "Planlægning";
     String startWeek = "2301";

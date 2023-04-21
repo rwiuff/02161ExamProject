@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import taskfusion.app.DateServer;
 import taskfusion.domain.WorktimeRegistration;
+import taskfusion.exceptions.NotFoundException;
 import taskfusion.helpers.DateHelper;
 import taskfusion.helpers.SingletonHelpers;
 import taskfusion.viewModels.WorktimeRegistrationViewModel;
@@ -23,7 +24,7 @@ public class WorktimeRegistrationTest {
 
 
   @Test
-  public void testWorktimeRegistrationViewModel() {
+  public void testWorktimeRegistrationViewModel() throws NotFoundException {
 
     Calendar date = new DateServer().getDate();
     double worktime = 10.5;

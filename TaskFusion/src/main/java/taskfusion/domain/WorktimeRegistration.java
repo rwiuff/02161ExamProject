@@ -2,6 +2,7 @@ package taskfusion.domain;
 
 import java.util.Calendar;
 
+import taskfusion.exceptions.NotFoundException;
 import taskfusion.persistency.ProjectRepository;
 import taskfusion.viewModels.WorktimeRegistrationViewModel;
 
@@ -11,7 +12,7 @@ public class WorktimeRegistration implements ConvertibleToViewModelInterface {
     private String initials;
     private double time;
 
-    public WorktimeRegistration(String initials, Calendar date, double time) {
+    public WorktimeRegistration(String initials, Calendar date, double time) throws NotFoundException {
         this.initials = initials;
         this.date = date;
         this.time = time;

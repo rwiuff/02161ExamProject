@@ -151,6 +151,8 @@ public class ProjectActivitySteps {
 
   @Then("the activity returns {double} hours")
   public void the_activity_returns_hours(double remainingTimeOnActivity) {
+    System.out.println(remainingTimeOnActivity);
+    System.out.println(this.remainingWorkTime);
     assertEquals(this.remainingWorkTime, remainingTimeOnActivity, .1);
   }
 

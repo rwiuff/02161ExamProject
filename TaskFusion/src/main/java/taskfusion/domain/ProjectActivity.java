@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import taskfusion.exceptions.InvalidPropertyException;
+import taskfusion.exceptions.NotFoundException;
 import taskfusion.viewModels.ProjectActivityViewModel;
 
 public class ProjectActivity extends Activity implements ConvertibleToViewModelInterface {
@@ -30,8 +31,10 @@ public class ProjectActivity extends Activity implements ConvertibleToViewModelI
     this.timeBudget = timeBudget;
   }
 
-  public void registerWorkTime(String initials, Calendar date, double workTime) {
+  public void registerWorkTime(String initials, Calendar date, double workTime) throws NotFoundException {
+    //System.out.println(workTime);
     worktimeRegistrations.add(new WorktimeRegistration(initials, date, workTime));
+    System.out.println(worktimeRegistrations.get(0));
   }
 
   public List<WorktimeRegistration> getWorktimeRegistrations() {

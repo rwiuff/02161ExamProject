@@ -17,10 +17,10 @@ public class WorkTimeSteps {
 
     @When("the user registers a work time of {double} hours to the project activity with title {string} in the project with project number {string}")
     public void theUserRegistersAWorkTimeOfHoursToTheProjectActivityWithTitleInTheProjectWithProjectNumber(
-            double worktTime,
+            double workTime,
             String activityTitle, String projectNumber) {
         try {
-            this.taskFusion.getProjectFacade().registerWorkTime(projectNumber, activityTitle, worktTime);
+            this.taskFusion.getProjectFacade().registerWorkTime(projectNumber, activityTitle, workTime);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }
