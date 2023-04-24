@@ -127,9 +127,6 @@ public class Project implements ConvertibleToViewModelInterface {
       throws NotFoundException, OperationNotAllowedException {
 
     Employee employee = EmployeeRepository.getInstance().findByInitials(employeeInitials);
-    if (employee == null) {
-      throw new NotFoundException("Ukendt medarbejder");
-    }
 
     if (!allowAssignEmployeeToProject(loggedInUser)) {
       throw new OperationNotAllowedException("Kun projektleder kan tildele medarbejdere til projektet");

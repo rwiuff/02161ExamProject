@@ -181,7 +181,7 @@ public class ProjectFacade {
         return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getRemainingWorktime();
     }
 
-    public List<ProjectViewModel> getUserProjects() {
+    public List<ProjectViewModel> getUserProjects() throws NotFoundException {
 
         List<Project> projects = new ArrayList<Project>(getLoggedInUserModel().getProjects().values());
 
@@ -196,8 +196,9 @@ public class ProjectFacade {
      * ###########################
      * Helper methods
      * ###########################
+     * @throws NotFoundException
      */
-    private Employee getLoggedInUserModel() {
+    private Employee getLoggedInUserModel() throws NotFoundException {
         return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);
     }
 

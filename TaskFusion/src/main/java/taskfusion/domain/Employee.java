@@ -65,7 +65,7 @@ public class Employee implements ConvertibleToViewModelInterface {
             + lastName.substring(l2, Math.min(l2 + 1, lastName.length()));
 
         init = init.toLowerCase();
-        if (employeeRepo.findByInitials(init) == null) {
+        if (!employeeRepo.initialsExist(init)) {
           this.initials = init;
           return;
         }

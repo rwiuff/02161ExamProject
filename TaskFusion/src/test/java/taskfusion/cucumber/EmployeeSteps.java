@@ -9,6 +9,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import taskfusion.app.TaskFusion;
 import taskfusion.domain.Employee;
+import taskfusion.exceptions.NotFoundException;
 import taskfusion.persistency.EmployeeRepository;
 
 public class EmployeeSteps {
@@ -22,7 +23,7 @@ public class EmployeeSteps {
 
     @Then("an employee with first name {string}, last name {string} and initials {string} exists in the application")
     public void an_employee_with_first_name_last_name_and_initials_exists_in_the_application(String firstName,
-            String lastName, String initials) {
+            String lastName, String initials) throws NotFoundException {
         Employee employee = EmployeeRepository.getInstance().findByInitials(initials);
 
         assertEquals(employee.getFirstName(), firstName);
@@ -71,7 +72,7 @@ public class EmployeeSteps {
     }
 
     @Then("the employee {string} have {int} projects")
-    public void the_employee_have_projects(String initials, int projects) {
+    public void the_employee_have_projects(String initials, int projects) throws NotFoundException {
         assertEquals(projects, EmployeeRepository.getInstance().findByInitials(initials).getProjects().size());
     }
 

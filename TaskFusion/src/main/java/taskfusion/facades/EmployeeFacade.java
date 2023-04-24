@@ -26,37 +26,33 @@ public class EmployeeFacade {
         employeeRepo.create(firstName, lastName);
     }
 
-    public EmployeeViewModel findEmployeeByInitials(String initials) {
+    public EmployeeViewModel findEmployeeByInitials(String initials) throws NotFoundException {
 
         Employee employee = employeeRepo.findByInitials(initials);
-
-        if (employee != null) {
-            return employee.toViewModel();
-        }
-
-        return null;
+        return employee.toViewModel();
     }
 
     /**
      * ###########################
      * REGULAR ACTIVITIES
      * ###########################
+     * @throws NotFoundException
      */
 
     // ALLE DISSE CHECKS, SKAL FOREGÅ I DOMAIN LAYER, SO I SELVE REGULARACTIVITY
     // KLASSEN
     public void createRegularActivity(String title, String startWeek, String endWeek)
-            throws OperationNotAllowedException, InvalidPropertyException {
+            throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
 
         requireLogin();
         getLoggedInUserModel().addRegularActivity(new RegularActivity(title, startWeek, endWeek));
     }
 
-    public boolean hasRegularActivity(String title, String startWeek, String endWeek) {
+    public boolean hasRegularActivity(String title, String startWeek, String endWeek) throws NotFoundException {
         return getLoggedInUserModel().hasRegularActivity(title, startWeek, endWeek);
     }
 
-    public List<RegularActivityViewModel> getRegularActivities() {
+    public List<RegularActivityViewModel> getRegularActivities() throws NotFoundException {
         return RegularActivityViewModel.listFromModels(EmployeeRepository.getInstance()
                 .findByInitials(taskFusion.getLoggedInUser().initials).getRegularActivities());
     }
@@ -89,8 +85,9 @@ public class EmployeeFacade {
      * ###########################
      * Helper methods
      * ###########################
+     * @throws NotFoundException
      */
-    private Employee getLoggedInUserModel() {
+    private Employee getLoggedInUserModel() throws NotFoundException {
         return employeeRepo.findByInitials(taskFusion.getLoggedInUser().initials);
     }
 
