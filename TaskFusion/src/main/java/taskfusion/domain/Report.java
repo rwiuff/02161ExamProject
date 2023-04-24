@@ -91,8 +91,8 @@ public class Report implements ConvertibleToViewModelInterface {
         return DateHelper.getDateAsString(reportDate);
     }
 
-    public void saveReport() throws IOException, URISyntaxException {
-        new ReportPDFGenerator(this).save();
+    public void saveReport(String saveDirectory) throws IOException, URISyntaxException {
+        new ReportPDFGenerator(this).save(saveDirectory);
     }
 
 }

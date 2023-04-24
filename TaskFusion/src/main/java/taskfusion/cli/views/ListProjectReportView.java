@@ -38,7 +38,7 @@ public class ListProjectReportView implements ViewInterface {
             optionsKeyList.add("" + i);
         }
 
-        String choice = Menu.showListOptions(optionsKeyList, optionsTextList, "Vælg dato", "Projekt rapporter");
+        String choice = Menu.showListOptions(optionsKeyList, optionsTextList, "Vælg rapport", "Projekt rapporter");
 
         if (choice == null) {
             return;

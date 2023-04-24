@@ -40,7 +40,11 @@ public class ProjectReportView implements ViewInterface {
                 case 1:
                     return;
                 case 2:
-                    saveReport();
+                    TaskFusionCLI.scanner().nextLine();
+                    Text.showInputPrompt("Angiv rapportmappe, eller tryk Enter (Standard: \"./reports/\")");
+                    String input = TaskFusionCLI.scanner().nextLine();
+                    String saveDirectory = input.length() == 0 ? "./reports/" : input;
+                    saveReport(saveDirectory);
                     Text.showSuccess("Rapport gemt");
                     return;
                 default:
@@ -87,9 +91,9 @@ public class ProjectReportView implements ViewInterface {
         System.out.printf("| %-50s  |%n", "RAPPORT SLUT");
     }
 
-    private void saveReport() {
+    private void saveReport(String saveDirectory) {
         try {
-            TaskFusionCLI.projectFacade().saveReport(report.projectNumber, report.reportDate);
+            TaskFusionCLI.projectFacade().saveReport(report.projectNumber, report.reportDate, saveDirectory);
         } catch (Exception e) {
             Text.showExceptionError(e);
         }

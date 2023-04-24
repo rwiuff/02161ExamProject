@@ -17,8 +17,6 @@ import org.junit.jupiter.api.io.TempDir;
 import taskfusion.app.TaskFusion;
 import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
-import taskfusion.domain.Report;
-import taskfusion.domain.ReportPDFGenerator;
 import taskfusion.exceptions.AlreadyExistsException;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
@@ -85,12 +83,12 @@ public class ReportTest {
 
     @Test
     public void testReportPDFGeneration() throws NotFoundException, AlreadyExistsException,
-            OperationNotAllowedException, InvalidPropertyException, ExhaustedOptionsException, IOException, URISyntaxException {
+            OperationNotAllowedException, InvalidPropertyException, ExhaustedOptionsException, IOException,
+            URISyntaxException {
         taskFusion.login("rawi");
         taskFusion.getProjectFacade().takeProjectLeaderRole(projectNumber);
         ReportViewModel reportViewModel = taskFusion.getProjectFacade().generateProjectRaport(projectNumber);
-        Report report = project.getReports().get(reportViewModel.reportDate);
-        new ReportPDFGenerator(report).save(tmp.getAbsolutePath());
+        taskFusion.getProjectFacade().saveReport(projectNumber, reportViewModel.reportDate, tmp.getAbsolutePath());
         File pdf = Paths.get(tmp.getAbsolutePath() + projectNumber + "/" + projectNumber + " "
                 + project.getProjectTitle() + " " + reportViewModel.reportDate + ".pdf").toFile();
         assertTrue(pdf.exists());

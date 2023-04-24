@@ -58,11 +58,6 @@ public class ReportPDFGenerator {
         this.activities = report.getActivities();
     }
 
-    public void save() throws IOException, URISyntaxException {
-        String savePath = "./reports/" + projectNumber;
-        generatePDF(savePath);
-    }
-
     public void save(String saveDir) throws IOException, URISyntaxException {
         String savePath = saveDir + projectNumber;
         generatePDF(savePath);

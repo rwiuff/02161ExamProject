@@ -67,10 +67,10 @@ public class ProjectFacade {
         return report.toViewModel();
     }
 
-    public void saveReport(String projectNumber, String reportDate) throws NotFoundException, IOException, URISyntaxException {
+    public void saveReport(String projectNumber, String reportDate, String saveDirectory) throws NotFoundException, IOException, URISyntaxException {
         Project project = projectRepo.findByProjectNumber(projectNumber);
         Report report = project.getReports().get(reportDate);
-        report.saveReport();
+        report.saveReport(saveDirectory);
     }
 
     /**
