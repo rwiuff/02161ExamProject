@@ -130,11 +130,6 @@ public class Employee implements ConvertibleToViewModelInterface {
     return false;
   }
 
-  /*
-   * public void deleteRegularActivity(int id) {
-   * 
-   * }
-   */
 
   public Map<String, Project> getProjects() {
 
@@ -152,5 +147,10 @@ public class Employee implements ConvertibleToViewModelInterface {
     return employeeProjects;
 
   }
+
+  public boolean isSameAs(Employee otherEmployee) {
+    return this.initials.equals(otherEmployee.getInitials());
+  }
+
 
 }

@@ -149,12 +149,11 @@ public class Project implements ConvertibleToViewModelInterface {
 
   public void createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
       throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
-    if (projectLeader != null) {
-      if (!projectLeader.getInitials().equals(loggedInUser.getInitials())) {
+    if (hasProjectLeader()) {
+      if (!projectLeader.isSameAs(loggedInUser)) {
         throw new OperationNotAllowedException("Kun projektlederen kan redigere denne projekt aktivitet");
       }
     }
-
     if (hasProjectActivity(title)) {
       throw new AlreadyExistsException("Projekt aktivitet findes allerede");
     }
@@ -173,6 +172,10 @@ public class Project implements ConvertibleToViewModelInterface {
 
   public List<ProjectActivity> getActivities() {
     return activities;
+  }
+
+  public boolean hasProjectLeader() {
+    return projectLeader != null;
   }
 
   public ProjectActivity findProjectActivity(String title) throws NotFoundException {
