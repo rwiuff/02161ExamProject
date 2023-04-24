@@ -15,7 +15,7 @@ import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 import taskfusion.viewModels.ProjectViewModel;
 
-public class Project implements ConvertibleToViewModelInterface {
+<span class="pc bpc" id="L18" title="1 of 2 branches missed.">public class Project implements ConvertibleToViewModelInterface {</span>
   private String projectNumber;
   private String projectTitle;
   private String customer;
@@ -147,66 +147,86 @@ public class Project implements ConvertibleToViewModelInterface {
 <span class="fc" id="L147">    return false;</span>
   }
 
-  public void createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
+  public ProjectActivity createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
       throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
-<span class="fc bfc" id="L152" title="All 2 branches covered.">    if (hasProjectLeader()) {</span>
-<span class="fc bfc" id="L153" title="All 2 branches covered.">      if (!projectLeader.isSameAs(loggedInUser)) {</span>
-<span class="fc" id="L154">        throw new OperationNotAllowedException(&quot;Kun projektlederen kan oprette en projekt aktivitet for dette projekt&quot;);</span>
+
+<span class="pc bpc" id="L153" title="2 of 4 branches missed.">    assert title != null;</span>
+<span class="pc bpc" id="L154" title="2 of 4 branches missed.">    assert startWeek != null;</span>
+<span class="pc bpc" id="L155" title="2 of 4 branches missed.">    assert endWeek != null;</span>
+<span class="pc bpc" id="L156" title="2 of 4 branches missed.">    assert loggedInUser != null;</span>
+<span class="pc bpc" id="L157" title="2 of 4 branches missed.">    assert activities != null;</span>
+
+<span class="fc bfc" id="L159" title="All 2 branches covered.">    if (hasProjectLeader()) {</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">      if (!projectLeader.isSameAs(loggedInUser)) {</span>
+<span class="fc" id="L161">        throw new OperationNotAllowedException(&quot;Kun projektlederen kan oprette en projekt aktivitet for dette projekt&quot;);</span>
       }
     }
-<span class="fc bfc" id="L157" title="All 2 branches covered.">    if (hasProjectActivity(title)) {</span>
-<span class="fc" id="L158">      throw new AlreadyExistsException(&quot;Projekt aktivitet findes allerede&quot;);</span>
+
+<span class="fc bfc" id="L165" title="All 2 branches covered.">    if (hasProjectActivity(title)) {</span>
+<span class="fc" id="L166">      throw new AlreadyExistsException(&quot;Projekt aktivitet findes allerede&quot;);</span>
     }
-<span class="fc" id="L160">    ProjectActivity activity = new ProjectActivity(title, startWeek, endWeek);</span>
-<span class="fc" id="L161">    this.activities.add(activity);</span>
-<span class="fc" id="L162">  }</span>
+
+<span class="fc" id="L169">    ProjectActivity activity = new ProjectActivity(title, startWeek, endWeek);</span>
+<span class="fc" id="L170">    this.activities.add(activity);</span>
+
+    /**
+     * NOTE: This post condition does not check for 
+     * !project@pre.hasProjectActivity(title)
+     */
+<span class="pc bpc" id="L176" title="1 of 2 branches missed.">    assert (</span>
+<span class="pc bpc" id="L177" title="1 of 2 branches missed.">      activities.contains(activity) &amp;&amp;</span>
+<span class="pc bpc" id="L178" title="1 of 4 branches missed.">      (!hasProjectLeader() || projectLeader.isSameAs(loggedInUser) )</span>
+    );
+
+<span class="fc" id="L181">    return activity;</span>
+  }
 
   public boolean hasProjectActivity(String title) {
-<span class="fc bfc" id="L165" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
-<span class="fc bfc" id="L166" title="All 2 branches covered.">      if (projectActivity.getTitle().equals(title)) {</span>
-<span class="fc" id="L167">        return true;</span>
+<span class="fc bfc" id="L185" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
+<span class="fc bfc" id="L186" title="All 2 branches covered.">      if (projectActivity.getTitle().equals(title)) {</span>
+<span class="fc" id="L187">        return true;</span>
       }
-<span class="fc" id="L169">    }</span>
-<span class="fc" id="L170">    return false;</span>
+<span class="fc" id="L189">    }</span>
+<span class="fc" id="L190">    return false;</span>
   }
 
   public List&lt;ProjectActivity&gt; getActivities() {
-<span class="fc" id="L174">    return activities;</span>
+<span class="fc" id="L194">    return activities;</span>
   }
 
   public boolean hasProjectLeader() {
-<span class="fc bfc" id="L178" title="All 2 branches covered.">    return projectLeader != null;</span>
+<span class="fc bfc" id="L198" title="All 2 branches covered.">    return projectLeader != null;</span>
   }
 
   public ProjectActivity findProjectActivity(String title) throws NotFoundException {
-<span class="fc bfc" id="L182" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
-<span class="fc bfc" id="L183" title="All 2 branches covered.">      if (projectActivity.getTitle().equals(title)) {</span>
-<span class="fc" id="L184">        return projectActivity;</span>
+<span class="fc bfc" id="L202" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
+<span class="fc bfc" id="L203" title="All 2 branches covered.">      if (projectActivity.getTitle().equals(title)) {</span>
+<span class="fc" id="L204">        return projectActivity;</span>
       }
-<span class="fc" id="L186">    }</span>
-<span class="fc" id="L187">    throw new NotFoundException(&quot;Projektaktiviteten findes ikke.&quot;);</span>
+<span class="fc" id="L206">    }</span>
+<span class="fc" id="L207">    throw new NotFoundException(&quot;Projektaktiviteten findes ikke.&quot;);</span>
   }
 
   public List&lt;WorktimeRegistration&gt; getWorktimeRegistrations() throws NotFoundException {
 
-<span class="fc" id="L192">    List&lt;WorktimeRegistration&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L212">    List&lt;WorktimeRegistration&gt; list = new ArrayList&lt;&gt;();</span>
 
-<span class="fc bfc" id="L194" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
-<span class="fc" id="L195">      list.addAll(projectActivity.getWorktimeRegistrations());</span>
-<span class="fc" id="L196">    }</span>
-<span class="fc" id="L197">    return list;</span>
+<span class="fc bfc" id="L214" title="All 2 branches covered.">    for (ProjectActivity projectActivity : this.activities) {</span>
+<span class="fc" id="L215">      list.addAll(projectActivity.getWorktimeRegistrations());</span>
+<span class="fc" id="L216">    }</span>
+<span class="fc" id="L217">    return list;</span>
   }
 
   public List&lt;Employee&gt; getListOfAssignedEmployees() {
-<span class="fc" id="L201">    return this.assignedEmployees.values().stream().toList();</span>
+<span class="fc" id="L221">    return this.assignedEmployees.values().stream().toList();</span>
   }
 
   public void addLatestReport(String date, Report report) {
-<span class="fc" id="L205">    this.reports.put(date, report);</span>
-<span class="fc" id="L206">  }</span>
+<span class="fc" id="L225">    this.reports.put(date, report);</span>
+<span class="fc" id="L226">  }</span>
 
   public Map&lt;String, Report&gt; getReports() {
-<span class="fc" id="L209">    return reports;</span>
+<span class="fc" id="L229">    return reports;</span>
   }
 
 }
