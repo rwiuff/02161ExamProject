@@ -38,14 +38,14 @@ public class ListProjectReportView implements ViewInterface {
             optionsKeyList.add("" + i);
         }
 
-        String choice = Menu.showListOptions(optionsKeyList, optionsTextList, "Vælg dato", "Projekt rapporter");
+        String choice = Menu.showListOptions(optionsKeyList, optionsTextList, "Vælg rapport", "Projekt rapporter");
 
         if (choice == null) {
             return;
         }
 
         ReportViewModel report = reports.get(optionsTextList.get(i - 1));
-        new ProjectRaportView(report).show();
+        new ProjectReportView(report).show();
         return;
     }
 

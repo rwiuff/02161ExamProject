@@ -1,12 +1,16 @@
 package taskfusion.domain;
 
-import java.text.SimpleDateFormat;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import taskfusion.helpers.DateHelper;
+import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.viewModels.ReportViewModel;
 
 public class Report implements ConvertibleToViewModelInterface {
@@ -20,7 +24,7 @@ public class Report implements ConvertibleToViewModelInterface {
     private List<ProjectActivity> activities = new ArrayList<>();
     private Calendar reportDate;
 
-    public Report(Project project, Calendar date) {
+    public Report(Project project, Calendar date, Employee employee) throws NotFoundException, OperationNotAllowedException {
         this.reportDate = date;
         this.title = project.getProjectTitle();
         this.projectNumber = project.getProjectNumber();
@@ -30,6 +34,12 @@ public class Report implements ConvertibleToViewModelInterface {
         this.startWeek = project.getStartWeek();
         this.endWeeek = project.getEndWeek();
         this.activities = project.getActivities();
+        if(project.getProjectLeader() == null){
+            throw new NotFoundException("Projektet mangler en projektleder for at genererer rapporter");
+        }
+        if (!employee.getInitials().equals(projectLeader.getInitials())) {
+            throw new OperationNotAllowedException("Kun projektlederen kan generere rapporter");
+        }
     }
 
     @Override
@@ -78,12 +88,11 @@ public class Report implements ConvertibleToViewModelInterface {
     }
 
     public String getDateAsString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd");
-        return sdf.format(reportDate.getTime());
+        return DateHelper.getDateAsString(reportDate);
     }
 
-    public void saveReport() {
-        new ReportPDFGenerator(this).save();
+    public void saveReport(String saveDirectory) throws IOException, URISyntaxException {
+        new ReportPDFGenerator(this).save(saveDirectory);
     }
 
 }

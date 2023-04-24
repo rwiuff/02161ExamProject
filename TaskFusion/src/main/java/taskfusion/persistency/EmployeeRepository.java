@@ -57,9 +57,24 @@ public class EmployeeRepository {
         employees.put(initials, employee);
     }
 
-    public Employee findByInitials(String initials) {
+    public Employee findByInitials(String initials) throws NotFoundException {
         String formattedInitials = initials.toLowerCase();
-        return employees.get(formattedInitials);
+        Employee employee = employees.get(formattedInitials);
+        
+        if(employee == null) {
+            throw new NotFoundException("Ukendt medarbejder");
+        }
+
+        return employee;
+    }
+
+    public boolean initialsExist(String initials) {
+        try {
+            findByInitials(initials);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public Map<String, Employee> all() {

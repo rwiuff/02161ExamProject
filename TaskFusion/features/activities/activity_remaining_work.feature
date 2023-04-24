@@ -3,7 +3,7 @@ Description: Project leader gets remaining time on activity
 Actors: Project manager
 
 #MAIN SCENARIO
-Scenario: Project manager gets remaining time on activity
+Scenario: Project leader gets remaining time on activity
     Given the user registers an employee with first name "Michael", last name "Laudrup"
     And the year is 2025
     And the user logs in using initials "mila"

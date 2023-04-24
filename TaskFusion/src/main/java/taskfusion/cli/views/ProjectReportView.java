@@ -9,7 +9,7 @@ import taskfusion.viewModels.ProjectActivityViewModel;
 import taskfusion.viewModels.ReportViewModel;
 import taskfusion.viewModels.WorktimeRegistrationViewModel;
 
-public class ProjectRaportView implements ViewInterface {
+public class ProjectReportView implements ViewInterface {
 
     private ReportViewModel report;
     private String[] exitMenu = {
@@ -17,7 +17,7 @@ public class ProjectRaportView implements ViewInterface {
             "Gem og afslut rapportvisning"
     };
 
-    public ProjectRaportView(ReportViewModel report) {
+    public ProjectReportView(ReportViewModel report) {
         this.report = report;
     }
 
@@ -40,7 +40,12 @@ public class ProjectRaportView implements ViewInterface {
                 case 1:
                     return;
                 case 2:
-                    saveReport();
+                    TaskFusionCLI.scanner().nextLine();
+                    Text.showInputPrompt("Angiv rapportmappe, eller tryk Enter (Standard: \"./reports/\")");
+                    String input = TaskFusionCLI.scanner().nextLine();
+                    String saveDirectory = input.length() == 0 ? "./reports/" : input;
+                    saveReport(saveDirectory);
+                    Text.showSuccess("Rapport gemt");
                     return;
                 default:
                     Text.showError("Uventet menupunkt");
@@ -75,10 +80,10 @@ public class ProjectRaportView implements ViewInterface {
                     "Budgeteret tid: " + activity.timeBudget);
             System.out.printf("| %-25s %25s |%n", "Startuge: " + activity.startWeek, "Slutuge: " + activity.endWeek);
             for (WorktimeRegistrationViewModel worktimeRegistration : activity.worktimeRegistrations) {
-                System.out.printf("| %-15s %-15s %19s |%n", worktimeRegistration.getDateAsString(),
+                System.out.printf("| %-15s %-15s %19s |%n", worktimeRegistration.dateString,
                         worktimeRegistration.initials, worktimeRegistration.time + " time(r)");
             }
-            System.out.printf("| %-50S  |%n", "Fremskridt");
+            System.out.printf("| %-50S  |%n", "Status");
             int progress = (int) Math.round((activity.totalWorktime / activity.timeBudget) * 49);
             System.out.printf("| [%-49s] |%n", "=".repeat(progress));
             System.out.println("|" + "-".repeat(53) + "|");
@@ -86,9 +91,9 @@ public class ProjectRaportView implements ViewInterface {
         System.out.printf("| %-50s  |%n", "RAPPORT SLUT");
     }
 
-    private void saveReport() {
+    private void saveReport(String saveDirectory) {
         try {
-            TaskFusionCLI.projectFacade().saveReport(report.projectNumber, report.reportDate);
+            TaskFusionCLI.projectFacade().saveReport(report.projectNumber, report.reportDate, saveDirectory);
         } catch (Exception e) {
             Text.showExceptionError(e);
         }

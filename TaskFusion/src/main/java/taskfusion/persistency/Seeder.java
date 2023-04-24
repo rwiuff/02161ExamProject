@@ -8,6 +8,7 @@ import taskfusion.domain.Employee;
 import taskfusion.domain.Project;
 import taskfusion.domain.ProjectActivity;
 import taskfusion.exceptions.AlreadyExistsException;
+import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
 
@@ -21,14 +22,9 @@ public class Seeder {
 
     }
 
-    public void seedDemoData() {
-        try {
-            seedEmployees();
-            seedProjects();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void seedDemoData() throws Exception {
+        seedEmployees();
+        seedProjects();
     }
 
     public void seedEmployees() throws Exception {
@@ -69,7 +65,7 @@ public class Seeder {
     }
 
     private void seedProjectActivitesToProject(Project project, Employee user)
-            throws AlreadyExistsException, OperationNotAllowedException {
+            throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException, NotFoundException {
         project.createProjectActivity("Brainstorm", "2301", "2302", user);
         project.createProjectActivity("Dokumentation", "2305", "2305", user);
 
@@ -79,7 +75,7 @@ public class Seeder {
         }
     }
 
-    private void seedWorktimeRegistrationsForProjectActivity(ProjectActivity activity) {
+    private void seedWorktimeRegistrationsForProjectActivity(ProjectActivity activity) throws NotFoundException {
 
         activity.registerWorkTime("rawi", dateServer.getDate(), 1);
         activity.registerWorkTime("rawi", dateServer.getDate(), 5.5);

@@ -1,9 +1,16 @@
 package taskfusion.junit;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import taskfusion.app.DateServer;
+import taskfusion.domain.WorktimeRegistration;
 import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
@@ -37,6 +44,24 @@ public class PrintHelperTest {
 
         ProjectRepository.getInstance().create("Demo 1", new DateServer().getDate());
 
+    }
+
+    @Test
+    public void testPrintWorktimeRegistrations() throws NotFoundException {
+        Calendar date = new DateServer().getDate();
+
+        List<WorktimeRegistration> models = new ArrayList<>();
+
+        models.add(new WorktimeRegistration("mila", date, 10.0));
+        models.add(new WorktimeRegistration("mila", date, 3));
+
+        PrintHelper.printWorktimeRegistrations(models);
+    }
+
+    @Test
+    public void testConstructPrintHelper() {
+        PrintHelper printHelper = new PrintHelper();
+        assertTrue(printHelper != null);
     }
 
 }

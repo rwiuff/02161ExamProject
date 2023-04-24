@@ -30,10 +30,6 @@ public class TaskFusion {
 
   public void login(String initials) throws NotFoundException {
     loggedInUser = employeeFacade.findEmployeeByInitials(initials);
-
-    if (loggedInUser == null) {
-      throw new NotFoundException("Ukendt medarbejder");
-    }
   }
 
   public boolean isLoggedIn() {

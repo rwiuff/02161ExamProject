@@ -37,7 +37,7 @@ public class RegularActivitySteps {
 
   @Then("the user has a regular activity with title {string} with start week {string} and end week {string}")
   public void theUserHasARegularActivityWithTitleWithStartWeekAndEndWeek(String title, String startWeek,
-      String endWeek) {
+      String endWeek) throws NotFoundException {
     this.taskFusion.getEmployeeFacade().hasRegularActivity(title, startWeek, endWeek);
   }
 
@@ -73,12 +73,16 @@ public class RegularActivitySteps {
 
   @When("the user requests a list of own regular activities")
   public void the_user_requests_a_list_of_own_regular_activities() {
-    this.regularActivityList = taskFusion.getEmployeeFacade().getRegularActivities();
+    try {
+      this.regularActivityList = taskFusion.getEmployeeFacade().getRegularActivities();
+    } catch (Exception e) {
+      this.errorMessageHolder.setErrorMessage(e.getMessage());
+    }
   }
 
   @When("the user requests a regular activity {string} with start week {string} and end week {string}")
   public void the_user_requests_a_regular_activity_with_start_week_and_end_week(String title, String startWeek,
-      String endWeek) {
+      String endWeek) throws NotFoundException {
     this.hasRegularActivity = EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials)
         .hasRegularActivity(title, startWeek, endWeek);
   }
