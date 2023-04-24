@@ -57,26 +57,41 @@ public class EmployeeRepository {
 <span class="fc" id="L57">        employees.put(initials, employee);</span>
 <span class="fc" id="L58">    }</span>
 
-    public Employee findByInitials(String initials) {
+    public Employee findByInitials(String initials) throws NotFoundException {
 <span class="fc" id="L61">        String formattedInitials = initials.toLowerCase();</span>
-<span class="fc" id="L62">        return employees.get(formattedInitials);</span>
+<span class="fc" id="L62">        Employee employee = employees.get(formattedInitials);</span>
+        
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if(employee == null) {</span>
+<span class="fc" id="L65">            throw new NotFoundException(&quot;Ukendt medarbejder&quot;);</span>
+        }
+
+<span class="fc" id="L68">        return employee;</span>
+    }
+
+    public boolean initialsExist(String initials) {
+        try {
+<span class="fc" id="L73">            findByInitials(initials);</span>
+<span class="fc" id="L74">            return true;</span>
+<span class="fc" id="L75">        } catch (Exception e) {</span>
+<span class="fc" id="L76">            return false;</span>
+        }
     }
 
     public Map&lt;String, Employee&gt; all() {
-<span class="fc" id="L66">        return employees;</span>
+<span class="fc" id="L81">        return employees;</span>
     }
 
     public RegularActivity findRegularActivityById(int id) throws NotFoundException {
 
-<span class="fc" id="L71">        List&lt;RegularActivity&gt; list = allRegularActivities();</span>
+<span class="fc" id="L86">        List&lt;RegularActivity&gt; list = allRegularActivities();</span>
 
-<span class="fc bfc" id="L73" title="All 2 branches covered.">        for (RegularActivity regularActivity : list) {</span>
-<span class="fc bfc" id="L74" title="All 2 branches covered.">            if (regularActivity.getId() == id) {</span>
-<span class="fc" id="L75">                return regularActivity;</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        for (RegularActivity regularActivity : list) {</span>
+<span class="fc bfc" id="L89" title="All 2 branches covered.">            if (regularActivity.getId() == id) {</span>
+<span class="fc" id="L90">                return regularActivity;</span>
             }
-<span class="fc" id="L77">        }</span>
+<span class="fc" id="L92">        }</span>
 
-<span class="fc" id="L79">        throw new NotFoundException(&quot;Kunne ikke finde fast aktivitet&quot;);</span>
+<span class="fc" id="L94">        throw new NotFoundException(&quot;Kunne ikke finde fast aktivitet&quot;);</span>
 
     }
 
@@ -96,19 +111,19 @@ public class EmployeeRepository {
     // }
 
     public int generateRegularActivityId() {
-<span class="fc" id="L99">        return allRegularActivities().size() + 1;</span>
+<span class="fc" id="L114">        return allRegularActivities().size() + 1;</span>
     }
 
     private List&lt;RegularActivity&gt; allRegularActivities() {
-<span class="fc" id="L103">        List&lt;RegularActivity&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L118">        List&lt;RegularActivity&gt; list = new ArrayList&lt;&gt;();</span>
 
-<span class="fc bfc" id="L105" title="All 2 branches covered.">        for (Entry&lt;String, Employee&gt; entry : employees.entrySet()) {</span>
+<span class="fc bfc" id="L120" title="All 2 branches covered.">        for (Entry&lt;String, Employee&gt; entry : employees.entrySet()) {</span>
 
-<span class="fc" id="L107">            Employee employee = entry.getValue();</span>
+<span class="fc" id="L122">            Employee employee = entry.getValue();</span>
 
-<span class="fc" id="L109">            list.addAll(employee.getRegularActivities());</span>
-<span class="fc" id="L110">        }</span>
-<span class="fc" id="L111">        return list;</span>
+<span class="fc" id="L124">            list.addAll(employee.getRegularActivities());</span>
+<span class="fc" id="L125">        }</span>
+<span class="fc" id="L126">        return list;</span>
     }
 
 }

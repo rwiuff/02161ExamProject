@@ -181,7 +181,7 @@ public class ProjectFacade {
 <span class="fc" id="L181">        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getRemainingWorktime();</span>
     }
 
-    public List&lt;ProjectViewModel&gt; getUserProjects() {
+    public List&lt;ProjectViewModel&gt; getUserProjects() throws NotFoundException {
 
 <span class="fc" id="L186">        List&lt;Project&gt; projects = new ArrayList&lt;Project&gt;(getLoggedInUserModel().getProjects().values());</span>
 
@@ -196,15 +196,16 @@ public class ProjectFacade {
      * ###########################
      * Helper methods
      * ###########################
+     * @throws NotFoundException
      */
-    private Employee getLoggedInUserModel() {
-<span class="fc" id="L201">        return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);</span>
+    private Employee getLoggedInUserModel() throws NotFoundException {
+<span class="fc" id="L202">        return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);</span>
     }
 
     private void requireLogin() throws OperationNotAllowedException {
-<span class="fc bfc" id="L205" title="All 2 branches covered.">        if (!taskFusion.isLoggedIn()) {</span>
-<span class="fc" id="L206">            throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
+<span class="fc bfc" id="L206" title="All 2 branches covered.">        if (!taskFusion.isLoggedIn()) {</span>
+<span class="fc" id="L207">            throw new OperationNotAllowedException(&quot;Login krævet&quot;);</span>
         }
-<span class="fc" id="L208">    }</span>
+<span class="fc" id="L209">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
