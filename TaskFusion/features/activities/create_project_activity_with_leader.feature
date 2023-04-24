@@ -21,4 +21,4 @@ Scenario: 1. A project leader can create a project activity
 Scenario: 1a. An employee is not able to create a project activity, when a projectleader is assigned
     Given the user logs in using initials "mila"
     When the user assigns the project activity "Graphics design" to project "23001" with startWeek "2301" and endWeek "2302"
-    Then the error message "Kun projektlederen kan redigere denne projekt aktivitet" is given
+    Then the error message "Kun projektlederen kan oprette en projekt aktivitet for dette projekt" is given

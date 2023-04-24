@@ -28,7 +28,7 @@ public class ProjectFacade {
         this.taskFusion = taskFusion;
     }
 
-    public void createProject(String projectTitle)
+    public Project createProject(String projectTitle)
             throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, AlreadyExistsException {
         requireLogin();
 
@@ -37,6 +37,7 @@ public class ProjectFacade {
         String initials = taskFusion.getLoggedInUser().initials;
         project.assignEmployee(initials, EmployeeRepository.getInstance().findByInitials(initials));
 
+        return project;
     }
 
     public void assignCustomerToProject(String projectNumber, String customer) throws NotFoundException {
@@ -181,7 +182,7 @@ public class ProjectFacade {
         return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getRemainingWorktime();
     }
 
-    public List<ProjectViewModel> getUserProjects() {
+    public List<ProjectViewModel> getUserProjects() throws NotFoundException {
 
         List<Project> projects = new ArrayList<Project>(getLoggedInUserModel().getProjects().values());
 
@@ -196,8 +197,9 @@ public class ProjectFacade {
      * ###########################
      * Helper methods
      * ###########################
+     * @throws NotFoundException
      */
-    private Employee getLoggedInUserModel() {
+    private Employee getLoggedInUserModel() throws NotFoundException {
         return EmployeeRepository.getInstance().findByInitials(taskFusion.getLoggedInUser().initials);
     }
 

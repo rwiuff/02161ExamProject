@@ -82,7 +82,8 @@ ______________________________
 <&chevron-right> Se aktiviteter
 <&chevron-right> Tilføj aktivitet
 <&chevron-right> påtag projektleder rolle
-<color:Red><&chevron-right> Generer rapport
+<&chevron-right> Opret projektrapport
+<&chevron-right> Projektrapporter
 <&chevron-right> tilbage
 }
 }}
@@ -199,16 +200,16 @@ ProjectMenuController --> "
 {{
 salt
 {+
-title <color:Red>PROJEKT RAPPORT
+title PROJEKT RAPPORT
 header ProjectReportView
-Projekt nummer:    23001
-Projekt leder:     kasy
-Medarbejdere:      4
-Aktiviteter:       3
-Tidsbudget:       300
-Registreret tid:       150
-Andel:              50.0%
-<&terminal> Tryk enter for at vende tilbage:
+...
+[Rapport detaljer]
+...
+
+header ProjectReportView
+<&menu> 1. Afslut rapportvisning
+<&menu> 2. Gem og afslut rapportvisning
+<&terminal> Vælg menupunkt:
 }
 }}
 " as ProjectReportView

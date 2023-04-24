@@ -9,6 +9,7 @@ import taskfusion.cli.views.CreateProjectView;
 import taskfusion.cli.views.CreateRegularActivityView;
 import taskfusion.cli.views.ListProjectsView;
 import taskfusion.cli.views.ListRegularActivitiesView;
+import taskfusion.exceptions.NotFoundException;
 import taskfusion.viewModels.ProjectViewModel;
 import taskfusion.viewModels.RegularActivityViewModel;
 
@@ -29,8 +30,14 @@ public class EmployeeMenuController implements ControllerInterface {
 
             switch (selectedMenuItem) {
                 case 1: // Se projekter
-                    List<ProjectViewModel> projects = TaskFusionCLI.projectFacade().getUserProjects();
-                    new ListProjectsView(projects).show();
+                  
+                    try {
+                        List<ProjectViewModel> projects = TaskFusionCLI.projectFacade().getUserProjects();
+                        new ListProjectsView(projects).show();
+                    } catch (NotFoundException e) {
+                        Text.showExceptionError(e);
+                    }
+                    
                     break;
 
                 case 2: // Opret projekt
@@ -38,8 +45,13 @@ public class EmployeeMenuController implements ControllerInterface {
                     break;
 
                 case 3: // Se faste aktiviteter
-                    List<RegularActivityViewModel> activities = TaskFusionCLI.employeeFacade().getRegularActivities();
-                    new ListRegularActivitiesView(activities).show();
+                    try {
+                        List<RegularActivityViewModel> activities = TaskFusionCLI.employeeFacade().getRegularActivities();
+                        new ListRegularActivitiesView(activities).show();
+                    } catch (NotFoundException e) {
+                        Text.showExceptionError(e);
+                    }
+                    
                     break;
 
                 case 4: // Opret fast aktivitet

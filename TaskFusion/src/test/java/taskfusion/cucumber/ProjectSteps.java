@@ -164,7 +164,7 @@ public class ProjectSteps {
   }
 
     @Then("the user have {int} projects")
-    public void the_user_have_projects(int i) {
+    public void the_user_have_projects(int i) throws NotFoundException {
         assertEquals(1, taskFusion.getProjectFacade().getUserProjects().size());
     }
 }
