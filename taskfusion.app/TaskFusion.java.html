@@ -30,20 +30,16 @@ public class TaskFusion {
 
   public void login(String initials) throws NotFoundException {
 <span class="fc" id="L32">    loggedInUser = employeeFacade.findEmployeeByInitials(initials);</span>
-
-<span class="pc bpc" id="L34" title="1 of 2 branches missed.">    if (loggedInUser == null) {</span>
-<span class="nc" id="L35">      throw new NotFoundException(&quot;Ukendt medarbejder&quot;);</span>
-    }
-<span class="fc" id="L37">  }</span>
+<span class="fc" id="L33">  }</span>
 
   public boolean isLoggedIn() {
     // return true;
-<span class="fc bfc" id="L41" title="All 2 branches covered.">    return loggedInUser != null;</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">    return loggedInUser != null;</span>
   }
 
   public void logout() {
-<span class="fc" id="L45">    loggedInUser = null;</span>
-<span class="fc" id="L46">  }</span>
+<span class="fc" id="L41">    loggedInUser = null;</span>
+<span class="fc" id="L42">  }</span>
 
   /**
    * ###########################
@@ -52,11 +48,11 @@ public class TaskFusion {
    */
 
   public void setDateServer(DateServer dateServer) {
-<span class="fc" id="L55">    this.dateServer = dateServer;</span>
-<span class="fc" id="L56">  }</span>
+<span class="fc" id="L51">    this.dateServer = dateServer;</span>
+<span class="fc" id="L52">  }</span>
 
   public Calendar getDate() {
-<span class="fc" id="L59">    return this.dateServer.getDate();</span>
+<span class="fc" id="L55">    return this.dateServer.getDate();</span>
   }
 
   /**
@@ -66,11 +62,11 @@ public class TaskFusion {
    */
 
   public EmployeeFacade getEmployeeFacade() {
-<span class="fc" id="L69">    return this.employeeFacade;</span>
+<span class="fc" id="L65">    return this.employeeFacade;</span>
   }
 
   public ProjectFacade getProjectFacade() {
-<span class="fc" id="L73">    return this.projectFacade;</span>
+<span class="fc" id="L69">    return this.projectFacade;</span>
   }
 
 }
