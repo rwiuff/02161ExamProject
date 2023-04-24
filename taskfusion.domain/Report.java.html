@@ -91,9 +91,9 @@ public class Report implements ConvertibleToViewModelInterface {
 <span class="fc" id="L91">        return DateHelper.getDateAsString(reportDate);</span>
     }
 
-    public void saveReport() throws IOException, URISyntaxException {
-<span class="nc" id="L95">        new ReportPDFGenerator(this).save();</span>
-<span class="nc" id="L96">    }</span>
+    public void saveReport(String saveDirectory) throws IOException, URISyntaxException {
+<span class="fc" id="L95">        new ReportPDFGenerator(this).save(saveDirectory);</span>
+<span class="fc" id="L96">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

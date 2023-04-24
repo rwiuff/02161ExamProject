@@ -5,11 +5,11 @@ TaskFusion,taskfusion.domain,Employee,0,232,0,26,0,53,0,28,0,15
 TaskFusion,taskfusion.domain,Activity,0,103,0,16,0,21,0,12,0,4
 TaskFusion,taskfusion.domain,ProjectActivity,0,104,0,4,0,23,0,14,0,12
 TaskFusion,taskfusion.domain,WorktimeRegistration,0,37,0,0,0,13,0,7,0,7
-TaskFusion,taskfusion.domain,Report,6,110,0,4,2,29,1,15,1,13
-TaskFusion,taskfusion.domain,ReportPDFGenerator,8,900,0,18,3,166,1,14,1,5
+TaskFusion,taskfusion.domain,Report,0,117,0,4,0,31,0,16,0,14
+TaskFusion,taskfusion.domain,ReportPDFGenerator,0,900,0,18,0,166,0,14,0,5
 TaskFusion,taskfusion.helpers,PrintHelper,0,68,0,6,0,13,0,7,0,4
 TaskFusion,taskfusion.helpers,DateHelper,0,44,0,4,0,10,0,6,0,4
-TaskFusion,taskfusion.facades,ProjectFacade,14,296,0,10,4,71,1,25,1,20
+TaskFusion,taskfusion.facades,ProjectFacade,0,311,0,10,0,75,0,26,0,21
 TaskFusion,taskfusion.facades,EmployeeFacade,0,89,0,4,0,23,0,11,0,9
 TaskFusion,taskfusion.viewModels,EmployeeViewModel,0,41,0,2,0,11,0,3,0,2
 TaskFusion,taskfusion.viewModels,ViewModel,0,3,0,0,0,1,0,1,0,1

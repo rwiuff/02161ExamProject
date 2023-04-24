@@ -68,11 +68,11 @@ public class ProjectFacade {
 <span class="fc" id="L68">        return report.toViewModel();</span>
     }
 
-    public void saveReport(String projectNumber, String reportDate) throws NotFoundException, IOException, URISyntaxException {
-<span class="nc" id="L72">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
-<span class="nc" id="L73">        Report report = project.getReports().get(reportDate);</span>
-<span class="nc" id="L74">        report.saveReport();</span>
-<span class="nc" id="L75">    }</span>
+    public void saveReport(String projectNumber, String reportDate, String saveDirectory) throws NotFoundException, IOException, URISyntaxException {
+<span class="fc" id="L72">        Project project = projectRepo.findByProjectNumber(projectNumber);</span>
+<span class="fc" id="L73">        Report report = project.getReports().get(reportDate);</span>
+<span class="fc" id="L74">        report.saveReport(saveDirectory);</span>
+<span class="fc" id="L75">    }</span>
 
     /**
      * ###########################
