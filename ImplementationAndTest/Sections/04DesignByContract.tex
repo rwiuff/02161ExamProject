@@ -1,2 +1,77 @@
 % !TeX root = ..\rapport_13_2.tex
 \section{Design by contract}
+\subsection{generateProjectNumber}
+pre: 
+\begin{equation}
+    pr \neq null \land date \neq null
+\end{equation}
+
+post:
+\begin{equation}
+    \text{result }=\{s|\exists p \in projectRepository.getProjectNumbers : s \in p \land p = largestProjectNumber(date)\}
+\end{equation}
+Med asserts ser det ud som følger:
+\begin{figure}[H]
+    \centering
+    \caption{generateProjectNumber med asserts}
+    \includegraphics[width = 14cm, keepaspectratio]{ImplementationAndTest/Diagrams/contract_generateProjectNumber.png}
+    \label{fig:contract_generateProjectNumber}
+\end{figure}
+
+
+
+
+\subsection{createProjectActivity}
+pre: 
+\begin{equation}
+    title \neq null \wedge startWeek \neq null \wedge endWeek \neq null \wedge loggedInUser \neq null \wedge activities \neq null
+\end{equation}
+
+post: 
+\begin{equation}
+\begin{gathered}
+    activity \in activities \wedge \\
+    \neg project@pre.hasProjectActivity(title) \wedge \\
+    (hasProjectLeader() \to projectLeader.isSameAs(loggedInUser))
+\end{gathered}
+\end{equation}
+
+\begin{listing}[H]
+    \centering
+    \caption{createProjectActivity() kildekode med assertions}\label{lst:create_project_activity_assertions}
+    \begin{minted}[breaklines]{java}
+  public ProjectActivity createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
+      throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
+
+    assert title != null;
+    assert startWeek != null;
+    assert endWeek != null;
+    assert loggedInUser != null;
+    assert activities != null;
+
+    if (hasProjectLeader()) {
+      if (!projectLeader.isSameAs(loggedInUser)) {
+        throw new OperationNotAllowedException("Kun projektlederen kan oprette en projekt aktivitet for dette projekt");
+      }
+    }
+
+    if (hasProjectActivity(title)) {
+      throw new AlreadyExistsException("Projekt aktivitet findes allerede");
+    }
+
+    ProjectActivity activity = new ProjectActivity(title, startWeek, endWeek);
+    this.activities.add(activity);
+
+    /**
+     * NOTE: This post condition does not check for 
+     * !project@pre.hasProjectActivity(title)
+     */
+    assert (
+      activities.contains(activity) &&
+      (!hasProjectLeader() || projectLeader.isSameAs(loggedInUser) )
+    );
+
+    return activity;
+  }
+    \end{minted}
+\end{listing}
