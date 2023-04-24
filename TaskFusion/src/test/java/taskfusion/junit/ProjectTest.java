@@ -47,29 +47,10 @@ public class ProjectTest {
     
     models.add(new Project("TaskFusion",date));
     models.add(new Project("Half-Life 3", date));
-    
+
     List<ProjectViewModel> viewModels = ProjectViewModel.listFromModels(models);
     assertEquals(models.size(), viewModels.size());
 
   }
-
-  @Test
-  public void testProjectNumberGenerator() {
-
-    Calendar date = new DateServer().getDate();
-
-    List<Project> models = new ArrayList<>();
-
-    
-    for (int i = 0; i < 100; i++) {
-      models.add(new Project("TaskFusion ver. 0." + i, date));
-      
-    }
-    
-    System.out.println(models.size());
-    System.out.println(models.get(0).getProjectNumber());
-  }
-
-
 
 }
