@@ -28,7 +28,7 @@ public class ProjectFacade {
         this.taskFusion = taskFusion;
     }
 
-    public void createProject(String projectTitle)
+    public Project createProject(String projectTitle)
             throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, AlreadyExistsException {
         requireLogin();
 
@@ -37,6 +37,7 @@ public class ProjectFacade {
         String initials = taskFusion.getLoggedInUser().initials;
         project.assignEmployee(initials, EmployeeRepository.getInstance().findByInitials(initials));
 
+        return project;
     }
 
     public void assignCustomerToProject(String projectNumber, String customer) throws NotFoundException {

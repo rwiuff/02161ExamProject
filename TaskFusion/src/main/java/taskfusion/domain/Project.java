@@ -151,7 +151,7 @@ public class Project implements ConvertibleToViewModelInterface {
       throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
     if (hasProjectLeader()) {
       if (!projectLeader.isSameAs(loggedInUser)) {
-        throw new OperationNotAllowedException("Kun projektlederen kan redigere denne projekt aktivitet");
+        throw new OperationNotAllowedException("Kun projektlederen kan oprette en projekt aktivitet for dette projekt");
       }
     }
     if (hasProjectActivity(title)) {
