@@ -147,18 +147,38 @@ public class Project implements ConvertibleToViewModelInterface {
     return false;
   }
 
-  public void createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
+  public ProjectActivity createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
       throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
+
+    assert title != null;
+    assert startWeek != null;
+    assert endWeek != null;
+    assert loggedInUser != null;
+    assert activities != null;
+
     if (hasProjectLeader()) {
       if (!projectLeader.isSameAs(loggedInUser)) {
         throw new OperationNotAllowedException("Kun projektlederen kan oprette en projekt aktivitet for dette projekt");
       }
     }
+
     if (hasProjectActivity(title)) {
       throw new AlreadyExistsException("Projekt aktivitet findes allerede");
     }
+
     ProjectActivity activity = new ProjectActivity(title, startWeek, endWeek);
     this.activities.add(activity);
+
+    /**
+     * NOTE: This post condition does not check for 
+     * !project@pre.hasProjectActivity(title)
+     */
+    assert (
+      activities.contains(activity) &&
+      (!hasProjectLeader() || projectLeader.isSameAs(loggedInUser) )
+    );
+
+    return activity;
   }
 
   public boolean hasProjectActivity(String title) {
