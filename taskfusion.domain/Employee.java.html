@@ -130,28 +130,28 @@ public class Employee implements ConvertibleToViewModelInterface {
 <span class="fc" id="L130">    return false;</span>
   }
 
-  /*
-   * public void deleteRegularActivity(int id) {
-   * 
-   * }
-   */
 
   public Map&lt;String, Project&gt; getProjects() {
 
-<span class="fc" id="L141">    Map&lt;String, Project&gt; employeeProjects = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L136">    Map&lt;String, Project&gt; employeeProjects = new HashMap&lt;&gt;();</span>
 
-<span class="fc bfc" id="L143" title="All 2 branches covered.">    for (Map.Entry&lt;String, Project&gt; projectEntry : ProjectRepository.getInstance().all().entrySet()) {</span>
+<span class="fc bfc" id="L138" title="All 2 branches covered.">    for (Map.Entry&lt;String, Project&gt; projectEntry : ProjectRepository.getInstance().all().entrySet()) {</span>
 
-<span class="fc" id="L145">      Project project = projectEntry.getValue();</span>
+<span class="fc" id="L140">      Project project = projectEntry.getValue();</span>
 
-<span class="fc bfc" id="L147" title="All 2 branches covered.">      if (project.getAssignedEmployee(initials) != null) {</span>
-<span class="fc" id="L148">        employeeProjects.put(project.getProjectNumber(), project);</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">      if (project.getAssignedEmployee(initials) != null) {</span>
+<span class="fc" id="L143">        employeeProjects.put(project.getProjectNumber(), project);</span>
       }
-<span class="fc" id="L150">    }</span>
+<span class="fc" id="L145">    }</span>
 
-<span class="fc" id="L152">    return employeeProjects;</span>
+<span class="fc" id="L147">    return employeeProjects;</span>
 
   }
+
+  public boolean isSameAs(Employee otherEmployee) {
+<span class="fc" id="L152">    return this.initials.equals(otherEmployee.getInitials());</span>
+  }
+
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
