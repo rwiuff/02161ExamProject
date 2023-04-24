@@ -32,9 +32,7 @@ public class ProjectActivity extends Activity implements ConvertibleToViewModelI
   }
 
   public void registerWorkTime(String initials, Calendar date, double workTime) throws NotFoundException {
-    //System.out.println(workTime);
     worktimeRegistrations.add(new WorktimeRegistration(initials, date, workTime));
-    System.out.println(worktimeRegistrations.get(0));
   }
 
   public List<WorktimeRegistration> getWorktimeRegistrations() {

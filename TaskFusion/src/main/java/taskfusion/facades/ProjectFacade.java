@@ -98,7 +98,6 @@ public class ProjectFacade {
         if (projectRepo.findByProjectNumber(projectNumber).getProjectLeader() != null) {
             if (!getLoggedInUserModel().getInitials()
                     .equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials())) {
-                // System.out.println(getLoggedInUserModel().getInitials().equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials()));
                 throw new OperationNotAllowedException("Kun projektlederen kan tildele tidsbudgetter");
             }
         }

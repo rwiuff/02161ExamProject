@@ -85,17 +85,16 @@ public class Project implements ConvertibleToViewModelInterface {
   public static String generateProjectNumber(Calendar date) {
 
     int year = DateHelper.twoDigitYearFromDate(date);
-    int lastNum = 0;
+    int num = 0;
 
     // Find the highest incremental number for the current year
     for (String projectNumber : ProjectRepository.getInstance().all().keySet()) {
       if (projectNumber.startsWith(String.format("%02d", year))) {
-        int num = Integer.parseInt(projectNumber.substring(2));
-        lastNum = num > lastNum ? num : lastNum;
+        num = Integer.parseInt(projectNumber.substring(2));
       }
     }
 
-    int nextProjectNumber = (year * 1000) + lastNum + 1;
+    int nextProjectNumber = (year * 1000) + num + 1;
 
     if (nextProjectNumber < 10000) {
       return "0" + nextProjectNumber;
