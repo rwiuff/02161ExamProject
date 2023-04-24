@@ -47,4 +47,4 @@ Scenario: 1c. The project leader recieves an error message if no work time has b
     And the user creates a project with title "Web development"
     And the user takes the role as project leader on project "25002"
     When the user requests a list of all worktime registrations for the project with project number "25002"
-    Then the error message "Ingen arbejdstid er registreret under dette projekt endnu" is given
+    Then the worktime registration list contains 0 items

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import taskfusion.exceptions.AlreadyExistsException;
+import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.helpers.DateHelper;
@@ -84,19 +85,16 @@ public class Project implements ConvertibleToViewModelInterface {
   public static String generateProjectNumber(Calendar date) {
 
     int year = DateHelper.twoDigitYearFromDate(date);
-    int lastNum = 0;
+    int num = 0;
 
     // Find the highest incremental number for the current year
     for (String projectNumber : ProjectRepository.getInstance().all().keySet()) {
       if (projectNumber.startsWith(String.format("%02d", year))) {
-        int num = Integer.parseInt(projectNumber.substring(2));
-        if (num > lastNum) {
-          lastNum = num;
-        }
+        num = Integer.parseInt(projectNumber.substring(2));
       }
     }
 
-    int nextProjectNumber = (year * 1000) + lastNum + 1;
+    int nextProjectNumber = (year * 1000) + num + 1;
 
     if (nextProjectNumber < 10000) {
       return "0" + nextProjectNumber;
@@ -153,7 +151,7 @@ public class Project implements ConvertibleToViewModelInterface {
   }
 
   public void createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
-      throws AlreadyExistsException, OperationNotAllowedException {
+      throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
     if (projectLeader != null) {
       if (!projectLeader.getInitials().equals(loggedInUser.getInitials())) {
         throw new OperationNotAllowedException("Kun projektlederen kan redigere denne projekt aktivitet");
@@ -163,9 +161,7 @@ public class Project implements ConvertibleToViewModelInterface {
     if (hasProjectActivity(title)) {
       throw new AlreadyExistsException("Projekt aktivitet findes allerede");
     }
-
     ProjectActivity activity = new ProjectActivity(title, startWeek, endWeek);
-
     this.activities.add(activity);
   }
 
@@ -175,7 +171,6 @@ public class Project implements ConvertibleToViewModelInterface {
         return true;
       }
     }
-
     return false;
   }
 
@@ -189,11 +184,10 @@ public class Project implements ConvertibleToViewModelInterface {
         return projectActivity;
       }
     }
-
     throw new NotFoundException("Projektaktiviteten findes ikke.");
   }
 
-  public List<WorktimeRegistration> getWorktimeRegistrations() {
+  public List<WorktimeRegistration> getWorktimeRegistrations() throws NotFoundException {
 
     List<WorktimeRegistration> list = new ArrayList<>();
 
@@ -201,7 +195,6 @@ public class Project implements ConvertibleToViewModelInterface {
       list.addAll(projectActivity.getWorktimeRegistrations());
     }
     return list;
-
   }
 
   public List<Employee> getListOfAssignedEmployees() {
@@ -210,10 +203,6 @@ public class Project implements ConvertibleToViewModelInterface {
 
   public void addLatestReport(String date, Report report) {
     this.reports.put(date, report);
-  }
-
-  public void saveReport() {
-
   }
 
   public Map<String, Report> getReports() {

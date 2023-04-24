@@ -1,5 +1,7 @@
 package taskfusion.facades;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import taskfusion.app.TaskFusion;
@@ -60,18 +62,15 @@ public class ProjectFacade {
             throws NotFoundException, OperationNotAllowedException {
         Project project = projectRepo.findByProjectNumber(projectNumber);
         requireLogin();
-        if (getLoggedInUserModel().getInitials().equals(project.getProjectLeader().getInitials())) {
-            Report report = new Report(project, taskFusion.getDate());
-            project.addLatestReport(report.getDateAsString(), report);
-            return report.toViewModel();
-        } else {
-            throw new OperationNotAllowedException("Kun projektlederen kan generere rapporter");
-        }
+        Report report = new Report(project, taskFusion.getDate(), getLoggedInUserModel());
+        project.addLatestReport(report.getDateAsString(), report);
+        return report.toViewModel();
     }
 
-    public void saveReport(String projectNumber) throws NotFoundException {
+    public void saveReport(String projectNumber, String reportDate) throws NotFoundException, IOException, URISyntaxException {
         Project project = projectRepo.findByProjectNumber(projectNumber);
-        project.saveReport();
+        Report report = project.getReports().get(reportDate);
+        report.saveReport();
     }
 
     /**
@@ -86,18 +85,6 @@ public class ProjectFacade {
     public void createProjectActivity(String projectNumber, String title, String startWeek, String endWeek)
             throws NotFoundException, OperationNotAllowedException, AlreadyExistsException, InvalidPropertyException {
         requireLogin();
-
-        if (startWeek.length() != 4 || endWeek.length() != 4) {
-            throw new OperationNotAllowedException("Start uge og slut uge skal angives med fire cifre");
-        }
-
-        if (Integer.parseInt(startWeek.substring(0, 2)) > Integer.parseInt(endWeek.substring(0, 2))) {
-            throw new InvalidPropertyException("Start år skal være før eller ens med slut år");
-        } else if (Integer.parseInt(startWeek.substring(0, 2)) == Integer.parseInt(endWeek.substring(0, 2)) &&
-                Integer.parseInt(startWeek.substring(2, 4)) > Integer.parseInt(endWeek.substring(2, 4))) {
-            throw new InvalidPropertyException("Start uge skal være før eller ens med slut uge");
-        }
-
         Project project = projectRepo.findByProjectNumber(projectNumber);
         project.createProjectActivity(title, startWeek, endWeek, getLoggedInUserModel());
 
@@ -107,10 +94,10 @@ public class ProjectFacade {
             throws NotFoundException, OperationNotAllowedException {
         requireLogin();
 
+        // Skal ned i domæne
         if (projectRepo.findByProjectNumber(projectNumber).getProjectLeader() != null) {
             if (!getLoggedInUserModel().getInitials()
                     .equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials())) {
-                // System.out.println(getLoggedInUserModel().getInitials().equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials()));
                 throw new OperationNotAllowedException("Kun projektlederen kan tildele tidsbudgetter");
             }
         }
@@ -120,12 +107,12 @@ public class ProjectFacade {
 
     }
 
-    public void registerWorkTime(String projectNumber, String activityTitle, double worktTime)
+    public void registerWorkTime(String projectNumber, String activityTitle, double workTime)
             throws NotFoundException, OperationNotAllowedException {
         requireLogin();
 
         projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
-                .registerWorkTime(getLoggedInUserModel().getInitials(), taskFusion.getDate(), worktTime);
+                .registerWorkTime(getLoggedInUserModel().getInitials(), taskFusion.getDate(), workTime);
     }
 
     public double getTotalWorkTimeForEmployee(String projectNumber, String activityTitle, double workTime)
@@ -137,12 +124,6 @@ public class ProjectFacade {
                 .getTotalWorkTimeForEmployee(getLoggedInUserModel().getInitials());
     }
 
-    public Double getTotalWorktimeForActivity(String projectNumber, String activityTitle)
-            throws NotFoundException, OperationNotAllowedException {
-        requireLogin();
-
-        return projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle).getTotalWorkTime();
-    }
 
     public List<WorktimeRegistrationViewModel> getUserWorktimeRegistrationsForProjectActivity(String activityTitle,
             String projectNumber) throws NotFoundException, OperationNotAllowedException {
@@ -169,15 +150,15 @@ public class ProjectFacade {
         requireLogin();
 
         String projectLeader = projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials();
+
+        // Skal ned i domæne
         if (!taskFusion.getLoggedInUser().initials.equals(projectLeader)) {
             throw new OperationNotAllowedException(
                     "Kun projektlederen kan tilgå oversigten af arbejdstid for projektet");
         }
         List<WorktimeRegistration> worktimeRegistrations = projectRepo.findByProjectNumber(projectNumber)
                 .getWorktimeRegistrations();
-        if (worktimeRegistrations.size() == 0) {
-            throw new NotFoundException("Ingen arbejdstid er registreret under dette projekt endnu");
-        }
+
         return WorktimeRegistrationViewModel.listFromModels(worktimeRegistrations);
     }
 
@@ -187,6 +168,7 @@ public class ProjectFacade {
 
         WorktimeRegistration worktimeRegistration = projectRepo.findWorktimeRegistrationById(id);
 
+        // Skal ned i domæne
         if (!worktimeRegistration.getInitials().equals(getLoggedInUserModel().getInitials())) {
             throw new OperationNotAllowedException("Du har ikke rettighed til at redigere denne registrering");
         }

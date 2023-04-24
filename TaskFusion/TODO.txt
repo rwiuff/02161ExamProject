@@ -4,17 +4,12 @@
 - Gennemgå klassediagram class_persistency.puml 
 - Gennemgå sequence diagrammer
 - White box tests 
-- 100% code coverage
-
 - (Rasmus) Mangler raport generering (Rasmus), 
-    - Title, projektnummer, projektleder 
-    - Medarbejdere
-    - Budget  
-    - Aktiviteter 
-        - Tidsregisteringerne
-- (Kasper) CLI
-
+    - Acceptance tests og unit tests
 - Javadocs for hvem der har skrevet hvad.
+- Unit tests til viewmodels 
+- Testing af rapporter
+
 
 ######################
 ## PLAN
@@ -24,14 +19,18 @@
 -------------
 - generer rapport inkl. cli (Rasmus)
 
+
 - d. 21 fredag 
 --------------
 - CLI færdig
 - Alle cucumber features er ikke kommenteret
-- 100% code coverage (Max, Mathies)
+
 
 - d. 24 mandag 
 --------------
+- 100% code coverage
+- Exceptions væk fra facade
+
 
 
 - d. 28 fredag 
@@ -49,7 +48,7 @@
 
 
 --------------
-- 8. maj Afælevering
+- 8. maj Aflevering
 --------------
 ######################
 ## Known bugs

@@ -36,7 +36,7 @@ public class GenerateProjectReportView implements ViewInterface {
             report = TaskFusionCLI.projectFacade().generateProjectRaport(project.projectNumber);
             Text.showSuccess("Rapport genereret");
             Input.enterToContinue("Tryk på Enter for at se rapporten");
-            new ProjectRaportView(report).show();
+            new ProjectReportView(report).show();
         } catch (Exception e) {
             Text.showExceptionError(e);
             Input.enterToContinue("Tryk på Enter for at gå tilbage");

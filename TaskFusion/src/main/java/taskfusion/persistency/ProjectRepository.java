@@ -75,7 +75,7 @@ public class ProjectRepository {
 
     }
 
-    private List<WorktimeRegistration> allWorktimeRegistrations() {
+    private List<WorktimeRegistration> allWorktimeRegistrations() throws NotFoundException {
 
         List<WorktimeRegistration> list = new ArrayList<>();
 
@@ -117,7 +117,7 @@ public class ProjectRepository {
     // return lastId + 1;
     // }
 
-    public Integer generateWorktimeRegistrationId() {
+    public Integer generateWorktimeRegistrationId() throws NotFoundException {
         return allWorktimeRegistrations().size() + 1;
     }
 
