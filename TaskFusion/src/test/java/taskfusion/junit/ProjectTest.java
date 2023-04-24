@@ -1,12 +1,14 @@
 package taskfusion.junit;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,8 +33,9 @@ public class ProjectTest {
   private TaskFusion taskFusion;
   private ProjectFacade projectFacade;
   private MockDateHolder mockDateHolder;
+
   @BeforeEach
-  public void resetSingletons() throws InvalidPropertyException, ExhaustedOptionsException, NotFoundException {
+  public void initializeTests() throws InvalidPropertyException, ExhaustedOptionsException, NotFoundException {
     SingletonHelpers.resetSingletons();
     assertTrue(ProjectRepository.getInstance().all().size() == 0);
     this.taskFusion = new TaskFusion();
@@ -44,30 +47,18 @@ public class ProjectTest {
 
   @Test 
   public void testGenerateProjectNumberTwoProjects() throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, AlreadyExistsException, ExhaustedOptionsException {
-    mockDateHolder.setYear(2001);
-
-    
-
-    projectFacade.createProject("2001_project");
-    projectFacade.createProject("2001_project_2");
-    
-    try {
-      assertFalse(projectFacade.findProjectByProjectNumber("01003") == null);
-    } catch (Exception e) {
-    }
-
-    projectFacade.createProject("2001_project_3");
-    assertTrue(projectFacade.findProjectByProjectNumber("01003") != null);
-    
     mockDateHolder.setYear(2023);
     projectFacade.createProject("2023_project");
+    projectFacade.createProject("2023_project_1");
     projectFacade.createProject("2023_project_2");
-    try {
-      assertFalse(projectFacade.findProjectByProjectNumber("23003") == null);
-    } catch (Exception e) {
-    }
-    projectFacade.createProject("2023_project_3");
-    assertTrue(projectFacade.findProjectByProjectNumber("23003") != null);
+    assertNotNull(projectFacade.findProjectByProjectNumber("23003"));
+
+    mockDateHolder.setYear(2002);
+    projectFacade.createProject("2002_project");
+    projectFacade.createProject("2002_project_1");
+    projectFacade.createProject("2002_project_2");
+    assertNotNull(projectFacade.findProjectByProjectNumber("02003"));
+   
   }
 
   @Test 
@@ -117,6 +108,7 @@ public class ProjectTest {
     }
     projectFacade.createProject("2023_project");
     assertTrue(ProjectRepository.getInstance().all().containsKey("23001"));
+  }
 
   @Test
   public void testProjectViewModel() {
