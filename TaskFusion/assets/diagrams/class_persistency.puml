@@ -4,16 +4,18 @@ skinparam Nodesep 150
 skinparam Ranksep 150
 
 
-    
-class "TaskFusion" as app{
-    - loggedInUser : Employee
-    --
-    + login(initials) : boolean
-    + logout()
-    + isLoggedIn() : boolean
-}
+
+
 
 package "Facade-layer" {
+
+    class "TaskFusion" as app{
+        - loggedInUser : Employee
+        --
+        + login(initials) : boolean
+        + logout()
+        + isLoggedIn() : boolean
+    }
 
     class EmployeeFacade {
         --
@@ -75,7 +77,7 @@ package "Domain-layer" {
         --
         + setTimeBudget(int)
     }
-    
+
     class Activity <<(A, orchid)abstract>>{
         title : String
         startWeek : int
@@ -99,8 +101,8 @@ package "Domain-layer" {
     }
 
     class WorktimeRegistration {
-        - initials : String 
-        - time : double 
+        - initials : String
+        - time : double
         - date : Calendar
     }
 
