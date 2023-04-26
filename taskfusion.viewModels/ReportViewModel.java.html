@@ -15,28 +15,24 @@ public class ReportViewModel extends ViewModel {
     public String projectLeader;
 <span class="fc" id="L16">    public Map&lt;String, EmployeeViewModel&gt; employees = new HashMap&lt;&gt;();</span>
     public String customer;
-    public int startWeek;
-    public int endWeeek;
-<span class="fc" id="L20">    public List&lt;ProjectActivityViewModel&gt; activities = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L18">    public List&lt;ProjectActivityViewModel&gt; activities = new ArrayList&lt;&gt;();</span>
     public String reportDate;
 
-<span class="fc" id="L23">    public ReportViewModel(Report report) {</span>
-<span class="fc" id="L24">        this.title = report.getTitle();</span>
-<span class="fc" id="L25">        this.projectNumber = report.getProjectNumber();</span>
-<span class="fc" id="L26">        this.projectLeader = report.getProjectLeader().getInitials();</span>
-<span class="fc" id="L27">        Set&lt;String&gt; employeeSet = report.getEmployees().keySet();</span>
-<span class="fc bfc" id="L28" title="All 2 branches covered.">        for (String initials : employeeSet) {</span>
-<span class="fc" id="L29">            this.employees.put(initials, report.getEmployee(initials).toViewModel());</span>
-<span class="fc" id="L30">        }</span>
-<span class="fc" id="L31">        this.customer = report.getCustomer();</span>
-<span class="fc" id="L32">        this.startWeek = report.getStartWeek();</span>
-<span class="fc" id="L33">        this.endWeeek = report.getEndWeeek();</span>
-<span class="fc" id="L34">        List&lt;ProjectActivity&gt; activityList = report.getActivities();</span>
-<span class="fc bfc" id="L35" title="All 2 branches covered.">        for (ProjectActivity activity : activityList) {</span>
-<span class="fc" id="L36">            activities.add(activity.toViewModel());</span>
-<span class="fc" id="L37">        }</span>
-<span class="fc" id="L38">        this.reportDate = report.getDateAsString();</span>
-<span class="fc" id="L39">    }</span>
+<span class="fc" id="L21">    public ReportViewModel(Report report) {</span>
+<span class="fc" id="L22">        this.title = report.getTitle();</span>
+<span class="fc" id="L23">        this.projectNumber = report.getProjectNumber();</span>
+<span class="fc" id="L24">        this.projectLeader = report.getProjectLeader().getInitials();</span>
+<span class="fc" id="L25">        Set&lt;String&gt; employeeSet = report.getEmployees().keySet();</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        for (String initials : employeeSet) {</span>
+<span class="fc" id="L27">            this.employees.put(initials, report.getEmployee(initials).toViewModel());</span>
+<span class="fc" id="L28">        }</span>
+<span class="fc" id="L29">        this.customer = report.getCustomer();</span>
+<span class="fc" id="L30">        List&lt;ProjectActivity&gt; activityList = report.getActivities();</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        for (ProjectActivity activity : activityList) {</span>
+<span class="fc" id="L32">            activities.add(activity.toViewModel());</span>
+<span class="fc" id="L33">        }</span>
+<span class="fc" id="L34">        this.reportDate = report.getDateAsString();</span>
+<span class="fc" id="L35">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

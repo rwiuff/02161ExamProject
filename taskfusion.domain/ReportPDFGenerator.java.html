@@ -40,222 +40,217 @@ public class ReportPDFGenerator {
     private String reportDate;
     private String projectLeader;
     private String projectNumber;
-    private String startWeek;
-    private String endWeek;
     private String customer;
-<span class="fc" id="L46">    private Map&lt;String, Employee&gt; employees = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L47">    private List&lt;ProjectActivity&gt; activities = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L44">    private Map&lt;String, Employee&gt; employees = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L45">    private List&lt;ProjectActivity&gt; activities = new ArrayList&lt;&gt;();</span>
 
-<span class="fc" id="L49">    public ReportPDFGenerator(Report report) {</span>
-<span class="fc" id="L50">        this.title = report.getTitle();</span>
-<span class="fc" id="L51">        this.reportDate = getDateAsString(report.getReportDate());</span>
-<span class="fc" id="L52">        this.projectLeader = report.getProjectLeader().getInitials();</span>
-<span class="fc" id="L53">        this.projectNumber = report.getProjectNumber();</span>
-<span class="fc" id="L54">        this.startWeek = report.getStartWeek() + &quot;&quot;;</span>
-<span class="fc" id="L55">        this.endWeek = report.getEndWeeek() + &quot;&quot;;</span>
-<span class="fc" id="L56">        this.customer = report.getCustomer();</span>
-<span class="fc" id="L57">        this.employees = report.getEmployees();</span>
-<span class="fc" id="L58">        this.activities = report.getActivities();</span>
-<span class="fc" id="L59">    }</span>
+<span class="fc" id="L47">    public ReportPDFGenerator(Report report) {</span>
+<span class="fc" id="L48">        this.title = report.getTitle();</span>
+<span class="fc" id="L49">        this.reportDate = getDateAsString(report.getReportDate());</span>
+<span class="fc" id="L50">        this.projectLeader = report.getProjectLeader().getInitials();</span>
+<span class="fc" id="L51">        this.projectNumber = report.getProjectNumber();</span>
+<span class="fc" id="L52">        this.customer = report.getCustomer();</span>
+<span class="fc" id="L53">        this.employees = report.getEmployees();</span>
+<span class="fc" id="L54">        this.activities = report.getActivities();</span>
+<span class="fc" id="L55">    }</span>
 
     public void save(String saveDir) throws IOException, URISyntaxException {
-<span class="fc" id="L62">        String savePath = saveDir + projectNumber;</span>
-<span class="fc" id="L63">        generatePDF(savePath);</span>
-<span class="fc" id="L64">    }</span>
+<span class="fc" id="L58">        String savePath = saveDir + projectNumber;</span>
+<span class="fc" id="L59">        generatePDF(savePath);</span>
+<span class="fc" id="L60">    }</span>
 
     public void generatePDF(String savePath) throws IOException, URISyntaxException {
-<span class="fc" id="L67">        Document document = new Document(PageSize.A4, // New A4 document</span>
+<span class="fc" id="L63">        Document document = new Document(PageSize.A4, // New A4 document</span>
                 40f, // Left margin
                 40f, // Right margin
                 40f, // Top margin
                 40f); // Bottom margin
-<span class="fc" id="L72">        ClassLoader classLoader = getClass().getClassLoader();</span>
+<span class="fc" id="L68">        ClassLoader classLoader = getClass().getClassLoader();</span>
 
         // Fonts
-<span class="fc" id="L75">        FontFactory.register(classLoader.getResource(&quot;CharterRegular.ttf&quot;).toString(), &quot;charterRegular&quot;);</span>
-<span class="fc" id="L76">        FontFactory.register(classLoader.getResource(&quot;CharterBold.ttf&quot;).toString(), &quot;charterBold&quot;);</span>
-<span class="fc" id="L77">        Font titleFont = FontFactory.getFont(&quot;charterBold&quot;, BaseFont.IDENTITY_H, true, 20f);</span>
-<span class="fc" id="L78">        Font headerFont = FontFactory.getFont(&quot;charterBold&quot;, BaseFont.IDENTITY_H, true, 15f);</span>
-<span class="fc" id="L79">        Font cellFont = FontFactory.getFont(&quot;charterRegular&quot;, BaseFont.IDENTITY_H, true, 12f);</span>
-<span class="fc" id="L80">        Font cellHeaderFont = FontFactory.getFont(&quot;charterBold&quot;, BaseFont.IDENTITY_H, true, 12f);</span>
+<span class="fc" id="L71">        FontFactory.register(classLoader.getResource(&quot;CharterRegular.ttf&quot;).toString(), &quot;charterRegular&quot;);</span>
+<span class="fc" id="L72">        FontFactory.register(classLoader.getResource(&quot;CharterBold.ttf&quot;).toString(), &quot;charterBold&quot;);</span>
+<span class="fc" id="L73">        Font titleFont = FontFactory.getFont(&quot;charterBold&quot;, BaseFont.IDENTITY_H, true, 20f);</span>
+<span class="fc" id="L74">        Font headerFont = FontFactory.getFont(&quot;charterBold&quot;, BaseFont.IDENTITY_H, true, 15f);</span>
+<span class="fc" id="L75">        Font cellFont = FontFactory.getFont(&quot;charterRegular&quot;, BaseFont.IDENTITY_H, true, 12f);</span>
+<span class="fc" id="L76">        Font cellHeaderFont = FontFactory.getFont(&quot;charterBold&quot;, BaseFont.IDENTITY_H, true, 12f);</span>
 
-<span class="fc" id="L82">        Path path = Paths.get(savePath);</span>
-<span class="fc" id="L83">        Files.createDirectories(path);</span>
+<span class="fc" id="L78">        Path path = Paths.get(savePath);</span>
+<span class="fc" id="L79">        Files.createDirectories(path);</span>
 
         // Stream to save document as pdf
-<span class="fc" id="L86">        PdfWriter writer = PdfWriter.getInstance(document,</span>
+<span class="fc" id="L82">        PdfWriter writer = PdfWriter.getInstance(document,</span>
                 new FileOutputStream(savePath + &quot;/&quot; + projectNumber + &quot; &quot; + title + &quot; &quot; + reportDate + &quot;.pdf&quot;));
 
         // Header and footer
-<span class="fc" id="L90">        HeaderFooter footer = new HeaderFooter(new Phrase(&quot;Side &quot;, cellFont), true);</span>
-<span class="fc" id="L91">        footer.setAlignment(Element.ALIGN_CENTER);</span>
-<span class="fc" id="L92">        document.setFooter(footer);</span>
+<span class="fc" id="L86">        HeaderFooter footer = new HeaderFooter(new Phrase(&quot;Side &quot;, cellFont), true);</span>
+<span class="fc" id="L87">        footer.setAlignment(Element.ALIGN_CENTER);</span>
+<span class="fc" id="L88">        document.setFooter(footer);</span>
 
-<span class="fc" id="L94">        document.open(); // Edit document</span>
+<span class="fc" id="L90">        document.open(); // Edit document</span>
 
         // Add metadata
-<span class="fc" id="L97">        document.addAuthor(projectLeader);</span>
-<span class="fc" id="L98">        document.addCreator(&quot;TaskFusion&quot;);</span>
-<span class="fc" id="L99">        document.addCreationDate();</span>
-<span class="fc" id="L100">        document.addTitle(title);</span>
+<span class="fc" id="L93">        document.addAuthor(projectLeader);</span>
+<span class="fc" id="L94">        document.addCreator(&quot;TaskFusion&quot;);</span>
+<span class="fc" id="L95">        document.addCreationDate();</span>
+<span class="fc" id="L96">        document.addTitle(title);</span>
 
         // Set up logo
-<span class="fc" id="L103">        Image logo = Image.getInstance(classLoader.getResource(&quot;TaskFusionAlt.png&quot;));</span>
-<span class="fc" id="L104">        logo.setAlignment(Element.ALIGN_CENTER);</span>
-<span class="fc" id="L105">        logo.scalePercent(25f);</span>
-<span class="fc" id="L106">        document.add(logo);</span>
+<span class="fc" id="L99">        Image logo = Image.getInstance(classLoader.getResource(&quot;TaskFusionAlt.png&quot;));</span>
+<span class="fc" id="L100">        logo.setAlignment(Element.ALIGN_CENTER);</span>
+<span class="fc" id="L101">        logo.scalePercent(25f);</span>
+<span class="fc" id="L102">        document.add(logo);</span>
         // Set up title
-<span class="fc" id="L108">        Paragraph titleParagraph = new Paragraph(&quot;Projekt: &quot; + title, titleFont);</span>
-<span class="fc" id="L109">        titleParagraph.setAlignment(Element.ALIGN_CENTER);</span>
-<span class="fc" id="L110">        document.add(titleParagraph);</span>
-<span class="fc" id="L111">        document.add(new Paragraph(Chunk.NEWLINE));</span>
+<span class="fc" id="L104">        Paragraph titleParagraph = new Paragraph(&quot;Projekt: &quot; + title, titleFont);</span>
+<span class="fc" id="L105">        titleParagraph.setAlignment(Element.ALIGN_CENTER);</span>
+<span class="fc" id="L106">        document.add(titleParagraph);</span>
+<span class="fc" id="L107">        document.add(new Paragraph(Chunk.NEWLINE));</span>
 
         // Add infobox
-<span class="fc" id="L114">        Table infoBox = new Table(2);</span>
-<span class="fc" id="L115">        infoBox.setPadding(1f);</span>
-<span class="fc" id="L116">        infoBox.setSpacing(1f);</span>
-<span class="fc" id="L117">        infoBox.setWidth(100f);</span>
-<span class="fc" id="L118">        String[][] infoStrings = { { &quot;Løbenr.: &quot; + projectNumber, reportDate },</span>
-                { &quot;Startuge: &quot; + startWeek, &quot;Leder: &quot; + projectLeader },
-                { &quot;Slutuge: &quot; + endWeek, &quot;Kunde: &quot; + customer } };
-<span class="fc bfc" id="L121" title="All 2 branches covered.">        for (int i = 0; i &lt; 3; i++) {</span>
-<span class="fc bfc" id="L122" title="All 2 branches covered.">            for (int j = 0; j &lt; 2; j++) {</span>
-<span class="fc" id="L123">                Cell cell = new Cell(new Phrase(infoStrings[i][j], cellFont));</span>
-<span class="fc" id="L124">                infoBox.addCell(cell, i, j);</span>
+<span class="fc" id="L110">        Table infoBox = new Table(2);</span>
+<span class="fc" id="L111">        infoBox.setPadding(1f);</span>
+<span class="fc" id="L112">        infoBox.setSpacing(1f);</span>
+<span class="fc" id="L113">        infoBox.setWidth(100f);</span>
+<span class="fc" id="L114">        String[][] infoStrings = { { &quot;Løbenr.: &quot; + projectNumber, reportDate },</span>
+                { &quot;Leder: &quot; + projectLeader, &quot;Kunde: &quot; + customer } };
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        for (int i = 0; i &lt; 2; i++) {</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">            for (int j = 0; j &lt; 2; j++) {</span>
+<span class="fc" id="L118">                Cell cell = new Cell(new Phrase(infoStrings[i][j], cellFont));</span>
+<span class="fc" id="L119">                infoBox.addCell(cell, i, j);</span>
             }
         }
-<span class="fc bfc" id="L127" title="All 2 branches covered.">        for (int i = 0; i &lt; 3; i++) {</span>
-<span class="fc" id="L128">            Cell tmp = (Cell) infoBox.getElement(i, 1);</span>
-<span class="fc" id="L129">            tmp.setHorizontalAlignment(HorizontalAlignment.RIGHT);</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        for (int i = 0; i &lt; 2; i++) {</span>
+<span class="fc" id="L123">            Cell tmp = (Cell) infoBox.getElement(i, 1);</span>
+<span class="fc" id="L124">            tmp.setHorizontalAlignment(HorizontalAlignment.RIGHT);</span>
         }
-<span class="fc" id="L131">        removeBorders(infoBox);</span>
-<span class="fc" id="L132">        document.add(infoBox);</span>
-<span class="fc" id="L133">        document.add(new Paragraph(Chunk.NEWLINE));</span>
-<span class="fc" id="L134">        document.add(new LineSeparator());</span>
+<span class="fc" id="L126">        removeBorders(infoBox);</span>
+<span class="fc" id="L127">        document.add(infoBox);</span>
+<span class="fc" id="L128">        document.add(new Paragraph(Chunk.NEWLINE));</span>
+<span class="fc" id="L129">        document.add(new LineSeparator());</span>
         // document.add(new Paragraph(Chunk.NEWLINE));
 
         // Add employeelist
-<span class="fc" id="L138">        Paragraph employeeHeader = new Paragraph(&quot;Medarbejdere&quot;,</span>
+<span class="fc" id="L133">        Paragraph employeeHeader = new Paragraph(&quot;Medarbejdere&quot;,</span>
                 headerFont);
-<span class="fc" id="L140">        employeeHeader.setAlignment(Element.ALIGN_CENTER);</span>
-<span class="fc" id="L141">        document.add(employeeHeader);</span>
-<span class="fc" id="L142">        Table employeeBox = new Table(3);</span>
-<span class="fc" id="L143">        employeeBox.setPadding(1f);</span>
-<span class="fc" id="L144">        employeeBox.setSpacing(1f);</span>
-<span class="fc" id="L145">        employeeBox.setWidth(100f);</span>
-<span class="fc" id="L146">        String[] employeeTableHeader = { &quot;Efternavn&quot;, &quot;Fornavn&quot;, &quot;Initialer&quot; };</span>
-<span class="fc bfc" id="L147" title="All 2 branches covered.">        for (int i = 0; i &lt; 3; i++) {</span>
-<span class="fc" id="L148">            Cell cell = new Cell(new Phrase(employeeTableHeader[i], cellHeaderFont));</span>
-<span class="fc" id="L149">            employeeBox.addCell(cell, 0, i);</span>
+<span class="fc" id="L135">        employeeHeader.setAlignment(Element.ALIGN_CENTER);</span>
+<span class="fc" id="L136">        document.add(employeeHeader);</span>
+<span class="fc" id="L137">        Table employeeBox = new Table(3);</span>
+<span class="fc" id="L138">        employeeBox.setPadding(1f);</span>
+<span class="fc" id="L139">        employeeBox.setSpacing(1f);</span>
+<span class="fc" id="L140">        employeeBox.setWidth(100f);</span>
+<span class="fc" id="L141">        String[] employeeTableHeader = { &quot;Efternavn&quot;, &quot;Fornavn&quot;, &quot;Initialer&quot; };</span>
+<span class="fc bfc" id="L142" title="All 2 branches covered.">        for (int i = 0; i &lt; 3; i++) {</span>
+<span class="fc" id="L143">            Cell cell = new Cell(new Phrase(employeeTableHeader[i], cellHeaderFont));</span>
+<span class="fc" id="L144">            employeeBox.addCell(cell, 0, i);</span>
         }
-<span class="fc" id="L151">        Set&lt;String&gt; employeesKeySet = employees.keySet();</span>
-<span class="fc" id="L152">        int row = 1;</span>
-<span class="fc bfc" id="L153" title="All 2 branches covered.">        for (String employee : employeesKeySet) {</span>
-<span class="fc" id="L154">            Cell lastName = new Cell(new Phrase(employees.get(employee).getLastName(), cellFont));</span>
-<span class="fc" id="L155">            Cell firstName = new Cell(new Phrase(employees.get(employee).getFirstName(), cellFont));</span>
-<span class="fc" id="L156">            Cell initials = new Cell(new Phrase(employees.get(employee).getInitials(), cellFont));</span>
-<span class="fc" id="L157">            employeeBox.addCell(lastName, row, 0);</span>
-<span class="fc" id="L158">            employeeBox.addCell(firstName, row, 1);</span>
-<span class="fc" id="L159">            employeeBox.addCell(initials, row, 2);</span>
-<span class="fc" id="L160">            row++;</span>
-<span class="fc" id="L161">        }</span>
-<span class="fc" id="L162">        removeBorders(employeeBox);</span>
-<span class="fc" id="L163">        document.add(employeeBox);</span>
-<span class="fc" id="L164">        document.add(new Paragraph(Chunk.NEWLINE));</span>
-<span class="fc" id="L165">        document.add(new LineSeparator());</span>
+<span class="fc" id="L146">        Set&lt;String&gt; employeesKeySet = employees.keySet();</span>
+<span class="fc" id="L147">        int row = 1;</span>
+<span class="fc bfc" id="L148" title="All 2 branches covered.">        for (String employee : employeesKeySet) {</span>
+<span class="fc" id="L149">            Cell lastName = new Cell(new Phrase(employees.get(employee).getLastName(), cellFont));</span>
+<span class="fc" id="L150">            Cell firstName = new Cell(new Phrase(employees.get(employee).getFirstName(), cellFont));</span>
+<span class="fc" id="L151">            Cell initials = new Cell(new Phrase(employees.get(employee).getInitials(), cellFont));</span>
+<span class="fc" id="L152">            employeeBox.addCell(lastName, row, 0);</span>
+<span class="fc" id="L153">            employeeBox.addCell(firstName, row, 1);</span>
+<span class="fc" id="L154">            employeeBox.addCell(initials, row, 2);</span>
+<span class="fc" id="L155">            row++;</span>
+<span class="fc" id="L156">        }</span>
+<span class="fc" id="L157">        removeBorders(employeeBox);</span>
+<span class="fc" id="L158">        document.add(employeeBox);</span>
+<span class="fc" id="L159">        document.add(new Paragraph(Chunk.NEWLINE));</span>
+<span class="fc" id="L160">        document.add(new LineSeparator());</span>
         // document.add(new Paragraph(Chunk.NEWLINE));
 
         // Add activity info
-<span class="fc" id="L169">        Paragraph activityHeader = new Paragraph(&quot;Projektaktiviteter&quot;,</span>
+<span class="fc" id="L164">        Paragraph activityHeader = new Paragraph(&quot;Projektaktiviteter&quot;,</span>
                 headerFont);
-<span class="fc" id="L171">        activityHeader.setAlignment(Element.ALIGN_CENTER);</span>
-<span class="fc" id="L172">        document.add(activityHeader);</span>
-<span class="fc bfc" id="L173" title="All 2 branches covered.">        for (ProjectActivity activity : activities) {</span>
-<span class="fc" id="L174">            Table activityInfoBox = new Table(2);</span>
-<span class="fc" id="L175">            activityInfoBox.setPadding(1f);</span>
-<span class="fc" id="L176">            activityInfoBox.setSpacing(1f);</span>
-<span class="fc" id="L177">            activityInfoBox.setWidth(100f);</span>
-<span class="fc" id="L178">            Table worktimeInfoBox = new Table(3);</span>
-<span class="fc" id="L179">            worktimeInfoBox.setPadding(1f);</span>
-<span class="fc" id="L180">            worktimeInfoBox.setSpacing(1f);</span>
-<span class="fc" id="L181">            worktimeInfoBox.setWidth(100f);</span>
-<span class="fc" id="L182">            Cell activityTitleCell = new Cell(new Phrase(&quot;Aktivitet: &quot; + activity.title, cellHeaderFont));</span>
-<span class="fc" id="L183">            Cell timeBudgetCell = new Cell(</span>
-<span class="fc" id="L184">                    new Phrase(&quot;Budgeteret tid: &quot; + activity.getTimeBudget(), cellHeaderFont));</span>
-<span class="fc" id="L185">            Cell starWeekCell = new Cell(new Phrase(&quot;Startuge: &quot; + activity.startWeek, cellHeaderFont));</span>
-<span class="fc" id="L186">            Cell endWeekCell = new Cell(new Phrase(&quot;Slutuge: &quot; + activity.endWeek, cellHeaderFont));</span>
-<span class="fc" id="L187">            timeBudgetCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);</span>
-<span class="fc" id="L188">            endWeekCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);</span>
-<span class="fc" id="L189">            activityInfoBox.addCell(activityTitleCell, 0, 0);</span>
-<span class="fc" id="L190">            activityInfoBox.addCell(timeBudgetCell, 0, 1);</span>
-<span class="fc" id="L191">            activityInfoBox.addCell(starWeekCell, 1, 0);</span>
-<span class="fc" id="L192">            activityInfoBox.addCell(endWeekCell, 1, 1);</span>
-<span class="fc" id="L193">            removeBorders(activityInfoBox);</span>
-<span class="fc" id="L194">            document.add(activityInfoBox);</span>
-<span class="fc" id="L195">            row = 0;</span>
-<span class="fc bfc" id="L196" title="All 2 branches covered.">            for (WorktimeRegistration worktimeRegistration : activity.getWorktimeRegistrations()) {</span>
-<span class="fc" id="L197">                Cell dateCell = new Cell(new Phrase(getDateAsString(worktimeRegistration.getDate()), cellFont));</span>
-<span class="fc" id="L198">                Cell employeeCell = new Cell(new Phrase(worktimeRegistration.getInitials(), cellFont));</span>
-<span class="fc" id="L199">                Cell worktimeCell = new Cell(new Phrase(worktimeRegistration.getTime() + &quot;&quot;, cellFont));</span>
-<span class="fc" id="L200">                worktimeCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);</span>
-<span class="fc" id="L201">                worktimeInfoBox.addCell(dateCell, row, 0);</span>
-<span class="fc" id="L202">                worktimeInfoBox.addCell(employeeCell, row, 1);</span>
-<span class="fc" id="L203">                worktimeInfoBox.addCell(worktimeCell, row, 2);</span>
-<span class="fc" id="L204">                row++;</span>
-<span class="fc" id="L205">            }</span>
-<span class="fc" id="L206">            removeBorders(worktimeInfoBox);</span>
-<span class="fc" id="L207">            document.add(worktimeInfoBox);</span>
-<span class="fc" id="L208">            float progress = Math.round(activity.getTotalWorkTime() / activity.getTimeBudget() * 100);</span>
-<span class="fc" id="L209">            float remaning = Math.round(activity.getRemainingWorktime() / activity.getTimeBudget() * 100);</span>
-<span class="fc" id="L210">            Table progressBar = new Table(2);</span>
-<span class="fc" id="L211">            progressBar.setPadding(1f);</span>
-<span class="fc" id="L212">            progressBar.setSpacing(1f);</span>
-<span class="fc" id="L213">            progressBar.setWidth(100f);</span>
-<span class="fc" id="L214">            Cell progressInfo = new Cell(new Phrase(activity.getTotalWorkTime() + &quot; timer udført&quot;, cellHeaderFont));</span>
-<span class="fc" id="L215">            progressInfo.setHorizontalAlignment(HorizontalAlignment.CENTER);</span>
-<span class="fc" id="L216">            progressInfo.setVerticalAlignment(VerticalAlignment.CENTER);</span>
-<span class="fc" id="L217">            Cell remainingInfo = new Cell(</span>
-<span class="fc" id="L218">                    new Phrase(activity.getRemainingWorktime() + &quot; timer tilbage&quot;, cellHeaderFont));</span>
-<span class="fc" id="L219">            remainingInfo.setHorizontalAlignment(HorizontalAlignment.CENTER);</span>
-<span class="fc" id="L220">            remainingInfo.setVerticalAlignment(VerticalAlignment.CENTER);</span>
-<span class="fc" id="L221">            Cell progressCell = new Cell(new Phrase(progress + &quot; %&quot;, cellHeaderFont));</span>
-<span class="fc" id="L222">            progressCell.setHorizontalAlignment(HorizontalAlignment.CENTER);</span>
-<span class="fc" id="L223">            progressCell.setVerticalAlignment(VerticalAlignment.CENTER);</span>
-<span class="fc" id="L224">            progressCell.setBackgroundColor(Color.LIGHT_GRAY);</span>
-<span class="fc" id="L225">            progressBar.addCell(progressInfo);</span>
-<span class="fc" id="L226">            progressBar.addCell(remainingInfo);</span>
-<span class="fc" id="L227">            progressBar.addCell(progressCell);</span>
-<span class="fc" id="L228">            progressBar.addCell(new Cell());</span>
-<span class="fc" id="L229">            progressBar.setWidths(new float[] { progress, remaning });</span>
-<span class="fc" id="L230">            removeBorders(progressBar);</span>
-<span class="fc" id="L231">            document.add(progressBar);</span>
-<span class="fc" id="L232">            document.add(new Paragraph(Chunk.NEWLINE));</span>
-<span class="fc" id="L233">            document.add(new LineSeparator());</span>
-<span class="fc" id="L234">        }</span>
+<span class="fc" id="L166">        activityHeader.setAlignment(Element.ALIGN_CENTER);</span>
+<span class="fc" id="L167">        document.add(activityHeader);</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        for (ProjectActivity activity : activities) {</span>
+<span class="fc" id="L169">            Table activityInfoBox = new Table(2);</span>
+<span class="fc" id="L170">            activityInfoBox.setPadding(1f);</span>
+<span class="fc" id="L171">            activityInfoBox.setSpacing(1f);</span>
+<span class="fc" id="L172">            activityInfoBox.setWidth(100f);</span>
+<span class="fc" id="L173">            Table worktimeInfoBox = new Table(3);</span>
+<span class="fc" id="L174">            worktimeInfoBox.setPadding(1f);</span>
+<span class="fc" id="L175">            worktimeInfoBox.setSpacing(1f);</span>
+<span class="fc" id="L176">            worktimeInfoBox.setWidth(100f);</span>
+<span class="fc" id="L177">            Cell activityTitleCell = new Cell(new Phrase(&quot;Aktivitet: &quot; + activity.title, cellHeaderFont));</span>
+<span class="fc" id="L178">            Cell timeBudgetCell = new Cell(</span>
+<span class="fc" id="L179">                    new Phrase(&quot;Budgeteret tid: &quot; + activity.getTimeBudget(), cellHeaderFont));</span>
+<span class="fc" id="L180">            Cell starWeekCell = new Cell(new Phrase(&quot;Startuge: &quot; + activity.startWeek, cellHeaderFont));</span>
+<span class="fc" id="L181">            Cell endWeekCell = new Cell(new Phrase(&quot;Slutuge: &quot; + activity.endWeek, cellHeaderFont));</span>
+<span class="fc" id="L182">            timeBudgetCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);</span>
+<span class="fc" id="L183">            endWeekCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);</span>
+<span class="fc" id="L184">            activityInfoBox.addCell(activityTitleCell, 0, 0);</span>
+<span class="fc" id="L185">            activityInfoBox.addCell(timeBudgetCell, 0, 1);</span>
+<span class="fc" id="L186">            activityInfoBox.addCell(starWeekCell, 1, 0);</span>
+<span class="fc" id="L187">            activityInfoBox.addCell(endWeekCell, 1, 1);</span>
+<span class="fc" id="L188">            removeBorders(activityInfoBox);</span>
+<span class="fc" id="L189">            document.add(activityInfoBox);</span>
+<span class="fc" id="L190">            row = 0;</span>
+<span class="fc bfc" id="L191" title="All 2 branches covered.">            for (WorktimeRegistration worktimeRegistration : activity.getWorktimeRegistrations()) {</span>
+<span class="fc" id="L192">                Cell dateCell = new Cell(new Phrase(getDateAsString(worktimeRegistration.getDate()), cellFont));</span>
+<span class="fc" id="L193">                Cell employeeCell = new Cell(new Phrase(worktimeRegistration.getInitials(), cellFont));</span>
+<span class="fc" id="L194">                Cell worktimeCell = new Cell(new Phrase(worktimeRegistration.getTime() + &quot;&quot;, cellFont));</span>
+<span class="fc" id="L195">                worktimeCell.setHorizontalAlignment(HorizontalAlignment.RIGHT);</span>
+<span class="fc" id="L196">                worktimeInfoBox.addCell(dateCell, row, 0);</span>
+<span class="fc" id="L197">                worktimeInfoBox.addCell(employeeCell, row, 1);</span>
+<span class="fc" id="L198">                worktimeInfoBox.addCell(worktimeCell, row, 2);</span>
+<span class="fc" id="L199">                row++;</span>
+<span class="fc" id="L200">            }</span>
+<span class="fc" id="L201">            removeBorders(worktimeInfoBox);</span>
+<span class="fc" id="L202">            document.add(worktimeInfoBox);</span>
+<span class="fc" id="L203">            float progress = Math.round(activity.getTotalWorkTime() / activity.getTimeBudget() * 100);</span>
+<span class="fc" id="L204">            float remaning = Math.round(activity.getRemainingWorktime() / activity.getTimeBudget() * 100);</span>
+<span class="fc" id="L205">            Table progressBar = new Table(2);</span>
+<span class="fc" id="L206">            progressBar.setPadding(1f);</span>
+<span class="fc" id="L207">            progressBar.setSpacing(1f);</span>
+<span class="fc" id="L208">            progressBar.setWidth(100f);</span>
+<span class="fc" id="L209">            Cell progressInfo = new Cell(new Phrase(activity.getTotalWorkTime() + &quot; timer udført&quot;, cellHeaderFont));</span>
+<span class="fc" id="L210">            progressInfo.setHorizontalAlignment(HorizontalAlignment.CENTER);</span>
+<span class="fc" id="L211">            progressInfo.setVerticalAlignment(VerticalAlignment.CENTER);</span>
+<span class="fc" id="L212">            Cell remainingInfo = new Cell(</span>
+<span class="fc" id="L213">                    new Phrase(activity.getRemainingWorktime() + &quot; timer tilbage&quot;, cellHeaderFont));</span>
+<span class="fc" id="L214">            remainingInfo.setHorizontalAlignment(HorizontalAlignment.CENTER);</span>
+<span class="fc" id="L215">            remainingInfo.setVerticalAlignment(VerticalAlignment.CENTER);</span>
+<span class="fc" id="L216">            Cell progressCell = new Cell(new Phrase(progress + &quot; %&quot;, cellHeaderFont));</span>
+<span class="fc" id="L217">            progressCell.setHorizontalAlignment(HorizontalAlignment.CENTER);</span>
+<span class="fc" id="L218">            progressCell.setVerticalAlignment(VerticalAlignment.CENTER);</span>
+<span class="fc" id="L219">            progressCell.setBackgroundColor(Color.LIGHT_GRAY);</span>
+<span class="fc" id="L220">            progressBar.addCell(progressInfo);</span>
+<span class="fc" id="L221">            progressBar.addCell(remainingInfo);</span>
+<span class="fc" id="L222">            progressBar.addCell(progressCell);</span>
+<span class="fc" id="L223">            progressBar.addCell(new Cell());</span>
+<span class="fc" id="L224">            progressBar.setWidths(new float[] { progress, remaning });</span>
+<span class="fc" id="L225">            removeBorders(progressBar);</span>
+<span class="fc" id="L226">            document.add(progressBar);</span>
+<span class="fc" id="L227">            document.add(new Paragraph(Chunk.NEWLINE));</span>
+<span class="fc" id="L228">            document.add(new LineSeparator());</span>
+<span class="fc" id="L229">        }</span>
 
         // Close streams, document saved
-<span class="fc" id="L237">        document.close();</span>
-<span class="fc" id="L238">        writer.close();</span>
-<span class="fc" id="L239">    }</span>
+<span class="fc" id="L232">        document.close();</span>
+<span class="fc" id="L233">        writer.close();</span>
+<span class="fc" id="L234">    }</span>
 
     public void removeBorders(Table table) {
-<span class="fc" id="L242">        table.disableBorderSide(Rectangle.LEFT);</span>
-<span class="fc" id="L243">        table.disableBorderSide(Rectangle.RIGHT);</span>
-<span class="fc" id="L244">        table.disableBorderSide(Rectangle.TOP);</span>
-<span class="fc" id="L245">        table.disableBorderSide(Rectangle.BOTTOM);</span>
-<span class="fc bfc" id="L246" title="All 2 branches covered.">        for (int i = 0; i &lt; table.getDimension().height; i++) {</span>
-<span class="fc bfc" id="L247" title="All 2 branches covered.">            for (int j = 0; j &lt; table.getDimension().width; j++) {</span>
-<span class="fc" id="L248">                Cell tmp = (Cell) table.getElement(i, j);</span>
-<span class="fc" id="L249">                tmp.disableBorderSide(Rectangle.LEFT);</span>
-<span class="fc" id="L250">                tmp.disableBorderSide(Rectangle.RIGHT);</span>
-<span class="fc" id="L251">                tmp.disableBorderSide(Rectangle.TOP);</span>
-<span class="fc" id="L252">                tmp.disableBorderSide(Rectangle.BOTTOM);</span>
+<span class="fc" id="L237">        table.disableBorderSide(Rectangle.LEFT);</span>
+<span class="fc" id="L238">        table.disableBorderSide(Rectangle.RIGHT);</span>
+<span class="fc" id="L239">        table.disableBorderSide(Rectangle.TOP);</span>
+<span class="fc" id="L240">        table.disableBorderSide(Rectangle.BOTTOM);</span>
+<span class="fc bfc" id="L241" title="All 2 branches covered.">        for (int i = 0; i &lt; table.getDimension().height; i++) {</span>
+<span class="fc bfc" id="L242" title="All 2 branches covered.">            for (int j = 0; j &lt; table.getDimension().width; j++) {</span>
+<span class="fc" id="L243">                Cell tmp = (Cell) table.getElement(i, j);</span>
+<span class="fc" id="L244">                tmp.disableBorderSide(Rectangle.LEFT);</span>
+<span class="fc" id="L245">                tmp.disableBorderSide(Rectangle.RIGHT);</span>
+<span class="fc" id="L246">                tmp.disableBorderSide(Rectangle.TOP);</span>
+<span class="fc" id="L247">                tmp.disableBorderSide(Rectangle.BOTTOM);</span>
             }
         }
-<span class="fc" id="L255">    }</span>
+<span class="fc" id="L250">    }</span>
 
     public String getDateAsString(Calendar date) {
-<span class="fc" id="L258">        return DateHelper.getDateAsString(date);</span>
+<span class="fc" id="L253">        return DateHelper.getDateAsString(date);</span>
     }
 
 }
