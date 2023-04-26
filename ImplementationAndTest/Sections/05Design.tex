@@ -1,2 +1,20 @@
 % !TeX root = ..\rapport_13_2.tex
 \section{Design mønstre / SOLID principper}
+
+
+Der har været fokus på at adskille præsentationslag, businesslag, og persistence-lag og flere design mønstre er anvendt for at opnå et let læseligt, overskueligt og lavt koblet system. Nogle SOLID principper er blevet benyttet og vil blive gennemgået med eksempler samt essentielle design mønstre anvendt.
+\newline
+
+\noindent Et facade mønster (eng: Facade pattern) er implementeret med \texttt{EmployeeFacade.java} og \texttt{ProjectFacade.java} for at opnå lav kobling. F.eks. bliver systemet, der behandler employees, tilgået gennem \texttt{EmployeeFacade.java} således at klasserne, bestående af bl.a. \texttt{EmployeeRepository.java}, \texttt{Employee.java}, \texttt{RegularActivity.java}, ikke skal kaldes af klienten på forskellig vis. I stedet kan klienten tilgå alle de nødvendige egenskaber igennem facaden kun.
+
+Et andet design mønster der er taget i brug, er singleton design mønstret. F.eks. haves et opbevaringssted for alle medarbejdere kaldet \textit{EmployeeRepository}. Der ønskes kun én instans af dette objekt, da idéen er at tilgå og opbevare medarbejderne via. ét objekt. Hvis flere instanser af dette objekt skulle forekomme, er det ikke sikret, at brugeren kan tilgå alle medarbejderne fra den ene instans, da medarbejdere kan eksistere i de andre instanser, hvorfor objektet skal være en singleton. Af samme grunde som EmployeeRepository er en singleton, er ProjectRepository ligeså.
+\newline
+
+\noindent Som det blev nævnt i indledningen af dette kapitel, har der været fokus på adskillelse af de forskellige lag i arkitekturen af programmet. Måden hvorpå business-logikken er blevet separeret fra præsentationslaget i programmet er ved brug af Model-View-Controller design mønstret. Dette er gjort ved at have ’controller’ klasser og ’view’ klasser, som har funktionen at modtage forespørgsler fra brugeren og fremvise det efterspurgte data uden at have noget business logik i sig. Disse kan ses under mapperne \textit{controllers} og \textit{views}.
+
+Det lyder fra opgaveformuleringen, at der skal være mulighed for at opdele projekter op i aktiviteter, og at der skal være mulighed for at lave faste aktiviteter til registrering af bl.a. ferie og kurser, som ikke er knyttet til projekter. Et simpelt eksempel hvor open-closed princippet er blevet benyttet til at imødekomme førnævnte er at lave en abstrakt klasse kaldet \texttt{activity.java}. Denne har de enkelte felter som \texttt{title}, \texttt{startweek}, \texttt{endweek}, samt exceptions og getter-metoder og ikke mere. Det er muligt at udvide (extend) denne klasse således at der kan laves to subclasses, \texttt{ProjectActivity.java} og \texttt{RegularActivity.java}. På den måde er \texttt{Activity} lukket for ændringer men åben for udvidelser. Der er også det argument, at \textit{single responsibilty princippet} bliver fulgt, da \texttt{Activity.java} klassen kun har én grund til at blive ændret. Den grund vil indbefatte en ændring af definitionen, af hvad en aktivitet er, f.eks. en ændring af dets felter.
+
+
+
+
+

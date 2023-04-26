@@ -82,6 +82,7 @@ Man kan undre sig over hvorfor execution path fire altid er sand, det er fordi d
 \subsection{createProjectActivity() \label{chap:white_box_create_project_activity}} 
 Der kan oprettes projektaktiviteter for et projekt objekt. For at oprette en projektaktivitet, kræves at en medarbejder er logget ind og der skal bruges en titel, start- og slutuge. Derudover er det kun projektledere der kan oprette aktiviteter, hvis der er tildelt en projektleder til projektet. Herunder i \ref{lst:create_project_activity_source} er et udsnit af Project.java, inklusiv metoden der laves white box test for. White box testen udføres i praksis med JUnit, med filen CreateProjectActivityTest.java.
 
+
 \begin{listing}[H]
     \centering
     \caption{createProjectActivity() source code}\label{lst:create_project_activity_source}
@@ -114,7 +115,8 @@ public class Project implements ConvertibleToViewModelInterface {
 
     \end{minted}
 \end{listing}
-\centering
+% This centering command centers everything from here and down
+%\centering
 \begin{table}[H]
 
 \caption{Execution paths in createProjectActivity()}\label{tbl:create_project_activity_paths}
