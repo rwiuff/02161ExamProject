@@ -77,24 +77,6 @@ public class ProjectSteps {
     }
   }
 
-  @When("the user sets the start week to {int} on {string}")
-  public void the_user_sets_the_start_week_to_on(int start, String projectNumber) {
-    try {
-      ProjectRepository.getInstance().findByProjectNumber(projectNumber).setStartWeek(start);
-    } catch (NotFoundException e) {
-      this.errorMessageHolder.setErrorMessage(e.getMessage());
-    }
-  }
-
-  @Then("the project has start week {int} on {string}")
-  public void the_project_has_start_week_on(int start, String projectNumber) {
-    try {
-      assertEquals(start, ProjectRepository.getInstance().findByProjectNumber(projectNumber).getStartWeek());
-    } catch (NotFoundException e) {
-      this.errorMessageHolder.setErrorMessage(e.getMessage());
-    }
-  }
-
   @When("the user takes the role as project leader on project {string}")
   public void the_user_takes_the_role_as_project_leader_on_project(String projectNumber) {
     try {

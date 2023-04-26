@@ -19,8 +19,6 @@ public class Report implements ConvertibleToViewModelInterface {
     private Employee projectLeader;
     private Map<String, Employee> employees = new HashMap<>();
     private String customer;
-    private int startWeek;
-    private int endWeeek;
     private List<ProjectActivity> activities = new ArrayList<>();
     private Calendar reportDate;
 
@@ -31,8 +29,6 @@ public class Report implements ConvertibleToViewModelInterface {
         this.projectLeader = project.getProjectLeader();
         this.employees = project.getAssignedEmployees();
         this.customer = project.getCustomer();
-        this.startWeek = project.getStartWeek();
-        this.endWeeek = project.getEndWeek();
         this.activities = project.getActivities();
         if(project.getProjectLeader() == null){
             throw new NotFoundException("Projektet mangler en projektleder for at genererer rapporter");
@@ -69,14 +65,6 @@ public class Report implements ConvertibleToViewModelInterface {
 
     public String getCustomer() {
         return customer;
-    }
-
-    public int getStartWeek() {
-        return startWeek;
-    }
-
-    public int getEndWeeek() {
-        return endWeeek;
     }
 
     public List<ProjectActivity> getActivities() {

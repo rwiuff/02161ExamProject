@@ -20,8 +20,6 @@ public class Project implements ConvertibleToViewModelInterface {
   private String projectTitle;
   private String customer;
   private Employee projectLeader;
-  private int startWeek;
-  private int endWeek;
   private Map<String, Employee> assignedEmployees = new HashMap<>();
   private List<ProjectActivity> activities = new ArrayList<ProjectActivity>();
   private Map<String, Report> reports = new HashMap<>();
@@ -33,26 +31,6 @@ public class Project implements ConvertibleToViewModelInterface {
 
   public ProjectViewModel toViewModel() {
     return new ProjectViewModel(this);
-  }
-
-  public int getStartWeek() {
-    return this.startWeek;
-  }
-
-  public void setStartWeek(int startWeek) {
-    // Husk at kaste InvalidPropertyException, når
-    // du laver activities.
-    this.startWeek = startWeek;
-  }
-
-  public int getEndWeek() {
-    return this.endWeek;
-  }
-
-  public void setEndWeek(int endWeek) {
-    // Husk at kaste InvalidPropertyException, når
-    // du laver activities.
-    this.endWeek = endWeek;
   }
 
   public boolean isInternal() {

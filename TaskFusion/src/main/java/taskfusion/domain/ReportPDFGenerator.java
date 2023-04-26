@@ -40,8 +40,6 @@ public class ReportPDFGenerator {
     private String reportDate;
     private String projectLeader;
     private String projectNumber;
-    private String startWeek;
-    private String endWeek;
     private String customer;
     private Map<String, Employee> employees = new HashMap<>();
     private List<ProjectActivity> activities = new ArrayList<>();
@@ -51,8 +49,6 @@ public class ReportPDFGenerator {
         this.reportDate = getDateAsString(report.getReportDate());
         this.projectLeader = report.getProjectLeader().getInitials();
         this.projectNumber = report.getProjectNumber();
-        this.startWeek = report.getStartWeek() + "";
-        this.endWeek = report.getEndWeeek() + "";
         this.customer = report.getCustomer();
         this.employees = report.getEmployees();
         this.activities = report.getActivities();
@@ -116,15 +112,14 @@ public class ReportPDFGenerator {
         infoBox.setSpacing(1f);
         infoBox.setWidth(100f);
         String[][] infoStrings = { { "Løbenr.: " + projectNumber, reportDate },
-                { "Startuge: " + startWeek, "Leder: " + projectLeader },
-                { "Slutuge: " + endWeek, "Kunde: " + customer } };
-        for (int i = 0; i < 3; i++) {
+                { "Leder: " + projectLeader, "Kunde: " + customer } };
+        for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
                 Cell cell = new Cell(new Phrase(infoStrings[i][j], cellFont));
                 infoBox.addCell(cell, i, j);
             }
         }
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 2; i++) {
             Cell tmp = (Cell) infoBox.getElement(i, 1);
             tmp.setHorizontalAlignment(HorizontalAlignment.RIGHT);
         }

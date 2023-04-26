@@ -15,8 +15,6 @@ public class ReportViewModel extends ViewModel {
     public String projectLeader;
     public Map<String, EmployeeViewModel> employees = new HashMap<>();
     public String customer;
-    public int startWeek;
-    public int endWeeek;
     public List<ProjectActivityViewModel> activities = new ArrayList<>();
     public String reportDate;
 
@@ -29,8 +27,6 @@ public class ReportViewModel extends ViewModel {
             this.employees.put(initials, report.getEmployee(initials).toViewModel());
         }
         this.customer = report.getCustomer();
-        this.startWeek = report.getStartWeek();
-        this.endWeeek = report.getEndWeeek();
         List<ProjectActivity> activityList = report.getActivities();
         for (ProjectActivity activity : activityList) {
             activities.add(activity.toViewModel());

@@ -58,8 +58,7 @@ public class ProjectReportView implements ViewInterface {
         System.out.printf("| %-50s  |%n", "Projektnavn: " + report.title);
         System.out.println("+" + "-".repeat(53) + "+");
         System.out.printf("| %-25s %25s |%n", "Løbenr.: " + report.projectNumber, report.reportDate);
-        System.out.printf("| %-25s %25s |%n", "Startuge: " + report.startWeek, "Leder: " + report.projectLeader);
-        System.out.printf("| %-25s %25s |%n", "Slutuge: " + report.endWeeek, "Kunde: " + report.customer);
+        System.out.printf("| %-25s %25s |%n", "Leder: " + report.projectLeader, "Kunde: " + report.customer);
     }
 
     private void printEmployees() {

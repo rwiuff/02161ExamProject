@@ -27,14 +27,7 @@ Scenario: 3. A project in an internal project, if it does not have a customer
     Then the project "23001" is an internal project
     And the employee "mila" have 1 projects
 
-Scenario: 4. A project can have a start week
-    Given the year is 2023
-    And the user creates a project with title "Projektplanlægning"
-    When the user sets the start week to 2304 on "23001"
-    Then the project has start week 2304 on "23001"
-    And the employee "mila" have 1 projects
-
-Scenario: 5. Project numbers increments with each new project for the same year
+Scenario: 4. Project numbers increments with each new project for the same year
     Given the year is 2023
     And the user creates a project with title "Projektplanlægning"
     When the user creates a project with title "Half-life 3" 

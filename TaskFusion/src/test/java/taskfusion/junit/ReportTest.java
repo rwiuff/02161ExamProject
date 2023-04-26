@@ -56,8 +56,6 @@ public class ReportTest {
         this.projectNumber = project.getProjectNumber();
         this.employees = taskFusion.getEmployeeFacade().employeeRepo.all();
         taskFusion.getProjectFacade().assignCustomerToProject(projectNumber, "DTU");
-        taskFusion.getProjectFacade().projectRepo.findByProjectNumber(projectNumber).setStartWeek(2305);
-        taskFusion.getProjectFacade().projectRepo.findByProjectNumber(projectNumber).setEndWeek(2317);
         taskFusion.getProjectFacade().createProjectActivity(projectNumber, "AcceptanceTests", "2306", "2316");
         taskFusion.getProjectFacade().setTimeBudget(projectNumber, "AcceptanceTests", 50);
         taskFusion.getProjectFacade().createProjectActivity(projectNumber, "UnitTests", "2310", "2316");
