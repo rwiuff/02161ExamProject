@@ -6,6 +6,7 @@ import java.util.List;
 
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.viewModels.ProjectActivityViewModel;
 
 public class ProjectActivity extends Activity implements ConvertibleToViewModelInterface {
@@ -31,8 +32,25 @@ public class ProjectActivity extends Activity implements ConvertibleToViewModelI
     this.timeBudget = timeBudget;
   }
 
-  public void registerWorkTime(String initials, Calendar date, double workTime) throws NotFoundException {
-    worktimeRegistrations.add(new WorktimeRegistration(initials, date, workTime));
+  public void registerWorkTime(Employee employee, Calendar date, double workTime)
+      throws NotFoundException, OperationNotAllowedException {
+    List<RegularActivity> regularActivities = employee.getRegularActivities();
+    boolean hasRegularActivities = false;
+    String activityTitle = "";
+    for (RegularActivity activity : regularActivities) {
+      int startWeek = Integer.parseInt(activity.startWeek.substring(2, 4));
+      int endWeek = Integer.parseInt(activity.endWeek.substring(2, 4));
+      if (startWeek >= Integer.parseInt(super.startWeek.substring(2, 4))
+          && endWeek <= Integer.parseInt(super.endWeek.substring(2, 4))) {
+        hasRegularActivities = true;
+        activityTitle = activity.title;
+      }
+    }
+    if (hasRegularActivities) {
+      throw new OperationNotAllowedException("Medarbejderen er optaget af den faste aktivitet: " + activityTitle);
+    } else {
+      worktimeRegistrations.add(new WorktimeRegistration(employee.getInitials(), date, workTime));
+    }
   }
 
   public List<WorktimeRegistration> getWorktimeRegistrations() {

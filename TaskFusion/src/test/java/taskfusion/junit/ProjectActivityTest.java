@@ -9,9 +9,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import taskfusion.app.DateServer;
+import taskfusion.domain.Employee;
 import taskfusion.domain.ProjectActivity;
+import taskfusion.exceptions.ExhaustedOptionsException;
 import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.helpers.SingletonHelpers;
 import taskfusion.viewModels.ProjectActivityViewModel;
 
@@ -24,12 +27,12 @@ public class ProjectActivityTest {
 
 
   @Test
-  public void testProjectActivityViewModel() throws InvalidPropertyException, NotFoundException {
+  public void testProjectActivityViewModel() throws InvalidPropertyException, NotFoundException, OperationNotAllowedException, ExhaustedOptionsException {
 
     String title = "Planlægning";
     String startWeek = "2301";
     String endWeek = "2306";
-    String initials = "mila";
+    Employee mila = new Employee("Michael", "Laudrup");
 
     ProjectActivity model = new ProjectActivity(title,startWeek,endWeek);
     ProjectActivityViewModel viewModel = model.toViewModel();
@@ -51,8 +54,8 @@ public class ProjectActivityTest {
     Double time1 = 10.5;
     double time2 = 3;
 
-    model.registerWorkTime(initials, new DateServer().getDate(), time1);
-    model.registerWorkTime(initials, new DateServer().getDate(), time2);
+    model.registerWorkTime(mila, new DateServer().getDate(), time1);
+    model.registerWorkTime(mila, new DateServer().getDate(), time2);
     viewModel = model.toViewModel();
     assertEquals(2, viewModel.worktimeRegistrations.size());
     assertEquals((time1 + time2), viewModel.totalWorktime);

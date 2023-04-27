@@ -75,19 +75,19 @@ public class Seeder {
         }
     }
 
-    private void seedWorktimeRegistrationsForProjectActivity(ProjectActivity activity) throws NotFoundException {
+    private void seedWorktimeRegistrationsForProjectActivity(ProjectActivity activity) throws NotFoundException, OperationNotAllowedException {
 
-        activity.registerWorkTime("rawi", dateServer.getDate(), 1);
-        activity.registerWorkTime("rawi", dateServer.getDate(), 5.5);
+        activity.registerWorkTime(employeeRepository.findByInitials("rawi"), dateServer.getDate(), 1);
+        activity.registerWorkTime(employeeRepository.findByInitials("rawi"), dateServer.getDate(), 5.5);
 
-        activity.registerWorkTime("mach", dateServer.getDate(), 1);
-        activity.registerWorkTime("mach", dateServer.getDate(), 5.5);
+        activity.registerWorkTime(employeeRepository.findByInitials("mach"), dateServer.getDate(), 1);
+        activity.registerWorkTime(employeeRepository.findByInitials("mach"), dateServer.getDate(), 5.5);
 
-        activity.registerWorkTime("kasy", dateServer.getDate(), 1);
-        activity.registerWorkTime("kasy", dateServer.getDate(), 5.5);
+        activity.registerWorkTime(employeeRepository.findByInitials("kasy"), dateServer.getDate(), 1);
+        activity.registerWorkTime(employeeRepository.findByInitials("kasy"), dateServer.getDate(), 5.5);
 
-        activity.registerWorkTime("masc", dateServer.getDate(), 1);
-        activity.registerWorkTime("masc", dateServer.getDate(), 5.5);
+        activity.registerWorkTime(employeeRepository.findByInitials("masc"), dateServer.getDate(), 1);
+        activity.registerWorkTime(employeeRepository.findByInitials("masc"), dateServer.getDate(), 5.5);
     }
 
 }

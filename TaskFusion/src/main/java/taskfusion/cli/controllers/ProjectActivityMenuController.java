@@ -7,6 +7,7 @@ import taskfusion.cli.components.Menu;
 import taskfusion.cli.components.Text;
 import taskfusion.cli.views.CreateWorktimeRegistrationView;
 import taskfusion.cli.views.ListWorktimeRegistrationsView;
+import taskfusion.cli.views.SetTimeBudgetView;
 import taskfusion.viewModels.ProjectActivityViewModel;
 import taskfusion.viewModels.ProjectViewModel;
 import taskfusion.viewModels.WorktimeRegistrationViewModel;
@@ -24,6 +25,7 @@ public class ProjectActivityMenuController implements ControllerInterface {
     private String[] menuOptions = {
             "Se tidsregistreringer",
             "Opret tidsregistrering",
+            "Angiv budgeteret tid",
             "tilbage"
     };
 
@@ -50,7 +52,10 @@ public class ProjectActivityMenuController implements ControllerInterface {
                     new CreateWorktimeRegistrationView(project, activity).show();
                     break;
 
-                case 3: // tilbage
+                case 3:
+                    new SetTimeBudgetView(project, activity).show();
+                    break;
+                case 4: // tilbage
                     return; // NOTICE THIS RETURN, not break
 
                 default:

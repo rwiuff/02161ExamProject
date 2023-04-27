@@ -113,7 +113,7 @@ public class ProjectFacade {
         requireLogin();
 
         projectRepo.findByProjectNumber(projectNumber).findProjectActivity(activityTitle)
-                .registerWorkTime(getLoggedInUserModel().getInitials(), taskFusion.getDate(), workTime);
+                .registerWorkTime(getLoggedInUserModel(), taskFusion.getDate(), workTime);
     }
 
     public double getTotalWorkTimeForEmployee(String projectNumber, String activityTitle, double workTime)
