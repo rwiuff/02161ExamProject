@@ -75,19 +75,19 @@ public class Seeder {
 <span class="fc" id="L75">        }</span>
 <span class="fc" id="L76">    }</span>
 
-    private void seedWorktimeRegistrationsForProjectActivity(ProjectActivity activity) throws NotFoundException {
+    private void seedWorktimeRegistrationsForProjectActivity(ProjectActivity activity) throws NotFoundException, OperationNotAllowedException {
 
-<span class="fc" id="L80">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 1);</span>
-<span class="fc" id="L81">        activity.registerWorkTime(&quot;rawi&quot;, dateServer.getDate(), 5.5);</span>
+<span class="fc" id="L80">        activity.registerWorkTime(employeeRepository.findByInitials(&quot;rawi&quot;), dateServer.getDate(), 1);</span>
+<span class="fc" id="L81">        activity.registerWorkTime(employeeRepository.findByInitials(&quot;rawi&quot;), dateServer.getDate(), 5.5);</span>
 
-<span class="fc" id="L83">        activity.registerWorkTime(&quot;mach&quot;, dateServer.getDate(), 1);</span>
-<span class="fc" id="L84">        activity.registerWorkTime(&quot;mach&quot;, dateServer.getDate(), 5.5);</span>
+<span class="fc" id="L83">        activity.registerWorkTime(employeeRepository.findByInitials(&quot;mach&quot;), dateServer.getDate(), 1);</span>
+<span class="fc" id="L84">        activity.registerWorkTime(employeeRepository.findByInitials(&quot;mach&quot;), dateServer.getDate(), 5.5);</span>
 
-<span class="fc" id="L86">        activity.registerWorkTime(&quot;kasy&quot;, dateServer.getDate(), 1);</span>
-<span class="fc" id="L87">        activity.registerWorkTime(&quot;kasy&quot;, dateServer.getDate(), 5.5);</span>
+<span class="fc" id="L86">        activity.registerWorkTime(employeeRepository.findByInitials(&quot;kasy&quot;), dateServer.getDate(), 1);</span>
+<span class="fc" id="L87">        activity.registerWorkTime(employeeRepository.findByInitials(&quot;kasy&quot;), dateServer.getDate(), 5.5);</span>
 
-<span class="fc" id="L89">        activity.registerWorkTime(&quot;masc&quot;, dateServer.getDate(), 1);</span>
-<span class="fc" id="L90">        activity.registerWorkTime(&quot;masc&quot;, dateServer.getDate(), 5.5);</span>
+<span class="fc" id="L89">        activity.registerWorkTime(employeeRepository.findByInitials(&quot;masc&quot;), dateServer.getDate(), 1);</span>
+<span class="fc" id="L90">        activity.registerWorkTime(employeeRepository.findByInitials(&quot;masc&quot;), dateServer.getDate(), 5.5);</span>
 <span class="fc" id="L91">    }</span>
 
 }
