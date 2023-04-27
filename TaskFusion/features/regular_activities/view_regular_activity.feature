@@ -4,7 +4,8 @@ Feature: View regular activity
 
 #MAIN SCENARIOS
   Background: 
-    Given the user registers an employee with first name "Michael", last name "Laudrup"
+    Given the year is 2023
+    And the user registers an employee with first name "Michael", last name "Laudrup"
     And the user logs in using initials "mila"
     And the user creates the regular activity "Ferie" with start week "2304" and end week "2306"
     And the user creates the regular activity "Syg" with start week "2304" and end week "2306"

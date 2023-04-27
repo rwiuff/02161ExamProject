@@ -6,6 +6,7 @@ Actors: employee
 Background:
     Given the user registers an employee with first name "Michael", last name "Laudrup"
     And the user logs in using initials "mila"
+    And the year is 2023
     And the user creates a project with title "Video Game"
     And the user assigns the project activity "Graphics design" to project "23001" with startWeek "2303" and endWeek "2305"
 

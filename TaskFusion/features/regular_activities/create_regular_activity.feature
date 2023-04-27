@@ -7,6 +7,7 @@ test
 Background:
     Given the user registers an employee with first name "Michael", last name "Laudrup"
     And the user logs in using initials "mila"
+    And the year is 2023
 
 #MAIN SCENARIOS
 Scenario: 1. Creating a regular activity
