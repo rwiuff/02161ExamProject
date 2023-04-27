@@ -43,7 +43,6 @@ C         & {The employee repository has five employees named\\~Michael Laudrup,
     \includegraphics[width = \textwidth, keepaspectratio]{ImplementationAndTest/Diagrams/wb_genProjNum.png}
     \label{fig:ep_generate_project_number}
 \end{figure}
-Kan det passe at den går til et forkert år, hvis num = 999, og starter det år med 0 fremfor 1, hvis der ikke er andre projekter i det år?
 \begin{table}[H]
 \centering
 \begin{tblr}{
@@ -75,9 +74,6 @@ E         & The current year is 2001 and there are no projects                  
 F         & The current year is 2023 and there are no projects                                                              & {A new project with project number\\~23001} 
 \end{tblr}
 \end{table}
-Man kan undre sig over hvorfor execution path fire altid er sand, det er fordi den altid er det i praksis, derfor kan vi ikke teste scenariet hvor den er falsk. Det skyldes at keySet returnerer et HashSet, der med vores projektnummerstruktur altid har projektnumre i stigende rækkefølge (indenfor samme år). Hvis årdelen for et element er højere end et andets, kommer det første element før det andet. Beskriv dette i coverage.
-
-
 
 \subsection{createProjectActivity() \label{chap:white_box_create_project_activity}} 
 Der kan oprettes projektaktiviteter for et projekt objekt. For at oprette en projektaktivitet, kræves at en medarbejder er logget ind og der skal bruges en titel, start- og slutuge. Derudover er det kun projektledere der kan oprette aktiviteter, hvis der er tildelt en projektleder til projektet. Herunder i \ref{lst:create_project_activity_source} er et udsnit af Project.java, inklusiv metoden der laves white box test for. White box testen udføres i praksis med JUnit, med filen CreateProjectActivityTest.java.
