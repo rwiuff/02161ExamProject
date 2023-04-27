@@ -76,3 +76,43 @@ post:
   }
     \end{minted}
 \end{listing}
+
+
+\subsection{findWorkTimeRegistrationById()}
+
+Det er en noget triviel postcondition, især med et if-statement af samme grad lige før. Desuden, skal det være sådan, at man ogås har postconditions for exceptions?
+
+pre: 
+\begin{equation}
+    allWorkTimeRegistrations().size()\; >\; 0 \;\wedge\; id \; \in \; \mathbb{N}
+\end{equation}
+post: 
+\begin{equation}
+    \exists i\; :\; (i\; \in\; result\; \iff\; \exists worktimeRegistration.getId() \; = \; i)
+\end{equation}
+
+\begin{listing}[H]
+    \centering
+    \caption{findWorkTimeRegistrationById() kildekode med assertions}\label{lst:find_work_time_registration_by_id_assertions}
+    \begin{minted}[breaklines]{java}
+public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
+
+    assert allWorkTimeRegistrations().size() > 0 && id == (int) id && id >= 0 // Precondition
+    
+    List<WorktimeRegistration> list = allWorktimeRegistrations();
+
+    for (WorktimeRegistration worktimeRegistration : list) {
+        if (worktimeRegistration.getId().equals(id)) {
+            assert worktimeRegistration.getId().equals(id) // Postcondition
+            
+            return worktimeRegistration;
+        }
+    }
+
+    throw new NotFoundException("Ukendt tidsregistrering");
+
+}
+    \end{minted}
+\end{listing}
+
+
