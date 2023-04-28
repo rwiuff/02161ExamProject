@@ -1,4 +1,4 @@
-@startuml ClassDiagram
+@startuml ClassDiagram_simple
 skinparam linetype ortho
 skinparam Nodesep 300
 skinparam Ranksep 150

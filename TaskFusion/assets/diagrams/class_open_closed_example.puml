@@ -1,4 +1,4 @@
-@startuml
+@startuml open_closed
 
 class ProjectActivity{
     timeBudget : int
