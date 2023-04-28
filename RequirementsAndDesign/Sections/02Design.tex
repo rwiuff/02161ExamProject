@@ -1,71 +1,54 @@
-% !TeX root = ..\rapport_13_1.tex
+% !TeX root = ..\..\rapport_13_1.tex
 \section{Programdesign}
 \subsection{Klassediagram af programdesign}
-\begin{figure}[H]
-    \centering
-    \caption{Klassediagram med MVC arkitektur}\label{fig:ClassDiagMVC}
-    \includegraphics[width = \textwidth]{Diagrams/ClassDiagramMVC.eps}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \caption{Klassediagram}\label{fig:ClassDiag}
+% \end{figure}
 \subsection{Sekvensdiagrammer}\label{sec:sequence}
 \begin{figure}[H]
     \centering
     \caption{Sekvensdiagram: Opret medarbejder}\label{fig:sequenceRegisterEmployee}
-    \includegraphics[width = .75\textwidth]{Diagrams/seq_registerEmployee.eps}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \caption{Sekvensdiagram: Medarbejder login}\label{fig:sequence_login}
-    \includegraphics[width = .5\textwidth]{Diagrams/Login.eps}
+    \caption{Sekvensdiagram: Login}\label{fig:sequenceLogin}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \caption{Sekvensdiagram: Medarbejder log ud}\label{fig:sequence_logout}
-    \includegraphics[width = .3\textwidth]{Diagrams/Logout.eps}
+    \caption{Sekvensdiagram: Logout}\label{fig:sequenceLogout}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \caption{Sekvensdiagram: Opret projekt}\label{fig:sequence_create_project}
-    \includegraphics[width = .75\textwidth]{Diagrams/CreateProject.eps}
+    \caption{Sekvensdiagram: Opret projekt}\label{fig:sequenceCreateProject}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \caption{Sekvensdiagram: Forsøg på at oprette en projektaktivitet som gæst}\label{fig:sequence_create_PA_guest}
-    \includegraphics[width = .5\textwidth]{Diagrams/createActivityNoPLGuest.eps}
+    \caption{Sekvensdiagram: Påtag projektlederrolle}\label{fig:sequenceTakePLRole}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \caption{Sekvensdiagram: Forsøg på at oprette en projektaktivitet på projekt uden projektleder}\label{fig:sequence_create_PA_no_PL_1}
-    \includegraphics[width = .75\textwidth]{Diagrams/createActivityNoPLCase1.eps}
+    \caption{Sekvensdiagram: Tildel medarbejder til projekt}\label{fig:sequenceAssignEmployee}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \caption{Sekvensdiagram: Forsøg på at fastsætte timebudget på projekt uden projektleder}\label{fig:sequence_create_PA_no_PL_2}
-    \includegraphics[width = .75\textwidth]{Diagrams/createActivityNoPLCase2.eps}
+    \caption{Sekvensdiagram: Opret projektaktivitet}\label{fig:sequenceCreateProjectActivity}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \caption{Sekvensdiagram: Forsøg på at fastsætte startuge på projekt uden projektleder}\label{fig:sequence_create_PA_no_PL_3}
-    \includegraphics[width = .9\textwidth]{Diagrams/createActivityNoPLCase3.eps}
+    \caption{Sekvensdiagram: Opret fast aktivitet}\label{fig:sequenceCreateRegularActivity}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \caption{Sekvensdiagram: Forsøg på at fastsætte slutuge på projekt uden projektleder}\label{fig:sequence_create_PA_no_PL_4}
-    \includegraphics[width = .9\textwidth]{Diagrams/createActivityNoPLCase4.eps}
+    \caption{Sekvensdiagram: Registrer arbejdstid}\label{fig:sequenceRegisterWorktime}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \caption{Sekvensdiagram: Forsøg på at oprette en projektaktivitet på et projekt med en projektleder}\label{fig:sequence_create_PA_PL}
-    \includegraphics[width = .95\textwidth]{Diagrams/createActivityPL.eps}
+    \caption{Sekvensdiagram: Anfør tidsbudget på projektaktivitet}\label{fig:sequenceSetTimeBudget}
 \end{figure}
 \begin{figure}[H]
     \centering
-    \caption{Sekvensdiagram: Rediger projekt}\label{fig:sequence_project_edit}
-    \includegraphics[width = .75\textwidth]{Diagrams/seq_project_edit.eps}
-\end{figure}
-\begin{figure}[H]
-    \centering
-    \caption{Sekvensdiagram: Medarbejder udpeger sig som projektleder}\label{fig:becomeProjectLeader}
-    \includegraphics[width = 1\textwidth]{Diagrams/BecomeProjectLeader.eps}
+    \caption{Sekvensdiagram: Generér projektrapport}\label{fig:sequenceGenerateProjectReport}
 \end{figure}
 \newpage
 \section{Diskussion: Programdesign}
