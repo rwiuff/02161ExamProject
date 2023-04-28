@@ -6,7 +6,6 @@ pre:
 \begin{equation}
     pr \neq null \land date \neq null
 \end{equation}
-
 post:
 \begin{equation}
     \text{result }=\{s|\exists p \in projectRepository.getProjectNumbers : s \in p \land p = largestProjectNumber(date)\}
@@ -19,9 +18,24 @@ Med asserts ser det ud som følger:
     \label{fig:contract_generateProjectNumber}
 \end{figure}
 
-
-
-
+\subsection{createInitials}
+pre:
+\begin{equation}
+    nEmployeesWithName(employee) < maxInitials(employee)
+\end{equation}
+post:
+\begin{equation}
+    \{s | \exists e \in employeeRepository : s \in e.getInitials()\}
+\end{equation}
+Hvor maxInitials(employee) er $n$ vælg 2, hvor $n$ er længden af efternavnet, og duplikater fjernes i generationen af kombinationer.
+I "Laudrup" (længde 7, $7 \choose 2$=21) går "lu", "au", "up" igen to gange, hvorfor der fås 18 og ikke de forventede 21. Der forklarer hvorfor white-box testens input er konstrueret som det er.\\[4mm]
+Med asserts ser det ud som følger
+\begin{figure}[H]
+    \centering
+    \caption{createInitials med asserts}
+    \includegraphics[width = \textwidth, keepaspectratio]{ImplementationAndTest/Diagrams/contract_createInitials.png}
+    \label{fig:contract_createInitials}
+\end{figure}
 \subsection{createProjectActivity}
 pre: 
 \begin{equation}
@@ -78,14 +92,11 @@ post:
 \end{listing}
 
 
-\subsection{findWorkTimeRegistrationById()}
-
-Det er en noget triviel postcondition, især med et if-statement af samme grad lige før. Desuden, skal det være sådan, at man ogås har postconditions for exceptions?
-
-pre: 
-\begin{equation}
-    allWorkTimeRegistrations().size()\; >\; 0 \;\wedge\; id \; \in \; \mathbb{N}
-\end{equation}
+\subsection{findWorktimeRegistrationById()}
+\noindent pre: 
+\begin{align}
+    allWorktimeRegistrations().size()\; >\; 0 \;\wedge\; id \; \in \; \mathbb{N} \; \wedge \; 0 \; < \; id  \; <\; allWorktimeRegistrations().size()
+\end{align}
 post: 
 \begin{equation}
     \exists i\; :\; (i\; \in\; result\; \iff\; \exists worktimeRegistration.getId() \; = \; i)
@@ -93,17 +104,17 @@ post:
 
 \begin{listing}[H]
     \centering
-    \caption{findWorkTimeRegistrationById() kildekode med assertions}\label{lst:find_work_time_registration_by_id_assertions}
+    \caption{findWorktimeRegistrationById() kildekode med assertions}\label{lst:find_work_time_registration_by_id_assertions}
     \begin{minted}[breaklines]{java}
 public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
 
-    assert allWorkTimeRegistrations().size() > 0 && id == (int) id && id >= 0 // Precondition
+    assert allWorktimeRegistrations().size() > 0 && id == (int) id && 0 < id && id < allWorktimeRegistrations().size(); // Precondition
     
     List<WorktimeRegistration> list = allWorktimeRegistrations();
 
     for (WorktimeRegistration worktimeRegistration : list) {
         if (worktimeRegistration.getId().equals(id)) {
-            assert worktimeRegistration.getId().equals(id) // Postcondition
+            assert worktimeRegistration.getId().equals(id); // Postcondition
             
             return worktimeRegistration;
         }
