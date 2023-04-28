@@ -129,7 +129,7 @@ public class Project implements ConvertibleToViewModelInterface {
       throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
 
     /**
-     * NOTE: Assertions are disabled using comments, 
+     * NOTE: Assertions are disabled using comments,
      * as they are not properly managed in code doverage report.
      */
 
@@ -153,12 +153,12 @@ public class Project implements ConvertibleToViewModelInterface {
 <span class="fc" id="L153">    this.activities.add(activity);</span>
 
     /**
-     * NOTE: This post condition does not check for 
+     * NOTE: This post condition does not check for
      * !project@pre.hasProjectActivity(title)
      */
     // assert (
-    //   activities.contains(activity) &amp;&amp;
-    //   (!hasProjectLeader() || projectLeader.isSameAs(loggedInUser) )
+    // activities.contains(activity) &amp;&amp;
+    // (!hasProjectLeader() || projectLeader.isSameAs(loggedInUser) )
     // );
 
 <span class="fc" id="L164">    return activity;</span>
@@ -211,6 +211,14 @@ public class Project implements ConvertibleToViewModelInterface {
   public Map&lt;String, Report&gt; getReports() {
 <span class="fc" id="L212">    return reports;</span>
   }
+
+  public void setActivityTimeBudget(Employee employee, String projectActivityTitle, Integer timeBudget) throws OperationNotAllowedException, NotFoundException {
+<span class="fc bfc" id="L216" title="All 4 branches covered.">    if (projectLeader == null || projectLeader.isSameAs(employee)) {</span>
+<span class="fc" id="L217">      findProjectActivity(projectActivityTitle).setTimeBudget(timeBudget);</span>
+    } else {
+<span class="fc" id="L219">      throw new OperationNotAllowedException(&quot;Kun projektlederen kan tildele tidsbudgetter&quot;);</span>
+    }
+<span class="fc" id="L221">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
