@@ -1,5 +1,5 @@
 % !TeX root = ..\rapport_13_2.tex
-\section{White box test}
+\section{White box test\label{chap:white_box}}
 \subsection{createInitials()}
 For at garantere, at createInitials() fungerer som angivet i kommentaren over metodedefinitionen i klassen Employee (og dermed som forventet), skal vi sikre, at initialerne genereres i den rækkefølge, der er defineret af den kommentar, og at metoden kaster en undtagelse, når det forventes.
 \begin{figure}[H]
@@ -240,4 +240,10 @@ E &
 
 \end{tblr}
 \end{table}
+
+\subsection{findWorkTimeRegistrationById()}
+
+For et givet projekt kan der oprettes projektaktiviteter, hvor en medarbejder kan angive mængden af arbejdstid han/hun har brugt på den pågældende aktivitet. Disse registreringer af arbejdstid bliver gemt med et id-nummer, som består af de positive naturlige tal og løber fra 1 og op. Dermed er det muligt at finde specifikke registreringer ud fra id-nummeret, og hertil benyttes metoden \texttt{findWorkTimeRegistrationById()}. 
+
+Såfremt at id nummeret man søger efter, matcher det af en arbejdstidsregistrering, returneres den pågældende registrering. Hvis ikke der er et match, kastes en NotFoundException. Dette tester vi
 
