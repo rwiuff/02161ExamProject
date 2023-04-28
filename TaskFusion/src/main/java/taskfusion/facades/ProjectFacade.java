@@ -94,18 +94,8 @@ public class ProjectFacade {
     public void setTimeBudget(String projectNumber, String projectActivityTitle, Integer timeBudget)
             throws NotFoundException, OperationNotAllowedException {
         requireLogin();
-
-        // Skal ned i domæne
-        if (projectRepo.findByProjectNumber(projectNumber).getProjectLeader() != null) {
-            if (!getLoggedInUserModel().getInitials()
-                    .equals(projectRepo.findByProjectNumber(projectNumber).getProjectLeader().getInitials())) {
-                throw new OperationNotAllowedException("Kun projektlederen kan tildele tidsbudgetter");
-            }
-        }
-
         Project project = projectRepo.findByProjectNumber(projectNumber);
-        project.findProjectActivity(projectActivityTitle).setTimeBudget(timeBudget);
-
+        project.setActivityTimeBudget(getLoggedInUserModel(), projectActivityTitle, timeBudget);
     }
 
     public void registerWorkTime(String projectNumber, String activityTitle, double workTime)

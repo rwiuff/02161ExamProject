@@ -129,7 +129,7 @@ public class Project implements ConvertibleToViewModelInterface {
       throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
 
     /**
-     * NOTE: Assertions are disabled using comments, 
+     * NOTE: Assertions are disabled using comments,
      * as they are not properly managed in code doverage report.
      */
 
@@ -153,12 +153,12 @@ public class Project implements ConvertibleToViewModelInterface {
     this.activities.add(activity);
 
     /**
-     * NOTE: This post condition does not check for 
+     * NOTE: This post condition does not check for
      * !project@pre.hasProjectActivity(title)
      */
     // assert (
-    //   activities.contains(activity) &&
-    //   (!hasProjectLeader() || projectLeader.isSameAs(loggedInUser) )
+    // activities.contains(activity) &&
+    // (!hasProjectLeader() || projectLeader.isSameAs(loggedInUser) )
     // );
 
     return activity;
@@ -210,6 +210,14 @@ public class Project implements ConvertibleToViewModelInterface {
 
   public Map<String, Report> getReports() {
     return reports;
+  }
+
+  public void setActivityTimeBudget(Employee employee, String projectActivityTitle, Integer timeBudget) throws OperationNotAllowedException, NotFoundException {
+    if (projectLeader == null || projectLeader.isSameAs(employee)) {
+      findProjectActivity(projectActivityTitle).setTimeBudget(timeBudget);
+    } else {
+      throw new OperationNotAllowedException("Kun projektlederen kan tildele tidsbudgetter");
+    }
   }
 
 }
