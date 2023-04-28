@@ -106,11 +106,11 @@ Report --> "0..*" ProjectActivity : activities
 ProjectActivity --> "0..*" WorktimeRegistration : worktimeRegistrations
 
 'Employee --> "0..*" WorktimeRegistrations : worktimeRegistrations
-'Project ..|> ConvertibleToViewModel
-'Employee ..|> ConvertibleToViewModel
-'ProjectActivity ..|> ConvertibleToViewModel
-'RegularActivity ..|> ConvertibleToViewModel
-'WorktimeRegistration ..|> ConvertibleToViewModel
-'Report ..|> ConvertibleToViewModel
+Project ..|> ConvertibleToViewModel
+Employee ..|> ConvertibleToViewModel
+ProjectActivity ..|> ConvertibleToViewModel
+RegularActivity ..|> ConvertibleToViewModel
+WorktimeRegistration ..|> ConvertibleToViewModel
+Report ..|> ConvertibleToViewModel
 
 @enduml

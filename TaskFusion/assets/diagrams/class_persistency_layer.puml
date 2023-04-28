@@ -8,29 +8,43 @@ package "Presentation-layer" as PresentationLayer {
     class TaskFusionCli
 }
 
-package "Facade-layer" as FacadeLayer {
-    class TaskFusion 
-    class EmployeeFacade
-    class ProjectFacade 
-    TaskFusion --> EmployeeFacade 
-    TaskFusion --> ProjectFacade
+package "Application-layer" {
+    
+
+
+    package "Facade-layer" as FacadeLayer {
+        class TaskFusion 
+        class EmployeeFacade
+        class ProjectFacade 
+        TaskFusion --> EmployeeFacade 
+        TaskFusion --> ProjectFacade
+    }
+
+
+    package "Persistency-layer" as PersistencyLayer {
+        class ProjectRepository
+        class EmployeeRepository
+    }
+
+    package "Domain-layer" as DomainLayer {
+        class Project 
+        class Employee
+        class "Other classes" as other
+    }
 }
 
+TaskFusionCli --> TaskFusion 
+EmployeeFacade --> EmployeeRepository
+EmployeeRepository --> Employee
+ProjectFacade --> ProjectRepository
+ProjectRepository --> Project
 
-package "Persistency-layer" as PersistencyLayer {
-    class ProjectReposity
-    class EmployeeRepository
-}
+Employee ..> other
+Project ..> other
 
-package "Domain-layer" as DomainLayer {
-    class Project 
-    class Employee
-    class "Other classes"
-}
-
-PresentationLayer --> FacadeLayer
-FacadeLayer --> PersistencyLayer
-PersistencyLayer --> DomainLayer
+'PresentationLayer --> FacadeLayer
+'FacadeLayer --> PersistencyLayer
+'PersistencyLayer --> DomainLayer
 
 
 @enduml
