@@ -29,6 +29,8 @@ import taskfusion.viewModels.WorktimeRegistrationViewModel;
 
 public class WorktimeRegistrationTest {
 
+  private Exception exception;
+
   @BeforeEach
   public void resetSingletons() {
     SingletonHelpers.resetSingletons();
@@ -102,7 +104,7 @@ public class WorktimeRegistrationTest {
     int id = 2;
 
     // precondition
-    assertTrue(worktimeRegistrations.size() > 0 && id == (int) id && 0 < id && id < worktimeRegistrations.size());
+    assertTrue(worktimeRegistrations.size() > 0 && id == (int) id && 0 < id && id <= worktimeRegistrations.size());
 
     // Executing the method itself
     WorktimeRegistration worktimeRegistration = ProjectRepository.getInstance().findWorktimeRegistrationById(id);
@@ -112,6 +114,97 @@ public class WorktimeRegistrationTest {
     // it afterwards where the result is effectively the same
     assertTrue(worktimeRegistration.getId().equals(id));
 
+  }
+
+  @Test
+  public void testFindWorktimeRegistrationByIdWithNoRegistration() throws NotFoundException, InvalidPropertyException, ExhaustedOptionsException, AlreadyExistsException, OperationNotAllowedException {
+    
+    Calendar date = new DateServer().getDate();
+    ProjectRepository.getInstance().create("Demo 1", date);
+    EmployeeRepository.getInstance().create("Michael", "Laudrup");
+    Employee employee = EmployeeRepository.getInstance().findByInitials("mila");
+    Project project = ProjectRepository.getInstance().findByProjectNumber("23001");
+    
+    String startWeek = "2301";
+    String endWeek = "2305";
+
+    project.createProjectActivity("Test", startWeek, endWeek, employee);
+
+    // Arbitrary id
+    int id = 1;
+    try {
+      ProjectRepository.getInstance().findWorktimeRegistrationById(id);
+    } catch (Exception e) {
+      this.exception = e;
+    }
+    
+    assertEquals("Ukendt tidsregistrering", this.exception.getMessage());
+    
+  }
+
+  @Test
+  public void testFindWorktimeRegistrationByIdWrongInput() throws NotFoundException, InvalidPropertyException, ExhaustedOptionsException, AlreadyExistsException, OperationNotAllowedException {
+    
+    Calendar date = new DateServer().getDate();
+    ProjectRepository.getInstance().create("Demo 1", date);
+    EmployeeRepository.getInstance().create("Michael", "Laudrup");
+    Employee employee = EmployeeRepository.getInstance().findByInitials("mila");
+    Project project = ProjectRepository.getInstance().findByProjectNumber("23001");
+    
+    String startWeek = "2301";
+    String endWeek = "2305";
+
+    project.createProjectActivity("Test", startWeek, endWeek, employee);
+
+    double worktime = 5.0;
+
+    project.findProjectActivity("Test").registerWorkTime(employee, date, worktime);
+
+    // Arbitrary id
+    int id = 2;
+    try {
+      ProjectRepository.getInstance().findWorktimeRegistrationById(id);
+    } catch (Exception e) {
+      this.exception = e;
+    }
+    
+    assertEquals("Ukendt tidsregistrering", this.exception.getMessage());
+    
+  }
+
+  @Test
+  public void testFindWorktimeRegistrationByIdWithRightInputAndNonEmptyList() throws NotFoundException, InvalidPropertyException, ExhaustedOptionsException, AlreadyExistsException, OperationNotAllowedException {
+    
+    Calendar date = new DateServer().getDate();
+    ProjectRepository.getInstance().create("Demo 1", date);
+    EmployeeRepository.getInstance().create("Michael", "Laudrup");
+    Employee employee = EmployeeRepository.getInstance().findByInitials("mila");
+    Project project = ProjectRepository.getInstance().findByProjectNumber("23001");
+    
+    String startWeek = "2301";
+    String endWeek = "2305";
+
+    project.createProjectActivity("Test", startWeek, endWeek, employee);
+
+    double worktime1 = 5.0;
+    double worktime2 = 2.5;
+    double worktime3 = 4;
+    double worktime4 = 12.5;
+    double worktime5 = 20;
+
+    project.findProjectActivity("Test").registerWorkTime(employee, date, worktime1);
+    project.findProjectActivity("Test").registerWorkTime(employee, date, worktime2);
+    project.findProjectActivity("Test").registerWorkTime(employee, date, worktime3);
+    project.findProjectActivity("Test").registerWorkTime(employee, date, worktime4);
+    project.findProjectActivity("Test").registerWorkTime(employee, date, worktime5);
+
+    // Arbitrary id
+    int id = 4;
+
+    WorktimeRegistration worktimeRegistration = ProjectRepository.getInstance().findWorktimeRegistrationById(id);
+
+    assertEquals(worktimeRegistration.getId(), id);
+    
   }
 
 }
