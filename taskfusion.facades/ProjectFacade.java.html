@@ -28,11 +28,11 @@ public class ProjectFacade {
 <span class="fc" id="L28">        this.taskFusion = taskFusion;</span>
 <span class="fc" id="L29">    }</span>
 
-    public Project createProject(String projectTitle)
+    public Project createProject(String title)
             throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, AlreadyExistsException {
 <span class="fc" id="L33">        requireLogin();</span>
 
-<span class="fc" id="L35">        Project project = projectRepo.create(projectTitle, taskFusion.getDate());</span>
+<span class="fc" id="L35">        Project project = projectRepo.create(title, taskFusion.getDate());</span>
         // assign the user to the project
 <span class="fc" id="L37">        String initials = taskFusion.getLoggedInUser().initials;</span>
 <span class="fc" id="L38">        project.assignEmployee(initials, EmployeeRepository.getInstance().findByInitials(initials));</span>
@@ -40,8 +40,8 @@ public class ProjectFacade {
 <span class="fc" id="L40">        return project;</span>
     }
 
-    public void assignCustomerToProject(String projectNumber, String customer) throws NotFoundException {
-<span class="fc" id="L44">        projectRepo.findByProjectNumber(projectNumber).setCustomer(customer);</span>
+    public void assignCustomerToProject(String projectNumber, String customerName) throws NotFoundException {
+<span class="fc" id="L44">        projectRepo.findByProjectNumber(projectNumber).setCustomer(customerName);</span>
 <span class="fc" id="L45">    }</span>
 
     public void assignEmployeeToProject(String projectNumber, String initials)

@@ -10,7 +10,7 @@ TaskFusion,taskfusion.domain,ReportPDFGenerator,0,873,0,18,0,164,0,14,0,5
 TaskFusion,taskfusion.helpers,PrintHelper,0,68,0,6,0,13,0,7,0,4
 TaskFusion,taskfusion.helpers,DateHelper,0,44,0,4,0,10,0,6,0,4
 TaskFusion,taskfusion.facades,ProjectFacade,0,288,0,6,0,71,0,24,0,21
-TaskFusion,taskfusion.facades,EmployeeFacade,0,89,0,4,0,23,0,11,0,9
+TaskFusion,taskfusion.facades,EmployeeFacade,0,90,0,4,0,23,0,11,0,9
 TaskFusion,taskfusion.viewModels,EmployeeViewModel,0,41,0,2,0,11,0,3,0,2
 TaskFusion,taskfusion.viewModels,ViewModel,0,3,0,0,0,1,0,1,0,1
 TaskFusion,taskfusion.viewModels,RegularActivityViewModel,0,42,0,2,0,11,0,3,0,2
@@ -18,8 +18,8 @@ TaskFusion,taskfusion.viewModels,ProjectActivityViewModel,0,52,0,2,0,13,0,3,0,2
 TaskFusion,taskfusion.viewModels,ReportViewModel,0,78,0,4,0,17,0,3,0,1
 TaskFusion,taskfusion.viewModels,ProjectViewModel,0,92,0,6,0,22,0,6,0,3
 TaskFusion,taskfusion.viewModels,WorktimeRegistrationViewModel,0,46,0,2,0,12,0,3,0,2
-TaskFusion,taskfusion.persistency,Seeder,0,237,0,4,0,45,0,9,0,7
-TaskFusion,taskfusion.persistency,EmployeeRepository,0,125,0,10,0,35,0,15,0,10
+TaskFusion,taskfusion.persistency,Seeder,0,241,0,4,0,45,0,9,0,7
+TaskFusion,taskfusion.persistency,EmployeeRepository,0,126,0,10,0,35,0,15,0,10
 TaskFusion,taskfusion.persistency,ProjectRepository,0,136,0,12,0,33,0,16,0,10
 TaskFusion,taskfusion.exceptions,NotFoundException,0,4,0,0,0,2,0,1,0,1
 TaskFusion,taskfusion.exceptions,AlreadyExistsException,0,4,0,0,0,2,0,1,0,1

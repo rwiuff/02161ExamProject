@@ -48,50 +48,52 @@ public class EmployeeRepository {
      * REPOSITORY related
      */
 
-    public void create(String firstName, String lastName)
+    public Employee create(String firstName, String lastName)
             throws InvalidPropertyException, ExhaustedOptionsException {
 
 <span class="fc" id="L54">        Employee employee = new Employee(firstName, lastName);</span>
 <span class="fc" id="L55">        String initials = employee.getInitials();</span>
 
 <span class="fc" id="L57">        employees.put(initials, employee);</span>
-<span class="fc" id="L58">    }</span>
+
+<span class="fc" id="L59">        return employee;</span>
+    }
 
     public Employee findByInitials(String initials) throws NotFoundException {
-<span class="fc" id="L61">        String formattedInitials = initials.toLowerCase();</span>
-<span class="fc" id="L62">        Employee employee = employees.get(formattedInitials);</span>
+<span class="fc" id="L63">        String formattedInitials = initials.toLowerCase();</span>
+<span class="fc" id="L64">        Employee employee = employees.get(formattedInitials);</span>
         
-<span class="fc bfc" id="L64" title="All 2 branches covered.">        if(employee == null) {</span>
-<span class="fc" id="L65">            throw new NotFoundException(&quot;Ukendt medarbejder&quot;);</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">        if(employee == null) {</span>
+<span class="fc" id="L67">            throw new NotFoundException(&quot;Ukendt medarbejder&quot;);</span>
         }
 
-<span class="fc" id="L68">        return employee;</span>
+<span class="fc" id="L70">        return employee;</span>
     }
 
     public boolean initialsExist(String initials) {
         try {
-<span class="fc" id="L73">            findByInitials(initials);</span>
-<span class="fc" id="L74">            return true;</span>
-<span class="fc" id="L75">        } catch (Exception e) {</span>
-<span class="fc" id="L76">            return false;</span>
+<span class="fc" id="L75">            findByInitials(initials);</span>
+<span class="fc" id="L76">            return true;</span>
+<span class="fc" id="L77">        } catch (Exception e) {</span>
+<span class="fc" id="L78">            return false;</span>
         }
     }
 
     public Map&lt;String, Employee&gt; all() {
-<span class="fc" id="L81">        return employees;</span>
+<span class="fc" id="L83">        return employees;</span>
     }
 
     public RegularActivity findRegularActivityById(int id) throws NotFoundException {
 
-<span class="fc" id="L86">        List&lt;RegularActivity&gt; list = allRegularActivities();</span>
+<span class="fc" id="L88">        List&lt;RegularActivity&gt; list = allRegularActivities();</span>
 
-<span class="fc bfc" id="L88" title="All 2 branches covered.">        for (RegularActivity regularActivity : list) {</span>
-<span class="fc bfc" id="L89" title="All 2 branches covered.">            if (regularActivity.getId() == id) {</span>
-<span class="fc" id="L90">                return regularActivity;</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        for (RegularActivity regularActivity : list) {</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">            if (regularActivity.getId() == id) {</span>
+<span class="fc" id="L92">                return regularActivity;</span>
             }
-<span class="fc" id="L92">        }</span>
+<span class="fc" id="L94">        }</span>
 
-<span class="fc" id="L94">        throw new NotFoundException(&quot;Kunne ikke finde fast aktivitet&quot;);</span>
+<span class="fc" id="L96">        throw new NotFoundException(&quot;Kunne ikke finde fast aktivitet&quot;);</span>
 
     }
 
@@ -111,19 +113,19 @@ public class EmployeeRepository {
     // }
 
     public int generateRegularActivityId() {
-<span class="fc" id="L114">        return allRegularActivities().size() + 1;</span>
+<span class="fc" id="L116">        return allRegularActivities().size() + 1;</span>
     }
 
     private List&lt;RegularActivity&gt; allRegularActivities() {
-<span class="fc" id="L118">        List&lt;RegularActivity&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L120">        List&lt;RegularActivity&gt; list = new ArrayList&lt;&gt;();</span>
 
-<span class="fc bfc" id="L120" title="All 2 branches covered.">        for (Entry&lt;String, Employee&gt; entry : employees.entrySet()) {</span>
+<span class="fc bfc" id="L122" title="All 2 branches covered.">        for (Entry&lt;String, Employee&gt; entry : employees.entrySet()) {</span>
 
-<span class="fc" id="L122">            Employee employee = entry.getValue();</span>
+<span class="fc" id="L124">            Employee employee = entry.getValue();</span>
 
-<span class="fc" id="L124">            list.addAll(employee.getRegularActivities());</span>
-<span class="fc" id="L125">        }</span>
-<span class="fc" id="L126">        return list;</span>
+<span class="fc" id="L126">            list.addAll(employee.getRegularActivities());</span>
+<span class="fc" id="L127">        }</span>
+<span class="fc" id="L128">        return list;</span>
     }
 
 }
