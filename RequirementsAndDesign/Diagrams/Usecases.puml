@@ -18,20 +18,31 @@ usecase "Take project leader role" as plrole
 usecase "Assign employees to project" as assignemplpro
 }
 
-login -[hidden]d- registeremp
-logout -[hidden]d- assignemplpro
-createproj -[hidden]d- generatereport
-createregact -[hidden]d- timebudget
+createrprojact -[hidden]l- assignemplpro
+createrprojact -[hidden]l- login
+login -[hidden]l- logout
+logout -[hidden]l- plrole
+plrole -[hidden]l- createregact
+createregact -[hidden]l- createproj
+createproj -[hidden]l- regwt
+login -[hidden]d- generatereport
+logout -[hidden]d- timebudget
+plrole -[hidden]d- registeremp
+assignemplpro -[hidden]r- generatereport
+generatereport -[hidden]l- timebudget
 
-guest -up-> registeremp
 emp --> login
 emp --> logout
 emp --> createproj
 emp --> createregact
-emp --> createrprojact
+emp --> createrprojact: If no project leader\nis assigned
+emp --> assignemplpro
 emp --> regwt
 emp --> plrole
 pl -up-> timebudget
 pl -up-> generatereport
 pl -up-> assignemplpro
+pl -up-> createrprojact
+guest -up-> registeremp
+
 @enduml
