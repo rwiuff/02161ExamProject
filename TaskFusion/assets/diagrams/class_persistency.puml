@@ -75,7 +75,10 @@ package "Domain-layer" {
     class ProjectActivity{
         timeBudget : int
         --
-        + setTimeBudget(int)
+        registerWorkTime(employee, date, workTime) : void
+        sumWorkTime() : double
+        getRemainingWorkTime() : double
+        getWorkTimeRegistrationsForEmployee(initials) : List
     }
 
     class Activity <<(A, orchid)abstract>>{
@@ -83,10 +86,9 @@ package "Domain-layer" {
         startWeek : int
         endWeek : int
         --
-        + setEndWeek(String, int)
-        + setStartWeek(String, int)
     }
     class RegularActivity{
+        id : int
         --
     }
 
