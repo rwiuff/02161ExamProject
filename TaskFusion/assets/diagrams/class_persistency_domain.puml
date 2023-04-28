@@ -1,0 +1,78 @@
+@startuml ClassDiagram
+skinparam linetype ortho
+skinparam Nodesep 150
+skinparam Ranksep 150
+
+
+package "Domain-layer" as DomainLayer {
+
+    interface ConvertibleToViewModel{
+        + toViewModel() : ViewModel
+    }
+
+    class Report {
+        - title : String 
+        - projectNumber : String 
+        - customer : String 
+        - reportDate : Calendar       
+    }
+
+    class Project{
+        projectTitle : String 
+        projectNumber : String
+        customer : String
+    }
+
+    class ProjectActivity{
+        timeBudget : int
+    }
+
+    class Activity <<(A, orchid)abstract>>{
+        title : String
+        startWeek : int
+        endWeek : int
+    }
+    class RegularActivity{
+        id : int
+    }
+
+    class Employee{
+        initials : String
+        firstName : String
+        lastName : String
+    }
+
+    class WorktimeRegistration {
+        id : int
+        initials : String
+        time : double
+        date : Calendar
+    }
+
+}
+
+
+Activity <|-- ProjectActivity
+Activity <|- RegularActivity
+
+Project --> "1" Employee : projectLeader
+Project --> "0..*" Employee : employees
+Employee --> "0..*" Project : projects
+Project -> "0..*" ProjectActivity : activities
+Employee -> "0..*" RegularActivity : regularActivities
+
+Report --> "1" Employee : projectLeader
+Report --> "0..*" Employee : employees
+Report --> "0..*" ProjectActivity : activities
+
+ProjectActivity --> "0..*" WorktimeRegistration : worktimeRegistrations
+
+'Employee --> "0..*" WorktimeRegistrations : worktimeRegistrations
+Project ..|> ConvertibleToViewModel
+Employee ..|> ConvertibleToViewModel
+ProjectActivity ..|> ConvertibleToViewModel
+RegularActivity ..|> ConvertibleToViewModel
+WorktimeRegistration ..|> ConvertibleToViewModel
+Report ..|> ConvertibleToViewModel
+
+@enduml

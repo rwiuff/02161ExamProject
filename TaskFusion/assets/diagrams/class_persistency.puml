@@ -7,10 +7,10 @@ skinparam Ranksep 150
 
 
 
-package "Facade-layer" {
+package "Facade-layer" as FacadeLayer {
 
     class "TaskFusion" as app{
-        - loggedInUser : Employee
+        loggedInUser : Employee
         --
         + login(initials) : boolean
         + logout()
@@ -19,57 +19,90 @@ package "Facade-layer" {
 
     class EmployeeFacade {
         --
-        + registerEmployee(firstName, lastName)
-        + findEmployee(initials)
+        + registerEmployee(firstName, lastName) : void
+        + findEmployeeByInitials(initials) : EmployeeViewModel
+        + createRegularActivity(title,startWeek, endWeek) : void
+        + hasRegularActivity(title, startWeek, endWeek) : boolean
+        + getRegularActivityById(id) : RegularActivityViewModel
     }
 
     class ProjectFacade {
-        + createProject(projectTitle)
-        + assignCustomerToProject(projectNumber, customer)
+        + createProject(title)
+        + assignCustomerToProject(projectNumber, customerName)
+        + assignEmployeeToProject(projectNumber, initials) : void
+        + takeProjectLeaderRole(projectNumber) : void
+        + findProjectByProjectNumber(projectNumber) : ProjectViewModel
+        + generateProjectRaport(projectNumber) : ReportViewModel
+        + saveReport(projectNumber, reportDate, saveDirectory) : void
+        + createProjectActivity(projectNumber, title, startWeek, endWeek) : void
+        + setTimeBudget(projectNumber, projectActivityTitle, Integer timeBudget) : void
+        + registerWorkTime(projectNumber, activityTitle, double workTime) : void
+        + getTotalWorkTimeForEmployee(projectNumber, activityTitle, double workTime) : double
+        + getUserWorktimeRegistrationsForProjectActivity(activityTitle, projectNumber) : List
+        + getUserWorktimeForProjectActivity(activityTitle, projectNumber) : double
+        + getTotalWorktimeRegistrationsForProject(projectNumber) : List
+        + editWorktimeRegistration(int id, double hours) : void
+        + getRemainingWorktimeForActivity(projectNumber, activityTitle) : double
+        + getUserProjects() : List
+
     }
 }
 
 
-package "Persistency-layer" {
+package "Persistency-layer" as PersistencyLayer {
     class ProjectRepository << (S,#FF7700) Singleton >>{
         --
+        {static} getInstance() : ProjectRepository
         + findByProjectNumber(projectNumber) : Project
-        + create(title) : void
+        + create(title, date) : Project
+        + findWorktimeRegistrationById(int id) : WorktimeRegistration
+        + generateWorktimeRegistrationId() : int
+        + getListOfEmployees(String projectNumber) : List
     }
 
     class EmployeeRepository << (S,#FF7700) Singleton >>{
         --
+        {static} getInstance() : EmployeeRepository
         + findByInitials(initials) : Employee
-        + create(firstName,lastName) : void
+        + create(firstName,lastName) : Employee
+        + initialsExist(String initials) : boolean
+        + generateRegularActivityId() : int
     }
 
 }
 
 
-package "Domain-layer" {
+package "Domain-layer" as DomainLayer {
 
     interface ConvertibleToViewModel{
         + toViewModel() : ViewModel
     }
 
     class Report {
-        remainingWorkHours : int
-        incompleteActivities : List
+        title : String 
+        projectNumber : String 
+        customer : String 
+        reportDate : Calendar
         --
+        saveReport(saveDirectory) : void
+        
     }
 
     class Project{
-        projectNumber : int
+        projectTitle : String 
+        projectNumber : String
         customer : String
-        internal : boolean
-        startWeek : int
-        endWeek : int
         --
-        + createActivity(String)
-        + setTimeBudget(int)
-        + setStartWeek(int)
-        + setEndWeek(int)
-        + setProjectLeader(Employee)
+        + isInternal() : boolean
+        {static} generateProjectNumber(date) : String
+        + assignEmployee(employeeInitials, loggedInUser) : void
+        + createProjectActivity(title, startWeek, endWeek,loggedInUser) : ProjectActivity 
+        + hasProjectActivity(String title) : boolean
+        + hasProjectLeader() : boolean
+        + findProjectActivity(title) : ProjectActivity
+        + addLatestReport(date, Report report) : void
+        + setActivityTimeBudget(employee, projectActivityTitle, timeBudget) : void
+
     }
 
     class ProjectActivity{
@@ -93,22 +126,26 @@ package "Domain-layer" {
     }
 
     class Employee{
-        - initials : String
-        - firstName : String
-        - lastName : String
+        initials : String
+        firstName : String
+        lastName : String
         --
-        - validateFirstName(firstName) : String
-        - validateLastName(lastName) : String
-        - createInitials() : void
+        + hasRegularActivity(title, startWeek, endWeek) : boolean
+        + hasRegularActivityWithId(id) : boolean
+        + isSameAs(otherEmployee) : boolean
     }
 
     class WorktimeRegistration {
-        - initials : String
-        - time : double
-        - date : Calendar
+        id : int
+        initials : String
+        time : double
+        date : Calendar
     }
 
 }
+
+PersistencyLayer -d[hidden]-> DomainLayer
+
 app --> "1" ProjectFacade : projectFacade
 app --> "1" EmployeeFacade : employeeFacade
 
@@ -116,7 +153,7 @@ ProjectFacade --> "1" ProjectRepository : projectRepository
 EmployeeFacade --> "1" EmployeeRepository : employeeRepository
 
 ProjectRepository --> "0..*" Project : projects
-Project -> Report : generateReport(Project project)
+Project --> "0..*" Report : reports
 
 EmployeeRepository --> "0..*" Employee : employees
 
@@ -130,6 +167,10 @@ Project --> "0..*" Employee : employees
 Employee --> "0..*" Project : projects
 Project -> "0..*" ProjectActivity : activities
 Employee -> "0..*" RegularActivity : regularActivities
+
+Report --> "1" Employee : projectLeader
+Report --> "0..*" Employee : employees
+Report --> "0..*" ProjectActivity : activities
 
 ProjectActivity --> "0..*" WorktimeRegistration : worktimeRegistrations
 

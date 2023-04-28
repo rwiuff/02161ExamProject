@@ -48,13 +48,15 @@ public class EmployeeRepository {
      * REPOSITORY related
      */
 
-    public void create(String firstName, String lastName)
+    public Employee create(String firstName, String lastName)
             throws InvalidPropertyException, ExhaustedOptionsException {
 
         Employee employee = new Employee(firstName, lastName);
         String initials = employee.getInitials();
 
         employees.put(initials, employee);
+
+        return employee;
     }
 
     public Employee findByInitials(String initials) throws NotFoundException {

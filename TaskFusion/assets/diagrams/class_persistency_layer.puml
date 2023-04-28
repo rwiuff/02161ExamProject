@@ -1,0 +1,36 @@
+@startuml ClassDiagram
+left to right direction
+skinparam linetype ortho
+
+
+package "Presentation-layer" as PresentationLayer {
+
+    class TaskFusionCli
+}
+
+package "Facade-layer" as FacadeLayer {
+    class TaskFusion 
+    class EmployeeFacade
+    class ProjectFacade 
+    TaskFusion --> EmployeeFacade 
+    TaskFusion --> ProjectFacade
+}
+
+
+package "Persistency-layer" as PersistencyLayer {
+    class ProjectReposity
+    class EmployeeRepository
+}
+
+package "Domain-layer" as DomainLayer {
+    class Project 
+    class Employee
+    class "Other classes"
+}
+
+PresentationLayer --> FacadeLayer
+FacadeLayer --> PersistencyLayer
+PersistencyLayer --> DomainLayer
+
+
+@enduml

@@ -121,7 +121,7 @@ public class Employee implements ConvertibleToViewModelInterface {
     return false;
   }
 
-  public boolean hasRegularActivityByID(int id) {
+  public boolean hasRegularActivityWithId(int id) {
     for (RegularActivity regularActivity : this.regularActivities) {
       if (regularActivity.getId() == id) {
         return true;

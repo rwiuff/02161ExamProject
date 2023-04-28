@@ -39,8 +39,6 @@ public class EmployeeFacade {
      * @throws NotFoundException
      */
 
-    // ALLE DISSE CHECKS, SKAL FOREGÅ I DOMAIN LAYER, SO I SELVE REGULARACTIVITY
-    // KLASSEN
     public void createRegularActivity(String title, String startWeek, String endWeek)
             throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
 
@@ -65,7 +63,7 @@ public class EmployeeFacade {
         RegularActivity activity = employeeRepo.findRegularActivityById(id);
 
         // Skal ned i domæne
-        if (!getLoggedInUserModel().hasRegularActivityByID(id)) {
+        if (!getLoggedInUserModel().hasRegularActivityWithId(id)) {
             throw new OperationNotAllowedException("Du har ikke rettighed til at se denne aktivitet");
         }
 
