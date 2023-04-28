@@ -245,5 +245,112 @@ E &
 
 For et givet projekt kan der oprettes projektaktiviteter, hvor en medarbejder kan angive mængden af arbejdstid han/hun har brugt på den pågældende aktivitet. Disse registreringer af arbejdstid bliver gemt med et id-nummer, som består af de positive naturlige tal og løber fra 1 og op. Dermed er det muligt at finde specifikke registreringer ud fra id-nummeret, og hertil benyttes metoden \texttt{findWorkTimeRegistrationById()}. 
 
-Såfremt at id nummeret man søger efter, matcher det af en arbejdstidsregistrering, returneres den pågældende registrering. Hvis ikke der er et match, kastes en NotFoundException. Dette tester vi
+Såfremt at id nummeret man søger efter, matcher det af en arbejdstidsregistrering, returneres den pågældende registrering. Hvis ikke der er et match, kastes en NotFoundException. Dette tester vi.
 
+\begin{listing}[H]
+    \centering
+    \caption{findWorktimeRegistrationById() kildekode}\label{lst:find_work_time_registration_by_id_source_code}
+    \begin{minted}[breaklines]{java}
+public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
+    
+    List<WorktimeRegistration> list = allWorktimeRegistrations(); // 1
+
+    for (WorktimeRegistration worktimeRegistration : list) { // 2
+        if (worktimeRegistration.getId().equals(id)) { // 3
+            
+            return worktimeRegistration; // 4
+        }
+    }
+
+    throw new NotFoundException("Ukendt tidsregistrering"); // 5
+
+}
+    \end{minted}
+\end{listing}
+
+\begin{table}[H]
+\centering
+\caption{Execution paths i findWorktimeRegistrationById()}\label{tbl:find_worktime_registrations_by_id:execution_path}
+\begin{tblr}{
+  cells = {l},
+  hline{1-2} = {-}{},
+}
+Execution path & 
+Input set & 
+Input property \\
+
+{1 (empty), 2 (empty), 5} & A & 
+{
+    List containing work time registrations is empty, \\ 
+    Arbitrary id number is set: \texttt{id} $=$ $1$
+} \\
+
+{1 (not empty), 2 (not empty), 3 (false), 5} & B & 
+{
+    List containing work time registrations has 1 element, \\ 
+    Input id does not match a work time registration id
+} \\
+
+{1 (not empty), 2 (not empty), 3 (true), 4} & C & 
+{
+    List containing work time registrations has 5 elements,\\ 
+    Input id matches a work time registration id
+}
+
+\end{tblr}
+\end{table}  
+
+\begin{table}[H]
+\centering
+\caption{Input sæt for findWorktimeRegistraionById()}\label{tbl:find_worktime_registrations_by_id:execution_path:inputs}
+\begin{tblr}{
+  cells = {l},
+  hline{1-2} = {-}{},
+}
+Input set & 
+Input data & 
+Expected result \\
+
+A & 
+{
+    \texttt{loggedInUser} = \{"mila"\} \\
+    \texttt{id} = 1 \\
+    \texttt{list} is empty \\
+    
+} & 
+{
+    Exception with message \\ 
+    "Ukendt tidsregistrering" is thrown
+} \\
+
+B & 
+{
+    title of project activity = "Test" \\
+    \texttt{loggedInUser} = \{"mila"\} \\
+    "mila"\; registers work time = 5.0 \\
+    \texttt{id} = 2 \\
+    \texttt{list} has 1 element \\
+} & 
+{
+    Exception with message \\ 
+    "Ukendt tidsregistrering" is thrown
+} \\
+
+C & 
+{
+    title of project activity = "Test" \\
+    \texttt{loggedInUser} = \{"mila"\} \\
+    "mila"\; registers work time = 5.0 \\
+    "mila"\; registers work time = 2.5 \\
+    "mila"\; registers work time = 4 \\
+    "mila"\; registers work time = 12.5 \\
+    "mila"\; registers work time = 20 \\
+    \texttt{id} = 4 \\
+    \texttt{list} has 5 element \\
+} & 
+{
+    \texttt{list} contains work time registration with matching id \\ 
+    \texttt{worktimeRegistration} with work time = 12.5 is returned
+} 
+\end{tblr}
+\end{table}

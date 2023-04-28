@@ -95,7 +95,7 @@ post:
 \subsection{findWorktimeRegistrationById()}
 \noindent pre: 
 \begin{align}
-    allWorktimeRegistrations().size()\; >\; 0 \;\wedge\; id \; \in \; \mathbb{N} \; \wedge \; 0 \; < \; id  \; <\; allWorktimeRegistrations().size()
+    allWorktimeRegistrations().size()\; >\; 0 \;\wedge\; id \; \in \; \mathbb{N} \; \wedge \; 0 \; < \; id  \; <=\; allWorktimeRegistrations().size()
 \end{align}
 post: 
 \begin{equation}
@@ -108,7 +108,7 @@ post:
     \begin{minted}[breaklines]{java}
 public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
 
-    assert allWorktimeRegistrations().size() > 0 && id == (int) id && 0 < id && id < allWorktimeRegistrations().size(); // Precondition
+    assert allWorktimeRegistrations().size() > 0 && id == (int) id && 0 < id && id <= allWorktimeRegistrations().size(); // Precondition
     
     List<WorktimeRegistration> list = allWorktimeRegistrations();
 
