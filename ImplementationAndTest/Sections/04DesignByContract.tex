@@ -1,7 +1,7 @@
 % !TeX root = ..\rapport_13_2.tex
-\section{Design by contract}
+\section{Design by contract}\label{chap:design_by_contract}
 
-\subsection{generateProjectNumber}
+\subsection{generateProjectNumber} \label{sec:contract_generate_project_number}
 pre: 
 \begin{equation}
     pr \neq null \land date \neq null
@@ -18,7 +18,7 @@ Med asserts ser det ud som følger:
     \label{fig:contract_generateProjectNumber}
 \end{figure}
 
-\subsection{createInitials}
+\subsection{createInitials()} \label{sec:contract_create_initials}
 pre:
 \begin{equation}
     nEmployeesWithName(employee) < maxInitials(employee)
@@ -36,7 +36,7 @@ Med asserts ser det ud som følger
     \includegraphics[width = \textwidth, keepaspectratio]{ImplementationAndTest/Diagrams/contract_createInitials.png}
     \label{fig:contract_createInitials}
 \end{figure}
-\subsection{createProjectActivity}
+\subsection{createProjectActivity()} \label{sec:contract_create_project_activity}
 pre: 
 \begin{equation}
     title \neq null \wedge startWeek \neq null \wedge endWeek \neq null \wedge loggedInUser \neq null \wedge activities \neq null
@@ -92,7 +92,7 @@ post:
 \end{listing}
 
 
-\subsection{findWorktimeRegistrationById()}
+\subsection{findWorktimeRegistrationById()} \label{sec:contract_findd_work}
 \noindent pre: 
 \begin{align}
     allWorktimeRegistrations().size()\; >\; 0 \;\wedge\; id \; \in \; \mathbb{N} \; \wedge \; 0 \; < \; id  \; <=\; allWorktimeRegistrations().size()
