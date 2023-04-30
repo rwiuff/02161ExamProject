@@ -1,0 +1,17 @@
+@startuml usecasesProjectLeader
+left to right direction
+actor "Project Leader" as pl
+
+rectangle TaskFusion{
+usecase "Set time budget for activity" as timebudget
+usecase "Generate report for project" as generatereport
+usecase "Create project activity" as createrprojact
+usecase "Assign employees to project" as assignemplpro
+}
+
+pl --> timebudget
+pl --> generatereport
+pl --> assignemplpro
+pl --> createrprojact
+
+@enduml

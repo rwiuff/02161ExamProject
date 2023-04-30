@@ -1,0 +1,11 @@
+@startuml usecasesGuest
+left to right direction
+actor Guest as guest
+
+rectangle TaskFusion{
+usecase "Register employee" as registeremp
+}
+
+guest -down-> registeremp
+
+@enduml

@@ -11,7 +11,6 @@ Background:
     And the user logs out
 
 #MAIN SCENARIO
-
 Scenario: 1. Employee assigns employee to project
     Given the user logs in using initials "mila"
     And the user registers an employee with first name "Brian", last name "Laudrup"
@@ -28,7 +27,6 @@ Scenario: 2. Project manager assigns an employee
     And the employee "brla" have 1 projects
 
 #ALTERNATIVE SCENARIOS
-
 Scenario: 1a. Employee assigns employee to project, with other employee as project leader
     Given the user logs in using initials "mila"
     And the user takes the role as project leader on project "23001"

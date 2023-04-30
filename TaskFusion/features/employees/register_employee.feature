@@ -8,7 +8,6 @@ Scenario: 1. Register an employee
     Then an employee with first name "Michael", last name "Laudrup" and initials "mila" exists in the application
 
 #ALTERNATIVE SCENARIOS
-
 Scenario: 1a. First name is required to register an employee
     When the user registers an employee with first name "", last name "Laudrup"
     Then the error message "Fornavn mangler" is given

@@ -1,0 +1,31 @@
+# activities
+-activity_remaining_work.feature
+-activity_work_time_budget.feature
+-create_project_activity_with_leader.feature
+-create_project_activity_without_leader.feature
+manage_activity_work_time.feature
+-overview_work_time.feature
+-register_activity_work_time.feature
+
+# employees
+-login.feature
+-logout.feature
+-register_employee.feature
+
+# projects
+-assign_employee_to_project.feature
+-assign_project_leader_to_project.feature
+-create_project.feature
+-get_list_participating_employees.feature
+
+# regular_activities
+-create_regular_activity.feature
+-view_regular_activity.feature
+
+# reports
+-create_report.feature
+
+# Unused
+manage_project.feature
+delete_regular_activity.feature
+edit_regular_activity.feature

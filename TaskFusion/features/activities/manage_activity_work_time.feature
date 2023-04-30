@@ -3,7 +3,6 @@ Feature: View and edit registered work time on a project activity
   Actors: employee and guest
 
 #BACKGROUND
-
 Background:
   Given the user registers an employee with first name "Michael", last name "Laudrup"
   And the user registers an employee with first name "Brian", last name "Laudrup"

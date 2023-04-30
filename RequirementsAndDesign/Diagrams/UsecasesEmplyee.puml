@@ -1,30 +1,21 @@
-@startuml usecases
+@startuml usecasesEmployee
 left to right direction
 actor Employee as emp
-actor "Project Leader" as pl
-actor Guest as guest
 
 rectangle TaskFusion{
-usecase "Register employee" as registeremp
 usecase "Set time budget for activity" as timebudget
-usecase "Generate report for project" as generatereport
-usecase "Create project activity" as createrprojact
-usecase "Assign employees to project" as assignemplpro
 usecase "Login" as login
 usecase "Logout" as logout
 usecase "Create project" as createproj
 usecase "Create regular activity" as createregact
+usecase "Create project activity" as createrprojact
 usecase "Register work time" as regwt
 usecase "Take project leader role" as plrole
+usecase "Assign employees to project" as assignemplpro
 usecase "View regular activity" as viewregact
-usecase "View project activity" as viewprojact
+usecase "View wortime registrations on project activity" as viewprojact
+usecase "View employees assigned to project" as viewemployees
 }
-
-guest -up-> registeremp
-pl -up-> timebudget
-pl -up-> generatereport
-pl -up-> assignemplpro
-pl -up-> createrprojact
 
 emp --> login
 emp --> logout
@@ -37,8 +28,6 @@ emp --> regwt
 emp --> plrole
 emp --> viewregact
 emp --> viewprojact
-
-login -[hidden]- generatereport
-logout -[hidden]- registeremp
+emp --> viewemployees
 
 @enduml

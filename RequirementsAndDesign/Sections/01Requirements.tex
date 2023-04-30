@@ -23,34 +23,57 @@ Denne del af rapporten dokumenterer de usecases og begreber som med udgangspunkt
 \end{table}\newpage
 \subsection{Use case diagrammer}
 Dette afsnit starter med \cref{fig:AlleActorsPaaEnGang} som viser hvilke aktører der kan udfører hvilke cases. Herefter kommer en oversigt (\cref{tbl:oversigt}) over de detaljerede use cases med henvisning til Cucumber features (\cpagerefrange{lst:usecaseRegisterEmployee}{lst:usecaseGenerateProjectReport}) og sekvensdiagrammer (\Cpagerefrange{fig:sequenceRegisterEmployee}{fig:sequenceGenerateProjectReport}).
+% \begin{figure}[H]
+%     \centering
+%     \caption{Use case diagram for programmet hvori de tre aktører inkluderet er Gæst, Medarbejder og Projektleder.}\label{fig:AlleActorsPaaEnGang}
+%     \includegraphics[width=.85\textwidth]{RequirementsAndDesign/Diagrams/usecases.eps}
+% \end{figure}
 \begin{figure}[H]
     \centering
-    \caption{Use case diagram for programmet hvori de tre aktører inkluderet er Gæst, Medarbejder og Projektleder.}\label{fig:AlleActorsPaaEnGang}
-    % \includegraphics[width=.85\textwidth]{Diagrams/Timeregistrering og projektstyring.png}
-    \includegraphics[width=.85\textwidth]{RequirementsAndDesign/Diagrams/usecases.eps}
+    \caption{Use case diagrammer for programmet hvori de tre aktører inkluderet er Gæst, Medarbejder og Projektleder.}\label{fig:AlleActorsPaaEnGang}
+    \begin{subfigure}[c]{.5\textwidth}
+        \centering
+        \caption{Use cases for medarbejder}
+        \includegraphics[width=\textwidth]{RequirementsAndDesign/Diagrams/usecasesEmployee.eps}\label{fig:ucEmployee}
+    \end{subfigure}
+    \qquad
+    \begin{subfigure}[c]{.4\textwidth}
+        \centering
+        \caption{Use cases for gæst}
+        \includegraphics[width=.8\textwidth]{RequirementsAndDesign/Diagrams/usecasesGuest.eps}\label{fig:ucGuest}
+
+        \vspace{10ex}
+
+        \caption{Use cases for projektleder}
+        \includegraphics[width=\textwidth]{RequirementsAndDesign/Diagrams/usecasesProjectLeader.eps}\label{fig:ucProjectLeader}
+    \end{subfigure}
 \end{figure}
-Som beskrevet i \cref{fig:AlleActorsPaaEnGang} har vi tre roller: Guest, medarbejder og projektleder. Gæsten er en indgang til et system uden data og kan kun oprette medarbejdere i systemet. Medarbejdere har rettigheder til stort set alle funktioner i programmet, indtil en projektleder udpeges. Herefter er det kun projektlederen på et projekt, der kan tilføje medarbejdere til projektet, oprette projektaktiviteter, angive tidsbudgetter og generere rapporter.
+
+Som beskrevet i \cref{fig:AlleActorsPaaEnGang} har vi tre roller: Medarbejder (\cref{fig:ucEmployee}), gæst (\cref{fig:ucGuest}) og projektleder (\cref{fig:ucProjectLeader}). Gæsten er en indgang til et system uden data og kan kun oprette medarbejdere i systemet. Medarbejdere har rettigheder til stort set alle funktioner i programmet, indtil en projektleder udpeges. Herefter er det kun projektlederen på et projekt, der kan tilføje medarbejdere til projektet, oprette projektaktiviteter, angive tidsbudgetter og generere rapporter.
 \begin{table}[H]
     \centering
     \caption{Use cases for programmet}\label{tbl:oversigt}
     \begin{tabular}{lll}
         \toprule
-        Detaljeret use case                  & Cucumber feature                                            & Sekvensdiagram                           \\
+        Detaljeret use case                           & Cucumber feature                                                                                                                & Sekvensdiagram                           \\
         \midrule
-        Opret medarbejder                    & \cref{lst:usecaseRegisterEmployee}                          & \cref{fig:sequenceRegisterEmployee}      \\
-        Login                                & \cref{lst:usecaseLogin}                                     & \cref{fig:sequenceLogin}                 \\
-        Logout                               & \cref{lst:usecaseLogout}                                    & \cref{fig:sequenceLogout}                \\
-        Opret projekt                        & \cref{lst:usecaseCreateProject1,,lst:usecaseCreateProject2} & \cref{fig:sequenceCreateProject}         \\
-        Påtag projektlederrolle              & \cref{lst:usecaseTakePLRole}                                & \cref{fig:sequenceTakePLRole}            \\
-        Tildel medarbejder til projekt       & \cref{lst:usecaseAssignEmployee}                            & \cref{fig:sequenceAssignEmployee}        \\
-        Opret projektaktivitet               & \cref{lst:usecaseCreateProjectActivity}                     & \cref{fig:sequenceCreateProjectActivity} \\
-        Opret fast aktivitet                 & \cref{lst:usecaseCreateRegularActivity}                     & \cref{fig:sequenceCreateRegularActivity} \\
-        Registrer arbejdstid                 & \cref{lst:usecaseRegisterWorktime}                          & \cref{fig:sequenceRegisterWorktime}      \\
-        Anfør tidsbudget på projektaktivitet & \cref{lst:usecaseSetTimeBudget}                             & \cref{fig:sequenceSetTimeBudget}         \\
-        Generér projektrapport               & \cref{lst:usecaseGenerateProjectReport}                     & \cref{fig:sequenceGenerateProjectReport} \\
+        Opret medarbejder                             & \cref{lst:usecaseRegisterEmployee}                                                                                              & \cref{fig:sequenceRegisterEmployee}      \\
+        Login                                         & \cref{lst:usecaseLogin}                                                                                                         & \cref{fig:sequenceLogin}                 \\
+        Logout                                        & \cref{lst:usecaseLogout}                                                                                                        & \cref{fig:sequenceLogout}                \\
+        Opret projekt                                 & \cref{lst:usecaseCreateProject1,,lst:usecaseCreateProject2}                                                                     & \cref{fig:sequenceCreateProject}         \\
+        Påtag projektlederrolle                       & \cref{lst:usecaseTakePLRole}                                                                                                    & \cref{fig:sequenceTakePLRole}            \\
+        Tildel medarbejder til projekt                & \cref{lst:usecaseAssignEmployee}                                                                                                & \cref{fig:sequenceAssignEmployee}        \\
+        Se medarbejdere tilknyttet et projekt         & \cref{lst:usecaseViewAssignedEmployee}                                                                                          & \cref{fig:ViewAssignedEmployee}          \\
+        Opret projektaktivitet                        & \cref{lst:usecaseCreateProjectActivityPL,,lst:usecaseCreateProjectActivityEmployee1,,lst:usecaseCreateProjectActivityEmployee2} & \cref{fig:sequenceCreateProjectActivity} \\
+        Anfør tidsbudget på projektaktivitet          & \cref{lst:usecaseSetTimeBudget}                                                                                                 & \cref{fig:sequenceSetTimeBudget}         \\
+        Opret fast aktivitet                          & \cref{lst:usecaseCreateRegularActivity1,,lst:usecaseCreateRegularActivity2}                                                     & \cref{fig:sequenceCreateRegularActivity} \\
+        Se fast aktivitet                             & \cref{lst:usecaseViewRegularActivity}                                                                                           & \cref{fig:sequenceViewRegularActivity}   \\
+        Registrer arbejdstid                          & \cref{lst:usecaseRegisterWorktime1,,lst:usecaseRegisterWorktime2}                                                               & \cref{fig:sequenceRegisterWorktime}      \\
+        Se registreret arbejdstid på projektaktivitet & \cref{lst:RemainingWork,,lst:usecaseViewWorktime1,,lst:usecaseViewWorktime2}                                                    & \cref{fig:sequenceViewWorktime}          \\
+        Generér projektrapport                        & \cref{lst:usecaseGenerateProjectReport1,,lst:usecaseGenerateProjectReport2}                                                     & \cref{fig:sequenceGenerateProjectReport} \\
         \bottomrule
     \end{tabular}
-\end{table}\newpage
+\end{table}
 \subsection{Detaljerede use cases}
 \begin{listing}[H]
     \centering
@@ -89,25 +112,79 @@ Som beskrevet i \cref{fig:AlleActorsPaaEnGang} har vi tre roller: Guest, medarbe
 \end{listing}
 \begin{listing}[H]
     \centering
-    \caption{Cucmber feature: Opret projektaktivitet}\label{lst:usecaseCreateProjectActivity}
+    \caption{Cucumber feature: Se medarbejdere tilknyttet et projekt}\label{lst:usecaseViewAssignedEmployee}
+    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/projects/get_list_participating_employees.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
-    \caption{Cucmber feature: Opret fast aktivitet}\label{lst:usecaseCreateRegularActivity}
+    \caption{Cucmber feature: Opret projektaktivitet som projektleder}\label{lst:usecaseCreateProjectActivityPL}
+    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/activities/create_project_activity_with_leader.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
-    \caption{Cucmber feature: Registrer arbejdstid}\label{lst:usecaseRegisterWorktime}
+    \caption{Cucmber feature: Opret projektaktivitet som medarbejder (fortsætter på \cref{lst:usecaseCreateProjectActivityEmployee2})}\label{lst:usecaseCreateProjectActivityEmployee1}
+    \inputminted[linenos, breaklines, lastline=46]{cucumber}{TaskFusion/features/activities/create_project_activity_without_leader.feature}
+\end{listing}
+\begin{listing}[H]
+    \centering
+    \caption{Cucmber feature: Opret projektaktivitet som medarbejder (fortsat fra \cref{lst:usecaseCreateProjectActivityEmployee1})}\label{lst:usecaseCreateProjectActivityEmployee2}
+    \inputminted[linenos, breaklines, firstline=47]{cucumber}{TaskFusion/features/activities/create_project_activity_without_leader.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Anfør tidsbudget på projektaktivitet}\label{lst:usecaseSetTimeBudget}
+    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/activities/activity_work_time_budget.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
-    \caption{Cucmber feature: Generér projektrapport}\label{lst:usecaseGenerateProjectReport}
+    \caption{Cucmber feature: Opret fast aktivitet (fortsætter på \cref{lst:usecaseCreateRegularActivity2})}\label{lst:usecaseCreateRegularActivity1}
+    \inputminted[linenos, breaklines, lastline=16]{cucumber}{TaskFusion/features/regular_activities/create_regular_activity.feature}
 \end{listing}
-\newpage
+\begin{listing}[H]
+    \centering
+    \caption{Cucmber feature: Opret fast aktivitet (fortsat fra \cref{lst:usecaseCreateRegularActivity1})}\label{lst:usecaseCreateRegularActivity2}
+    \inputminted[linenos, breaklines, firstline=17]{cucumber}{TaskFusion/features/regular_activities/create_regular_activity.feature}
+\end{listing}
+\begin{listing}[H]
+    \centering
+    \caption{Cucumber feature: Se fast aktivitet}\label{lst:usecaseViewRegularActivity}
+    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/regular_activities/view_regular_activity.feature}
+\end{listing}
+\begin{listing}[H]
+    \centering
+    \caption{Cucmber feature: Registrer arbejdstid (fortsætter på \cref{lst:usecaseRegisterWorktime2})}\label{lst:usecaseRegisterWorktime1}
+    \inputminted[linenos, breaklines, lastline=33]{cucumber}{TaskFusion/features/activities/register_activity_work_time.feature}
+\end{listing}
+\begin{listing}[H]
+    \centering
+    \caption{Cucmber feature: Registrer arbejdstid (fortsat fra \cref{lst:usecaseRegisterWorktime1})}\label{lst:usecaseRegisterWorktime2}
+    \inputminted[linenos, breaklines, firstline=34]{cucumber}{TaskFusion/features/activities/register_activity_work_time.feature}
+\end{listing}
+\begin{listing}[H]
+    \centering
+    \caption{Cucumber feature: Se resterende arbejdstid}\label{lst:RemainingWork}
+    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/activities/activity_remaining_work.feature}
+\end{listing}
+\begin{listing}[H]
+    \centering
+    \caption{Cucumber feature: Se registreret arbejdstid på projektaktivitet (fortsætter på \cref{lst:usecaseViewWorktime2})}\label{lst:usecaseViewWorktime1}
+    \inputminted[linenos, breaklines, lastline=44]{cucumber}{TaskFusion/features/activities/overview_work_time.feature}
+\end{listing}
+\begin{listing}[H]
+    \centering
+    \caption{Cucumber feature: Se registreret arbejdstid på projektaktivitet (fortsat fra \cref{lst:usecaseViewWorktime1})}\label{lst:usecaseViewWorktime2}
+    \inputminted[linenos, breaklines, firstline=45]{cucumber}{TaskFusion/features/activities/overview_work_time.feature}
+\end{listing}
+\begin{listing}[H]
+    \centering
+    \caption{Cucmber feature: Generér projektrapport (fortsætter på \cref{lst:usecaseGenerateProjectReport2})}\label{lst:usecaseGenerateProjectReport1}
+    \inputminted[linenos, breaklines, lastline=32]{cucumber}{TaskFusion/features/reports/create_report.feature}
+\end{listing}
+\begin{listing}[H]
+    \centering
+    \caption{Cucmber feature: Generér projektrapport (fortsat fra \cref{lst:usecaseGenerateProjectReport1})}\label{lst:usecaseGenerateProjectReport2}
+    \inputminted[linenos, breaklines, firstline=33]{cucumber}{TaskFusion/features/reports/create_report.feature}
+\end{listing}
 \section{Diskussion: Kravspecifikation}
 \subsection{Oplægsmæssige overvejelser og afgrænsninger}
 \subsubsection{En admin rolle}
@@ -121,4 +198,3 @@ For at tilgodese at medarbejdere kan hedde det samme vil medarbejder-objekter bl
 Disse to begreber bliver kun brugt i abstrakt forstand, da man i Java ikke har direkte kontrol over objekter. De kan konstrueres, men eksistere selv når objekter der peger på dem slettes. Java har en garbage collector der jævnligt analysere pointers i programmet og fjerner objekter der ikke bliver peget på.
 \subsubsection{UI}
 UI'en er som nævnt tekstbaseret. Dette betyder at vi til at starte med ikke har en \emph{Viewer}-klasse, da alt printes til konsollen. Bliver UI-delen for kompliceret kan en \emph{Viewer}-klasse let implementeres.
-\newpage
