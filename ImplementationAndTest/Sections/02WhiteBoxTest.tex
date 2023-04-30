@@ -1,6 +1,6 @@
 % !TeX root = ..\rapport_13_2.tex
 \section{White box test\label{chap:white_box}}
-\subsection{createInitials()}
+\subsection{createInitials()}\label{sec:white_box_create_initials}
 For at garantere, at createInitials() fungerer som angivet i kommentaren over metodedefinitionen i klassen Employee (og dermed som forventet), skal vi sikre, at initialerne genereres i den rækkefølge, der er defineret af den kommentar, og at metoden kaster en undtagelse, når det forventes.
 \begin{figure}[H]
     \centering
@@ -36,7 +36,7 @@ B         & {The employee repository has 18 employees named\\~Michael Laudrup, a
 C         & {The employee repository has five employees named\\~Michael Laudrup, and another is created.} & {The sixth Michael Laudrup gets the initials miau} 
 \end{tblr}
 \end{table}
-\subsection{generateProjectNumber()} 
+\subsection{generateProjectNumber()} \label{sec:white_box_generate_project_number}
 \begin{figure}[H]
     \centering
     \caption{Execution paths i generateProjectNumber()}
@@ -241,7 +241,7 @@ E &
 \end{tblr}
 \end{table}
 
-\subsection{findWorkTimeRegistrationById()}
+\subsection{findWorkTimeRegistrationById()} \label{sec:white_box_find_work_time}
 
 For et givet projekt kan der oprettes projektaktiviteter, hvor en medarbejder kan angive mængden af arbejdstid han/hun har brugt på den pågældende aktivitet. Disse registreringer af arbejdstid bliver gemt med et id-nummer, som består af de positive naturlige tal og løber fra 1 og op. Dermed er det muligt at finde specifikke registreringer ud fra id-nummeret, og hertil benyttes metoden \texttt{findWorkTimeRegistrationById()}. 
 

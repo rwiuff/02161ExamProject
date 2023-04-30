@@ -1,0 +1,52 @@
+\section{SOLID principer} \label{chap:solid}
+Nogle SOLID principper er blevet benyttet og vil herunder blive gennemgået med kodeeksempler.
+
+\subsection{Single responsibility principle} \label{sec:solid_s}
+I forbindelse med at designe programmet efter mønstre som nævnt i forrige kapitel, har det også været naturligt at opdele klasser til kun af have et enkelt formål. Det ses som eksempel på \textit{Persistency} klasserne \texttt{ProjectRepository.java} og \texttt{EmployeeRepository}, der henholdsvis har ansvaret for at håndtere de primære hovedobjekt-klasser; \textit{Employee's} og \textit{Project}'s.
+
+Derudover er alle klassers metoder som udgangspunkt lavet til at kun at have et enkelt formål. Herunder i \ref{lst:single_responsibility_source} er to eksempler på metoder fra \texttt{Employee.java}, hvis eneste formål er at validere det givne argument.
+\begin{listing}[H]
+    \centering
+    \caption{Single resposibility metoder}\label{lst:single_responsibility_source}
+    \begin{minted}[breaklines]{java}
+  private String validateFirstName(String firstName) throws InvalidPropertyException {
+    if (firstName.length() < 2) {
+      throw new InvalidPropertyException("Fornavn mangler");
+    }
+    return firstName;
+  }
+
+  private String validateLastName(String lastName) throws InvalidPropertyException {
+    if (lastName.length() < 2) {
+      throw new InvalidPropertyException("Efternavn mangler");
+    }
+    return lastName;
+  }
+
+    \end{minted}
+\end{listing}
+
+
+Der er dog enkelte metoder, der kunne optimeres i forhold til \textit{Single resposibility} principet. Her kan nævnes \textit{createProjectActivity()} som beskrevet i \textit{White box test} \ref{chap:white_box_create_project_activity} kapitlet. Denne metode er både ansvarlig for at acceptere om en medarbejder kan oprette en projekt aktiviet, og derefter også at oprette den. Her kunne man refaktorere til, at tjekket om medarbejderen må oprette en aktivitet, lå udenfor metoden.
+
+\subsection{Open/closed principle} \label{sec:solid_o}
+Det lyder fra opgaveformuleringen, at der skal være mulighed for at opdele projekter op i aktiviteter, og at der skal være mulighed for at lave faste aktiviteter til registrering af bl.a. ferie og kurser, som ikke er knyttet til projekter. Et simpelt eksempel hvor open-closed princippet er blevet benyttet til at imødekomme førnævnte er at lave en abstrakt klasse kaldet \texttt{activity.java}, som vist herunder i figur \ref{fig:class_open_closed_example}. Denne har de enkelte felter som \texttt{title}, \texttt{startweek}, \texttt{endweek}, samt exceptions og getter-metoder og ikke mere. Det er muligt at udvide (extend) denne klasse således at der kan laves to underklasser, \texttt{ProjectActivity.java} og \texttt{RegularActivity.java}. På den måde er \texttt{Activity} lukket for ændringer men åben for udvidelser. 
+\begin{figure}[H]
+    \centering
+    \caption{Klassediagram af \textit{aktivity} klasserne}
+    \includegraphics[width = 10cm, keepaspectratio]{TaskFusion/out/assets/diagrams/class_open_closed_example/open_closed.png}
+    \label{fig:class_open_closed_example}
+\end{figure}
+
+Der er desuden også det argument, at \textit{single responsibilty princippet} bliver fulgt, da \texttt{Activity.java} klassen kun har én grund til at blive ændret. Den grund vil indbefatte en ændring af definitionen, af hvad en aktivitet er, f.eks. en ændring af dets felter.
+
+
+\subsection{Liskov substitution principle} \label{sec:solid_l}
+
+
+
+\subsection{Interface segregation principle} \label{sec:solid_i}
+
+
+
+\subsection{Dependency inverseion principle} \label{sec:solid_d}
