@@ -46,15 +46,15 @@ På denne måde kan metoder relateret til tidsregistrering ikke kaldes fra \text
 
 
 \subsection{Interface segregation principle} \label{sec:solid_i}
-\texttt{ConvertibleToViewModelInterface} er et interface der adskiller konverteringslogikken fra domæneobjekterne, se klassediagram herunder i \ref{}. Klasser som \texttt{Project} og \texttt{Employee} implementerer dette interface og kan dermed konverteres til en \texttt{ViewModel} til brug i præsentationslaget. På denne måde har vi en simpel og fokuseret kontrakt for domæneobjekter, der kan udvide deres funktionalitet uden at ændre deres kerneadfærd. 
+\texttt{ConvertibleToViewModelInterface} er et interface der adskiller konverteringslogikken fra domæneobjekterne, se klassediagram herunder i \ref{fig:class_convertible_example}. Klasser som \texttt{Project} og \texttt{Employee} implementerer dette interface og kan dermed konverteres til en \texttt{ViewModel} til brug i præsentationslaget. På denne måde har vi en simpel og fokuseret kontrakt for domæneobjekter, der kan udvide deres funktionalitet uden at ændre deres kerneadfærd. 
 
 \begin{figure}[H]
     \centering
-    \caption{Klassediagram af \textit{aktivity} klasserne}
-    \includegraphics[width = \textwidth, keepaspectratio]{TaskFusion/out/assets/diagrams/class_liskov_model_example/liskov_model_example.png}
-    \label{fig:class_activity_example}
+    \caption{Klassediagram af \textit{ConvertibleToViewModelInterface} implementeringer}
+    \includegraphics[width = \textwidth, keepaspectratio]{TaskFusion/out/assets/diagrams/class_convertibleToViewModel_example/ConvertibleToViewModel_diagram.png}
+    \label{fig:class_convertible_example}
 \end{figure}
 
-\subsection{Dependency inverseion principle} \label{sec:solid_d}
+\subsection{Dependency inversion principle} \label{sec:solid_d}
 
 
