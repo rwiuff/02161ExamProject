@@ -174,9 +174,9 @@ public class ProjectFacade implements ProjectFacadeInterface, ProjectActivityFac
 
     public List&lt;ProjectViewModel&gt; getUserProjects() throws NotFoundException {
 
-<span class="nc" id="L177">        List&lt;Project&gt; projects = new ArrayList&lt;Project&gt;(getLoggedInUserModel().getProjects().values());</span>
+<span class="fc" id="L177">        List&lt;Project&gt; projects = new ArrayList&lt;Project&gt;(getLoggedInUserModel().getProjects().values());</span>
 
-<span class="nc" id="L179">        return ProjectViewModel.listFromModels(projects);</span>
+<span class="fc" id="L179">        return ProjectViewModel.listFromModels(projects);</span>
     }
 
     public List&lt;EmployeeViewModel&gt; getProjectEmployees(String projectNumber) {
