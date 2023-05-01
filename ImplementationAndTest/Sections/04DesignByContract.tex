@@ -4,11 +4,11 @@
 \subsection{generateProjectNumber} \label{sec:contract_generate_project_number}
 pre: 
 \begin{align}
-    pr \neq null \land date \neq null
+    date \neq null
 \end{align}
 post:
 \begin{align}
-    \text{result } = \{s|\exists p \in projectRepository.getProjectNumbers : s \in p \land p = largestProjectNumber(date)\}
+    \text{result } = \{s|\exists p \in projectRepository.getProjectNumbers : s \in p \land p = previousLargestProjectNumber + 1\}
 \end{align}
 \begin{align}
     3 + 4 = 7
@@ -22,7 +22,7 @@ Med asserts ser det ud som følger:
     \caption{generateProjectNumber() med assertions}\label{lst:cgenerate_project_number_assertions}
     \begin{minted}[breaklines]{java}
 public static String generateProjectNumber(Calendar date) {
-  assert date != null && ProjectRepository.getInstance() != null; // pre
+  assert date != null // pre
   int year = DateHelper.twoDigitYearFromDate(date);
   int num = 0;
 
@@ -46,7 +46,8 @@ public static String generateProjectNumber(Calendar date) {
 }
     \end{minted}
 \end{listing}
-
+\noindent
+I virkeligheden er der to postconditions, i tilfælde af at preconditionen holder, sættes Employee-instancens initials-felt til init, i tilfælde af at den overtrædes, kastes en ExhaustedOptionsException.\\[4mm]
 \subsection{createInitials()} \label{sec:contract_create_initials}
 pre:
 \begin{equation}
@@ -88,15 +89,7 @@ private void createInitials() throws ExhaustedOptionsException {
     \end{minted}
 \end{listing}
 \noindent
-Implicit garanteres det der står i createInitials' precondition gennem funktionens kørsel, derfor assertes blot true som precondition. I virkeligheden er der to postconditions, i tilfælde af at preconditionen holder, sættes Employee-instancens initials-felt til init, i tilfælde af at den overtrædes, kastes en ExhaustedOptionsException.
-
-\begin{figure}[H]
-    \centering
-    \caption{createInitials med asserts}
-    \includegraphics[width = \textwidth, keepaspectratio]{ImplementationAndTest/Diagrams/contract_createInitials.png}
-    \label{fig:contract_createInitials}
-\end{figure}
-\subsection{createProjectActivity()} \label{sec:contract_create_project_activity}
+Implicit garanteres det der står i createInitials' precondition gennem funktionens kørsel, derfor assertes blot true som precondition. I virkeligheden er der to postconditions, i tilfælde af at preconditionen holder, sættes Employee-instancens initials-felt til init, i tilfælde af at den overtrædes, kastes en ExhaustedOptionsException.\\[4mm]
 pre: 
 \begin{equation}
     title \neq null \wedge startWeek \neq null \wedge endWeek \neq null \wedge loggedInUser \neq null \wedge activities \neq null
@@ -153,14 +146,21 @@ post:
 
 
 \subsection{findWorktimeRegistrationById()} \label{sec:contract_findd_work}
-\noindent pre: 
-\begin{align}
-    allWorktimeRegistrations().size()\; >\; 0 \;\wedge\; id \; \in \; \mathbb{N} \; \wedge \; 0 \; < \; id  \; <=\; allWorktimeRegistrations().size()
-\end{align}
-post: 
+\noindent Precondition: I dette tilfælde er vores precondition \texttt{true}, da vores postconditions korrigerer for fejl, så alle tilfælde af inputs fejlhåndteres.
+
+%\begin{align}
+    %allWorktimeRegistrations().size()\; >\; 0 \;\wedge\; id \; \in %\; \mathbb{N} \; \wedge \; 0 \; < \; id  \; <=\; %allWorktimeRegistrations().size()
+%\end{align}
+
+
+\noindent
+Postcondition: 
 \begin{equation}
-    \exists i\; :\; (i\; \in\; result\; \iff\; \exists worktimeRegistration.getId() \; = \; i)
-\end{equation}
+    \exists i\; :\; (result = i \iff\; \exists worktimeRegistration.getId() \; = \; i\; \lor result = NotFoundException)
+\end{equation}\label{postcondition 1}
+
+Det skal nævnes, at postconditionen, i tilfælde af at leddet før $\lor$ i ligningen over 
+
 
 \begin{listing}[H]
     \centering
@@ -168,13 +168,13 @@ post:
     \begin{minted}[breaklines]{java}
 public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
 
-    assert allWorktimeRegistrations().size() > 0 && id == (int) id && 0 < id && id <= allWorktimeRegistrations().size(); // Precondition
+    assert true // Precondition
     
     List<WorktimeRegistration> list = allWorktimeRegistrations();
 
     for (WorktimeRegistration worktimeRegistration : list) {
         if (worktimeRegistration.getId().equals(id)) {
-            assert worktimeRegistration.getId().equals(id); // Postcondition
+            assert list.stream().anyMatch(x -> x.getId() == id) // Postcondition
             
             return worktimeRegistration;
         }
