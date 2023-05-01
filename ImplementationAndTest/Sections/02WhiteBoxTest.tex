@@ -1,7 +1,7 @@
 % !TeX root = ..\rapport_13_2.tex
 \section{White box test\label{chap:white_box}}
 \subsection{createInitials()}\label{sec:white_box_create_initials}
-For at garantere, at createInitials() fungerer som angivet i kommentaren over metodedefinitionen i klassen Employee (og dermed som forventet), skal vi sikre, at initialerne genereres i den rækkefølge, der er defineret af den kommentar, og at metoden kaster en undtagelse, når det forventes.
+For at garantere at createInitials() fungerer som angivet i kommentaren over metodedefinitionen i klassen Employee (og dermed som forventet), skal der sikres, at initialerne genereres i den rækkefølge, der er defineret af den kommentar, og at metoden kaster en undtagelse, når det forventes.
 \begin{figure}[H]
     \centering
     \caption{Execution paths i createInitials()}
@@ -12,6 +12,7 @@ For at garantere, at createInitials() fungerer som angivet i kommentaren over me
 For at gøre det bruger vi de execution paths, der er angivet i fig. \ref{fig:ep_create_initials} og skriver input-sæt, der sikrer, at alle execution paths dækkes.
 \begin{table}[H]
 \centering
+\caption{Execution paths i createInitials()}\label{tbl:create_initials_paths}
 \begin{tblr}{
   cells = {c},
   hline{1-2} = {-}{},
@@ -25,6 +26,7 @@ Execution path                                & Input set & Input property      
 \end{table}
 
 \begin{table}[H]
+\caption{Input sæt i createInitials()}\label{tbl:create_initials_input_sæt}
 \centering
 \begin{tblr}{
   cells = {c},
@@ -43,7 +45,41 @@ C         & {The employee repository has five employees named\\~Michael Laudrup,
     \includegraphics[width = \textwidth, keepaspectratio]{ImplementationAndTest/Diagrams/wb_genProjNum.png}
     \label{fig:ep_generate_project_number}
 \end{figure}
+
+
+\begin{listing}[H]
+    \centering
+    \caption{createProjectActivity() kildekode}\label{lst:create_project_activity_source}
+    \begin{minted}[breaklines]{java}
+public class Project implements ConvertibleToViewModelInterface {
+
+  private Employee projectLeader;
+  private List<ProjectActivity> activities = new ArrayList<ProjectActivity>();
+
+  public ProjectActivity createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
+      throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
+        
+    if (hasProjectLeader()) { //1
+      if (!projectLeader.isSameAs(loggedInUser)) { //2
+        throw new OperationNotAllowedException("Kun projektlederen kan oprette en projekt aktivitet for dette projekt"); //3
+      }
+    }
+    
+    if (hasProjectActivity(title)) { //4
+      throw new AlreadyExistsException("Projekt aktivitet findes allerede"); //5
+    }
+    
+    ProjectActivity activity = new ProjectActivity(title, startWeek, endWeek); //6
+    this.activities.add(activity); //7
+
+    return activity;
+  }
+  
+}
+
+
 \begin{table}[H]
+\caption{Execution paths i generateProjectNumber()}\label{tbl:generate_project_number_paths}
 \centering
 \begin{tblr}{
   cells = {c},
@@ -61,6 +97,7 @@ Execution path                                                     & Input set &
 
 \begin{table}[H]
 \centering
+\caption{Input sæt i generateProjectNumber()}\label{tbl:generate_project_number_input_sæt}
 \begin{tblr}{
   cells = {c},
   hline{1-2} = {-}{},
@@ -76,12 +113,12 @@ F         & The current year is 2023 and there are no projects                  
 \end{table}
 
 \subsection{createProjectActivity() \label{chap:white_box_create_project_activity}} 
-Der kan oprettes projektaktiviteter for et projekt objekt. For at oprette en projektaktivitet, kræves at en medarbejder er logget ind og der skal bruges en titel, start- og slutuge. Derudover er det kun projektledere der kan oprette aktiviteter, hvis der er tildelt en projektleder til projektet. Herunder i \ref{lst:create_project_activity_source} er et udsnit af Project.java, inklusiv metoden der laves white box test for. White box testen udføres i praksis med JUnit, med filen CreateProjectActivityTest.java.
+Der kan oprettes projektaktiviteter for et projekt objekt. For at oprette en projektaktivitet kræves det, at en medarbejder er logget ind, og at der gives en titel, start- og slutuge for projektaktivitet. Derudover er det kun projektledere, der kan oprette aktiviteter, såfremt at der er tildelt en projektleder til projektet. Herunder i \ref{lst:create_project_activity_source} er et udsnit af Project.java inklusiv metoden der laves white box test af. White box testen udføres i praksis med JUnit med filen CreateProjectActivityTest.java.
 
 
 \begin{listing}[H]
     \centering
-    \caption{createProjectActivity() source code}\label{lst:create_project_activity_source}
+    \caption{createProjectActivity() kildekode}\label{lst:create_project_activity_source}
     \begin{minted}[breaklines]{java}
 public class Project implements ConvertibleToViewModelInterface {
 
@@ -115,7 +152,7 @@ public class Project implements ConvertibleToViewModelInterface {
 %\centering
 \begin{table}[H]
 
-\caption{Execution paths in createProjectActivity()}\label{tbl:create_project_activity_paths}
+\caption{Execution paths i createProjectActivity()}\label{tbl:create_project_activity_paths}
 \begin{tblr}{
   cells = {l},
   hline{1-2} = {-}{},
@@ -159,7 +196,7 @@ Input property \\
 
 \begin{table}[H]
 \centering
-\caption{Input sets for createProjectActivity()}\label{tbl:create_project_activity_inputs}
+\caption{Input sæt for createProjectActivity()}\label{tbl:create_project_activity_inputs}
 \begin{tblr}{
   cells = {l},
   hline{1-2} = {-}{},
@@ -245,7 +282,7 @@ E &
 
 For et givet projekt kan der oprettes projektaktiviteter, hvor en medarbejder kan angive mængden af arbejdstid han/hun har brugt på den pågældende aktivitet. Disse registreringer af arbejdstid bliver gemt med et id-nummer, som består af de positive naturlige tal og løber fra 1 og op. Dermed er det muligt at finde specifikke registreringer ud fra id-nummeret, og hertil benyttes metoden \texttt{findWorkTimeRegistrationById()}. 
 
-Såfremt at id nummeret man søger efter, matcher det af en arbejdstidsregistrering, returneres den pågældende registrering. Hvis ikke der er et match, kastes en NotFoundException. Dette tester vi.
+Såfremt at id nummeret man søger efter matcher det af en arbejdstidsregistrering, returneres den pågældende registrering. Hvis ikke der er et match, kastes en NotFoundException. Dette tester vi.
 
 \begin{listing}[H]
     \centering
