@@ -3,23 +3,49 @@
 
 \subsection{generateProjectNumber} \label{sec:contract_generate_project_number}
 pre: 
-\begin{equation}
+\begin{align}
     pr \neq null \land date \neq null
-\end{equation}
+\end{align}
 post:
-\begin{equation}
-    \text{result }=\{s|\exists p \in projectRepository.getProjectNumbers : s \in p \land p = largestProjectNumber(date)\}
-\end{equation}
+\begin{align}
+    \text{result } = \{s|\exists p \in projectRepository.getProjectNumbers : s \in p \land p = largestProjectNumber(date)\}
+\end{align}
+\begin{align}
+    3 + 4 = 7
+\end{align}
+\newline
+\noindent
 Med asserts ser det ud som følger:
 
-\begin{figure}[H]
+\begin{listing}[H]
     \centering
-    \caption{generateProjectNumber med asserts}
-    \includegraphics[width = 14cm, keepaspectratio]{ImplementationAndTest/Diagrams/contract_generateProjectNumber.png}
-    \label{fig:contract_generateProjectNumber}
-\end{figure}
+    \caption{generateProjectNumber() med assertions}\label{lst:cgenerate_project_number_assertions}
+    \begin{minted}[breaklines]{java}
+public static String generateProjectNumber(Calendar date) {
+  assert date != null && ProjectRepository.getInstance() != null; // pre
+  int year = DateHelper.twoDigitYearFromDate(date);
+  int num = 0;
 
+  // Find the highest incremental number for the current year
+  for (String projectNumber : ProjectRepository.getInstance().all().keySet()) {
+    if (projectNumber.startsWith(String.format("%02d", year))) {
+      num = Integer.parseInt(projectNumber.substring(2));
+    }
+  }
 
+  int previousProjectNumber = (year * 100) + num;
+  int nextProjectNumber = (year * 1000) + num + 1;
+  assert nextProjectNumber == previousProjectNumber + 1; // post
+  
+  if (nextProjectNumber < 10000) {
+      return "0" + nextProjectNumber;
+  }
+
+  return "" + nextProjectNumber;
+
+}
+    \end{minted}
+\end{listing}
 
 \subsection{createInitials()} \label{sec:contract_create_initials}
 pre:
@@ -33,6 +59,35 @@ post:
 Hvor maxInitials(employee) er $n$ vælg 2, hvor $n$ er længden af efternavnet, og duplikater fjernes i generationen af kombinationer.
 I "Laudrup" (længde 7, $7 \choose 2$=21) går "lu", "au", "up" igen to gange, hvorfor der fås 18 og ikke de forventede 21. Der forklarer hvorfor white-box testens input er konstrueret som det er.\\[4mm]
 Med asserts ser det ud som følger
+
+\begin{listing}[H]
+    \centering
+    \caption{createInitials() med assertions}\label{lst:create_initials_assertions}
+    \begin{minted}[breaklines]{java}
+private void createInitials() throws ExhaustedOptionsException {
+  EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
+  assert 
+
+  for (int l1 = 0; l1 < lastName.length(); l1++) {
+    for (int l2 = l1 + 1; l2 < lastName.length(); l2++) {
+      String init = firstName.substring(0, 2)
+            + lastName.substring(l1, Math.min(l1 + 1, lastName.length()))
+            + lastName.substring(l2, Math.min(l2 + 1, lastName.length()));
+
+      init = init.toLowerCase();
+      if (!employeeRepo.initialsExist(init)) {
+        this.initials = init;
+        return;
+      }
+    }
+  }
+
+  throw new ExhaustedOptionsException("Kunne ikke generere unikke initialer");
+
+}
+    \end{minted}
+\end{listing}
+
 
 \begin{figure}[H]
     \centering

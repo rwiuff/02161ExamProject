@@ -27,10 +27,10 @@
 \usepackage{babel}
 \usepackage[moderate]{savetrees}
 %Symbols and scientifics
-\usepackage{amsmath, bm}
-\numberwithin{equation}{section}
+\usepackage{bm}
 \usepackage{physics}
 \usepackage{mathtools}
+\numberwithin{equation}{section}
 \usepackage{siunitx}
 \sisetup{
 per-mode = power ,
@@ -123,7 +123,6 @@ separate-uncertainty-units = single ,
 \usepackage{url}
 \usepackage{lipsum}
 \usepackage{microtype}
-%\usepackage[draft]{microtype}
 \usepackage[pdfencoding=auto, psdextra]{hyperref}
 \hypersetup{
     colorlinks   = true, %Colours links instead of ugly boxes
@@ -195,9 +194,10 @@ separate-uncertainty-units = single ,
 }
 {}
 
-% \setlength{\thinmuskip}{6pt}
-% \setlength{\medmuskip}{8pt}
-% \setlength{\thickmuskip}{10pt}
+\newcommand{\setmuskip}[2]{#1=#2\relax}
+\setmuskip{\thinmuskip}{6.0mu}
+\setmuskip{\medmuskip}{8.0mu plus 4.0mu minus 8.0mu}
+\setmuskip{\thickmuskip}{10.0mu plus 10.0mu}
 
 \begin{document}
 
