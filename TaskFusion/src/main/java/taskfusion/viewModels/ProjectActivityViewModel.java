@@ -5,18 +5,13 @@ import java.util.List;
 
 import taskfusion.domain.ProjectActivity;
 
-public class ProjectActivityViewModel extends ViewModel {
-  public String title;
-  public String startWeek;
-  public String endWeek;
+public class ProjectActivityViewModel extends ActivityViewModel {
   public double timeBudget;
   public double totalWorktime;
   public List<WorktimeRegistrationViewModel> worktimeRegistrations;
 
   public ProjectActivityViewModel(ProjectActivity activity) {
-    this.title = activity.getTitle();
-    this.startWeek = activity.getStartWeek();
-    this.endWeek = activity.getEndWeek();
+    super(activity);
     this.timeBudget = activity.getTimeBudget();
     this.totalWorktime = activity.getTotalWorkTime();
     this.worktimeRegistrations = WorktimeRegistrationViewModel.listFromModels(activity.getWorktimeRegistrations());
