@@ -1,89 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProjectActivity.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TaskFusion</a> &gt; <a href="index.source.html" class="el_package">taskfusion.domain</a> &gt; <span class="el_source">ProjectActivity.java</span></div><h1>ProjectActivity.java</h1><pre class="source lang-java linenums">package taskfusion.domain;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
 import taskfusion.exceptions.InvalidPropertyException;
-import taskfusion.exceptions.NotFoundException;
-import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.viewModels.ProjectActivityViewModel;
 
-public class ProjectActivity extends Activity implements ConvertibleToViewModelInterface {
+public class ProjectActivity extends ActivityWithWorktimeRegistrations implements ConvertibleToViewModelInterface {
 
-  private int timeBudget;
-  private List&lt;WorktimeRegistration&gt; worktimeRegistrations;
 
   public ProjectActivity(String title, String startWeek, String endWeek) throws InvalidPropertyException {
-<span class="fc" id="L18">    super(title, startWeek, endWeek);</span>
-<span class="fc" id="L19">    this.timeBudget = 0;</span>
-<span class="fc" id="L20">    this.worktimeRegistrations = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L21">  }</span>
+<span class="fc" id="L10">    super(title, startWeek, endWeek);</span>
+<span class="fc" id="L11">  }</span>
 
   public ProjectActivityViewModel toViewModel() {
-<span class="fc" id="L24">    return new ProjectActivityViewModel(this);</span>
+<span class="fc" id="L14">    return new ProjectActivityViewModel(this);</span>
   }
 
-  public int getTimeBudget() {
-<span class="fc" id="L28">    return this.timeBudget;</span>
-  }
-
-  public void setTimeBudget(int timeBudget) {
-<span class="fc" id="L32">    this.timeBudget = timeBudget;</span>
-<span class="fc" id="L33">  }</span>
-
-  public void registerWorkTime(Employee employee, Calendar date, double workTime)
-      throws NotFoundException, OperationNotAllowedException {
-<span class="fc" id="L37">    List&lt;RegularActivity&gt; regularActivities = employee.getRegularActivities();</span>
-<span class="fc" id="L38">    boolean hasRegularActivities = false;</span>
-<span class="fc" id="L39">    String activityTitle = &quot;&quot;;</span>
-<span class="fc bfc" id="L40" title="All 2 branches covered.">    for (RegularActivity activity : regularActivities) {</span>
-<span class="fc" id="L41">      int startWeek = Integer.parseInt(activity.startWeek.substring(2, 4));</span>
-<span class="fc" id="L42">      int endWeek = Integer.parseInt(activity.endWeek.substring(2, 4));</span>
-<span class="fc bfc" id="L43" title="All 2 branches covered.">      if (startWeek &gt;= Integer.parseInt(super.startWeek.substring(2, 4))</span>
-<span class="fc bfc" id="L44" title="All 2 branches covered.">          &amp;&amp; endWeek &lt;= Integer.parseInt(super.endWeek.substring(2, 4))) {</span>
-<span class="fc" id="L45">        hasRegularActivities = true;</span>
-<span class="fc" id="L46">        activityTitle = activity.title;</span>
-      }
-<span class="fc" id="L48">    }</span>
-<span class="fc bfc" id="L49" title="All 2 branches covered.">    if (hasRegularActivities) {</span>
-<span class="fc" id="L50">      throw new OperationNotAllowedException(&quot;Medarbejderen er optaget af den faste aktivitet: &quot; + activityTitle);</span>
-    } else {
-<span class="fc" id="L52">      worktimeRegistrations.add(new WorktimeRegistration(employee.getInitials(), date, workTime));</span>
-    }
-<span class="fc" id="L54">  }</span>
-
-  public List&lt;WorktimeRegistration&gt; getWorktimeRegistrations() {
-<span class="fc" id="L57">    return worktimeRegistrations;</span>
-  }
-
-  public List&lt;WorktimeRegistration&gt; getWorkTimeRegistrationsForEmployee(String initials) {
-<span class="fc" id="L61">    List&lt;WorktimeRegistration&gt; workTimes = new ArrayList&lt;&gt;();</span>
-<span class="fc bfc" id="L62" title="All 2 branches covered.">    for (WorktimeRegistration registration : worktimeRegistrations) {</span>
-<span class="fc bfc" id="L63" title="All 2 branches covered.">      if (registration.getInitials().equals(initials)) {</span>
-<span class="fc" id="L64">        workTimes.add(registration);</span>
-      }
-<span class="fc" id="L66">    }</span>
-<span class="fc" id="L67">    return workTimes;</span>
-  }
-
-  public double sumWorktime(List&lt;WorktimeRegistration&gt; worktimeRegistrations) {
-<span class="fc" id="L71">    Double workTime = worktimeRegistrations.stream().mapToDouble(w -&gt; w.getTime()).sum();</span>
-<span class="fc" id="L72">    return workTime;</span>
-  }
-
-  public double getTotalWorkTimeForEmployee(String initials) {
-<span class="fc" id="L76">    List&lt;WorktimeRegistration&gt; workTimeRegistrations = getWorkTimeRegistrationsForEmployee(initials);</span>
-<span class="fc" id="L77">    return sumWorktime(workTimeRegistrations);</span>
-  }
-
-  public Double getTotalWorkTime() {
-<span class="fc" id="L81">    return sumWorktime(worktimeRegistrations);</span>
-  }
-
-  public Double getRemainingWorktime() {
-<span class="fc" id="L85">    return timeBudget - sumWorktime(worktimeRegistrations);</span>
-  }
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
