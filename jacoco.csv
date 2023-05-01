@@ -28,5 +28,5 @@ TaskFusion,taskfusion.exceptions,AlreadyExistsException,0,4,0,0,0,2,0,1,0,1
 TaskFusion,taskfusion.exceptions,InvalidPropertyException,0,4,0,0,0,2,0,1,0,1
 TaskFusion,taskfusion.exceptions,OperationNotAllowedException,0,4,0,0,0,2,0,1,0,1
 TaskFusion,taskfusion.exceptions,ExhaustedOptionsException,0,4,0,0,0,2,0,1,0,1
-TaskFusion,taskfusion.app,TaskFusion,0,55,0,2,0,16,0,10,0,9
+TaskFusion,taskfusion.app,TaskFusion,9,180,0,2,2,46,2,30,2,29
 TaskFusion,taskfusion.app,DateServer,0,22,0,0,0,5,0,2,0,2

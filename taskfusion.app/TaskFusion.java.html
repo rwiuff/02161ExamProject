@@ -1,45 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskFusion.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TaskFusion</a> &gt; <a href="index.source.html" class="el_package">taskfusion.app</a> &gt; <span class="el_source">TaskFusion.java</span></div><h1>TaskFusion.java</h1><pre class="source lang-java linenums">package taskfusion.app;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Calendar;
+import java.util.List;
+
+import taskfusion.domain.Project;
+import taskfusion.exceptions.AlreadyExistsException;
+import taskfusion.exceptions.ExhaustedOptionsException;
+import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
+import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.facades.EmployeeFacade;
+import taskfusion.facades.EmployeeFacadeInterface;
+import taskfusion.facades.ProjectActivityFacadeInterface;
 import taskfusion.facades.ProjectFacade;
+import taskfusion.facades.ProjectFacadeInterface;
+import taskfusion.facades.RegularActivityFacadeInterface;
+import taskfusion.facades.ReportFacadeInterface;
 import taskfusion.viewModels.EmployeeViewModel;
+import taskfusion.viewModels.ProjectViewModel;
+import taskfusion.viewModels.RegularActivityViewModel;
+import taskfusion.viewModels.ReportViewModel;
+import taskfusion.viewModels.WorktimeRegistrationViewModel;
 
-public class TaskFusion {
+public class TaskFusion implements AuthentificationInterface, ProjectFacadeInterface, ProjectActivityFacadeInterface, EmployeeFacadeInterface, RegularActivityFacadeInterface, ReportFacadeInterface {
 
-<span class="fc" id="L11">  private DateServer dateServer = new DateServer();</span>
+<span class="fc" id="L29">  private DateServer dateServer = new DateServer();</span>
   private EmployeeViewModel loggedInUser;
 
   private EmployeeFacade employeeFacade;
   private ProjectFacade projectFacade;
 
-<span class="fc" id="L17">  public TaskFusion() {</span>
-<span class="fc" id="L18">    this.employeeFacade = new EmployeeFacade(this);</span>
-<span class="fc" id="L19">    this.projectFacade = new ProjectFacade(this);</span>
-<span class="fc" id="L20">  }</span>
+<span class="fc" id="L35">  public TaskFusion() {</span>
+<span class="fc" id="L36">    this.employeeFacade = new EmployeeFacade(this);</span>
+<span class="fc" id="L37">    this.projectFacade = new ProjectFacade(this);</span>
+<span class="fc" id="L38">  }</span>
 
   /**
    * ###########################
-   * Authentification
+   * AUTHENTIFICATION IMPLEMENTATIONS
    * ###########################
    */
   public EmployeeViewModel getLoggedInUser() {
-<span class="fc" id="L28">    return loggedInUser;</span>
+<span class="fc" id="L46">    return loggedInUser;</span>
   }
 
   public void login(String initials) throws NotFoundException {
-<span class="fc" id="L32">    loggedInUser = employeeFacade.findEmployeeByInitials(initials);</span>
-<span class="fc" id="L33">  }</span>
+<span class="fc" id="L50">    loggedInUser = employeeFacade.findEmployeeByInitials(initials);</span>
+<span class="fc" id="L51">  }</span>
 
   public boolean isLoggedIn() {
     // return true;
-<span class="fc bfc" id="L37" title="All 2 branches covered.">    return loggedInUser != null;</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">    return loggedInUser != null;</span>
   }
 
   public void logout() {
-<span class="fc" id="L41">    loggedInUser = null;</span>
-<span class="fc" id="L42">  }</span>
+<span class="fc" id="L59">    loggedInUser = null;</span>
+<span class="fc" id="L60">  }</span>
 
   /**
    * ###########################
@@ -48,26 +66,173 @@ public class TaskFusion {
    */
 
   public void setDateServer(DateServer dateServer) {
-<span class="fc" id="L51">    this.dateServer = dateServer;</span>
-<span class="fc" id="L52">  }</span>
+<span class="fc" id="L69">    this.dateServer = dateServer;</span>
+<span class="fc" id="L70">  }</span>
 
   public Calendar getDate() {
-<span class="fc" id="L55">    return this.dateServer.getDate();</span>
+<span class="fc" id="L73">    return this.dateServer.getDate();</span>
   }
 
   /**
    * ###########################
-   * FACADES
+   * REGULAR ACTIVITY IMPLEMENTATIONS
    * ###########################
    */
 
-  public EmployeeFacade getEmployeeFacade() {
-<span class="fc" id="L65">    return this.employeeFacade;</span>
+  @Override
+  public void createRegularActivity(String title, String startWeek, String endWeek)
+      throws OperationNotAllowedException, InvalidPropertyException, NotFoundException {
+<span class="fc" id="L85">    employeeFacade.createRegularActivity(title, startWeek, endWeek);</span>
+<span class="fc" id="L86">  }</span>
+
+  @Override
+  public boolean hasRegularActivity(String title, String startWeek, String endWeek) throws NotFoundException {
+<span class="fc" id="L90">    return employeeFacade.hasRegularActivity(title, startWeek, endWeek);</span>
   }
 
-  public ProjectFacade getProjectFacade() {
-<span class="fc" id="L69">    return this.projectFacade;</span>
+  @Override
+  public List&lt;RegularActivityViewModel&gt; getRegularActivities() throws NotFoundException {
+<span class="fc" id="L95">    return employeeFacade.getRegularActivities();</span>
   }
+
+  @Override
+  public RegularActivityViewModel getRegularActivityById(int id)
+      throws NotFoundException, OperationNotAllowedException {
+<span class="fc" id="L101">        return employeeFacade.getRegularActivityById(id);</span>
+  }
+
+  @Override
+  public void registerEmployee(String firstName, String lastName)
+      throws InvalidPropertyException, ExhaustedOptionsException {
+<span class="fc" id="L107">    employeeFacade.registerEmployee(firstName, lastName);</span>
+<span class="fc" id="L108">  }</span>
+
+  @Override
+  public EmployeeViewModel findEmployeeByInitials(String initials) throws NotFoundException {
+<span class="nc" id="L112">    return employeeFacade.findEmployeeByInitials(initials);</span>
+  }
+
+  /**
+   * ###########################
+   * PROJECT ACTIVITY IMPLEMENTATIONS
+   * ###########################
+   */
+
+  @Override
+  public void createProjectActivity(String projectNumber, String title, String startWeek, String endWeek)
+      throws NotFoundException, OperationNotAllowedException, AlreadyExistsException, InvalidPropertyException {
+<span class="fc" id="L124">       projectFacade.createProjectActivity(projectNumber, title, startWeek, endWeek);</span>
+<span class="fc" id="L125">  }</span>
+
+  @Override
+  public void setTimeBudget(String projectNumber, String projectActivityTitle, Integer timeBudget)
+      throws NotFoundException, OperationNotAllowedException {
+<span class="fc" id="L130">        projectFacade.setTimeBudget(projectNumber, projectActivityTitle, timeBudget);</span>
+<span class="fc" id="L131">  }</span>
+
+  @Override
+  public void registerWorkTime(String projectNumber, String activityTitle, double workTime)
+      throws NotFoundException, OperationNotAllowedException {
+<span class="fc" id="L136">        projectFacade.registerWorkTime(projectNumber, activityTitle, workTime);</span>
+<span class="fc" id="L137">  }</span>
+
+  @Override
+  public double getTotalWorkTimeForEmployee(String projectNumber, String activityTitle, double workTime)
+      throws NotFoundException, OperationNotAllowedException {
+<span class="fc" id="L142">        return projectFacade.getTotalWorkTimeForEmployee(projectNumber, activityTitle, workTime);</span>
+  }
+
+  @Override
+  public List&lt;WorktimeRegistrationViewModel&gt; getUserWorktimeRegistrationsForProjectActivity(String activityTitle,
+      String projectNumber) throws NotFoundException, OperationNotAllowedException {
+<span class="fc" id="L148">        return projectFacade.getUserWorktimeRegistrationsForProjectActivity(activityTitle, projectNumber);</span>
+  }
+
+  @Override
+  public double getUserWorktimeForProjectActivity(String activityTitle, String projectNumber)
+      throws NotFoundException, OperationNotAllowedException {
+<span class="fc" id="L154">        return projectFacade.getUserWorktimeForProjectActivity(activityTitle, projectNumber);</span>
+  }
+
+  @Override
+  public List&lt;WorktimeRegistrationViewModel&gt; getTotalWorktimeRegistrationsForProject(String projectNumber)
+      throws OperationNotAllowedException, NotFoundException {
+<span class="fc" id="L160">        return projectFacade.getTotalWorktimeRegistrationsForProject(projectNumber);</span>
+  }
+
+  @Override
+  public void editWorktimeRegistration(int id, double hours) throws OperationNotAllowedException, NotFoundException {
+<span class="fc" id="L165">    projectFacade.editWorktimeRegistration(id, hours);</span>
+<span class="fc" id="L166">  }</span>
+
+  @Override
+  public Double getRemainingWorktimeForActivity(String projectNumber, String activityTitle) throws NotFoundException {
+<span class="fc" id="L170">    return projectFacade.getRemainingWorktimeForActivity(projectNumber, activityTitle);</span>
+  }
+
+  /**
+   * ###########################
+   * PROJECT IMPLEMENTATIONS
+   * ###########################
+   */
+
+  @Override
+  public Project createProject(String title)
+      throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, AlreadyExistsException {
+<span class="fc" id="L182">        return projectFacade.createProject(title);</span>
+  }
+
+  @Override
+  public void assignCustomerToProject(String projectNumber, String customerName) throws NotFoundException {
+<span class="fc" id="L187">    projectFacade.assignCustomerToProject(projectNumber, customerName);</span>
+<span class="fc" id="L188">  }</span>
+
+  @Override
+  public void assignEmployeeToProject(String projectNumber, String initials)
+      throws NotFoundException, OperationNotAllowedException {
+<span class="fc" id="L193">    projectFacade.assignEmployeeToProject(projectNumber, initials);</span>
+<span class="fc" id="L194">  }</span>
+
+  @Override
+  public void takeProjectLeaderRole(String projectNumber) throws AlreadyExistsException, NotFoundException {
+<span class="fc" id="L198">    projectFacade.takeProjectLeaderRole(projectNumber);</span>
+<span class="fc" id="L199">  }</span>
+
+  @Override
+  public ProjectViewModel findProjectByProjectNumber(String projectNumber) throws NotFoundException {
+<span class="fc" id="L203">    return projectFacade.findProjectByProjectNumber(projectNumber);</span>
+  }
+
+  @Override
+  public List&lt;ProjectViewModel&gt; getUserProjects() throws NotFoundException {
+<span class="nc" id="L208">    return projectFacade.getUserProjects();</span>
+  }
+
+  @Override
+  public List&lt;EmployeeViewModel&gt; getProjectEmployees(String projectNumber) {
+<span class="fc" id="L213">    return projectFacade.getProjectEmployees(projectNumber);</span>
+  }
+
+
+  /**
+   * ###########################
+   * REPORT IMPLEMENTATIONS
+   * ###########################
+   */
+
+  @Override
+  public ReportViewModel generateProjectRaport(String projectNumber)
+      throws NotFoundException, OperationNotAllowedException {
+<span class="fc" id="L226">    return projectFacade.generateProjectRaport(projectNumber);</span>
+  }
+
+  @Override
+  public void saveReport(String projectNumber, String reportDate, String saveDirectory)
+      throws NotFoundException, IOException, URISyntaxException {
+<span class="fc" id="L232">    projectFacade.saveReport(projectNumber, reportDate, saveDirectory);</span>
+<span class="fc" id="L233">  }</span>
+
+
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

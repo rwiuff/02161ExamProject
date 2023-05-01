@@ -13,7 +13,7 @@ import taskfusion.persistency.EmployeeRepository;
 import taskfusion.viewModels.EmployeeViewModel;
 import taskfusion.viewModels.RegularActivityViewModel;
 
-public class EmployeeFacade {
+public class EmployeeFacade implements EmployeeFacadeInterface, RegularActivityFacadeInterface {
     private TaskFusion taskFusion;
 <span class="fc" id="L18">    public EmployeeRepository employeeRepo = EmployeeRepository.getInstance();</span>
 
