@@ -30,7 +30,7 @@ public class SetTimeBudgetView implements ViewInterface {
             }
 
             try {
-                TaskFusionCLI.projectFacade().setTimeBudget(project.projectNumber, activity.title, Integer.parseInt(time));
+                TaskFusionCLI.taskFusion().setTimeBudget(project.projectNumber, activity.title, Integer.parseInt(time));
             } catch (Exception e) {
                 Text.showExceptionError(e);
                 Text.showInfo("Prøv igen");

@@ -34,11 +34,11 @@ public class CreateProjectActivityTest {
     this.mockDateHolder = new MockDateHolder(taskFusion);
     this.mockDateHolder.setYear(2021);
 
-    this.taskFusion.getEmployeeFacade().registerEmployee("Michael", "Laudrup");
-    this.taskFusion.getEmployeeFacade().registerEmployee("Brian", "Laudrup");
+    this.taskFusion.registerEmployee("Michael", "Laudrup");
+    this.taskFusion.registerEmployee("Brian", "Laudrup");
 
     taskFusion.login("mila");
-    this.project = this.taskFusion.getProjectFacade().createProject("TaskFusion");
+    this.project = this.taskFusion.createProject("TaskFusion");
   }
 
   @Test

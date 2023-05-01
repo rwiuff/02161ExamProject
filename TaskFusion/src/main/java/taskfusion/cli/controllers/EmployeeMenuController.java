@@ -32,7 +32,7 @@ public class EmployeeMenuController implements ControllerInterface {
                 case 1: // Se projekter
                   
                     try {
-                        List<ProjectViewModel> projects = TaskFusionCLI.projectFacade().getUserProjects();
+                        List<ProjectViewModel> projects = TaskFusionCLI.taskFusion().getUserProjects();
                         new ListProjectsView(projects).show();
                     } catch (NotFoundException e) {
                         Text.showExceptionError(e);
@@ -46,7 +46,7 @@ public class EmployeeMenuController implements ControllerInterface {
 
                 case 3: // Se faste aktiviteter
                     try {
-                        List<RegularActivityViewModel> activities = TaskFusionCLI.employeeFacade().getRegularActivities();
+                        List<RegularActivityViewModel> activities = TaskFusionCLI.taskFusion().getRegularActivities();
                         new ListRegularActivitiesView(activities).show();
                     } catch (NotFoundException e) {
                         Text.showExceptionError(e);

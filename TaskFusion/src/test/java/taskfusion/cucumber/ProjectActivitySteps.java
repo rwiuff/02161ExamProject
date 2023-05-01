@@ -29,7 +29,7 @@ public class ProjectActivitySteps {
   public void theUserAssignsTheProjectActivityToProjectWithStartWeekAndEndWeek(String title, String projectNumber,
       String startWeek, String endWeek) {
     try {
-      taskFusion.getProjectFacade().createProjectActivity(projectNumber, title, startWeek, endWeek);
+      taskFusion.createProjectActivity(projectNumber, title, startWeek, endWeek);
     } catch (Exception e) {
       errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -48,7 +48,7 @@ public class ProjectActivitySteps {
   public void theUserSetsTheTimeBudgetToHoursOnTheProjectActivityWithTheTitleAndProjectNumber(Integer timeBudget,
       String projectActivityTitle, String projectNumber) {
     try {
-      taskFusion.getProjectFacade().setTimeBudget(projectNumber, projectActivityTitle, timeBudget);
+      taskFusion.setTimeBudget(projectNumber, projectActivityTitle, timeBudget);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -91,7 +91,7 @@ public class ProjectActivitySteps {
       String activityTitle, String projectNumber) {
 
     try {
-      this.worktimeRegistrations = taskFusion.getProjectFacade()
+      this.worktimeRegistrations = taskFusion
           .getUserWorktimeRegistrationsForProjectActivity(activityTitle, projectNumber);
       // PrintHelper.printWorktimeRegistrations(this.worktimeRegistrations);
     } catch (Exception e) {
@@ -113,7 +113,7 @@ public class ProjectActivitySteps {
   public void the_user_requests_a_sum_of_own_worktime_registrations_for_the_activity_titled_in_the_project_with_project_number(
       String activityTitle, String projectNumber) {
     try {
-      this.timeSum = taskFusion.getProjectFacade().getUserWorktimeForProjectActivity(activityTitle, projectNumber);
+      this.timeSum = taskFusion.getUserWorktimeForProjectActivity(activityTitle, projectNumber);
 
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
@@ -132,7 +132,7 @@ public class ProjectActivitySteps {
   @Then("the user edits the worktime registration with id {int} to {double} hours")
   public void the_user_edits_the_worktime_registration_with_id_to_hours(int id, double hours) {
     try {
-      taskFusion.getProjectFacade().editWorktimeRegistration(id, hours);
+      taskFusion.editWorktimeRegistration(id, hours);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -142,7 +142,7 @@ public class ProjectActivitySteps {
   @When("the user requests the remaining time on {string} on project {string}")
   public void the_user_requests_the_remaining_time_on_on_project(String activityTitle, String projectNumber) {
     try {
-      this.remainingWorkTime = taskFusion.getProjectFacade().getRemainingWorktimeForActivity(projectNumber,
+      this.remainingWorkTime = taskFusion.getRemainingWorktimeForActivity(projectNumber,
           activityTitle);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
@@ -164,7 +164,7 @@ public class ProjectActivitySteps {
   public void the_user_requests_a_list_of_all_worktime_registrations_for_the_project_with_project_number(
       String projectNumber) {
     try {
-      this.worktimeRegistrations = taskFusion.getProjectFacade()
+      this.worktimeRegistrations = taskFusion
           .getTotalWorktimeRegistrationsForProject(projectNumber);
       // PrintHelper.printWorktimeRegistrations(this.worktimeRegistrations);
     } catch (Exception e) {
