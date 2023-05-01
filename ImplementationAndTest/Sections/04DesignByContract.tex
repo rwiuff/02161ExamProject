@@ -65,29 +65,30 @@ Med asserts ser det ud som følger
     \caption{createInitials() med assertions}\label{lst:create_initials_assertions}
     \begin{minted}[breaklines]{java}
 private void createInitials() throws ExhaustedOptionsException {
-  EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
-  assert 
+    EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
+    assert true; // pre
 
-  for (int l1 = 0; l1 < lastName.length(); l1++) {
-    for (int l2 = l1 + 1; l2 < lastName.length(); l2++) {
-      String init = firstName.substring(0, 2)
+    for (int l1 = 0; l1 < lastName.length(); l1++) {
+      for (int l2 = l1 + 1; l2 < lastName.length(); l2++) {
+        String init = firstName.substring(0, 2)
             + lastName.substring(l1, Math.min(l1 + 1, lastName.length()))
             + lastName.substring(l2, Math.min(l2 + 1, lastName.length()));
 
-      init = init.toLowerCase();
-      if (!employeeRepo.initialsExist(init)) {
-        this.initials = init;
-        return;
+        init = init.toLowerCase();
+        if (!employeeRepo.initialsExist(init)) {
+          this.initials = init;
+          assert this.initials == init; // post
+          return;
+        }
       }
     }
+
+    throw new ExhaustedOptionsException("Kunne ikke generere unikke initialer");
   }
-
-  throw new ExhaustedOptionsException("Kunne ikke generere unikke initialer");
-
-}
     \end{minted}
 \end{listing}
-
+\noindent
+Implicit garanteres det der står i createInitials' precondition gennem funktionens kørsel, derfor assertes blot true som precondition. I virkeligheden er der to postconditions, i tilfælde af at preconditionen holder, sættes Employee-instancens initials-felt til init, i tilfælde af at den overtrædes, kastes en ExhaustedOptionsException.
 
 \begin{figure}[H]
     \centering

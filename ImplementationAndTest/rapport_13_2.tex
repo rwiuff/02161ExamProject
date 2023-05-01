@@ -25,7 +25,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[bitstream-charter]{mathdesign}
 \usepackage{babel}
-\usepackage[moderate]{savetrees}
+\usepackage[moderate, mathspacing=normal]{savetrees}
 %Symbols and scientifics
 \usepackage{bm}
 \usepackage{physics}
@@ -108,7 +108,7 @@ separate-uncertainty-units = single ,
 \lhead{\titl \lb Kursus \courseno\ \lb \course \lb \handin}
 \chead{\includegraphics[height=40pt]{Graphics/DTU}}
 \rhead{\authOne \ \textbf{\SIDOne} \lb \authTwo \ \textbf{\SIDTwo} \lb \authThree \ \textbf{\SIDThree} \lb \authFour \ \textbf{\SIDFour}}
-\cfoot{Side \thepage\, af \pageref*{LastPage}}
+\cfoot{Side \thepage\, af\, \pageref*{LastPage}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \setlength{\headheight}{46.80968pt}
@@ -194,10 +194,10 @@ separate-uncertainty-units = single ,
 }
 {}
 
-\newcommand{\setmuskip}[2]{#1=#2\relax}
-\setmuskip{\thinmuskip}{6.0mu}
-\setmuskip{\medmuskip}{8.0mu plus 4.0mu minus 8.0mu}
-\setmuskip{\thickmuskip}{10.0mu plus 10.0mu}
+% \newcommand{\setmuskip}[2]{#1=#2\relax}
+% \setmuskip{\thinmuskip}{6.0mu}
+% \setmuskip{\medmuskip}{8.0mu plus 4.0mu minus 8.0mu}
+% \setmuskip{\thickmuskip}{10.0mu plus 10.0mu}
 
 \begin{document}
 
