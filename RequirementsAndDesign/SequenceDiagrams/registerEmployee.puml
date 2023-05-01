@@ -1,4 +1,5 @@
 @startuml seqRegisterEmployee
+autonumber
 hide footbox
 actor "Guest" as guest
 participant "TaskFusionCLI" as app
@@ -6,24 +7,46 @@ participant "EmployeeFacade" as empfacade
 participant "EmployeeRepository" as emprepo
 participant "Employee" as emp
 participant "Map<String, Employee> employees" as emps
-
-activate app
 guest -> app: Register Employee
-app -> guest: Prompt: Firstname, Lastname
+activate guest
+activate app
+app --> guest: Prompt: Firstname, Lastname
 guest -> app: firstName, lastName
-activate empfacade
 app -> empfacade: registerEmployee(firstName, lastName)
-activate emprepo
+activate empfacade
 empfacade -> emprepo: create(firstName, lastName)
+activate emprepo
 emprepo -> emp**: firstName, lastName
 activate emp
 emp -> emp: createInitials()
-emp -> emprepo: Employee(firstName, lastName)
-emprepo -> emp: getInitials()
-emp -> emprepo: initials
-deactivate emp
+loop for int : lastName.length()
+emp --> emprepo: initialsExist(initials)
+emprepo -> emprepo: findByInitials(initials)
+emprepo -> emps: get(initials)
 activate emps
-emprepo -> emps: put(initials, Employee)
+emps --> emprepo: Employee
 deactivate emps
+end
+alt !Employee == null
+emprepo -> emp: true
+emp --> app: ExhaustedOptionsException
+app --> guest: "Kunne ikke generere unikke initialer"
+else Employee == null
+emprepo -> emp: false
+emp -> emp: this = initials
+emp --> emprepo: Employee(firstName, lastName)
+emprepo -> emp: getInitials()
+emp --> emprepo: initials
+deactivate emp
+emprepo -> emps: put(initials, Employee)
+activate emps
+deactivate emps
+emprepo --> empfacade: Employee
+deactivate emprepo
+return
+deactivate empfacade
+app --> guest: "Employee created"
 deactivate app
+deactivate guest
+end
 @enduml

@@ -1,0 +1,44 @@
+@startuml seqLogin
+autonumber
+hide footbox
+actor "Employee" as emp
+participant "TaskFusionCLI" as app
+participant "EmployeeFacade" as empfacade
+participant "EmployeeRepository" as emprepo
+participant "Map<String, Employee> employees" as emps
+participant "Employee" as empl
+participant "EmployeeViewModel" as empvm
+emp -> app: Login
+activate emp
+activate app
+app --> emp: Prompt: Initials
+emp -> app: login(initials)
+app -> empfacade: findEmployeeByInitials(initials)
+activate empfacade
+empfacade -> emprepo: findByInitials(initials)
+activate emprepo
+emprepo -> emps: get(initials)
+activate emps
+alt Employee == null
+emps --> app: NotFoundException
+app --> emp: "Ukendt medarbejder"
+else
+emps --> emprepo: Employee
+deactivate emps
+emprepo --> empfacade: Employee
+deactivate emprepo
+empfacade -> empl: Employee.toViewModel
+activate empl
+empl -> empvm**: toViewModel(this)
+activate empvm
+deactivate empl
+empvm --> empfacade: EmployeeViewModel
+deactivate empvm
+empfacade --> app: EmployeeViewModel
+deactivate empfacade
+app -> app: loggedInUser = EmployeeViewModel
+app --> emp: "Login successful"
+deactivate emp
+deactivate app
+end
+@enduml
