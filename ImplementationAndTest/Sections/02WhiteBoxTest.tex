@@ -1,15 +1,35 @@
 % !TeX root = ..\rapport_13_2.tex
 \section{White box test\label{chap:white_box}}
 \subsection{createInitials()}\label{sec:white_box_create_initials}
-For at garantere at createInitials() fungerer som angivet i kommentaren over metodedefinitionen i klassen Employee (og dermed som forventet), skal der sikres, at initialerne genereres i den rækkefølge, der er defineret af den kommentar, og at metoden kaster en undtagelse, når det forventes.
-\begin{figure}[H]
+
+\begin{listing}[H]
     \centering
-    \caption{Execution paths i createInitials()}
-    \includegraphics[width = \textwidth, keepaspectratio]{ImplementationAndTest/Diagrams/wb_create_initials.png}
-    \label{fig:ep_create_initials}
-\end{figure}
+    \caption{createInitials() kildekode med execution paths}\label{lst:create_initials_source}
+    \begin{minted}[breaklines]{java}
+private void createInitials() throws ExhaustedOptionsException {
+  EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
+
+    for (int l1 = 0; l1 < lastName.length(); l1++) { // 1
+      for (int l2 = l1 + 1; l2 < lastName.length(); l2++) { // 2
+        String init = firstName.substring(0, 2)
+            + lastName.substring(l1, Math.min(l1 + 1, lastName.length()))
+            + lastName.substring(l2, Math.min(l2 + 1, lastName.length())); // 3
+
+        init = init.toLowerCase(); // 4
+        if (!employeeRepo.initialsExist(init)) { // 5
+          this.initials = init; // 6
+          return; // 7
+        }
+      }
+    }
+
+  throw new ExhaustedOptionsException("Kunne ikke generere unikke initialer"); // 8
+}
+    \end{minted}
+\end{listing}
+
 \noindent
-For at gøre det bruger vi de execution paths, der er angivet i fig. \ref{fig:ep_create_initials} og skriver input-sæt, der sikrer, at alle execution paths dækkes.
+For at gøre det bruger vi de execution paths, der er angivet i fig. \ref{lst:create_initials_source} og skriver input-sæt, der sikrer, at alle execution paths dækkes.
 \begin{table}[H]
 \centering
 \caption{Execution paths i createInitials()}\label{tbl:create_initials_paths}
@@ -39,44 +59,34 @@ C         & {The employee repository has five employees named\\~Michael Laudrup,
 \end{tblr}
 \end{table}
 \subsection{generateProjectNumber()} \label{sec:white_box_generate_project_number}
-\begin{figure}[H]
-    \centering
-    \caption{Execution paths i generateProjectNumber()}
-    \includegraphics[width = \textwidth, keepaspectratio]{ImplementationAndTest/Diagrams/wb_genProjNum.png}
-    \label{fig:ep_generate_project_number}
-\end{figure}
 
 
 \begin{listing}[H]
     \centering
-    \caption{createProjectActivity() kildekode}\label{lst:create_project_activity_source}
+    \caption{generateProjectNumber() kildekode med execution paths}\label{lst:generate_project_number}
     \begin{minted}[breaklines]{java}
-public class Project implements ConvertibleToViewModelInterface {
+public static String generateProjectNumber(Calendar date) {
 
-  private Employee projectLeader;
-  private List<ProjectActivity> activities = new ArrayList<ProjectActivity>();
+  int year = DateHelper.twoDigitYearFromDate(date);
+  int num = 0;
 
-  public ProjectActivity createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
-      throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
-        
-    if (hasProjectLeader()) { //1
-      if (!projectLeader.isSameAs(loggedInUser)) { //2
-        throw new OperationNotAllowedException("Kun projektlederen kan oprette en projekt aktivitet for dette projekt"); //3
+    // Find the highest incremental number for the current year
+    for (String projectNumber : ProjectRepository.getInstance().all().keySet()) { // 1
+      if (projectNumber.startsWith(String.format("%02d", year))) { // 2
+        num = Integer.parseInt(projectNumber.substring(2)); // 3
       }
     }
-    
-    if (hasProjectActivity(title)) { //4
-      throw new AlreadyExistsException("Projekt aktivitet findes allerede"); //5
+
+    int nextProjectNumber = (year * 1000) + num + 1;
+
+    if (nextProjectNumber < 10000) { // 4
+      return "0" + nextProjectNumber; // 5
     }
-    
-    ProjectActivity activity = new ProjectActivity(title, startWeek, endWeek); //6
-    this.activities.add(activity); //7
 
-    return activity;
-  }
-  
+  return "" + nextProjectNumber; // 6
 }
-
+    \end{minted}
+\end{listing}
 
 \begin{table}[H]
 \caption{Execution paths i generateProjectNumber()}\label{tbl:generate_project_number_paths}
@@ -118,7 +128,7 @@ Der kan oprettes projektaktiviteter for et projekt objekt. For at oprette en pro
 
 \begin{listing}[H]
     \centering
-    \caption{createProjectActivity() kildekode}\label{lst:create_project_activity_source}
+    \caption{createProjectActivity() kildekode med execution paths}\label{lst:create_project_activity_source}
     \begin{minted}[breaklines]{java}
 public class Project implements ConvertibleToViewModelInterface {
 
@@ -128,24 +138,22 @@ public class Project implements ConvertibleToViewModelInterface {
   public ProjectActivity createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
       throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
         
-    if (hasProjectLeader()) { //1
-      if (!projectLeader.isSameAs(loggedInUser)) { //2
-        throw new OperationNotAllowedException("Kun projektlederen kan oprette en projekt aktivitet for dette projekt"); //3
+    if (hasProjectLeader()) { // 1
+      if (!projectLeader.isSameAs(loggedInUser)) { // 2
+        throw new OperationNotAllowedException("Kun projektlederen kan oprette en projekt aktivitet for dette projekt"); // 3
       }
     }
     
-    if (hasProjectActivity(title)) { //4
-      throw new AlreadyExistsException("Projekt aktivitet findes allerede"); //5
+    if (hasProjectActivity(title)) { // 4
+      throw new AlreadyExistsException("Projekt aktivitet findes allerede"); // 5
     }
     
-    ProjectActivity activity = new ProjectActivity(title, startWeek, endWeek); //6
-    this.activities.add(activity); //7
+    ProjectActivity activity = new ProjectActivity(title, startWeek, endWeek); // 6
+    this.activities.add(activity); // 7
 
     return activity;
-  }
-  
+  } 
 }
-
     \end{minted}
 \end{listing}
 % This centering command centers everything from here and down
@@ -286,7 +294,7 @@ Såfremt at id nummeret man søger efter matcher det af en arbejdstidsregistreri
 
 \begin{listing}[H]
     \centering
-    \caption{findWorktimeRegistrationById() kildekode}\label{lst:find_work_time_registration_by_id_source_code}
+    \caption{findWorktimeRegistrationById() kildekode med execution paths}\label{lst:find_work_time_registration_by_id_source_code}
     \begin{minted}[breaklines]{java}
 public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
     
