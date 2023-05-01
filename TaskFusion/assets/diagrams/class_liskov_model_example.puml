@@ -1,0 +1,46 @@
+@startuml liskov_model_example
+
+left to right direction
+
+skinparam linetype ortho
+
+
+
+class Activity <<(A, orchid)abstract>>{
+    title : String
+    startWeek : String
+    endWeek : String
+    
+}
+class ActivityWithWorktimeRegistrations <<(A, orchid)abstract>> {
+    timeBudget : int
+    --
+    registerWorkTime(employee, date, workTime) : void
+    sumWorkTime() : double
+    getRemainingWorkTime() : double
+    getWorkTimeRegistrationsForEmployee(initials) : List
+    getTotalWorkTime() : double
+}
+
+class WorktimeRegistration {
+    id : int
+    initials : String
+    time : double
+    date : Calendar
+}
+
+class ProjectActivity{
+}
+
+class RegularActivity{
+}
+
+
+Activity <|-- ActivityWithWorktimeRegistrations
+ActivityWithWorktimeRegistrations <|-- ProjectActivity
+Activity <|-- RegularActivity
+ActivityWithWorktimeRegistrations -->"0..*" WorktimeRegistration
+
+
+
+@enduml 

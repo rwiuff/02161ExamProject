@@ -1,0 +1,27 @@
+@startuml liskov_viewmodel_example
+
+skinparam linetype ortho
+
+
+class ActivityViewModel {
+    title : String
+    startWeek : String
+    endWeek : String
+}
+
+class ProjectActivityViewModel {
+
+}
+
+class RegularActivityViewModel {
+
+}
+
+
+ActivityViewModel <|-- ProjectActivityViewModel
+ActivityViewModel <|-- RegularActivityViewModel
+
+ProjectActivity --> ProjectActivityViewModel : toViewModel()
+RegularActivity --> RegularActivityViewModel : toViewModel()
+
+@enduml 
