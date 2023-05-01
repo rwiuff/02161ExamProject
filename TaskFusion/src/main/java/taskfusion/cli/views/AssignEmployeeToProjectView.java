@@ -30,8 +30,8 @@ public class AssignEmployeeToProjectView implements ViewInterface {
             EmployeeViewModel employee = null;
 
             try {
-                employee = TaskFusionCLI.employeeFacade().findEmployeeByInitials(initials);
-                TaskFusionCLI.projectFacade().assignEmployeeToProject(project.projectNumber, employee.initials);
+                employee = TaskFusionCLI.taskFusion().findEmployeeByInitials(initials);
+                TaskFusionCLI.taskFusion().assignEmployeeToProject(project.projectNumber, employee.initials);
             } catch (Exception e) {
                 Text.showExceptionError(e);
                 Text.showInfo("Prøv igen");

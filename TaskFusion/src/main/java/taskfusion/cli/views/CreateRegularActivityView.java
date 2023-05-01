@@ -38,7 +38,7 @@ public class CreateRegularActivityView implements ViewInterface {
             }
 
             try {
-                TaskFusionCLI.employeeFacade().createRegularActivity(title, startWeek, endWeek);
+                TaskFusionCLI.taskFusion().createRegularActivity(title, startWeek, endWeek);
             } catch (Exception e) {
                 Text.showExceptionError(e);
                 Text.showInfo("Prøv igen");

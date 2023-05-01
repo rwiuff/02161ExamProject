@@ -1,23 +1,13 @@
 @startuml TaskFusion-CLI 
+skinparam linetype ortho
 
-package "Application-layer" {
+top to bottom direction
+
+package "Facade-layer" {
     class "TaskFusion" as taskFusion {
-        + login(initials) : boolean
-        + logout()
-        + isLoggedIn() : boolean
-        + getLoggedInUser() : EmployeeViewModel
-    }
-
-    class "EmployeeFacade" as employeeFacade {
 
     }
 
-    class "ProjectFacade" as projectFacade {
-
-    }
-
-    taskFusion --> "1" employeeFacade : getEmployeeFacade()
-    taskFusion --> "1" projectFacade : getprojectFacade()
 }
 
 package "Presentation-layer" {
@@ -59,6 +49,6 @@ package "Presentation-layer" {
 }
 
 
-TaskFusionCLI -->"1" taskFusion : taskFusion
+TaskFusionCLI -u->"1" taskFusion : taskFusion
 
 @enduml

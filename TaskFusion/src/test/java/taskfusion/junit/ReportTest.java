@@ -23,6 +23,8 @@ import taskfusion.exceptions.InvalidPropertyException;
 import taskfusion.exceptions.NotFoundException;
 import taskfusion.exceptions.OperationNotAllowedException;
 import taskfusion.helpers.SingletonHelpers;
+import taskfusion.persistency.EmployeeRepository;
+import taskfusion.persistency.ProjectRepository;
 import taskfusion.viewModels.ReportViewModel;
 
 public class ReportTest {
@@ -47,27 +49,27 @@ public class ReportTest {
             NotFoundException, AlreadyExistsException {
         this.taskFusion = new TaskFusion();
         for (int i = 0; i < employeeStrings.length; i++) {
-            taskFusion.getEmployeeFacade().registerEmployee(employeeStrings[i][0], employeeStrings[i][1]);
+            taskFusion.registerEmployee(employeeStrings[i][0], employeeStrings[i][1]);
         }
         taskFusion.login("rawi");
-        taskFusion.getProjectFacade().createProject("TaskFusion");
-        this.project = taskFusion.getProjectFacade().projectRepo.all().values().stream()
+        taskFusion.createProject("TaskFusion");
+        this.project = ProjectRepository.getInstance().all().values().stream()
                 .filter(p -> p.getProjectTitle().equals("TaskFusion")).findFirst().get();
         this.projectNumber = project.getProjectNumber();
-        this.employees = taskFusion.getEmployeeFacade().employeeRepo.all();
-        taskFusion.getProjectFacade().assignCustomerToProject(projectNumber, "DTU");
-        taskFusion.getProjectFacade().createProjectActivity(projectNumber, "AcceptanceTests", "2306", "2316");
-        taskFusion.getProjectFacade().setTimeBudget(projectNumber, "AcceptanceTests", 50);
-        taskFusion.getProjectFacade().createProjectActivity(projectNumber, "UnitTests", "2310", "2316");
-        taskFusion.getProjectFacade().setTimeBudget(projectNumber, "UnitTests", 80);
+        this.employees = EmployeeRepository.getInstance().all();
+        taskFusion.assignCustomerToProject(projectNumber, "DTU");
+        taskFusion.createProjectActivity(projectNumber, "AcceptanceTests", "2306", "2316");
+        taskFusion.setTimeBudget(projectNumber, "AcceptanceTests", 50);
+        taskFusion.createProjectActivity(projectNumber, "UnitTests", "2310", "2316");
+        taskFusion.setTimeBudget(projectNumber, "UnitTests", 80);
         for (String employee : employees.keySet()) {
-            taskFusion.getProjectFacade().assignEmployeeToProject(projectNumber,
+            taskFusion.assignEmployeeToProject(projectNumber,
                     employees.get(employee).getInitials());
             taskFusion.login(employee);
-            taskFusion.getProjectFacade().registerWorkTime(projectNumber, "AcceptanceTests", 3.5);
-            taskFusion.getProjectFacade().registerWorkTime(projectNumber, "AcceptanceTests", 7.5);
-            taskFusion.getProjectFacade().registerWorkTime(projectNumber, "UnitTests", 2);
-            taskFusion.getProjectFacade().registerWorkTime(projectNumber, "UnitTests", 11);
+            taskFusion.registerWorkTime(projectNumber, "AcceptanceTests", 3.5);
+            taskFusion.registerWorkTime(projectNumber, "AcceptanceTests", 7.5);
+            taskFusion.registerWorkTime(projectNumber, "UnitTests", 2);
+            taskFusion.registerWorkTime(projectNumber, "UnitTests", 11);
         }
     }
 
@@ -75,8 +77,8 @@ public class ReportTest {
     public void testReportGeneration() throws NotFoundException, AlreadyExistsException, OperationNotAllowedException,
             InvalidPropertyException, ExhaustedOptionsException {
         taskFusion.login("rawi");
-        taskFusion.getProjectFacade().takeProjectLeaderRole(projectNumber);
-        assertNotNull(taskFusion.getProjectFacade().generateProjectRaport(projectNumber));
+        taskFusion.takeProjectLeaderRole(projectNumber);
+        assertNotNull(taskFusion.generateProjectRaport(projectNumber));
     }
 
     @Test
@@ -84,9 +86,9 @@ public class ReportTest {
             OperationNotAllowedException, InvalidPropertyException, ExhaustedOptionsException, IOException,
             URISyntaxException {
         taskFusion.login("rawi");
-        taskFusion.getProjectFacade().takeProjectLeaderRole(projectNumber);
-        ReportViewModel reportViewModel = taskFusion.getProjectFacade().generateProjectRaport(projectNumber);
-        taskFusion.getProjectFacade().saveReport(projectNumber, reportViewModel.reportDate, tmp.getAbsolutePath());
+        taskFusion.takeProjectLeaderRole(projectNumber);
+        ReportViewModel reportViewModel = taskFusion.generateProjectRaport(projectNumber);
+        taskFusion.saveReport(projectNumber, reportViewModel.reportDate, tmp.getAbsolutePath());
         File pdf = Paths.get(tmp.getAbsolutePath() + projectNumber + "/" + projectNumber + " "
                 + project.getProjectTitle() + " " + reportViewModel.reportDate + ".pdf").toFile();
         assertTrue(pdf.exists());

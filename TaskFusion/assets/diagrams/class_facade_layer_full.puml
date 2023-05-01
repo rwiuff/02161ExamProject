@@ -1,0 +1,76 @@
+@startuml ClassDiagram_facade_full
+skinparam linetype ortho
+
+package "Facade-layer" as FacadeLayer {
+
+    class TaskFusion{
+        --
+    }
+
+    interface AuthentificationFacadeInterface {
+        + login(initials) : boolean
+        + logout()
+        + isLoggedIn() : boolean
+    }
+
+    interface EmployeeFacadeInterface {
+        + registerEmployee(firstName, lastName) : void
+        + findEmployeeByInitials(initials) : EmployeeViewModel
+    }
+
+    interface RegularActivityFacadeInterface {
+        + createRegularActivity(title,startWeek, endWeek) : void
+        + hasRegularActivity(title, startWeek, endWeek) : boolean
+        + getRegularActivityById(id) : RegularActivityViewModel
+    }
+
+    class EmployeeFacade {
+    }
+
+    EmployeeFacade .u.|> EmployeeFacadeInterface
+    EmployeeFacade .u.|> RegularActivityFacadeInterface
+    TaskFusion -->"1" EmployeeFacadeInterface
+    TaskFusion -->"1" RegularActivityFacadeInterface
+    TaskFusion -->"1" AuthentificationFacadeInterface
+
+
+    interface ProjectFacadeInterface{
+        + createProject(title)
+        + assignCustomerToProject(projectNumber, customerName)
+        + assignEmployeeToProject(projectNumber, initials) : void
+        + takeProjectLeaderRole(projectNumber) : void
+        + findProjectByProjectNumber(projectNumber) : ProjectViewModel
+        + getUserProjects() : List
+    }
+
+    interface ReportFacadeInterface {
+        + generateProjectRaport(projectNumber) : ReportViewModel
+        + saveReport(projectNumber, reportDate, saveDirectory) : void
+    }
+
+    interface ProjectActivityFacadeInterface {
+        + createProjectActivity(projectNumber, title, startWeek, endWeek) : void
+        + setTimeBudget(projectNumber, projectActivityTitle, Integer timeBudget) : void
+        + registerWorkTime(projectNumber, activityTitle, double workTime) : void
+        + getTotalWorkTimeForEmployee(projectNumber, activityTitle, double workTime) : double
+        + getUserWorktimeRegistrationsForProjectActivity(activityTitle, projectNumber) : List
+        + getUserWorktimeForProjectActivity(activityTitle, projectNumber) : double
+        + getTotalWorktimeRegistrationsForProject(projectNumber) : List
+        + editWorktimeRegistration(int id, double hours) : void
+        + getRemainingWorktimeForActivity(projectNumber, activityTitle) : double
+    }
+
+
+    class ProjectFacade {
+    }
+
+    ProjectFacade .u.|> ProjectFacadeInterface
+    ProjectFacade .u.|> ProjectActivityFacadeInterface
+    ProjectFacade .u.|> ReportFacadeInterface
+    TaskFusion -->"1" ProjectFacadeInterface
+    TaskFusion -->"1" ProjectActivityFacadeInterface
+    TaskFusion -->"1" ReportFacadeInterface
+}
+
+
+@enduml

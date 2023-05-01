@@ -39,7 +39,7 @@ public class EmployeeSteps {
     @Given("the user registers an employee with first name {string}, last name {string}")
     public void the_user_registers_an_employee_with_first_name_last_name(String firstName, String lastName) {
         try {
-            taskFusion.getEmployeeFacade().registerEmployee(firstName, lastName);
+            taskFusion.registerEmployee(firstName, lastName);
         } catch (Exception e) {
             errorMessageHolder.setErrorMessage(e.getMessage());
         }

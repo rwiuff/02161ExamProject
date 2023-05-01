@@ -1,0 +1,55 @@
+@startuml ClassDiagram_facade_simple
+skinparam linetype ortho
+
+package "Facade-layer" as FacadeLayer {
+
+    class TaskFusion {
+        --
+    }
+
+    interface AuthentificationFacadeInterface {
+    }
+
+    interface EmployeeFacadeInterface {
+
+    }
+
+    interface RegularActivityFacadeInterface {
+    }
+
+    class EmployeeFacade {
+    }
+
+    EmployeeFacade .u.|> EmployeeFacadeInterface
+    EmployeeFacade .u.|> RegularActivityFacadeInterface
+    TaskFusion -->"1" EmployeeFacadeInterface
+    TaskFusion -->"1" RegularActivityFacadeInterface
+    TaskFusion -->"1" AuthentificationFacadeInterface
+
+
+    interface ProjectFacadeInterface{
+
+    }
+
+    interface ReportFacadeInterface {
+
+    }
+
+    interface ProjectActivityFacadeInterface {
+
+    }
+
+
+    class ProjectFacade {
+    }
+
+    ProjectFacade .u.|> ProjectFacadeInterface
+    ProjectFacade .u.|> ProjectActivityFacadeInterface
+    ProjectFacade .u.|> ReportFacadeInterface
+    TaskFusion -->"1" ProjectFacadeInterface
+    TaskFusion -->"1" ProjectActivityFacadeInterface
+    TaskFusion -->"1" ReportFacadeInterface
+}
+
+
+@enduml

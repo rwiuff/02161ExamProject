@@ -39,7 +39,7 @@ public class ProjectTest {
     this.taskFusion = new TaskFusion();
     this.projectFacade = new ProjectFacade(taskFusion);
     this.mockDateHolder = new MockDateHolder(taskFusion);
-    this.taskFusion.getEmployeeFacade().registerEmployee("Mette", "Frederiksen");
+    this.taskFusion.registerEmployee("Mette", "Frederiksen");
     taskFusion.login("mefr");
   }
 

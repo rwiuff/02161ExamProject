@@ -26,7 +26,7 @@ public class RegisterEmployeeView implements ViewInterface {
             }
 
             try {
-                TaskFusionCLI.employeeFacade().registerEmployee(firstName, lastName);
+                TaskFusionCLI.taskFusion().registerEmployee(firstName, lastName);
             } catch (Exception e) {
                 Text.showExceptionError(e);
                 Text.showInfo("Prøv igen");

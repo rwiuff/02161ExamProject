@@ -28,7 +28,7 @@ public class ReportSteps {
     @When("the user generates a report for project {string}")
     public void theUserGeneratesAReportForProject(String projectNumber) {
         try {
-            taskFusion.getProjectFacade().generateProjectRaport(projectNumber);
+            taskFusion.generateProjectRaport(projectNumber);
         } catch (Exception e) {
             this.errorMessageHolder.setErrorMessage(e.getMessage());
         }
@@ -37,7 +37,7 @@ public class ReportSteps {
     @Then("the number of reports for project {string} is {int}")
     public void the_number_of_reports_for_project_is(String projectNumber, int inumberOfReports) {
         try {
-            Map<String, ReportViewModel> reports = taskFusion.getProjectFacade().findProjectByProjectNumber(projectNumber).reports;
+            Map<String, ReportViewModel> reports = taskFusion.findProjectByProjectNumber(projectNumber).reports;
             assertEquals(inumberOfReports, reports.size());
         } catch (Exception e) {
             this.errorMessageHolder.setErrorMessage(e.getMessage());

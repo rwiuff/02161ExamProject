@@ -92,7 +92,7 @@ public class ProjectReportView implements ViewInterface {
 
     private void saveReport(String saveDirectory) {
         try {
-            TaskFusionCLI.projectFacade().saveReport(report.projectNumber, report.reportDate, saveDirectory);
+            TaskFusionCLI.taskFusion().saveReport(report.projectNumber, report.reportDate, saveDirectory);
         } catch (Exception e) {
             Text.showExceptionError(e);
         }

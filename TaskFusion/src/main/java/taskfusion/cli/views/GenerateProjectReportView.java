@@ -33,7 +33,7 @@ public class GenerateProjectReportView implements ViewInterface {
 
     private void generateReport() {
         try {
-            report = TaskFusionCLI.projectFacade().generateProjectRaport(project.projectNumber);
+            report = TaskFusionCLI.taskFusion().generateProjectRaport(project.projectNumber);
             Text.showSuccess("Rapport genereret");
             Input.enterToContinue("Tryk på Enter for at se rapporten");
             new ProjectReportView(report).show();
