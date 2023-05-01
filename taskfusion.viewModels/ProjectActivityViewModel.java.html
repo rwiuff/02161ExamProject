@@ -5,31 +5,26 @@ import java.util.List;
 
 import taskfusion.domain.ProjectActivity;
 
-public class ProjectActivityViewModel extends ViewModel {
-  public String title;
-  public String startWeek;
-  public String endWeek;
+public class ProjectActivityViewModel extends ActivityViewModel {
   public double timeBudget;
   public double totalWorktime;
   public List&lt;WorktimeRegistrationViewModel&gt; worktimeRegistrations;
 
-<span class="fc" id="L16">  public ProjectActivityViewModel(ProjectActivity activity) {</span>
-<span class="fc" id="L17">    this.title = activity.getTitle();</span>
-<span class="fc" id="L18">    this.startWeek = activity.getStartWeek();</span>
-<span class="fc" id="L19">    this.endWeek = activity.getEndWeek();</span>
-<span class="fc" id="L20">    this.timeBudget = activity.getTimeBudget();</span>
-<span class="fc" id="L21">    this.totalWorktime = activity.getTotalWorkTime();</span>
-<span class="fc" id="L22">    this.worktimeRegistrations = WorktimeRegistrationViewModel.listFromModels(activity.getWorktimeRegistrations());</span>
-<span class="fc" id="L23">  }</span>
+  public ProjectActivityViewModel(ProjectActivity activity) {
+<span class="fc" id="L14">    super(activity);</span>
+<span class="fc" id="L15">    this.timeBudget = activity.getTimeBudget();</span>
+<span class="fc" id="L16">    this.totalWorktime = activity.getTotalWorkTime();</span>
+<span class="fc" id="L17">    this.worktimeRegistrations = WorktimeRegistrationViewModel.listFromModels(activity.getWorktimeRegistrations());</span>
+<span class="fc" id="L18">  }</span>
 
   public static List&lt;ProjectActivityViewModel&gt; listFromModels(List&lt;ProjectActivity&gt; projectActivityList) {
-<span class="fc" id="L26">    List&lt;ProjectActivityViewModel&gt; list = new ArrayList&lt;ProjectActivityViewModel&gt;();</span>
+<span class="fc" id="L21">    List&lt;ProjectActivityViewModel&gt; list = new ArrayList&lt;ProjectActivityViewModel&gt;();</span>
 
-<span class="fc bfc" id="L28" title="All 2 branches covered.">    for (ProjectActivity projectActivity : projectActivityList) {</span>
-<span class="fc" id="L29">      list.add(projectActivity.toViewModel());</span>
-<span class="fc" id="L30">    }</span>
+<span class="fc bfc" id="L23" title="All 2 branches covered.">    for (ProjectActivity projectActivity : projectActivityList) {</span>
+<span class="fc" id="L24">      list.add(projectActivity.toViewModel());</span>
+<span class="fc" id="L25">    }</span>
 
-<span class="fc" id="L32">    return list;</span>
+<span class="fc" id="L27">    return list;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
