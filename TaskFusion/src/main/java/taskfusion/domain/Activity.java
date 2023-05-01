@@ -36,8 +36,6 @@ public abstract class Activity {
     this.startWeek = startWeek;
     this.endWeek = endWeek;
 
-
-
   }
 
   public String getStartWeek() {
