@@ -61,7 +61,7 @@ public class Project implements ConvertibleToViewModelInterface {
    * For loop to identify highest last number, by ChatGPT v3.5
    */
   public static String generateProjectNumber(Calendar date) {
-    assert date != null && ProjectRepository.getInstance() != null;
+    assert date != null;
     int year = DateHelper.twoDigitYearFromDate(date);
     int num = 0;
 
