@@ -90,13 +90,13 @@ import taskfusion.exceptions.OperationNotAllowedException;
 
     public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
 
-        assert true; // precondition
+        assert true; // Precondition
 
 <span class="fc" id="L95">        List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();</span>
 
 <span class="fc bfc" id="L97" title="All 2 branches covered.">        for (WorktimeRegistration worktimeRegistration : list) {</span>
 <span class="fc bfc" id="L98" title="All 2 branches covered.">            if (worktimeRegistration.getId().equals(id)) {</span>
-<span class="pc bpc" id="L99" title="2 of 6 branches missed.">                assert list.stream().anyMatch(x -&gt; x.getId() == id); // postcondition</span>
+<span class="pc bpc" id="L99" title="2 of 6 branches missed.">                assert list.stream().anyMatch(x -&gt; x.getId() == id); // Postcondition</span>
                 
 <span class="fc" id="L101">                return worktimeRegistration;</span>
             }
