@@ -1,0 +1,56 @@
+@startuml persistency_to_facade_example
+
+skinparam linetype ortho
+
+
+package "Facade-layer" as FacadeLayer {
+
+    class EmployeeFacade {
+    }
+
+    class ProjectFacade {
+    }
+
+
+}
+
+
+package "Persistency-layer" as PersistencyLayer {
+
+    interface ProjectRepositoryInterface{
+        + findByProjectNumber(projectNumber) : Project
+        + create(title, date) : Project
+        + findWorktimeRegistrationById(int id) : WorktimeRegistration
+        + generateWorktimeRegistrationId() : int
+        + getListOfEmployees(String projectNumber) : List
+    }
+
+    interface EmployeeRepositoryInterface {
+        + findByInitials(initials) : Employee
+        + create(firstName,lastName) : Employee
+        + initialsExist(String initials) : boolean
+        + generateRegularActivityId() : int
+    }
+
+    class ProjectRepository << (S,#FF7700) Singleton >>{
+        --
+        {static} getInstance() : ProjectRepository
+    }
+
+    class EmployeeRepository << (S,#FF7700) Singleton >>{
+        --
+        {static} getInstance() : EmployeeRepository
+    }
+
+}
+
+
+ProjectFacade --> "1" ProjectRepositoryInterface : projectRepository
+EmployeeFacade --> "1" EmployeeRepositoryInterface : employeeRepository
+
+ProjectRepository .u.|> ProjectRepositoryInterface
+EmployeeRepository .u.|> EmployeeRepositoryInterface
+
+
+
+@enduml
