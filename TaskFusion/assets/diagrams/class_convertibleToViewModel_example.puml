@@ -1,0 +1,47 @@
+@startuml ConvertibleToViewModel_diagram
+skinparam linetype ortho
+
+interface ConvertibleToViewModel{
+    + toViewModel() : ViewModel
+}
+
+class Report {
+    --
+    toViewModel()     
+}
+
+class Project{
+    --
+    toViewModel()  
+}
+
+class ProjectActivity{
+    --
+    toViewModel()  
+}
+
+class RegularActivity{
+    --
+    toViewModel()  
+}
+
+class Employee{
+    --
+    toViewModel()  
+}
+
+class WorktimeRegistration {
+    --
+    toViewModel()  
+}
+
+
+Project ..|> ConvertibleToViewModel
+Employee ..|> ConvertibleToViewModel
+ProjectActivity ..|> ConvertibleToViewModel
+RegularActivity ..|> ConvertibleToViewModel
+WorktimeRegistration ..|> ConvertibleToViewModel
+Report ..|> ConvertibleToViewModel
+
+
+@enduml 

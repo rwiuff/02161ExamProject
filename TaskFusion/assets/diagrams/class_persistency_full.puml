@@ -105,13 +105,18 @@ package "Domain-layer" as DomainLayer {
 
     }
 
-    class ProjectActivity{
+    class ActivityWithWorktimeRegistrations <<(A, orchid)abstract>> {
         timeBudget : int
         --
         registerWorkTime(employee, date, workTime) : void
         sumWorkTime() : double
         getRemainingWorkTime() : double
         getWorkTimeRegistrationsForEmployee(initials) : List
+        getTotalWorkTime() : double
+    }
+
+    class ProjectActivity{
+        
     }
 
     class Activity <<(A, orchid)abstract>>{
@@ -159,8 +164,10 @@ EmployeeRepository --> "0..*" Employee : employees
 
 app --> "0..1" Employee : user
 
-Activity <|-- ProjectActivity
-Activity <|- RegularActivity
+Activity <|-- ActivityWithWorktimeRegistrations
+ActivityWithWorktimeRegistrations <|-- ProjectActivity
+Activity <|-- RegularActivity
+ActivityWithWorktimeRegistrations -->"0..*" WorktimeRegistration : worktimeRegistrations
 
 Project --> "1" Employee : projectLeader
 Project --> "0..*" Employee : employees

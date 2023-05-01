@@ -24,7 +24,6 @@ package "Domain-layer" as DomainLayer {
     }
 
     class ProjectActivity{
-        timeBudget : int
     }
 
     class Activity <<(A, orchid)abstract>>{
@@ -34,6 +33,10 @@ package "Domain-layer" as DomainLayer {
     }
     class RegularActivity{
         id : int
+    }
+
+    class ActivityWithWorktimeRegistrations <<(A, orchid)abstract>> {
+        timeBudget : int
     }
 
     class Employee{
@@ -51,9 +54,10 @@ package "Domain-layer" as DomainLayer {
 
 }
 
-
-Activity <|-- ProjectActivity
-Activity <|- RegularActivity
+Activity <|-- ActivityWithWorktimeRegistrations
+ActivityWithWorktimeRegistrations <|-- ProjectActivity
+Activity <|-- RegularActivity
+ActivityWithWorktimeRegistrations -->"0..*" WorktimeRegistration : worktimeRegistrations
 
 Project --> "1" Employee : projectLeader
 Project --> "0..*" Employee : employees
@@ -65,7 +69,6 @@ Report --> "1" Employee : projectLeader
 Report --> "0..*" Employee : employees
 Report --> "0..*" ProjectActivity : activities
 
-ProjectActivity --> "0..*" WorktimeRegistration : worktimeRegistrations
 
 'Employee --> "0..*" WorktimeRegistrations : worktimeRegistrations
 Project ..|> ConvertibleToViewModel
