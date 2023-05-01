@@ -11,12 +11,15 @@ post:
     \text{result }=\{s|\exists p \in projectRepository.getProjectNumbers : s \in p \land p = largestProjectNumber(date)\}
 \end{equation}
 Med asserts ser det ud som følger:
+
 \begin{figure}[H]
     \centering
     \caption{generateProjectNumber med asserts}
     \includegraphics[width = 14cm, keepaspectratio]{ImplementationAndTest/Diagrams/contract_generateProjectNumber.png}
     \label{fig:contract_generateProjectNumber}
 \end{figure}
+
+
 
 \subsection{createInitials()} \label{sec:contract_create_initials}
 pre:
@@ -30,6 +33,7 @@ post:
 Hvor maxInitials(employee) er $n$ vælg 2, hvor $n$ er længden af efternavnet, og duplikater fjernes i generationen af kombinationer.
 I "Laudrup" (længde 7, $7 \choose 2$=21) går "lu", "au", "up" igen to gange, hvorfor der fås 18 og ikke de forventede 21. Der forklarer hvorfor white-box testens input er konstrueret som det er.\\[4mm]
 Med asserts ser det ud som følger
+
 \begin{figure}[H]
     \centering
     \caption{createInitials med asserts}
