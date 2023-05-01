@@ -90,13 +90,13 @@ public class ProjectRepository {
 
     public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
 
-        assert true; // precondition
+        assert true; // Precondition
 
         List<WorktimeRegistration> list = allWorktimeRegistrations();
 
         for (WorktimeRegistration worktimeRegistration : list) {
             if (worktimeRegistration.getId().equals(id)) {
-                assert list.stream().anyMatch(x -> x.getId() == id); // postcondition
+                assert list.stream().anyMatch(x -> x.getId() == id); // Postcondition
                 
                 return worktimeRegistration;
             }
