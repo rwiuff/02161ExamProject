@@ -1,27 +1,26 @@
-@startuml
+@startuml seq_project_edit
+hide footbox
 actor "Employee" as e
-participant "MainController" as app
-participant "Date server" as ds
-participant "Project manager" as pm
+participant "AppController" as app
 participant "Project" as p
-
-e -> app : editProject(project,property,value)
+activate e
+e -> app : editProject(project, property, value)
 activate app
-
-
-app -> pm : editProject(employee,project,property,value)
-activate pm 
-
-pm -> pm : editAllowed(employee,project,property)
-pm --> e : Du har ikke rettigheder til dette
-
-pm -> p : edit(property,value)
-activate p 
-return true
-
-return true
-
-return true
-
-
+app -> p : project.getProjectLeader()
+activate p
+p --> app : pl : String
+deactivate p
+app -> app : checkEmployee(initials, pl)
+alt The employee is the project leader
+app -> app : p : projects.get(project)
+app -> p : p.editProject(employee, property, value)
+activate p
+p -> p : edit(property, value)
+p --> app : true
+deactivate p
+app --> e : "Confirmed changes"
+else The employee is not the project leader
+app --> e : "Du har ikke rettigheder til dette"
+deactivate app
+end
 @enduml

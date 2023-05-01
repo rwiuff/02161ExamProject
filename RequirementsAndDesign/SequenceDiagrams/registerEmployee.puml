@@ -1,0 +1,29 @@
+@startuml seqRegisterEmployee
+hide footbox
+actor "Guest" as guest
+participant "TaskFusionCLI" as app
+participant "EmployeeFacade" as empfacade
+participant "EmployeeRepository" as emprepo
+participant "Employee" as emp
+participant "Map<String, Employee> employees" as emps
+
+activate app
+guest -> app: Register Employee
+app -> guest: Prompt: Firstname, Lastname
+guest -> app: firstName, lastName
+activate empfacade
+app -> empfacade: registerEmployee(firstName, lastName)
+activate emprepo
+empfacade -> emprepo: create(firstName, lastName)
+emprepo -> emp**: firstName, lastName
+activate emp
+emp -> emp: createInitials()
+emp -> emprepo: Employee(firstName, lastName)
+emprepo -> emp: getInitials()
+emp -> emprepo: initials
+deactivate emp
+activate emps
+emprepo -> emps: put(initials, Employee)
+deactivate emps
+deactivate app
+@enduml

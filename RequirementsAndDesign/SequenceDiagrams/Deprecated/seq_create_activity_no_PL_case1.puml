@@ -1,4 +1,5 @@
 @startuml createActivityNoPLCase1
+hide footbox
 actor "Employee" as emp
 participant AppController as app
 participant Project as p
@@ -10,15 +11,16 @@ activate app
 app -> p : createActivity("Graphics design")
 activate p
 alt No activity with title "Graphics design" is present
-p -> ppa : <<create>>
+p -> ppa** : <<create>>
 activate ppa
-ppa --> p : ProjectActivity("Graphics design")
+ppa --> p : pa : ProjectActivity
 deactivate ppa
-deactivate p
+p -> p : activities.add("Graphics design", pa)
+p --> emp : "Projektaktivitet oprettet"
 else An activity with title "Graphics design" is present
-p --> app : "Projektaktivitet findes allerede"
-activate p
+p --> app : "DuplicateActivityException"
 deactivate p
 app --> emp : "Projektaktivitet findes allerede"
+deactivate app
 end
 @enduml

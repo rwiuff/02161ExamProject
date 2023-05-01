@@ -1,12 +1,12 @@
-@startuml
-actor "Guest" as guest
-participant "MainController" as app
+@startuml Logout
+hide footbox
+actor "Employee" as em
+participant "AppController" as app
 
-guest -> app : logout()
+activate em
+em -> app : logout()
 activate app
-
-app -> app : setUser(null)
-
-return true
-
+app -> app : setUser(NULL)
+app --> em : "Logget ud"
+deactivate app
 @enduml

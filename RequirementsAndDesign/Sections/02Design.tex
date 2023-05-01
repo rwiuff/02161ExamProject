@@ -1,10 +1,24 @@
 % !TeX root = ..\..\rapport_13_1.tex
 \section{Programdesign}
 \subsection{Klassediagram af programdesign}
-% \begin{figure}[H]
-%     \centering
-%     \caption{Klassediagram}\label{fig:ClassDiag}
-% \end{figure}
+Programmets klasser inddeles i lag som ses på \cref{fig:classLayers}.
+\begin{figure}
+    \centering
+    \caption{TaskFusion klasser inddelt i lag}\label{fig:classLayers}
+    \includegraphics[width=\textwidth]{TaskFusion/out/assets/diagrams/class_persistency_layer/ClassDiagram_layer.eps}
+\end{figure}
+TaskFusionCLI opretter et TaskFusion objekt som opretter ProjectFacade og EmployeeFacade. Her kan TaskFusion sende metodekald til to singletons:
+\begin{itemize}
+    \item ProjectRepository
+    \item EmployeeRepository
+\end{itemize}
+Metodekaldene opretter og ændrer felter i domain laget, som ses på \cref{fig:domainLayer}.
+\begin{figure}
+    \centering
+    \caption{TaskFusion klasser i domain laget}\label{fig:domainLayer}
+    \includegraphics[width=\textwidth]{TaskFusion/out/assets/diagrams/class_persistency_domain/ClassDiagram_domain.eps}
+\end{figure}
+Skal data bruges i CLI'en hentes en \textit{ModelViewModel} af et objekt, som CLI'en formaterer til brugerfladen.
 \subsection{Sekvensdiagrammer}\label{sec:sequence}
 \begin{figure}[H]
     \centering
@@ -62,7 +76,6 @@
     \centering
     \caption{Generér projektrapport}\label{fig:sequenceGenerateProjectReport}
 \end{figure}
-\newpage
 \section{Diskussion: Programdesign}
 I dette afsnit bearbejdes to ting kort:
 \begin{enumerate}
