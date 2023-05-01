@@ -30,23 +30,41 @@ Derudover er alle klassers metoder som udgangspunkt lavet til at kun at have et 
 Der er dog enkelte metoder, der kunne optimeres i forhold til \textit{Single resposibility} principet. Her kan nævnes \textit{createProjectActivity()} som beskrevet i \textit{White box test} \ref{chap:white_box_create_project_activity} kapitlet. Denne metode er både ansvarlig for at acceptere om en medarbejder kan oprette en projekt aktiviet, og derefter også at oprette den. Her kunne man refaktorere til, at tjekket om medarbejderen må oprette en aktivitet, lå udenfor metoden.
 
 \subsection{Open/closed principle} \label{sec:solid_o}
-%Det lyder fra opgaveformuleringen, at der skal være mulighed for at opdele projekter op i aktiviteter, og at der skal være mulighed for at lave faste aktiviteter til registrering af bl.a. ferie og kurser, som ikke er knyttet til projekter. Et simpelt eksempel hvor open-closed princippet er blevet benyttet til at imødekomme førnævnte er at lave en abstrakt klasse kaldet \texttt{activity.java}, som vist herunder i figur \ref{fig:class_activity_example}. Denne har de enkelte felter som \texttt{title}, \texttt{startweek}, \texttt{endweek}, samt exceptions og getter-metoder og ikke mere. Det er muligt at udvide (extend) denne klasse således at der kan laves to underklasser, \texttt{ProjectActivity.java} og \texttt{RegularActivity.java}. På den måde er \texttt{Activity} lukket for ændringer men åben for udvidelser. 
+Det lyder fra opgaveformuleringen, at der skal være mulighed for at opdele projekter op i aktiviteter, og at der skal være mulighed for at lave faste aktiviteter til registrering af bl.a. ferie og kurser, som ikke er knyttet til projekter. Et simpelt eksempel hvor \textit{Open/Closed}-princippet er blevet benyttet til at imødekomme førnævnte er at lave en abstrakt klasse kaldet \texttt{activity}, som vist herunder i figur \ref{fig:class_activity_example}.
 
-%Der er desuden også det argument, at \textit{single responsibilty princippet} bliver fulgt, da \texttt{Activity.java} klassen kun har én grund til at blive ændret. Den grund vil indbefatte en ændring af definitionen, af hvad en aktivitet er, f.eks. en ændring af dets felter.
-
-\subsection{Liskov substitution principle} \label{sec:solid_l}
-Vi skelner i programmet imellem en fast aktivitet og en projekt aktivitet, hendholdsvis \texttt{RegularActivity} og \texttt{ProjecActivity}. Begge typer har behov for egenskaberne \textit{title}, \textit{startWeek} og \textit{endWeek}. For at sikre at kunne overholde de forventninger der er til disse egenskaber, er disse i en abstrakt klasse \texttt{Activity}, som underklasserne nedarver fra. Derudover skal projekt aktiviteter kunne håndtere tidsregistreringer. Istedet for at fylde \texttt{ProjectActivity}-klassen med metoder, nedarves igen fra en abstract klasse \texttt{ActivityWithWorktimeRegistration}. Se klassediagram herunder i \ref{fig:class_activity_example} 
 \begin{figure}[H]
     \centering
     \caption{Klassediagram af \textit{aktivity} klasserne}
     \includegraphics[width = \textwidth, keepaspectratio]{TaskFusion/out/assets/diagrams/class_liskov_model_example/liskov_model_example.png}
     \label{fig:class_activity_example}
 \end{figure}
+Vi skelner i programmet imellem en fast aktivitet og en projekt aktivitet, hendholdsvis \texttt{RegularActivity} og \texttt{ProjecActivity}. Begge typer har behov for egenskaberne \textit{title}, \textit{startWeek} og \textit{endWeek}. For at sikre at kunne overholde de forventninger der er til disse egenskaber, er disse i en abstrakt klasse \texttt{Activity}, som underklasserne nedarver fra. På den måde er \texttt{Activity} lukket for ændringer men åben for udvidelser. 
+
+Der er desuden også det argument, at \textit{single responsibilty princippet} bliver fulgt, da \texttt{Activity} klassen kun har én grund til at blive ændret. Den grund vil indbefatte en ændring af definitionen, af hvad en aktivitet er, f.eks. en ændring af dets felter.
+
+\subsection{Liskov substitution principle} \label{sec:solid_l}
+ Derudover skal projekt aktiviteter kunne håndtere tidsregistreringer. Istedet for at fylde \texttt{ProjectActivity}-klassen med metoder, nedarves igen fra en abstrakt klasse \texttt{ActivityWithWorktimeRegistration}, se igen klassediagram \ref{fig:class_activity_example}
+ 
 På denne måde kan metoder relateret til tidsregistrering ikke kaldes fra \texttt{RegularActivity}, og det er samtidig muligt at udvide senere med aktiviteter der kan have tidsregisteringer eller ej.
 
-
 \subsection{Interface segregation principle} \label{sec:solid_i}
-\texttt{ConvertibleToViewModelInterface} er et interface der adskiller konverteringslogikken fra domæneobjekterne, se klassediagram herunder i \ref{fig:class_convertible_example}. Klasser som \texttt{Project} og \texttt{Employee} implementerer dette interface og kan dermed konverteres til en \texttt{ViewModel} til brug i præsentationslaget. På denne måde har vi en simpel og fokuseret kontrakt for domæneobjekter, der kan udvide deres funktionalitet uden at ændre deres kerneadfærd. 
+Facade-laget bruges som mellemlag mellem præsentations- og program-lag, og på den måde afkobler forskellige dele af programmet. Ser vi nærmere på facade-laget, har vi også her forsøgt at reducere sammenkoblingen mellem høj- og lavniveaus komponenter, ved at afhænge af abstraktioner istedet for konkrete implementeringer. Det er gjort ved brug af \textit{interfaces} der afkobler \texttt{TaskFusion} fra henholdsvis \texttt{EmployeeFacade} og \texttt{ProjectFacade}, som vist herunder i \ref{fig:class_facade_full}. Et udvidet klassediagram over facade-laget kan ses i \ref{apdx:classDiagram_facade_full}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Klassediagram af facade-laget}
+    \includegraphics[width = \textwidth, keepaspectratio]{TaskFusion/out/assets/diagrams/class_facade_layer_simple/ClassDiagram_facade_simple.png}
+    \label{fig:class_facade_simple}
+\end{figure}
+
+Ser vi istedet på koblingen mellem \textit{facade}- og \textit{persistency}-laget, kan vi her forbedre programmet i forhold til \textit{Interface segragation principle}.
+
+ved at infører \textit{interfaces} for repository metoderne i \texttt{Persistency}-laget. Som programmet er nu, afhænger \texttt{EmployeeFacade} og \texttt{ProjectFacade} direkte af implemterede metoder i henholdsvis \texttt{EmployeeRepository} og \texttt{ProjectRepository}. Istedet kunne vi indfører et \texttt{EmployeeRepositoryInterface} og et \texttt{ProjectRepositoryInterface}, hvilke facade klasserne så kunne afhænge af. 
+
+\subsection{Dependency inversion principle} \label{sec:solid_d}
+Med et fortsat fokus på facade-laget og \ref{fig:class_facade_full}, implementere \texttt{EmployeeFacade} og \texttt{ProjectFacade} flere interfaces hver. På den måde kan mindre og fokuserede interfaces gøre det nemmere for facade klasserne at implementere de metoder, de har behov for.
+\\
+Vi kan også fremhæve et andet eksempel på opfyldelse af \textit{Dependency inversion principle}. \texttt{ConvertibleToViewModelInterface} er et interface der adskiller konverteringslogikken fra domæneobjekterne, se klassediagram herunder i \ref{fig:class_convertible_example}. Klasser som \texttt{Project} og \texttt{Employee} implementerer dette interface og kan dermed konverteres til en \texttt{ViewModel} til brug i præsentationslaget. På denne måde har vi en simpel og fokuseret kontrakt for domæneobjekter, der kan udvide deres funktionalitet uden at ændre deres kerneadfærd. 
 
 \begin{figure}[H]
     \centering
@@ -54,7 +72,4 @@ På denne måde kan metoder relateret til tidsregistrering ikke kaldes fra \text
     \includegraphics[width = \textwidth, keepaspectratio]{TaskFusion/out/assets/diagrams/class_convertibleToViewModel_example/ConvertibleToViewModel_diagram.png}
     \label{fig:class_convertible_example}
 \end{figure}
-
-\subsection{Dependency inversion principle} \label{sec:solid_d}
-
 
