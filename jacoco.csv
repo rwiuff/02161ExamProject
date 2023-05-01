@@ -22,7 +22,7 @@ TaskFusion,taskfusion.viewModels,ProjectViewModel,0,92,0,6,0,22,0,6,0,3
 TaskFusion,taskfusion.viewModels,WorktimeRegistrationViewModel,0,46,0,2,0,12,0,3,0,2
 TaskFusion,taskfusion.persistency,Seeder,0,241,0,4,0,45,0,9,0,7
 TaskFusion,taskfusion.persistency,EmployeeRepository,0,126,0,10,0,35,0,15,0,10
-TaskFusion,taskfusion.persistency,ProjectRepository,0,136,0,12,0,33,0,16,0,10
+TaskFusion,taskfusion.persistency,ProjectRepository,6,159,3,17,0,35,3,19,0,12
 TaskFusion,taskfusion.exceptions,NotFoundException,0,4,0,0,0,2,0,1,0,1
 TaskFusion,taskfusion.exceptions,AlreadyExistsException,0,4,0,0,0,2,0,1,0,1
 TaskFusion,taskfusion.exceptions,InvalidPropertyException,0,4,0,0,0,2,0,1,0,1

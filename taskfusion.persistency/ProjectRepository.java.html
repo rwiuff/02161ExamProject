@@ -17,7 +17,7 @@ import taskfusion.exceptions.OperationNotAllowedException;
 /**
  * Singleton instance, getInstance and resetInstance provided by ChatGPT v4
  */
-public class ProjectRepository {
+<span class="pc bpc" id="L20" title="1 of 2 branches missed.">public class ProjectRepository {</span>
 
 <span class="fc" id="L22">    private Map&lt;String, Project&gt; projects = new HashMap&lt;&gt;();</span>
 
@@ -90,15 +90,19 @@ public class ProjectRepository {
 
     public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
 
-<span class="fc" id="L93">        List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();</span>
+        assert true; // precondition
 
-<span class="fc bfc" id="L95" title="All 2 branches covered.">        for (WorktimeRegistration worktimeRegistration : list) {</span>
-<span class="fc bfc" id="L96" title="All 2 branches covered.">            if (worktimeRegistration.getId().equals(id)) {</span>
-<span class="fc" id="L97">                return worktimeRegistration;</span>
+<span class="fc" id="L95">        List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();</span>
+
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        for (WorktimeRegistration worktimeRegistration : list) {</span>
+<span class="fc bfc" id="L98" title="All 2 branches covered.">            if (worktimeRegistration.getId().equals(id)) {</span>
+<span class="pc bpc" id="L99" title="2 of 6 branches missed.">                assert list.stream().anyMatch(x -&gt; x.getId() == id); // postcondition</span>
+                
+<span class="fc" id="L101">                return worktimeRegistration;</span>
             }
-<span class="fc" id="L99">        }</span>
+<span class="fc" id="L103">        }</span>
 
-<span class="fc" id="L101">        throw new NotFoundException(&quot;Ukendt tidsregistrering&quot;);</span>
+<span class="fc" id="L105">        throw new NotFoundException(&quot;Ukendt tidsregistrering&quot;);</span>
 
     }
 
@@ -118,11 +122,11 @@ public class ProjectRepository {
     // }
 
     public Integer generateWorktimeRegistrationId() throws NotFoundException {
-<span class="fc" id="L121">        return allWorktimeRegistrations().size() + 1;</span>
+<span class="fc" id="L125">        return allWorktimeRegistrations().size() + 1;</span>
     }
 
     public List&lt;Employee&gt; getListOfEmployees(String projectNumber) {
-<span class="fc" id="L125">        return this.projects.get(projectNumber).getListOfAssignedEmployees();</span>
+<span class="fc" id="L129">        return this.projects.get(projectNumber).getListOfAssignedEmployees();</span>
     }
 
 }
