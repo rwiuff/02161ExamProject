@@ -53,7 +53,7 @@ public class ProjectMenuController implements ControllerInterface {
 
             switch (selectedMenuItem) {
                 case 1: // Se medarbejdere
-                    List<EmployeeViewModel> employees = TaskFusionCLI.projectFacade()
+                    List<EmployeeViewModel> employees = TaskFusionCLI.taskFusion()
                             .getProjectEmployees(project.projectNumber);
                     new ListEmployeesView(employees).show();
                     break;
@@ -101,7 +101,7 @@ public class ProjectMenuController implements ControllerInterface {
 
         ProjectViewModel reloadedProject = null;
         try {
-            reloadedProject = TaskFusionCLI.projectFacade().findProjectByProjectNumber(project.projectNumber);
+            reloadedProject = TaskFusionCLI.taskFusion().findProjectByProjectNumber(project.projectNumber);
         } catch (NotFoundException e) {
             e.printStackTrace();
             return;

@@ -57,6 +57,7 @@ public class Employee implements ConvertibleToViewModelInterface {
    */
   private void createInitials() throws ExhaustedOptionsException {
     EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
+    assert true;
 
     for (int l1 = 0; l1 < lastName.length(); l1++) {
       for (int l2 = l1 + 1; l2 < lastName.length(); l2++) {
@@ -67,13 +68,13 @@ public class Employee implements ConvertibleToViewModelInterface {
         init = init.toLowerCase();
         if (!employeeRepo.initialsExist(init)) {
           this.initials = init;
+          assert this.initials == init;
           return;
         }
       }
     }
 
     throw new ExhaustedOptionsException("Kunne ikke generere unikke initialer");
-
   }
 
   public String getFirstName() {

@@ -39,7 +39,7 @@ public class ProjectTest {
     this.taskFusion = new TaskFusion();
     this.projectFacade = new ProjectFacade(taskFusion);
     this.mockDateHolder = new MockDateHolder(taskFusion);
-    this.taskFusion.getEmployeeFacade().registerEmployee("Mette", "Frederiksen");
+    this.taskFusion.registerEmployee("Mette", "Frederiksen");
     taskFusion.login("mefr");
   }
 
@@ -139,6 +139,25 @@ public class ProjectTest {
     List<ProjectViewModel> viewModels = ProjectViewModel.listFromModels(models);
     assertEquals(models.size(), viewModels.size());
 
+  }
+
+  @Test 
+  public void testGetUserProjects() throws OperationNotAllowedException, InvalidPropertyException, NotFoundException, AlreadyExistsException, ExhaustedOptionsException {
+    mockDateHolder.setYear(2023);
+    projectFacade.createProject("2023_project");
+    projectFacade.createProject("2023_project_1");
+    projectFacade.createProject("2023_project_2");
+    assertNotNull(projectFacade.findProjectByProjectNumber("23003"));
+
+    mockDateHolder.setYear(2002);
+    projectFacade.createProject("2002_project");
+    projectFacade.createProject("2002_project_1");
+    projectFacade.createProject("2002_project_2");
+    assertNotNull(projectFacade.findProjectByProjectNumber("02003"));
+   
+    List<ProjectViewModel> userProjects = taskFusion.getUserProjects();
+
+    assertEquals(6,userProjects.size());
   }
 
   @Test 

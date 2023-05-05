@@ -3,21 +3,51 @@
 
 \subsection{generateProjectNumber} \label{sec:contract_generate_project_number}
 pre: 
-\begin{equation}
-    pr \neq null \land date \neq null
-\end{equation}
+\begin{align}
+    date \neq null
+\end{align}
 post:
-\begin{equation}
-    \text{result }=\{s|\exists p \in projectRepository.getProjectNumbers : s \in p \land p = largestProjectNumber(date)\}
-\end{equation}
+\begin{align}
+    \text{result } = \{s|\exists p \in projectRepository.getProjectNumbers : s \in p \land p = previousLargestProjectNumber + 1\}
+\end{align}
+\begin{align}
+    3 + 4 = 7
+\end{align}
+\newline
+\noindent
 Med asserts ser det ud som følger:
-\begin{figure}[H]
-    \centering
-    \caption{generateProjectNumber med asserts}
-    \includegraphics[width = 14cm, keepaspectratio]{ImplementationAndTest/Diagrams/contract_generateProjectNumber.png}
-    \label{fig:contract_generateProjectNumber}
-\end{figure}
 
+\begin{listing}[H]
+    \centering
+    \caption{generateProjectNumber() med assertions}\label{lst:cgenerate_project_number_assertions}
+    \begin{minted}[breaklines]{java}
+public static String generateProjectNumber(Calendar date) {
+  assert date != null // pre
+  int year = DateHelper.twoDigitYearFromDate(date);
+  int num = 0;
+
+  // Find the highest incremental number for the current year
+  for (String projectNumber : ProjectRepository.getInstance().all().keySet()) {
+    if (projectNumber.startsWith(String.format("%02d", year))) {
+      num = Integer.parseInt(projectNumber.substring(2));
+    }
+  }
+
+  int previousProjectNumber = (year * 100) + num;
+  int nextProjectNumber = (year * 1000) + num + 1;
+  assert nextProjectNumber == previousProjectNumber + 1; // post
+  
+  if (nextProjectNumber < 10000) {
+      return "0" + nextProjectNumber;
+  }
+
+  return "" + nextProjectNumber;
+
+}
+    \end{minted}
+\end{listing}
+\noindent
+I virkeligheden er der to postconditions, i tilfælde af at preconditionen holder, sættes Employee-instancens initials-felt til init, i tilfælde af at den overtrædes, kastes en ExhaustedOptionsException.\\[4mm]
 \subsection{createInitials()} \label{sec:contract_create_initials}
 pre:
 \begin{equation}
@@ -30,13 +60,36 @@ post:
 Hvor maxInitials(employee) er $n$ vælg 2, hvor $n$ er længden af efternavnet, og duplikater fjernes i generationen af kombinationer.
 I "Laudrup" (længde 7, $7 \choose 2$=21) går "lu", "au", "up" igen to gange, hvorfor der fås 18 og ikke de forventede 21. Der forklarer hvorfor white-box testens input er konstrueret som det er.\\[4mm]
 Med asserts ser det ud som følger
-\begin{figure}[H]
+
+\begin{listing}[H]
     \centering
-    \caption{createInitials med asserts}
-    \includegraphics[width = \textwidth, keepaspectratio]{ImplementationAndTest/Diagrams/contract_createInitials.png}
-    \label{fig:contract_createInitials}
-\end{figure}
-\subsection{createProjectActivity()} \label{sec:contract_create_project_activity}
+    \caption{createInitials() med assertions}\label{lst:create_initials_assertions}
+    \begin{minted}[breaklines]{java}
+private void createInitials() throws ExhaustedOptionsException {
+    EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
+    assert true; // pre
+
+    for (int l1 = 0; l1 < lastName.length(); l1++) {
+      for (int l2 = l1 + 1; l2 < lastName.length(); l2++) {
+        String init = firstName.substring(0, 2)
+            + lastName.substring(l1, Math.min(l1 + 1, lastName.length()))
+            + lastName.substring(l2, Math.min(l2 + 1, lastName.length()));
+
+        init = init.toLowerCase();
+        if (!employeeRepo.initialsExist(init)) {
+          this.initials = init;
+          assert this.initials == init; // post
+          return;
+        }
+      }
+    }
+
+    throw new ExhaustedOptionsException("Kunne ikke generere unikke initialer");
+  }
+    \end{minted}
+\end{listing}
+\noindent
+Implicit garanteres det der står i createInitials' precondition gennem funktionens kørsel, derfor assertes blot true som precondition. I virkeligheden er der to postconditions, i tilfælde af at preconditionen holder, sættes Employee-instancens initials-felt til init, i tilfælde af at den overtrædes, kastes en ExhaustedOptionsException.\\[4mm]
 pre: 
 \begin{equation}
     title \neq null \wedge startWeek \neq null \wedge endWeek \neq null \wedge loggedInUser \neq null \wedge activities \neq null
@@ -93,14 +146,21 @@ post:
 
 
 \subsection{findWorktimeRegistrationById()} \label{sec:contract_findd_work}
-\noindent pre: 
-\begin{align}
-    allWorktimeRegistrations().size()\; >\; 0 \;\wedge\; id \; \in \; \mathbb{N} \; \wedge \; 0 \; < \; id  \; <=\; allWorktimeRegistrations().size()
-\end{align}
-post: 
+\noindent Precondition: I dette tilfælde er vores precondition \texttt{true}, da vores postconditions korrigerer for fejl, så alle tilfælde af inputs fejlhåndteres.
+
+%\begin{align}
+    %allWorktimeRegistrations().size()\; >\; 0 \;\wedge\; id \; \in %\; \mathbb{N} \; \wedge \; 0 \; < \; id  \; <=\; %allWorktimeRegistrations().size()
+%\end{align}
+
+
+\noindent
+Postcondition: 
 \begin{equation}
-    \exists i\; :\; (i\; \in\; result\; \iff\; \exists worktimeRegistration.getId() \; = \; i)
-\end{equation}
+    \exists i\; :\; (result = i \iff\; \exists worktimeRegistration.getId() \; = \; i\; \lor result = NotFoundException)
+\end{equation}\label{postcondition 1}
+
+Det skal nævnes, at postconditionen, i tilfælde af at leddet før $\lor$ i ligningen over 
+
 
 \begin{listing}[H]
     \centering
@@ -108,13 +168,13 @@ post:
     \begin{minted}[breaklines]{java}
 public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
 
-    assert allWorktimeRegistrations().size() > 0 && id == (int) id && 0 < id && id <= allWorktimeRegistrations().size(); // Precondition
+    assert true // Precondition
     
     List<WorktimeRegistration> list = allWorktimeRegistrations();
 
     for (WorktimeRegistration worktimeRegistration : list) {
         if (worktimeRegistration.getId().equals(id)) {
-            assert worktimeRegistration.getId().equals(id); // Postcondition
+            assert list.stream().anyMatch(x -> x.getId() == id) // Postcondition
             
             return worktimeRegistration;
         }

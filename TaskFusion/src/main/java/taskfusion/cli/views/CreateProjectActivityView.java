@@ -45,7 +45,7 @@ public class CreateProjectActivityView implements ViewInterface {
             }
 
             try {
-                TaskFusionCLI.projectFacade().createProjectActivity(project.projectNumber, title, startWeek, endWeek);
+                TaskFusionCLI.taskFusion().createProjectActivity(project.projectNumber, title, startWeek, endWeek);
             } catch (Exception e) {
                 Text.showExceptionError(e);
                 Text.showInfo("Prøv igen");

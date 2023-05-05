@@ -1,20 +1,57 @@
 @startuml ClassDiagram_simple
 skinparam linetype ortho
-skinparam Nodesep 300
+skinparam Nodesep 200
 skinparam Ranksep 150
 
 
 package "Facade-layer" as FacadeLayer {
 
-    class "TaskFusion" as app{
-        loggedInUser : Employee
+    class TaskFusion {
+        --
+    }
+
+    interface AuthentificationFacadeInterface {
+    }
+
+    interface EmployeeFacadeInterface {
+
+    }
+
+    interface RegularActivityFacadeInterface {
     }
 
     class EmployeeFacade {
     }
 
+    EmployeeFacade .u.|> EmployeeFacadeInterface
+    EmployeeFacade .u.|> RegularActivityFacadeInterface
+    TaskFusion -->"1" EmployeeFacadeInterface
+    TaskFusion -->"1" RegularActivityFacadeInterface
+    TaskFusion -->"1" AuthentificationFacadeInterface
+
+
+    interface ProjectFacadeInterface{
+
+    }
+
+    interface ReportFacadeInterface {
+
+    }
+
+    interface ProjectActivityFacadeInterface {
+
+    }
+
+
     class ProjectFacade {
     }
+
+    ProjectFacade .u.|> ProjectFacadeInterface
+    ProjectFacade .u.|> ProjectActivityFacadeInterface
+    ProjectFacade .u.|> ReportFacadeInterface
+    TaskFusion -->"1" ProjectFacadeInterface
+    TaskFusion -->"1" ProjectActivityFacadeInterface
+    TaskFusion -->"1" ReportFacadeInterface
 }
 
 
@@ -48,6 +85,9 @@ package "Domain-layer" as DomainLayer {
     }
 
     class ProjectActivity{
+    }
+
+    class ActivityWithWorktimeRegistrations <<(A, orchid)abstract>> {
         timeBudget : int
     }
 
@@ -56,6 +96,7 @@ package "Domain-layer" as DomainLayer {
         startWeek : int
         endWeek : int
     }
+
     class RegularActivity{
         id : int
     }
@@ -77,8 +118,6 @@ package "Domain-layer" as DomainLayer {
 
 PersistencyLayer -d[hidden]-> DomainLayer
 
-app --> "1" ProjectFacade : projectFacade
-app --> "1" EmployeeFacade : employeeFacade
 
 ProjectFacade --> "1" ProjectRepository : projectRepository
 EmployeeFacade --> "1" EmployeeRepository : employeeRepository
@@ -88,10 +127,10 @@ Project --> "0..*" Report : reports
 
 EmployeeRepository --> "0..*" Employee : employees
 
-app --> "0..1" Employee : user
-
-Activity <|-- ProjectActivity
-Activity <|- RegularActivity
+Activity <|-- ActivityWithWorktimeRegistrations
+ActivityWithWorktimeRegistrations <|-- ProjectActivity
+Activity <|-- RegularActivity
+ActivityWithWorktimeRegistrations -->"0..*" WorktimeRegistration : worktimeRegistrations
 
 Project --> "1" Employee : projectLeader
 Project --> "0..*" Employee : employees
@@ -103,7 +142,6 @@ Report --> "1" Employee : projectLeader
 Report --> "0..*" Employee : employees
 Report --> "0..*" ProjectActivity : activities
 
-ProjectActivity --> "0..*" WorktimeRegistration : worktimeRegistrations
 
 'Employee --> "0..*" WorktimeRegistrations : worktimeRegistrations
 Project ..|> ConvertibleToViewModel

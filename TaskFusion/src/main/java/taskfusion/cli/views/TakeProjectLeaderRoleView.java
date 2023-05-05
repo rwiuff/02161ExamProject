@@ -22,7 +22,7 @@ public class TakeProjectLeaderRoleView implements ViewInterface {
 
         if (confirm) {
             try {
-                TaskFusionCLI.projectFacade().takeProjectLeaderRole(project.projectNumber);
+                TaskFusionCLI.taskFusion().takeProjectLeaderRole(project.projectNumber);
                 Text.showSuccess("Du er nu projektleder på projekt " + project.projectNumber);
             } catch (Exception e) {
                 Text.showExceptionError(e);

@@ -38,7 +38,7 @@ public class ProjectActivityMenuController implements ControllerInterface {
             switch (selectedMenuItem) {
                 case 1: // Se tidsregistreringer
                     try {
-                        List<WorktimeRegistrationViewModel> registrations = TaskFusionCLI.projectFacade()
+                        List<WorktimeRegistrationViewModel> registrations = TaskFusionCLI.taskFusion()
                                 .getUserWorktimeRegistrationsForProjectActivity(activity.title, project.projectNumber);
                         new ListWorktimeRegistrationsView(registrations).show();
                     } catch (Exception e) {

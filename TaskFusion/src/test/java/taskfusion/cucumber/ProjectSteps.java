@@ -41,7 +41,7 @@ public class ProjectSteps {
   @When("the user creates a project with title {string}")
   public void theUserCreatesAProjectWithTitle(String projectTitle) {
     try {
-      taskFusion.getProjectFacade().createProject(projectTitle);
+      taskFusion.createProject(projectTitle);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -62,7 +62,7 @@ public class ProjectSteps {
   @When("the user sets customer {string} on project {string}")
   public void the_user_sets_customer_on_project(String customer, String projectNumber) {
     try {
-      taskFusion.getProjectFacade().assignCustomerToProject(projectNumber, customer);
+      taskFusion.assignCustomerToProject(projectNumber, customer);
     } catch (NotFoundException e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -80,7 +80,7 @@ public class ProjectSteps {
   @When("the user takes the role as project leader on project {string}")
   public void the_user_takes_the_role_as_project_leader_on_project(String projectNumber) {
     try {
-      taskFusion.getProjectFacade().takeProjectLeaderRole(projectNumber);
+      taskFusion.takeProjectLeaderRole(projectNumber);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -99,7 +99,7 @@ public class ProjectSteps {
   @When("the user assigns {string} to the project {string}")
   public void assigns_to_the_project(String employeeInitials, String projectNumber) {
     try {
-      taskFusion.getProjectFacade().assignEmployeeToProject(projectNumber, employeeInitials);
+      taskFusion.assignEmployeeToProject(projectNumber, employeeInitials);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -137,7 +137,7 @@ public class ProjectSteps {
   @When("the user requests a list of employees assigned to the project with project number {string}")
   public void theUserRequestsAListOfEmployeesAssignedToTheActivityTitledInTheProjectWithProjectNumber(
       String projectNumber) {
-    this.assignedEmployees = taskFusion.getProjectFacade().getProjectEmployees(projectNumber);
+    this.assignedEmployees = taskFusion.getProjectEmployees(projectNumber);
   }
 
   @Then("the employee list contains {int} items")
@@ -147,6 +147,6 @@ public class ProjectSteps {
 
     @Then("the user have {int} projects")
     public void the_user_have_projects(int i) throws NotFoundException {
-        assertEquals(1, taskFusion.getProjectFacade().getUserProjects().size());
+        assertEquals(1, taskFusion.getUserProjects().size());
     }
 }

@@ -29,7 +29,7 @@ public class RegularActivitySteps {
   @When("the user creates the regular activity {string} with start week {string} and end week {string}")
   public void theUserCreatesTheRegularActivityWithStartWeekAndEndWeek(String title, String startWeek, String endWeek) {
     try {
-      this.taskFusion.getEmployeeFacade().createRegularActivity(title, startWeek, endWeek);
+      this.taskFusion.createRegularActivity(title, startWeek, endWeek);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -38,7 +38,7 @@ public class RegularActivitySteps {
   @Then("the user has a regular activity with title {string} with start week {string} and end week {string}")
   public void theUserHasARegularActivityWithTitleWithStartWeekAndEndWeek(String title, String startWeek,
       String endWeek) throws NotFoundException {
-    this.taskFusion.getEmployeeFacade().hasRegularActivity(title, startWeek, endWeek);
+    this.taskFusion.hasRegularActivity(title, startWeek, endWeek);
   }
 
   @Then("the regular activity with id {int} does not exist")
@@ -60,7 +60,7 @@ public class RegularActivitySteps {
   @When("the user requests a regular activity with id {int}")
   public void the_user_requests_a_regular_activity_with_id(int id) {
     try {
-      this.regularActivity = taskFusion.getEmployeeFacade().getRegularActivityById(id);
+      this.regularActivity = taskFusion.getRegularActivityById(id);
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }
@@ -74,7 +74,7 @@ public class RegularActivitySteps {
   @When("the user requests a list of own regular activities")
   public void the_user_requests_a_list_of_own_regular_activities() {
     try {
-      this.regularActivityList = taskFusion.getEmployeeFacade().getRegularActivities();
+      this.regularActivityList = taskFusion.getRegularActivities();
     } catch (Exception e) {
       this.errorMessageHolder.setErrorMessage(e.getMessage());
     }

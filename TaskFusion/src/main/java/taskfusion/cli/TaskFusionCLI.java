@@ -7,8 +7,6 @@ import taskfusion.app.TaskFusion;
 import taskfusion.cli.components.Text;
 import taskfusion.cli.controllers.GuestMenuController;
 import taskfusion.cli.views.WelcomeView;
-import taskfusion.facades.EmployeeFacade;
-import taskfusion.facades.ProjectFacade;
 import taskfusion.persistency.Seeder;
 
 public class TaskFusionCLI {
@@ -81,16 +79,6 @@ public class TaskFusionCLI {
 	public static TaskFusion taskFusion() {
 		TaskFusionCLI taskFusionCLI = TaskFusionCLI.getInstance();
 		return taskFusionCLI.taskFusion;
-	}
-
-	public static ProjectFacade projectFacade() {
-		TaskFusionCLI taskFusionCLI = TaskFusionCLI.getInstance();
-		return taskFusionCLI.taskFusion.getProjectFacade();
-	}
-
-	public static EmployeeFacade employeeFacade() {
-		TaskFusionCLI taskFusionCLI = TaskFusionCLI.getInstance();
-		return taskFusionCLI.taskFusion.getEmployeeFacade();
 	}
 
 	public static Scanner scanner() {

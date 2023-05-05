@@ -20,7 +20,7 @@ import taskfusion.viewModels.ProjectViewModel;
 import taskfusion.viewModels.ReportViewModel;
 import taskfusion.viewModels.WorktimeRegistrationViewModel;
 
-public class ProjectFacade {
+public class ProjectFacade implements ProjectFacadeInterface, ProjectActivityFacadeInterface {
     private TaskFusion taskFusion;
     public ProjectRepository projectRepo = ProjectRepository.getInstance();
 

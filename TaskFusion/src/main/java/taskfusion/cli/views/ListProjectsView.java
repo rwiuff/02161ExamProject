@@ -37,7 +37,7 @@ public class ListProjectsView implements ViewInterface {
 
             ProjectViewModel project = null;
             try {
-                project = TaskFusionCLI.projectFacade().findProjectByProjectNumber(choice);
+                project = TaskFusionCLI.taskFusion().findProjectByProjectNumber(choice);
             } catch (NotFoundException e) {
                 Text.showExceptionError(e);
             }
