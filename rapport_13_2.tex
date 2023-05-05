@@ -106,7 +106,7 @@ separate-uncertainty-units = single ,
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \lhead{\titl \lb Kursus \courseno\ \lb \course \lb \handin}
-\chead{\includegraphics[height=40pt]{Graphics/DTU}}
+\chead{\includegraphics[height=40pt]{ImplementationAndTest/Graphics/DTU}}
 \rhead{\authOne \ \textbf{\SIDOne} \lb \authTwo \ \textbf{\SIDTwo} \lb \authThree \ \textbf{\SIDThree} \lb \authFour \ \textbf{\SIDFour}}
 \cfoot{Side \thepage\, af\, \pageref*{LastPage}}
 \renewcommand{\headrulewidth}{0.4pt}
@@ -140,8 +140,8 @@ separate-uncertainty-units = single ,
 \usepackage{todonotes}
 \usepackage[square, longnamesfirst, numbers]{natbib}
 \usepackage{empheq}
-\usepackage[newfloat, outputdir=../]{minted} % Overleaf minted buildpath fix
-% \usepackage[newfloat]{minted}
+% \usepackage[newfloat, outputdir=../]{minted} % Overleaf minted buildpath fix
+\usepackage[newfloat]{minted}
 \setminted{fontsize=\small,
            linenos=true}
 \usemintedstyle{tango}
@@ -216,7 +216,7 @@ separate-uncertainty-units = single ,
 \titlespacing{\subsubsection}
 {12pc}{1.5ex plus .1ex minus .2ex}{1pc}
 
-\title{\includegraphics[width=.15\textwidth]{Graphics/DTU}\lb\vspace{.5em}\Huge\scshape\color{DTUred} \titl\lb\vspace{-4mm}\rule{4cm}{0.5mm}\lb\Large{\courseno \ \course}}
+\title{\includegraphics[width=.15\textwidth]{ImplementationAndTest/Graphics/DTU}\lb\vspace{.5em}\Huge\scshape\color{DTUred} \titl\lb\vspace{-4mm}\rule{4cm}{0.5mm}\lb\Large{\courseno \ \course}}
 \preauthor{\begin{center}
         \large \lineskip 0.5em%
         \begin{tabular}[t]{r}}
@@ -233,14 +233,14 @@ separate-uncertainty-units = single ,
 \setcounter{page}{0}
 \newpage
 \setcounter{page}{1}
-\input{Sections/00Forfatterskab.tex}
-\input{Sections/01Programstruktur.tex}
-\input{Sections/02WhiteBoxTest.tex}
-\input{Sections/03CodeCoverage.tex}
-\input{Sections/04DesignByContract.tex}
-\input{Sections/05Design.tex}
+\input{ImplementationAndTest/Sections/00Forfatterskab.tex}
+\input{ImplementationAndTest/Sections/01Programstruktur.tex}
+\input{ImplementationAndTest/Sections/02WhiteBoxTest.tex}
+\input{ImplementationAndTest/Sections/03CodeCoverage.tex}
+\input{ImplementationAndTest/Sections/04DesignByContract.tex}
+\input{ImplementationAndTest/Sections/05Design.tex}
 \input{ImplementationAndTest/Sections/06SOLID}
-\input{Sections/07Konklusion.tex}
+\input{ImplementationAndTest/Sections/07Konklusion.tex}
 %Bibliography herunder:
 %\newpage
 
@@ -255,6 +255,6 @@ separate-uncertainty-units = single ,
 %\newpage
 \listoflistings
 %Appendicer herunder:
-\input{Sections/Appendix.tex}
+\input{ImplementationAndTest/Sections/Appendix.tex}
 
 \end{document}
