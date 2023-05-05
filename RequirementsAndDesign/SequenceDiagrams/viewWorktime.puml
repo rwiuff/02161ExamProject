@@ -1,0 +1,46 @@
+@startuml seqViewWorktime
+autonumber
+hide footbox
+skinparam style strictuml
+hide unlinked
+actor "Employee" as employee
+participant "TaskFusion" as app << (C,#ADD1B2) >>
+participant "ProjectFacade" as projectfacade << (C,#ADD1B2) >>
+participant "ProjectRepository" as projectrepo << (C,#ADD1B2) >>
+participant "Project" as project << (C,#ADD1B2) >>
+participant "ProjectActivity" as projectactivity << (C,#ADD1B2) >>
+collections "List<WorktimeRegistrations> worktimesRegistrations" as wts << (L, DarkCyan) >>
+participant "WorktimeRegistration" as wt << (C,#ADD1B2) >>
+collections "List<WorktimeRegistrations> userWorktimeRegistrasions" as empwts << (L, DarkCyan) >>
+employee -> app++: View worktime registrations
+app -> projectfacade--++: getUserWorktimeRegistrations(activityTitle, projectNumber)
+projectfacade -> projectfacade: requireLogin()
+projectfacade -> app--++: isLoggedIn()
+alt loggedInUser == null
+    app -> projectfacade++: false
+    projectfacade --> app--: OperationNotAllowedException
+    app --> employee: "Login krævet"
+else
+    app -> projectfacade--++: true
+    projectfacade -> projectrepo++: findByProjectNumuber(projectNumber)
+    projectrepo --> projectfacade--: Project
+    projectfacade -> project++: findProjectActivity(activityTitle)
+    project --> projectfacade--: ProjectActivity
+    projectfacade -> projectactivity--++: getWorktimeRegistrationsForEmployee(initials)
+    projectactivity -> empwts**: <<create>>
+    loop registrations in WorktimeRegistrations
+        projectactivity -> wts++: getInitials()
+        wts -> wt++: getInitials()
+        wt --> wts--: initials
+        wts --> projectactivity--: initials
+        alt if initials == loggedInUserInitials
+            projectactivity -> empwts++: add(worktimeRegistration)
+            deactivate empwts
+        end
+    end
+    projectactivity --> projectfacade--++: List<userWorktimeRegistrations>
+    projectfacade --> app--++: List<userWorktimeRegistrations>
+    app --> employee --: List of worktime registrations
+end
+
+@enduml

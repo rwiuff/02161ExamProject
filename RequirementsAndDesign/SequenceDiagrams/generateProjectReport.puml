@@ -1,0 +1,55 @@
+@startuml seqGenerateProjectReport
+autonumber
+hide footbox
+skinparam style strictuml
+hide unlinked
+actor "Employee" as employee
+participant "TaskFusion" as app << (C,#ADD1B2) >>
+participant "ProjectFacade" as projectfacade << (C,#ADD1B2) >>
+participant "ProjectRepository" as projectrepo << (C,#ADD1B2) >>
+participant "DateServer" as ds << (C,#ADD1B2) >>
+participant "Report" as report << (C,#ADD1B2) >>
+participant "Project" as project << (C,#ADD1B2) >>
+participant "ProjectActivity" as projectactivity << (C,#ADD1B2) >>
+collections "List<WorktimeRegistrations> worktimesRegistrations" as wts << (L, DarkCyan) >>
+participant "WorktimeRegistration" as wt << (C,#ADD1B2) >>
+collections "List<WorktimeRegistrations> userWorktimeRegistrasions" as empwts << (L, DarkCyan) >>
+employee -> app++: Generate project report
+app -> projectfacade--++: generateProjectReport(projectNumber)
+projectfacade -> projectfacade: requireLogin()
+projectfacade -> app--++: isLoggedIn()
+alt loggedInUser == null
+    app -> projectfacade++: false
+    projectfacade --> app--: OperationNotAllowedException
+    app --> employee: "Login krævet"
+else
+    app -> projectfacade--++: true
+    projectfacade -> projectrepo++: findByProjectNumber()
+    projectrepo --> projectfacade--: Project
+    projectfacade --> app--++: getDate()
+    app -> ds++: getDate()
+    ds --> app--: Calendar date
+    app -> projectfacade--++: Calendar date
+    projectfacade -> report**: <<create>> project, date, loggedInUser
+    deactivate projectfacade
+    activate report
+    report -> report: getProjectLeader()
+    report -> report: loggedInUser.equals(projectLeader)
+    alt projectLeader == null
+        report --> app++: NotFoundException
+        app --> employee--: "Projektet mangler en projektleder\n for at genererer rapporter"
+    else loggedInUser != projectLeader
+        report --> app++: OperationNotAllowedException
+        app --> employee--: "Kun projektlederen kan generere rapporter"
+    else
+        report -> project++: get information
+        project --> report--: information
+        report -> report: set information
+        report --> projectfacade--++:
+        projectfacade -> project++: addLatestReport(report)
+        project --> projectfacade--:
+        projectfacade --> app--++:
+        app --> employee--: "Report genereret"
+    end
+end
+@enduml

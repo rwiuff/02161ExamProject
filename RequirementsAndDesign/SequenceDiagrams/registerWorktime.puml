@@ -38,18 +38,18 @@ else
     projectfacade -> projectactivity--++: registerWorktime(loggedInUser, Calendar, time)
     projectactivity -> projectactivity: hasRegularActivities()
     alt hasRegularActivities == true
-    projectactivity --> app++: OperationNotAllowedException
-    app --> employee--: "Medarbejderen er optaget af en fast aktivitet"
+        projectactivity --> app++: OperationNotAllowedException
+        app --> employee--: "Medarbejderen er optaget af en fast aktivitet"
     else
-    projectactivity -> wt**: <<create>>
-    deactivate projectactivity
-    activate wt
-    wt -> projectrepo++: generateWorktimeRegistrationID()
-    projectrepo --> wt--: id
-    deactivate wt
-    projectactivity -> projectactivity++: worktimeRegistrations.add(WorktimeRegistration)
-    projectactivity --> app--++:
-    app --> employee--: "Tidsregistrering oprettet"
+        projectactivity -> wt**: <<create>>
+        deactivate projectactivity
+        activate wt
+        wt -> projectrepo++: generateWorktimeRegistrationID()
+        projectrepo --> wt--: id
+        deactivate wt
+        projectactivity -> projectactivity++: worktimeRegistrations.add(WorktimeRegistration)
+        projectactivity --> app--++:
+        app --> employee--: "Tidsregistrering oprettet"
+    end
 end
-
-@enduml
+    @enduml
