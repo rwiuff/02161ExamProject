@@ -1,7 +1,14 @@
 % !TeX root = ..\..\rapport_13_2.tex
 \section{White box test\label{chap:white_box}}
-\subsection{createInitials()}\label{sec:white_box_create_initials}
+I dette afsnit testes fire metoder med white box test ved brug af \textit{JUnit}. Kildekode af hver metode vises, tabeller med information vedr. input og \textit{excecution paths} er ligeledes fremme. Formidlingsmæssigt, er det blevet valgt at vise de execution paths i koden med det pågældende test-sæt, således at det er tydeligt at observere, hvor og under hvilke omstændigheder disse paths aktiveres. Dette gør det desuden nemt at se, at alle udfald bliver testet.
 
+\subsection{createInitials()}\label{sec:white_box_create_initials}
+For at garantere at createInitials() fungerer efter intentionen og som angivet i kommentaren over metodedefinitionen i klassen Employee, skal vi sikre, at initialerne genereres i den rækkefølge, der er defineret af den kommentar (se \cref{lst:comment}), og at metoden kaster en undtagelse, når det forventes. JUnit-implementeringen af denne test er at finde i \textit{EmployeeTest.java}.
+\begin{listing}[H]
+    \centering
+    \caption{Kommentar til createInitials() kildekode}\label{lst:comment}
+    \java{TaskFusion/src/main/java/taskfusion/domain/Employee.java}{45}{57}
+\end{listing}
 \begin{listing}[H]
     \centering
     \caption{createInitials() kildekode med execution paths}\label{lst:create_initials_source}
@@ -27,9 +34,8 @@ private void createInitials() throws ExhaustedOptionsException {
 }
     \end{minted}
 \end{listing}
-
 \noindent
-For at gøre det bruger vi de execution paths, der er angivet i fig. \ref{lst:create_initials_source} og skriver input-sæt, der sikrer, at alle execution paths dækkes.
+For at dække alle branches går vi igennem de execution paths, som angivet i Listing \ref{lst:create_initials_source} og afdækker dem med test der bruger de input-sæt, der kan ses nedenunder.
 \begin{table}[H]
 \centering
 \caption{Execution paths i createInitials()}\label{tbl:create_initials_paths}
@@ -59,7 +65,7 @@ C         & {The employee repository has five employees named\\~Michael Laudrup,
 \end{tblr}
 \end{table}
 \subsection{generateProjectNumber()} \label{sec:white_box_generate_project_number}
-
+Hvert projekt har et unikt projektnummer, der består af årstallet, hvor projektet er iværksat, samt et løbenummer. Det løbenummer vil blive genereret ud fra antallet af projekter i det pågældende år. F.eks. vil første projekt i året 2023 have projektnummeret 23001, det næste 23002 osv. i stigende rækkefølge. JUnit-implementeringen af denne test kan findes i \textit{ProjectTest.java}.
 
 \begin{listing}[H]
     \centering
@@ -123,7 +129,7 @@ F         & The current year is 2023 and there are no projects                  
 \end{table}
 
 \subsection{createProjectActivity() \label{chap:white_box_create_project_activity}} 
-Der kan oprettes projektaktiviteter for et projekt objekt. For at oprette en projektaktivitet kræves det, at en medarbejder er logget ind, og at der gives en titel, start- og slutuge for projektaktivitet. Derudover er det kun projektledere, der kan oprette aktiviteter, såfremt at der er tildelt en projektleder til projektet. Herunder i \ref{lst:create_project_activity_source} er et udsnit af Project.java inklusiv metoden der laves white box test af. White box testen udføres i praksis med JUnit med filen CreateProjectActivityTest.java.
+Der kan oprettes projektaktiviteter for et projekt objekt. For at oprette en projektaktivitet kræves det, at en medarbejder er logget ind, og at der gives en titel, start- og slutuge for projektaktivitet. Derudover er det kun projektledere, der kan oprette aktiviteter, såfremt at der er tildelt en projektleder til projektet. Herunder i \ref{lst:create_project_activity_source} er et udsnit af Project.java inklusiv metoden der laves white box test af. White box testen udføres i praksis med JUnit med filen \textit{CreateProjectActivityTest.java}.
 
 
 \begin{listing}[H]
@@ -290,7 +296,7 @@ E &
 
 For et givet projekt kan der oprettes projektaktiviteter, hvor en medarbejder kan angive mængden af arbejdstid han/hun har brugt på den pågældende aktivitet. Disse registreringer af arbejdstid bliver gemt med et id-nummer, som består af de positive naturlige tal og løber fra 1 og op. Dermed er det muligt at finde specifikke registreringer ud fra id-nummeret, og hertil benyttes metoden \texttt{findWorkTimeRegistrationById()}. 
 
-Såfremt at id nummeret man søger efter matcher det af en arbejdstidsregistrering, returneres den pågældende registrering. Hvis ikke der er et match, kastes en NotFoundException. Dette tester vi.
+Såfremt at id nummeret man søger efter matcher det af en arbejdstidsregistrering, returneres den pågældende registrering. Hvis ikke der er et match, kastes en NotFoundException. Dette tester vi i filen \textit{WorktimeRegistrationTest.java}.
 
 \begin{listing}[H]
     \centering

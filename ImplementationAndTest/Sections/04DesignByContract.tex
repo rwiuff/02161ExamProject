@@ -55,8 +55,6 @@ public static String generateProjectNumber(Calendar date) {
 }
     \end{minted}
 \end{listing}
-\noindent
-I virkeligheden er der to postconditions, i tilfælde af at preconditionen holder, sættes Employee-instancens initials-felt til init, i tilfælde af at den overtrædes, kastes en ExhaustedOptionsException.\\[4mm]
 \subsection{createInitials()} \label{sec:contract_create_initials}
 \underline{Precondition:}
 \vspace{4pt}
@@ -108,7 +106,7 @@ private void createInitials() throws ExhaustedOptionsException {
     \end{minted}
 \end{listing}
 \noindent
-Implicit garanteres det, der står i createInitials' precondition gennem funktionens kørsel, derfor assertes blot true som precondition. I virkeligheden er der to postconditions: I tilfælde af at preconditionen holder, sættes Employee-instansens initials-felt til init, og i tilfælde af at den overtrædes, kastes en ExhaustedOptionsException.\\[4mm]
+Implicit garanteres det, der står i createInitials' precondition gennem funktionens kørsel, hvorfor der assertes true som precondition. I virkeligheden er der to postconditions: I tilfælde af at preconditionen holder, sættes Employee-instansens initials-felt til init, og i tilfælde af at den overtrædes, kastes en ExhaustedOptionsException.\\[4mm]
 
 \subsection{createProjectActivity()} \label{sec:contract_create_project_activity}
 \underline{Precondition:}

@@ -3,7 +3,7 @@
 Følgende tabeller er dannet fra coverage-programmets output.
 \begin{table}[!ht]
     \centering
-    \caption{Coverage for applikationslaget}
+    \caption{Coverage for applikationslaget}\label{tbl:cov_app}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
     \hline
         Element & Cov (instructions) & Cov (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
@@ -14,7 +14,7 @@ Følgende tabeller er dannet fra coverage-programmets output.
 \end{table}
 \begin{table}[!ht]
     \centering
-    \caption{Coverage for domænelaget}
+    \caption{Coverage for domænelaget}\label{tbl:cov_domain}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
     \hline
         Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
@@ -31,7 +31,7 @@ Følgende tabeller er dannet fra coverage-programmets output.
 \end{table}
 \begin{table}[!ht]
     \centering
-    \caption{Coverage for exceptions}
+    \caption{Coverage for exceptions}\label{tbl:cov_exceptions}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
     \hline
         Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
@@ -45,7 +45,7 @@ Følgende tabeller er dannet fra coverage-programmets output.
 \end{table}
 \begin{table}[!ht]
     \centering
-    \caption{Coverage for facader}
+    \caption{Coverage for facader}\label{tbl:cov_facade}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
     \hline
         Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
@@ -56,7 +56,7 @@ Følgende tabeller er dannet fra coverage-programmets output.
 \end{table}
 \begin{table}[!ht]
     \centering
-    \caption{Coverage for hjælperklasser}
+    \caption{Coverage for hjælperklasser}\label{tbl:cov_helpers}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
     \hline
         Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
@@ -67,7 +67,7 @@ Følgende tabeller er dannet fra coverage-programmets output.
 \end{table}
 \begin{table}[!ht]
     \centering
-    \caption{Coverage for persistency-laget}
+    \caption{Coverage for persistency-laget}\label{tbl:cov_persist}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
     \hline
         Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed Lines & Missed & Methods & Missed & Classes & ~ \\ \hline
@@ -79,7 +79,7 @@ Følgende tabeller er dannet fra coverage-programmets output.
 \end{table}
 \begin{table}[!ht]
     \centering
-    \caption{Coverage for ViewModels}
+    \caption{Coverage for ViewModels}\label{tbl:cov_viewmodels}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
     \hline
         Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
@@ -93,6 +93,8 @@ Følgende tabeller er dannet fra coverage-programmets output.
         Total & 100\% & 100\% & 0 & 22 & 0 & 87 & 0 & 13 & 0 & 7 \\ \hline
     \end{tabular}}
 \end{table}
-Som det fremgår af alle ovenstående figurer, er vores coverage på 100 procent, som det forventes ved god praksis af TDD. Målet var først en kende lavere (omtrent 91 procent), hovedsageligt på grund af komplekse if-udtryk, hvor en eller flere delbranches ikke var dækket af de cucumber-features, vi havde skrevet. Med delbranches fra en branch hvor der opstår flere branches pga. permutationer af et if-udtryk med flere conditions. F.eks. giver if (jegErSulten() \&\& jegHarSpist()) fire mulige delbranches: sand (begge er sande), falsk (den første er sand, anden ikke), falsk (omvendt af tidligere), og falsk (ingen af dem er sande). Af den mængde var vi interesserede i færre tilfælde end dem alle, hvorfor coverage faldt fra 100 procent. Dette løstes i nogle tilfælde ved refactoring (ved særligt grelle if-udtryk) eller tilføjelse af nye scenarier, hvis man havde overset et relevant scenarie. De fleste løstes ved tilføjelser til cucumber-scenarier.\\[4mm] En sidste nævneværdig årsag er future-proofing, særligt i generateProjectNumber, hvor lastNum sattes til num, hvis num var større end lastNum. Dette var gjort i starten af projektet med henblik på at gøre koden mindre afhængig af den samling, der eventuelt skulle indeholde alle projekter. I sidste ende lagredes projekter i et Map, der tilfældigvis hasher projektnumrene, så de eksisterer i mappets keySet i stigende rækkefølge indenfor samme år, hvorfor tjekket til sidst fjernedes. 
 
-Hele præsentations-laget er ikke udviklet test-drevent, derfor er hele \textit{cli} mappen ikke inkluderet i code-coverage rapporten. Ved at ekskludere hele laget fra code-coverage, har vi også bedre haft styr på validiteten af program-laget, og netop kunne opnå 100\% dækning.
+\noindent
+Som det fremgår af \cref{tbl:cov_app,tbl:cov_domain,tbl:cov_exceptions,tbl:cov_facade,tbl:cov_helpers,tbl:cov_persist,tbl:cov_viewmodels}, er vores coverage på 100 procent, som det forventes ved god praksis af TDD. Målet var først en kende lavere (omtrent 91 procent), hovedsageligt på grund af komplekse if-udtryk, hvor en eller flere delbranches ikke var dækket af de cucumber-features, vi havde skrevet. F.eks. giver if (jegErSulten() \&\& jegHarSpist()) fire mulige delbranches: sand (begge er sande), falsk (den første er sand, anden ikke), falsk (omvendt af tidligere), og falsk (ingen af dem er sande). Af den mængde var vi interesseret i færre tilfælde end dem alle, hvorfor coverage faldt fra 100 procent. Dette blev løst i nogle tilfælde ved refactoring (særligt ved grelle if-udtryk) eller ved tilføjelse af nye scenarier, hvis man havde overset et relevant scenarie. De fleste blev løst ved tilføjelser af cucumber-scenarier.\\[4mm] En sidste nævneværdig årsag er future-proofing, særligt i generateProjectNumber, hvor lastNum sattes til num, hvis num var større end lastNum. Dette var gjort i starten af projektet med henblik på at gøre koden mindre afhængig af den samling, der eventuelt skulle indeholde alle projekter. I sidste ende blev projekter lagret i et Map, der tilfældigvis hasher projektnumrene, så de eksisterer i mappens keySet i stigende rækkefølge indenfor samme år, hvorfor tjekket til sidst blev fjernet. 
+
+Hele præsentations-laget er ikke udviklet test-drevent, derfor er hele \textit{cli} mappen ikke inkluderet i code-coverage rapporten. Ved at ekskludere hele laget fra code-coverage rapporten har det været muligt at have bedre styr på validiteten af business-laget, og netop kunne opnå 100\% dækning.
