@@ -1,0 +1,12 @@
+@startuml seqLogout
+autonumber
+hide footbox
+skinparam style strictuml
+hide unlinked
+actor "Employee" as emp
+participant "TaskFusion" as app << (C,#ADD1B2) >>
+
+emp -> app++: logout()
+app -> app: loggedInUser = null
+app --> emp --:
+@enduml

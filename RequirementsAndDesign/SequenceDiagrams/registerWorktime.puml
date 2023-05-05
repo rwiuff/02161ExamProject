@@ -1,0 +1,55 @@
+@startuml seqRegisterWorktime
+autonumber
+hide footbox
+skinparam style strictuml
+hide unlinked
+actor "Employee" as employee
+participant "TaskFusion" as app << (C,#ADD1B2) >>
+participant "ProjectFacade" as projectfacade << (C,#ADD1B2) >>
+participant "DateServer" as ds << (C,#ADD1B2) >>
+participant "ProjectRepository" as projectrepo << (C,#ADD1B2) >>
+participant "Project" as project << (C,#ADD1B2) >>
+collections "Map<String, Projects> projects" as projects << (M, Crimson) >>
+collections "Map<String, Employee> employees" as emps << (M,Crimson) >>
+participant "ProjectActivity" as projectactivity << (C,#ADD1B2) >>
+participant "ProjectActivityViewModel" as regacvm << (C,#ADD1B2) >>
+participant "WorktimeRegistration" as wt << (C,#ADD1B2) >>
+
+employee -> app++: Register work time
+app -> employee: Promt: time
+employee --> app: time
+app -> projectfacade--++: registerWorktime(projectNumber, activityTitle, time)
+projectfacade -> projectfacade: requireLogin()
+projectfacade -> app--++: isLoggedIn()
+alt loggedInUser == null
+    app --> projectfacade++: false
+    projectfacade --> app--: OperationNotAllowedException
+    app -> employee: "Login krævet"
+else
+    app --> projectfacade++: true
+    projectfacade -> app--: getDate()
+    app -> ds++: getDate()
+    ds --> app--: Calendar date
+    app --> projectfacade--++: date
+    projectfacade -> projectrepo++: findByProjectNumber()
+    projectrepo --> projectfacade--: Project
+    projectfacade -> project++: findProjectActivity()
+    project --> projectfacade--: ProjectActivity
+    projectfacade -> projectactivity--++: registerWorktime(loggedInUser, Calendar, time)
+    projectactivity -> projectactivity: hasRegularActivities()
+    alt hasRegularActivities == true
+    projectactivity --> app++: OperationNotAllowedException
+    app --> employee--: "Medarbejderen er optaget af en fast aktivitet"
+    else
+    projectactivity -> wt**: <<create>>
+    deactivate projectactivity
+    activate wt
+    wt -> projectrepo++: generateWorktimeRegistrationID()
+    projectrepo --> wt--: id
+    deactivate wt
+    projectactivity -> projectactivity++: worktimeRegistrations.add(WorktimeRegistration)
+    projectactivity --> app--++:
+    app --> employee--: "Tidsregistrering oprettet"
+end
+
+@enduml

@@ -1,0 +1,28 @@
+@startuml seqTakePLRole
+autonumber
+hide footbox
+skinparam style strictuml
+hide unlinked
+actor "Employee" as emp
+participant "TaskFusion" as app << (C,#ADD1B2) >>
+participant "ProjectFacade" as projectfacade << (C,#ADD1B2) >>
+participant "ProjectRepo" as projectrepo << (C,#ADD1B2) >>
+participant "Project" as project << (C,#ADD1B2) >>
+
+emp -> app++: Take project leader role
+app -> projectfacade++: takeProjectLeaderRole(projectNumber)
+projectfacade -> app: getLoggedInUserModel()
+app --> projectfacade--: Employee
+projectfacade -> projectrepo++: findByProjectNumber(projectNumber)
+projectrepo --> projectfacade--: Project
+projectfacade -> project--++: setProjectLeader(Emplyee)
+alt !this.projectLeader == null
+    project --> app++: AlreadyExistsException
+    app --> emp--: "Der kan kun være en projektleder"
+else
+    project -> project: this.projectLeader = Employee
+    project --> projectfacade--++
+    projectfacade --> app--++
+    app --> emp--: "Du er nu projektleder på projekt " + projectNumber
+end
+@enduml

@@ -26,12 +26,12 @@
 \usepackage[bitstream-charter]{mathdesign}
 % \usepackage{XCharter}
 \usepackage{babel}
-\usepackage[moderate]{savetrees}
+\usepackage[moderate, mathspacing=normal]{savetrees}
 %Symbols and scientifics
-\usepackage{amsmath, bm}
-\numberwithin{equation}{section}
+\usepackage{bm}
 \usepackage{physics}
 \usepackage{mathtools}
+\numberwithin{equation}{section}
 \usepackage{siunitx}
 \sisetup{
     per-mode = power ,
@@ -111,7 +111,7 @@
 \lhead{\titl \lb Kursus \courseno\ \lb \course \lb \handin}
 \chead{\includegraphics[height=40pt]{RequirementsAndDesign/Graphics/DTU}}
 \rhead{\authOne \ \textbf{\SIDOne} \lb \authTwo \ \textbf{\SIDTwo} \lb \authThree \ \textbf{\SIDThree} \lb \authFour \ \textbf{\SIDFour}}
-\cfoot{Side \thepage\, af \pageref*{LastPage}}
+\cfoot{Side \thepage\, af\, \pageref*{LastPage}}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \setlength{\headheight}{46.80968pt}

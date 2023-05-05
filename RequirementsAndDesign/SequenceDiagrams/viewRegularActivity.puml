@@ -1,0 +1,27 @@
+@startuml seqViewRegularActivity
+autonumber
+hide footbox
+skinparam style strictuml
+hide unlinked
+actor "Employee" as employee
+participant "TaskFusion" as app << (C,#ADD1B2) >>
+participant "EmployeeFacade" as employeefacade << (C,#ADD1B2) >>
+participant "EmployeeRepository" as employeerepo << (C,#ADD1B2) >>
+participant "Employee" as emp << (C,#ADD1B2) >>
+collections "Map<String, Projects> projects" as projects << (M, Crimson) >>
+collections "Map<String, Employee> employees" as emps << (M,Crimson) >>
+participant "RegularActivity" as regularactivity << (C,#ADD1B2) >>
+participant "RegularActivityViewModel" as regacvm << (C,#ADD1B2) >>
+
+employee -> app++: View regular activities
+app -> employeefacade--++: getRegularActivities()
+employeefacade -> employeerepo++: findByInitials()
+employeerepo --> employeefacade--: Employee
+employeefacade -> emp++: getRegularActivities()
+emp --> employeefacade--: List<RegularActivity>
+employeefacade -> regacvm--++: listFromModels(List<RegularActivity>)
+regacvm -> regacvm: listFromModels(List<RegularActivity>)
+regacvm --> employeefacade--++: List<RegularActivityViewModel>
+employeefacade --> app--++: List<RegularActivityViewModel>
+app --> employee--: List of regular activities
+@enduml

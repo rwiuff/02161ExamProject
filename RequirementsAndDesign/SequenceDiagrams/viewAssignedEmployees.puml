@@ -1,0 +1,28 @@
+@startuml seqViewAssignedEmployees
+autonumber
+hide footbox
+skinparam style strictuml
+hide unlinked
+actor "Employee" as employee
+participant "TaskFusion" as app << (C,#ADD1B2) >>
+participant "ProjectFacade" as projectfacade << (C,#ADD1B2) >>
+participant "ProjectRepository" as projectrepo << (C,#ADD1B2) >>
+participant "Project" as project << (C,#ADD1B2) >>
+collections "Map<String, Projects> projects" as projects << (M, Crimson) >>
+collections "Map<String, Employee> employees" as emps << (M,Crimson) >>
+participant "EmployeeViewModel" as empvm << (C,#ADD1B2) >>
+
+employee -> app++: View Assigned Employees, projectNumber
+app -> projectfacade--++: getProjectEmployees(projectNumber)
+projectfacade -> projectrepo--++: getListOfEmployees(projectNumber)
+projectrepo -> projects++: get(projectNumber)
+projects --> projectrepo--: Project
+projectrepo -> project++: getListOfAssignedEmployees()
+project --> projectrepo--: List<Employee>
+projectrepo --> projectfacade--++: List<Employee>
+projectfacade -> empvm--++: listFromModels(List<Employee>)
+empvm -> empvm: listFromModels(List<Employee>)
+empvm --> projectfacade--++: List<EmployeeViewModel>
+projectfacade --> app--++: List<EmployeeViewModel>
+app --> employee--: List of employees
+@enduml

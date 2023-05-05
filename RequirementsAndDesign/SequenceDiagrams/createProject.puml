@@ -1,0 +1,56 @@
+@startuml seqCreateProject
+autonumber
+hide footbox
+skinparam style strictuml
+hide unlinked
+actor "Employee" as emp
+participant "TaskFusion" as app << (C,#ADD1B2) >>
+participant "ProjectFacade" as projectfacade << (C,#ADD1B2) >>
+participant "DateServer" as ds << (C,#ADD1B2) >>
+participant "ProjectRepository" as projectrepo << (C,#ADD1B2) >>
+participant "Project" as project << (C,#ADD1B2) >>
+collections "Map<String, Project> projects" as projects << (M,Crimson) >>
+participant "EmployeeRepositry" as emps << (C,#ADD1B2) >>
+
+emp -> app++: Create project
+app --> emp: Prompt: Title
+emp -> app--: projectTitle
+app -> projectfacade--++: createProject(projectTitle)
+projectfacade -> projectfacade: requireLogin()
+projectfacade -> app--++: isLoggedIn()
+alt loggedInUser == null
+    app --> projectfacade++: false
+    projectfacade --> app--: OperationNotAllowedException
+    app -> emp: "Login krævet"
+else
+    app --> projectfacade++: true
+    projectfacade -> app--: getDate()
+    app -> ds++: getDate()
+    ds --> app--: Calendar date
+    app --> projectfacade++: date
+    projectfacade -> projectrepo--++: create(projectTitle, date)
+    alt projectTitle.length() < 2
+        projectrepo --> app: InvalidPropertyException
+        app --> emp--: "En projekttitel mangler"
+    else
+        projectrepo -> project**: projectTitle, date
+        activate project
+        project -> project: generateProjectNumber(date)
+        project --> projectrepo: Project
+        projectrepo -> project: getProjectNumber()
+        project --> projectrepo--: projectNumber
+        projectrepo -> projects++: put(projectNumber, Project)
+        deactivate projects
+        projectrepo --> projectfacade--++: Project
+        projectfacade -> app++: getLoggedInUser().initials
+        app --> projectfacade--: initials
+        projectfacade -> emps++: finByInitials(initials)
+        emps --> projectfacade--: Employee
+        projectfacade -> project++: assignEmployee(initials, Employee)
+        project -> project: assignedEmployees.put(initials, Employee)
+        project --> projectfacade--
+        projectfacade -> app--++: Project
+        app --> emp--: "Projekt oprettet"
+    end
+end
+@enduml

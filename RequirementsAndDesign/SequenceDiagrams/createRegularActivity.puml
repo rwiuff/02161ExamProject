@@ -1,0 +1,34 @@
+@startuml seqCreateRegularActivity
+autonumber
+hide footbox
+skinparam style strictuml
+hide unlinked
+actor "Employee" as employee
+participant "TaskFusion" as app << (C,#ADD1B2) >>
+participant "EmployeeFacade" as employeefacade << (C,#ADD1B2) >>
+participant "ProjectRepository" as projectrepo << (C,#ADD1B2) >>
+participant "Employee" as emp << (C,#ADD1B2) >>
+collections "Map<String, Projects> projects" as projects << (M, Crimson) >>
+collections "Map<String, Employee> employees" as emps << (M,Crimson) >>
+participant "RegularActivity" as regularactivity << (C,#ADD1B2) >>
+
+employee -> app++: Create Regular activity
+app --> employee: Promt: Title, Start week, End week
+employee -> app: title, startWeek, endWeek
+app -> employeefacade--++: createRegularActivity(title, startWeek, endWeek)
+employeefacade -> employeefacade: requireLogin()
+employeefacade -> app--++: isLoggedIn()
+alt loggedInUser == null
+app -> employeefacade++: false
+employeefacade --> app--: OperationNotAllowedException
+app --> employee: "Login krævet"
+else
+app -> employeefacade--++: true
+employeefacade -> regularactivity**: <<create>> title, startWeek, endWeek
+employeefacade -> emp--++: addRegularActivity(regularActivity)
+emp -> emp: regularActivities.add(regularActivity)
+emp --> employeefacade--++:
+employeefacade --> app--++:
+app --> employee--: "Fast aktivitet oprettet"
+end
+@enduml

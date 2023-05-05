@@ -1,0 +1,71 @@
+@startuml seqCreateProjectActivity
+autonumber
+hide footbox
+skinparam style strictuml
+hide unlinked
+actor "Employee" as employee
+participant "TaskFusion" as app << (C,#ADD1B2) >>
+participant "ProjectFacade" as projectfacade << (C,#ADD1B2) >>
+participant "ProjectRepository" as projectrepo << (C,#ADD1B2) >>
+participant "Project" as project << (C,#ADD1B2) >>
+collections "Map<String, Projects> projects" as projects << (M, Crimson) >>
+collections "Map<String, Employee> employees" as emps << (M,Crimson) >>
+participant "ProjectActivity" as projectactivity << (C,#ADD1B2) >>
+
+employee -> app++: Create project activity
+app --> employee: Promt: Title, Start week, End week
+employee -> app: title, startWeek, endWeek
+app -> projectfacade--++: createProjectActivity(projectNumber, title, startWeek, endWeek)
+projectfacade -> projectfacade: requireLogin()
+projectfacade -> app--++: isLoggedIn()
+alt loggedInUser == null
+app -> projectfacade++: false
+projectfacade --> app--: OperationNotAllowedException
+app --> employee: "Login krævet"
+else
+app -> projectfacade--++: true
+projectfacade -> projectrepo++: findByProjectNumber(projectNumber)
+projectrepo --> projectfacade--: Project
+projectfacade -> app++: getLoggedInUserModel()
+app --> projectfacade--: Employee
+projectfacade -> project--++: createProjectActivity(title, startWeek, endWeek, Employee)
+project -> project: hasProjectLeader()
+alt !projectLeader.isSameAs(Employee)
+project --> app++: OperationNotAllowedException
+app --> employee--: "Kun projektlederen kan oprette en projekt aktivitet for dette projekt"
+end
+project -> project: hasProjectActivity(title)
+alt hasProjectActivity(title) == true
+project --> app++: AlreadyExistsException
+app --> employee--: "Projekt aktivitet findes allerede"
+end
+project -> projectactivity**: <<create>> (title, startWeek, endWeek)
+activate projectactivity
+alt title = ""
+projectactivity --> app++: InvalidPropertyException
+app --> employee: "En titel mangler"
+end
+alt startWeek = ""
+projectactivity --> app: InvalidPropertyException
+app --> employee: "En start uge mangler"
+end
+alt endWeek = ""
+projectactivity --> app: InvalidPropertyException
+app --> employee: "En slut uge mangler"
+end
+alt startWeek.length() != 4 || endWeek.length() != 4
+projectactivity --> app: InvalidPropertyException
+app --> employee: "Start uge og slut uge skal angives med fire cifre"
+end
+alt startWeek.year > endWeek.year
+projectactivity --> app: InvalidPropertyException
+app --> employee: "Start år skal være før eller ens med slut år"
+end
+alt startWeek.week > endWeek.week
+projectactivity --> app--: InvalidPropertyException
+app --> employee--: "Start uge skal være før eller ens med slut uge"
+end
+project -> project: activities.add(projectactivity)
+project --> app--++
+app --> employee--: "Oprettet"
+@enduml

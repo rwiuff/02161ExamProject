@@ -1,0 +1,41 @@
+@startuml seqSetTimeBudget
+autonumber
+hide footbox
+skinparam style strictuml
+hide unlinked
+actor "Employee" as employee
+participant "TaskFusion" as app << (C,#ADD1B2) >>
+participant "ProjectFacade" as projectfacade << (C,#ADD1B2) >>
+participant "ProjectRepository" as projectrepo << (C,#ADD1B2) >>
+participant "Project" as project << (C,#ADD1B2) >>
+collections "Map<String, Projects> projects" as projects << (M, Crimson) >>
+collections "Map<String, Employee> employees" as emps << (M,Crimson) >>
+participant "ProjectActivity" as projectactivity << (C,#ADD1B2) >>
+
+employee -> app++: Set time budget
+app --> employee: Promt: time
+employee -> app: time
+app -> projectfacade--++: setTimeBudget(projectNumber, activityTitle, time)
+projectfacade -> projectfacade: requireLogin()
+projectfacade -> app--++: isLoggedIn()
+alt loggedInUser == null
+    app --> projectfacade++: false
+    projectfacade --> app--: OperationNotAllowedException
+    app -> employee: "Login krævet"
+else
+    app --> projectfacade++: true
+    projectfacade -> projectrepo++: findByProjectNumber(projectNumber)
+    projectrepo --> projectfacade--: Project
+    projectfacade -> project--++: setActivityTimeBudget(activityTitle, time)
+    alt projectLeader == null OR projectLeader.isSameAs(loggedInUser)
+        project -> project: findProjectActivity(activityTitle)
+        project -> projectactivity++: setTimeBudget(time)
+        projectactivity -> projectactivity: this.timeBudget = time
+        deactivate projectactivity
+        project --> app
+        app --> employee--: "Tidsbudget indstillet"
+    else
+        project --> app--++: OperationNotAllowedException
+        app --> employee--: "Kun projektlederen kan tildele tidsbudgetter"
+    end
+    @enduml
