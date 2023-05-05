@@ -1,28 +1,37 @@
 % !TeX root = ..\rapport_13_2.tex
 \section{Design by contract}\label{chap:design_by_contract}
 
+I dette afsnit er fire metoder udvalgt til Design by Contract. De tilhørende assertions af preconditions og postconditions benyttet kan også ses i koden. 
+
+Grundet kombinationen mellem cucumber tests og implementering af DbC vil flere assertions kun have 1 branch testet, hvilket vil give anledning til mindre code coverage, selvom alle scenarier bliver testet. Derfor er assertions blevet udkommenteret i kildekoden og kan altså stadig ses i alle de fire nævnte metoder. Tanker og idéer til hvordan dette kunne være undgået diskuteres i konklusionskapitlet.
+
+
 \subsection{generateProjectNumber} \label{sec:contract_generate_project_number}
-pre: 
+\underline{Precondition:}
+\vspace{4pt}
+
 \begin{align}
     date \neq null
 \end{align}
-post:
+\vspace{4pt}
+
+\noindent
+\underline{Postcondition:}
+\vspace{4pt}
+
 \begin{align}
     \text{result } = \{s|\exists p \in projectRepository.getProjectNumbers : s \in p \land p = previousLargestProjectNumber + 1\}
 \end{align}
-\begin{align}
-    3 + 4 = 7
-\end{align}
 \newline
 \noindent
-Med asserts ser det ud som følger:
+Med assertions ser det ud som følger:
 
 \begin{listing}[H]
     \centering
     \caption{generateProjectNumber() med assertions}\label{lst:cgenerate_project_number_assertions}
     \begin{minted}[breaklines]{java}
 public static String generateProjectNumber(Calendar date) {
-  assert date != null // pre
+  assert date != null // Precondition
   int year = DateHelper.twoDigitYearFromDate(date);
   int num = 0;
 
@@ -35,7 +44,7 @@ public static String generateProjectNumber(Calendar date) {
 
   int previousProjectNumber = (year * 100) + num;
   int nextProjectNumber = (year * 1000) + num + 1;
-  assert nextProjectNumber == previousProjectNumber + 1; // post
+  assert nextProjectNumber == previousProjectNumber + 1; // Postcondition
   
   if (nextProjectNumber < 10000) {
       return "0" + nextProjectNumber;
@@ -49,14 +58,24 @@ public static String generateProjectNumber(Calendar date) {
 \noindent
 I virkeligheden er der to postconditions, i tilfælde af at preconditionen holder, sættes Employee-instancens initials-felt til init, i tilfælde af at den overtrædes, kastes en ExhaustedOptionsException.\\[4mm]
 \subsection{createInitials()} \label{sec:contract_create_initials}
-pre:
+\underline{Precondition:}
+\vspace{4pt}
+
 \begin{equation}
     nEmployeesWithName(employee) < maxInitials(employee)
 \end{equation}
-post:
+\vspace{4pt}
+
+\noindent
+\underline{Postcondition:}
+\vspace{4pt}
+
 \begin{equation}
     \{s | \exists e \in employeeRepository : s \in e.getInitials()\}
 \end{equation}
+\vspace{4pt}
+
+\noindent
 Hvor maxInitials(employee) er $n$ vælg 2, hvor $n$ er længden af efternavnet, og duplikater fjernes i generationen af kombinationer.
 I "Laudrup" (længde 7, $7 \choose 2$=21) går "lu", "au", "up" igen to gange, hvorfor der fås 18 og ikke de forventede 21. Der forklarer hvorfor white-box testens input er konstrueret som det er.\\[4mm]
 Med asserts ser det ud som følger
@@ -67,7 +86,7 @@ Med asserts ser det ud som følger
     \begin{minted}[breaklines]{java}
 private void createInitials() throws ExhaustedOptionsException {
     EmployeeRepository employeeRepo = EmployeeRepository.getInstance();
-    assert true; // pre
+    assert true; // Precondition
 
     for (int l1 = 0; l1 < lastName.length(); l1++) {
       for (int l2 = l1 + 1; l2 < lastName.length(); l2++) {
@@ -78,7 +97,7 @@ private void createInitials() throws ExhaustedOptionsException {
         init = init.toLowerCase();
         if (!employeeRepo.initialsExist(init)) {
           this.initials = init;
-          assert this.initials == init; // post
+          assert this.initials == init; // Postcondition
           return;
         }
       }
@@ -89,15 +108,21 @@ private void createInitials() throws ExhaustedOptionsException {
     \end{minted}
 \end{listing}
 \noindent
-Implicit garanteres det der står i createInitials' precondition gennem funktionens kørsel, derfor assertes blot true som precondition. I virkeligheden er der to postconditions, i tilfælde af at preconditionen holder, sættes Employee-instancens initials-felt til init, i tilfælde af at den overtrædes, kastes en ExhaustedOptionsException.\\[4mm]
+Implicit garanteres det, der står i createInitials' precondition gennem funktionens kørsel, derfor assertes blot true som precondition. I virkeligheden er der to postconditions: I tilfælde af at preconditionen holder, sættes Employee-instansens initials-felt til init, og i tilfælde af at den overtrædes, kastes en ExhaustedOptionsException.\\[4mm]
 
 \subsection{createProjectActivity()} \label{sec:contract_create_project_activity}
-pre: 
+\underline{Precondition:}
+\vspace{4pt}
+
 \begin{equation}
     title \neq null \wedge startWeek \neq null \wedge endWeek \neq null \wedge loggedInUser \neq null \wedge activities \neq null
 \end{equation}
+\vspace{4pt}
 
-post: 
+\noindent
+\underline{Postcondition:}
+\vspace{4pt}
+
 \begin{equation}
 \begin{gathered}
     activity \in activities \wedge \\
@@ -106,6 +131,7 @@ post:
 \end{gathered}
 \end{equation}
 
+
 \begin{listing}[H]
     \centering
     \caption{createProjectActivity() kildekode med assertions}\label{lst:create_project_activity_assertions}
@@ -113,11 +139,7 @@ post:
   public ProjectActivity createProjectActivity(String title, String startWeek, String endWeek, Employee loggedInUser)
       throws AlreadyExistsException, OperationNotAllowedException, InvalidPropertyException {
 
-    assert title != null;
-    assert startWeek != null;
-    assert endWeek != null;
-    assert loggedInUser != null;
-    assert activities != null;
+    assert title != null && startWeek != null && endWeek != null && loggedInUser != null && activities != null; // Precondition
 
     if (hasProjectLeader()) {
       if (!projectLeader.isSameAs(loggedInUser)) {
@@ -139,7 +161,7 @@ post:
     assert (
       activities.contains(activity) &&
       (!hasProjectLeader() || projectLeader.isSameAs(loggedInUser) )
-    );
+    ); // Postcondition
 
     return activity;
   }
@@ -148,20 +170,26 @@ post:
 
 
 \subsection{findWorktimeRegistrationById()} \label{sec:contract_findd_work}
-\noindent Precondition: I dette tilfælde er vores precondition \texttt{true}, da vores postconditions korrigerer for fejl, så alle tilfælde af inputs fejlhåndteres.
+\noindent \underline{Precondition:}
+\vspace{4pt}
+
+
+I dette tilfælde er vores precondition \texttt{true}, da vores postconditions korrigerer for fejl, så alle tilfælde af inputs fejlhåndteres.
+\vspace{4pt}
 
 %\begin{align}
     %allWorktimeRegistrations().size()\; >\; 0 \;\wedge\; id \; \in %\; \mathbb{N} \; \wedge \; 0 \; < \; id  \; <=\; %allWorktimeRegistrations().size()
 %\end{align}
-
-
 \noindent
-Postcondition: 
+\underline{Postcondition:}
+\vspace{4pt}
+
 \begin{equation}
     \exists i\; :\; (result = i \iff\; \exists worktimeRegistration.getId() \; = \; i\; \lor result = NotFoundException)
 \end{equation}\label{postcondition 1}
+\vspace{4pt}
 
-Det skal nævnes, at postconditionen, i tilfælde af at leddet før $\lor$ i ligningen over 
+Det skal nævnes, at postconditionen vil være exceptionen \texttt{NotFoundException}, i tilfælde af at leddet før $\lor$ i ligningen over ikke er sand.
 
 
 \begin{listing}[H]

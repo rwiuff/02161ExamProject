@@ -1,47 +1,98 @@
 % !TeX root = ..\rapport_13_2.tex
 \section{Code coverage}\label{chap:code_coverage}
-\begin{figure}[H]
+Følgende tabeller er dannet fra coverage-programmets output.
+\begin{table}[!ht]
     \centering
-    \caption{Coverage for klasser i applikationslaget}
-    \includegraphics[width = 12cm, keepaspectratio]{ImplementationAndTest/Diagrams/coverage/coverage_app.png}
-    \label{fig:coverage_app}
-\end{figure}
-\begin{figure}[H]
+    \caption{Coverage for applikationslaget}
+    \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
+    \hline
+        Element & Cov (instructions) & Cov (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
+        TaskFusion & 100\% & 100\% & 0 & 10 & 0 & 16 & 0 & 9 & 0 & 1 \\ 
+        DateServer & 100\% & n/a & 0 & 2 & 0 & 5 & 0 & 2 & 0 & 1 \\ 
+        Total & 100\% & 100\% & 0 & 12 & 0 & 21 & 0 & 11 & 0 & 2 \\ \hline
+    \end{tabular}}
+\end{table}
+\begin{table}[!ht]
     \centering
-    \caption{Coverage for klasser i domænelaget}
-    \includegraphics[width = 14cm, keepaspectratio]{ImplementationAndTest/Diagrams/coverage/coverage_domain.png}
-    \label{fig:coverage_domain}
-\end{figure}
-\begin{figure}[H]
+    \caption{Coverage for domænelaget}
+    \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
+    \hline
+        Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
+        ReportPDFGenerator & 100\% & 0 & 14 & 0 & 164 & 0 & 5 & 0 & 1 & ~ \\ 
+        Project & 100\% & 100\% & 0 & 43 & 0 & 74 & 0 & 24 & 0 & 1 \\ 
+        Employee & 100\% & 100\% & 0 & 28 & 0 & 53 & 0 & 15 & 0 & 1 \\ 
+        ProjectActivity & 100\% & 100\% & 0 & 18 & 0 & 36 & 0 & 12 & 0 & 1 \\ 
+        Activity & 100\% & 100\% & 0 & 12 & 0 & 21 & 0 & 4 & 0 & 1 \\ 
+        Report & 100\% & 100\% & 0 & 14 & 0 & 27 & 0 & 12 & 0 & 1 \\ 
+        WorktimeRegistration & 100\% & n/a & 0 & 7 & 0 & 13 & 0 & 7 & 0 & 1 \\ 
+        RegularActivity & 100\% & n/a & 0 & 3 & 0 & 5 & 0 & 3 & 0 & 1 \\ 
+        Total & 100\% & 100\% & 0 & 139 & 0 & 393 & 0 & 82 & 0 & 8 \\ \hline
+    \end{tabular}}
+\end{table}
+\begin{table}[!ht]
     \centering
     \caption{Coverage for exceptions}
-    \includegraphics[width = 12cm, keepaspectratio]{ImplementationAndTest/Diagrams/coverage/coverage_exceptions.png}
-    \label{fig:coverage_exceptions}
-\end{figure}
-\begin{figure}[H]
+    \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
+    \hline
+        Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
+        NotFoundException & 100\% & n/a & 0 & 1 & 0 & 2 & 0 & 1 & 0 & 1 \\ 
+        AlreadExistsException & 100\% & n/a & 0 & 1 & 0 & 2 & 0 & 1 & 0 & 1 \\ 
+        InvalidProeeduEzcgption & 100\% & n/a & 0 & 1 & 0 & 2 & 0 & 1 & 0 & 1 \\ 
+        OperationNotAllowedException & 100\% & n/a & 0 & 1 & 0 & 2 & 0 & 1 & 0 & 1 \\ 
+        ExhaustedOptionsException & 100\% & n/a & 0 & 1 & 0 & 2 & 0 & 1 & 0 & 1 \\ 
+        Total & 100\% & n/a & 0 & 5 & 0 & 10 & 0 & 5 & 0 & 5 \\ \hline
+    \end{tabular}}
+\end{table}
+\begin{table}[!ht]
     \centering
     \caption{Coverage for facader}
-    \includegraphics[width = 12cm, keepaspectratio]{ImplementationAndTest/Diagrams/coverage/coverage_facades.png}
-    \label{fig:coverage_facades}
-\end{figure}
-\begin{figure}[H]
+    \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
+    \hline
+        Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
+        ProjectFacade & 100\% & 100\% & 0 & 24 & 0 & 71 & 0 & 21 & 0 & 1 \\ 
+        EmployeeFacade & 100\% & 100\% & 0 & 11 & 0 & 23 & 0 & 9 & 0 & 1 \\ 
+        Total & 100\% & 100\% & 0 & 35 & 0 & 94 & 0 & 30 & 0 & 2 \\ \hline
+    \end{tabular}}
+\end{table}
+\begin{table}[!ht]
     \centering
     \caption{Coverage for hjælperklasser}
-    \includegraphics[width = 12cm, keepaspectratio]{ImplementationAndTest/Diagrams/coverage/coverage_helpers.png}
-    \label{fig:coverage_helpers}
-\end{figure}
-\begin{figure}[H]
+    \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
+    \hline
+        Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
+        PrintHelper & 100\% & 100\% & 0 & 7 & 0 & 13 & 0 & 4 & 0 & 1 \\ 
+        DateHelper & 100\% & 100\% & 0 & 6 & 0 & 10 & 0 & 4 & 0 & 1 \\ 
+        Total & 100\% & 100\% & 0 & 13 & 0 & 23 & 0 & 8 & 0 & 2 \\ \hline
+    \end{tabular}}
+\end{table}
+\begin{table}[!ht]
     \centering
-    \caption{Coverage for klasser i persistency-laget}
-    \includegraphics[width = 12cm, keepaspectratio]{ImplementationAndTest/Diagrams/coverage/coverage_persistency.png}
-    \label{fig:coverage_persistency}
-\end{figure}
-\begin{figure}[H]
+    \caption{Coverage for persistency-laget}
+    \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
+    \hline
+        Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed Lines & Missed & Methods & Missed & Classes & ~ \\ \hline
+        Seeder & 100\% & 100\% & 0 & 9 & 0 & 45 & 0 & 7 & 0 & 1 \\ 
+        ProjectRepository & 100\% & 100\% & 0 & 16 & 0 & 33 & 0 & 10 & 0 & 1 \\ 
+        EmployeeRepository & 100\% & 100\% & 0 & 15 & 0 & 35 & 0 & 10 & 0 & 1 \\ 
+        Total & 100\% & 100\% & 0 & 40 & 0 & 113 & 0 & 27 & 0 & 3 \\ \hline
+    \end{tabular}}
+\end{table}
+\begin{table}[!ht]
     \centering
-    \caption{Coverage for viewModels}
-    \includegraphics[width = 12cm, keepaspectratio]{ImplementationAndTest/Diagrams/coverage/coverage_viewModels.png}
-    \label{fig:coverage_viewModels}
-\end{figure}
+    \caption{Coverage for ViewModels}
+    \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
+    \hline
+        Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
+        ProjectViewModel & 100\% & 100\% & 0 & 6 & 0 & 22 & 0 & 3 & 0 & 1 \\ 
+        ReportViewModel & 100\% & 100\% & 0 & 3 & 0 & 17 & 0 & 1 & 0 & 1 \\ 
+        ActivityViewModel & 100\% & 100\% & 0 & 3 & 0 & 13 & 0 & 2 & 0 & 1 \\ 
+        WorktimeRegistrationViewModel & 100\% & 100\% & 0 & 3 & 0 & 12 & 0 & 2 & 0 & 1 \\ 
+        RegularActivityViewModel & 100\% & 100\% & 0 & 3 & 0 & 11 & 0 & 2 & 0 & 1 \\ 
+        EmployeeViewModel & 100\% & 100\% & 0 & 3 & 0 & 11 & 0 & 2 & 0 & 1 \\ 
+        ViewModel & 100\% & n/a & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\ 
+        Total & 100\% & 100\% & 0 & 22 & 0 & 87 & 0 & 13 & 0 & 7 \\ \hline
+    \end{tabular}}
+\end{table}
 Som det fremgår af alle ovenstående figurer, er vores coverage på 100 procent, som det forventes ved god praksis af TDD. Målet var først en kende lavere (omtrent 91 procent), hovedsageligt på grund af komplekse if-udtryk, hvor en eller flere delbranches ikke var dækket af de cucumber-features, vi havde skrevet. Med delbranches fra en branch hvor der opstår flere branches pga. permutationer af et if-udtryk med flere conditions. F.eks. giver if (jegErSulten() \&\& jegHarSpist()) fire mulige delbranches: sand (begge er sande), falsk (den første er sand, anden ikke), falsk (omvendt af tidligere), og falsk (ingen af dem er sande). Af den mængde var vi interesserede i færre tilfælde end dem alle, hvorfor coverage faldt fra 100 procent. Dette løstes i nogle tilfælde ved refactoring (ved særligt grelle if-udtryk) eller tilføjelse af nye scenarier, hvis man havde overset et relevant scenarie. De fleste løstes ved tilføjelser til cucumber-scenarier.\\[4mm] En sidste nævneværdig årsag er future-proofing, særligt i generateProjectNumber, hvor lastNum sattes til num, hvis num var større end lastNum. Dette var gjort i starten af projektet med henblik på at gøre koden mindre afhængig af den samling, der eventuelt skulle indeholde alle projekter. I sidste ende lagredes projekter i et Map, der tilfældigvis hasher projektnumrene, så de eksisterer i mappets keySet i stigende rækkefølge indenfor samme år, hvorfor tjekket til sidst fjernedes. 
 
 Hele præsentations-laget er ikke udviklet test-drevent, derfor er hele \textit{cli} mappen ikke inkluderet i code-coverage rapporten. Ved at ekskludere hele laget fra code-coverage, har vi også bedre haft styr på validiteten af program-laget, og netop kunne opnå 100\% dækning.
