@@ -90,6 +90,8 @@ private void createInitials() throws ExhaustedOptionsException {
 \end{listing}
 \noindent
 Implicit garanteres det der står i createInitials' precondition gennem funktionens kørsel, derfor assertes blot true som precondition. I virkeligheden er der to postconditions, i tilfælde af at preconditionen holder, sættes Employee-instancens initials-felt til init, i tilfælde af at den overtrædes, kastes en ExhaustedOptionsException.\\[4mm]
+
+\subsection{createProjectActivity()} \label{sec:contract_create_project_activity}
 pre: 
 \begin{equation}
     title \neq null \wedge startWeek \neq null \wedge endWeek \neq null \wedge loggedInUser \neq null \wedge activities \neq null

@@ -47,7 +47,7 @@ public class TaskFusion implements AuthentificationInterface, ProjectFacadeInter
   }
 
   public void login(String initials) throws NotFoundException {
-    loggedInUser = employeeFacade.findEmployeeByInitials(initials);
+    loggedInUser = findEmployeeByInitials(initials);
   }
 
   public boolean isLoggedIn() {
