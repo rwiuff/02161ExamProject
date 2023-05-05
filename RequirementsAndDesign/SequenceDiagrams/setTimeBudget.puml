@@ -15,7 +15,7 @@ participant "ProjectActivity" as projectactivity << (C,#ADD1B2) >>
 employee -> app++: Set time budget
 app --> employee: Promt: time
 employee -> app: time
-app -> projectfacade--++: setTimeBudget(projectNumber, activityTitle, time)
+app -> projectfacade--++: setTimeBudget(\nprojectNumber, activityTitle, time)
 projectfacade -> projectfacade: requireLogin()
 projectfacade -> app--++: isLoggedIn()
 alt loggedInUser == null
@@ -24,11 +24,11 @@ alt loggedInUser == null
     app -> employee: "Login krævet"
 else
     app --> projectfacade++: true
-    projectfacade -> projectrepo++: findByProjectNumber(projectNumber)
+    projectfacade -> projectrepo++: findByProjectNumber(\nprojectNumber)
     projectrepo --> projectfacade--: Project
-    projectfacade -> project--++: setActivityTimeBudget(activityTitle, time)
+    projectfacade -> project--++: setActivityTimeBudget(\nactivityTitle, time)
     alt projectLeader == null OR projectLeader.isSameAs(loggedInUser)
-        project -> project: findProjectActivity(activityTitle)
+        project -> project: findProjectActivity(\nactivityTitle)
         project -> projectactivity++: setTimeBudget(time)
         projectactivity -> projectactivity: this.timeBudget = time
         deactivate projectactivity
@@ -36,6 +36,6 @@ else
         app --> employee--: "Tidsbudget indstillet"
     else
         project --> app--++: OperationNotAllowedException
-        app --> employee--: "Kun projektlederen kan tildele tidsbudgetter"
+        app --> employee--: "Kun projektlederen\nkan tildele tidsbudgetter"
     end
     @enduml

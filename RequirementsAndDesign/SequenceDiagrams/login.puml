@@ -7,13 +7,13 @@ actor "Employee" as emp
 participant "TaskFusion" as app << (C,#ADD1B2) >>
 participant "EmployeeFacade" as empfacade << (C,#ADD1B2) >>
 participant "EmployeeRepository" as emprepo << (C,#ADD1B2) >>
-collections "Map<String, Employee> employees" as emps << (M,Crimson) >>
 participant "Employee" as empl << (C,#ADD1B2) >>
+collections "Map<String, Employee> employees" as emps << (M,Crimson) >>
 participant "EmployeeViewModel" as empvm << (C,#ADD1B2) >>
 emp -> app++: Login
 app --> emp++: Prompt: Initials
 emp -> app--: login(initials)
-app -> empfacade--++: findEmployeeByInitials(initials)
+app -> empfacade--++: findEmployeeByInitials(\ninitials)
 empfacade -> emprepo--++: findByInitials(initials)
 emprepo -> emps--++: get(initials)
 alt Employee == null
@@ -26,7 +26,7 @@ else
     empl -> empvm**: <<create>> toViewModel(this)
     empl --> empfacade--: EmployeeViewModel
     empfacade --> app--++: EmployeeViewModel
-    app -> app: loggedInUser = EmployeeViewModel
+    app -> app: loggedInUser =\nEmployeeViewModel
     app --> emp--: "Login successful"
 end
 @enduml

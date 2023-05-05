@@ -14,22 +14,22 @@ participant "EmployeeRepository" as emprepo << (C,#ADD1B2) >>
 pl -> app++: Assign Employee(initials)
 app -> empfacade++: findByInitials(initials)
 empfacade --> app--: Employee
-app -> projfacade--++: assignEmployeeToProject(projectNumber, initials)
-projfacade -> projrepo--++: findByProjectNumber(projectNumber)
+app -> projfacade--++: assignEmployeeToProject(\nprojectNumber, initials)
+projfacade -> projrepo--++: findByProjectNumber(\nprojectNumber)
 projrepo -> projects++: get(projectNumber)
 projects --> projrepo--: Project
 projrepo --> projfacade--++: Project
 projfacade -> app++: getLoggedInUser
 app --> projfacade--: Employee
-projfacade -> project --++: assignEmployee(initials, Employee)
+projfacade -> project --++: assignEmployee(\ninitials, Employee)
 project -> project: allowAssignEmployeeToProject
 alt projectLeader != null OR loggedInUser != projectLeader
     project --> app++: OperationNotAllowedException
-    app --> pl--: "Kun projektleder kan tildele medarbejdere til projektet"
+    app --> pl--: "Kun projektleder kan tildele\nmedarbejdere til projektet"
 else
     project -> emprepo++: findByInitials(initials)
     emprepo --> project--: Employee
-    project -> project: assignedEmployees.put(initials, Employee)
+    project -> project: assignedEmployees.put(\ninitials, Employee)
     project --> app--++
     app --> pl--: "Tilføjet til projekt"
 end

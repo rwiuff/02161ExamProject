@@ -15,12 +15,12 @@ participant "EmployeeRepositry" as emps << (C,#ADD1B2) >>
 emp -> app++: Create project
 app --> emp: Prompt: Title
 emp -> app--: projectTitle
-app -> projectfacade--++: createProject(projectTitle)
+app -> projectfacade--++: createProject(\nprojectTitle)
 projectfacade -> projectfacade: requireLogin()
 projectfacade -> app--++: isLoggedIn()
 alt loggedInUser == null
     app --> projectfacade++: false
-    projectfacade --> app--: OperationNotAllowedException
+    projectfacade --> app--: OperationNotAllowed\nException
     app -> emp: "Login krævet"
 else
     app --> projectfacade++: true
@@ -30,24 +30,22 @@ else
     app --> projectfacade++: date
     projectfacade -> projectrepo--++: create(projectTitle, date)
     alt projectTitle.length() < 2
-        projectrepo --> app: InvalidPropertyException
+        projectrepo --> app: InvalidProperty\nException
         app --> emp--: "En projekttitel mangler"
     else
         projectrepo -> project**: projectTitle, date
         activate project
-        project -> project: generateProjectNumber(date)
+        project -> project: generateProjectNumber()
         project --> projectrepo: Project
         projectrepo -> project: getProjectNumber()
         project --> projectrepo--: projectNumber
-        projectrepo -> projects++: put(projectNumber, Project)
+        projectrepo -> projects++: put(projectNumber,\nProject)
         deactivate projects
         projectrepo --> projectfacade--++: Project
-        projectfacade -> app++: getLoggedInUser().initials
-        app --> projectfacade--: initials
-        projectfacade -> emps++: finByInitials(initials)
-        emps --> projectfacade--: Employee
+        projectfacade -> app++: getLoggedInUser()
+        app --> projectfacade--: Employee
         projectfacade -> project++: assignEmployee(initials, Employee)
-        project -> project: assignedEmployees.put(initials, Employee)
+        project -> project: assignedEmployees.put(\ninitials, Employee)
         project --> projectfacade--
         projectfacade -> app--++: Project
         app --> emp--: "Projekt oprettet"

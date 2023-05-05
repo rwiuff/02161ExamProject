@@ -15,50 +15,49 @@ participant "ProjectActivity" as projectactivity << (C,#ADD1B2) >>
 employee -> app++: Create project activity
 app --> employee: Promt: Title, Start week, End week
 employee -> app: title, startWeek, endWeek
-app -> projectfacade--++: createProjectActivity(projectNumber,\ntitle, startWeek, endWeek)
+app -> projectfacade--++: createProjectActivity(\nprojectNumber,title,\nstartWeek, endWeek)
 projectfacade -> projectfacade: requireLogin()
 projectfacade -> app--++: isLoggedIn()
 alt loggedInUser == null
     app -> projectfacade++: false
-    projectfacade --> app--: OperationNotAllowedException
+    projectfacade --> app--: OperationNotAllowed\nException
     app --> employee: "Login krævet"
 else
     app -> projectfacade--++: true
-    projectfacade -> projectrepo++: findByProjectNumber(projectNumber)
+    projectfacade -> projectrepo++: findByProjectNumber(\nprojectNumber)
     projectrepo --> projectfacade--: Project
     projectfacade -> app++: getLoggedInUserModel()
     app --> projectfacade--: Employee
-    projectfacade -> project--++: createProjectActivity(title, startWeek,\nendWeek, Employee)
+    projectfacade -> project--++: createProjectActivity(\ntitle, startWeek,\nendWeek, Employee)
     project -> project: hasProjectLeader()
-    alt !projectLeader.isSameAs(Employee)
-        project --> app++: OperationNotAllowedException
-        app --> employee--: "Kun projektlederen kan oprette en projekt aktivitet for dette projekt"
-    end
     project -> project: hasProjectActivity(title)
-    alt hasProjectActivity(title) == true
-        project --> app++: AlreadyExistsException
+    alt !projectLeader.isSameAs(Employee)
+        project --> app++: OperationNotAllowed\nException
+        app --> employee--: "Kun projektlederen kan oprette\nen projekt aktivitet for dette projekt"
+    else hasProjectActivity(title) == true
+        project --> app++: AlreadyExists\nException
         app --> employee--: "Projekt aktivitet findes allerede"
     end
     project -> projectactivity**: <<create>> (title, startWeek, endWeek)
     activate projectactivity
     alt title = ""
-        projectactivity --> app++: InvalidPropertyException
+        projectactivity --> app++: InvalidProperty\nException
         app --> employee: "En titel mangler"
     else startWeek = ""
-        projectactivity --> app: InvalidPropertyException
+        projectactivity --> app: InvalidProperty\nException
         app --> employee: "En start uge mangler"
     else endWeek = ""
-        projectactivity --> app: InvalidPropertyException
+        projectactivity --> app: InvalidProperty\nException
         app --> employee: "En slut uge mangler"
     else startWeek.length() != 4 || endWeek.length() != 4
-        projectactivity --> app: InvalidPropertyException
-        app --> employee: "Start uge og slut uge skal angives med fire cifre"
+        projectactivity --> app: InvalidProperty\nException
+        app --> employee: "Start uge og slut uge\nskal angives med fire cifre"
     else startWeek.year > endWeek.year
-        projectactivity --> app: InvalidPropertyException
-        app --> employee: "Start år skal være før eller ens med slut år"
+        projectactivity --> app: InvalidProperty\nException
+        app --> employee: "Start år skal være før\neller ens med slut år"
     else startWeek.week > endWeek.week
-        projectactivity --> app--: InvalidPropertyException
-        app --> employee--: "Start uge skal være før eller ens med slut uge"
+        projectactivity --> app--: InvalidProperty\nException
+        app --> employee--: "Start uge skal være før\neller ens med slut uge"
     end
     project -> project: activities.add(projectactivity)
     project --> app--++

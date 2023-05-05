@@ -9,11 +9,11 @@ participant "ProjectFacade" as projectfacade << (C,#ADD1B2) >>
 participant "ProjectRepository" as projectrepo << (C,#ADD1B2) >>
 participant "Project" as project << (C,#ADD1B2) >>
 participant "ProjectActivity" as projectactivity << (C,#ADD1B2) >>
-collections "List<WorktimeRegistrations> worktimesRegistrations" as wts << (L, DarkCyan) >>
+collections "List<WorktimeRegistrations> worktimes" as wts << (L, DarkCyan) >>
 participant "WorktimeRegistration" as wt << (C,#ADD1B2) >>
-collections "List<WorktimeRegistrations> userWorktimeRegistrasions" as empwts << (L, DarkCyan) >>
+collections "List<WorktimeRegistrations> userWorktimes" as empwts << (L, DarkCyan) >>
 employee -> app++: View worktime registrations
-app -> projectfacade--++: getUserWorktimeRegistrations(activityTitle, projectNumber)
+app -> projectfacade--++: getUserWorktimeRegistrations(\nactivityTitle, projectNumber)
 projectfacade -> projectfacade: requireLogin()
 projectfacade -> app--++: isLoggedIn()
 alt loggedInUser == null
@@ -22,7 +22,7 @@ alt loggedInUser == null
     app --> employee: "Login krævet"
 else
     app -> projectfacade--++: true
-    projectfacade -> projectrepo++: findByProjectNumuber(projectNumber)
+    projectfacade -> projectrepo++: findByProjectNumuber(\nprojectNumber)
     projectrepo --> projectfacade--: Project
     projectfacade -> project++: findProjectActivity(activityTitle)
     project --> projectfacade--: ProjectActivity

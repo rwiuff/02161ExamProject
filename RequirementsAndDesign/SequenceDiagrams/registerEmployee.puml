@@ -11,11 +11,11 @@ participant "Employee" as emp << (C,#ADD1B2) >>
 collections "Map<String, Employee> employees" as emps << (M,Crimson) >>
 
 guest -> app++: Register Employee
-app --> guest++: Prompt: Firstname, Lastname
+app --> guest++: Prompt: Firstname\nLastname
 guest -> app--: firstName, lastName
-app -> empfacade--++: registerEmployee(firstName, lastName)
-empfacade -> emprepo--++: create(firstName, lastName)
-emprepo -> emp**: <<create>> firstName, lastName
+app -> empfacade--++: registerEmployee(firstName,\nlastName)
+empfacade -> emprepo--++: create(firstName,\nlastName)
+emprepo -> emp**: <<create>>
 deactivate emprepo
 emp -> emp++: createInitials()
 loop for int : lastName.length()
@@ -27,13 +27,11 @@ end
 alt !Employee == null
     emprepo -> emp++: true
     emp --> app--++: ExhaustedOptionsException
-    app --> guest--: "Kunne ikke generere unikke initialer"
+    app --> guest--: "Kunne ikke generere\nunikke initialer"
 else Employee == null
     emprepo -> emp++: false
     emp -> emp: this = initials
-    emp --> emprepo: Employee(firstName, lastName)
-    emprepo -> emp: getInitials()
-    emp --> emprepo--: initials
+    emp --> emprepo--: Employee,\ninitials
     emprepo -> emps++: put(initials, Employee)
     deactivate emps
     emprepo --> empfacade--++: Employee

@@ -18,12 +18,12 @@ participant "WorktimeRegistration" as wt << (C,#ADD1B2) >>
 employee -> app++: Register work time
 app -> employee: Promt: time
 employee --> app: time
-app -> projectfacade--++: registerWorktime(projectNumber, activityTitle, time)
+app -> projectfacade--++: registerWorktime(\nprojectNumber,\nactivityTitle, time)
 projectfacade -> projectfacade: requireLogin()
 projectfacade -> app--++: isLoggedIn()
 alt loggedInUser == null
     app --> projectfacade++: false
-    projectfacade --> app--: OperationNotAllowedException
+    projectfacade --> app--: OperationNotAllowed\nException
     app -> employee: "Login krævet"
 else
     app --> projectfacade++: true
@@ -38,7 +38,7 @@ else
     projectfacade -> projectactivity--++: registerWorktime(loggedInUser, Calendar, time)
     projectactivity -> projectactivity: hasRegularActivities()
     alt hasRegularActivities == true
-        projectactivity --> app++: OperationNotAllowedException
+        projectactivity --> app++: OperationNotAllowed\nException
         app --> employee--: "Medarbejderen er optaget af en fast aktivitet"
     else
         projectactivity -> wt**: <<create>>
@@ -47,7 +47,7 @@ else
         wt -> projectrepo++: generateWorktimeRegistrationID()
         projectrepo --> wt--: id
         deactivate wt
-        projectactivity -> projectactivity++: worktimeRegistrations.add(WorktimeRegistration)
+        projectactivity -> projectactivity++: worktimeRegistrations.add(\nWorktimeRegistration)
         projectactivity --> app--++:
         app --> employee--: "Tidsregistrering oprettet"
     end

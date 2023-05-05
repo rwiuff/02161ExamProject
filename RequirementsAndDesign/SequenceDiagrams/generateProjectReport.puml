@@ -15,12 +15,12 @@ collections "List<WorktimeRegistrations> worktimesRegistrations" as wts << (L, D
 participant "WorktimeRegistration" as wt << (C,#ADD1B2) >>
 collections "List<WorktimeRegistrations> userWorktimeRegistrasions" as empwts << (L, DarkCyan) >>
 employee -> app++: Generate project report
-app -> projectfacade--++: generateProjectReport(projectNumber)
+app -> projectfacade--++: generateProjectReport(\nprojectNumber)
 projectfacade -> projectfacade: requireLogin()
 projectfacade -> app--++: isLoggedIn()
 alt loggedInUser == null
     app -> projectfacade++: false
-    projectfacade --> app--: OperationNotAllowedException
+    projectfacade --> app--: OperationNotAllowed\nException
     app --> employee: "Login krævet"
 else
     app -> projectfacade--++: true
@@ -34,13 +34,13 @@ else
     deactivate projectfacade
     activate report
     report -> report: getProjectLeader()
-    report -> report: loggedInUser.equals(projectLeader)
+    report -> report: loggedInUser.equals(\nprojectLeader)
     alt projectLeader == null
         report --> app++: NotFoundException
         app --> employee--: "Projektet mangler en projektleder\n for at genererer rapporter"
     else loggedInUser != projectLeader
-        report --> app++: OperationNotAllowedException
-        app --> employee--: "Kun projektlederen kan generere rapporter"
+        report --> app++: OperationNotAllowed\nException
+        app --> employee--: "Kun projektlederen\nkan generere rapporter"
     else
         report -> project++: get information
         project --> report--: information
