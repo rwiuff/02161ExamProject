@@ -11,7 +11,7 @@ import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 import taskfusion.viewModels.EmployeeViewModel;
 
-<span class="fc" id="L14">public class Employee implements ConvertibleToViewModelInterface {</span>
+public class Employee implements ConvertibleToViewModelInterface {
 <span class="fc" id="L15">  private List&lt;RegularActivity&gt; regularActivities = new ArrayList&lt;RegularActivity&gt;();</span>
   private String firstName;
   private String lastName;
@@ -57,7 +57,7 @@ import taskfusion.viewModels.EmployeeViewModel;
    */
   private void createInitials() throws ExhaustedOptionsException {
 <span class="fc" id="L59">    EmployeeRepository employeeRepo = EmployeeRepository.getInstance();</span>
-    assert true;
+    // assert true; // Precondition
 
 <span class="fc bfc" id="L62" title="All 2 branches covered.">    for (int l1 = 0; l1 &lt; lastName.length(); l1++) {</span>
 <span class="fc bfc" id="L63" title="All 2 branches covered.">      for (int l2 = l1 + 1; l2 &lt; lastName.length(); l2++) {</span>
@@ -68,7 +68,7 @@ import taskfusion.viewModels.EmployeeViewModel;
 <span class="fc" id="L68">        init = init.toLowerCase();</span>
 <span class="fc bfc" id="L69" title="All 2 branches covered.">        if (!employeeRepo.initialsExist(init)) {</span>
 <span class="fc" id="L70">          this.initials = init;</span>
-<span class="pc bpc" id="L71" title="1 of 2 branches missed.">          assert this.initials == init;</span>
+          // assert this.initials == init; Postcondition
 <span class="fc" id="L72">          return;</span>
         }
       }

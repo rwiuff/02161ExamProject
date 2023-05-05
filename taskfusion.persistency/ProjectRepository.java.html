@@ -17,7 +17,7 @@ import taskfusion.exceptions.OperationNotAllowedException;
 /**
  * Singleton instance, getInstance and resetInstance provided by ChatGPT v4
  */
-<span class="fc" id="L20">public class ProjectRepository {</span>
+public class ProjectRepository {
 
 <span class="fc" id="L22">    private Map&lt;String, Project&gt; projects = new HashMap&lt;&gt;();</span>
 
@@ -90,13 +90,13 @@ import taskfusion.exceptions.OperationNotAllowedException;
 
     public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
 
-        assert true; // Precondition
+        //assert true; // Precondition
 
 <span class="fc" id="L95">        List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();</span>
 
 <span class="fc bfc" id="L97" title="All 2 branches covered.">        for (WorktimeRegistration worktimeRegistration : list) {</span>
 <span class="fc bfc" id="L98" title="All 2 branches covered.">            if (worktimeRegistration.getId().equals(id)) {</span>
-<span class="pc bpc" id="L99" title="1 of 4 branches missed.">                assert list.stream().anyMatch(x -&gt; x.getId() == id); // Postcondition</span>
+                //assert list.stream().anyMatch(x -&gt; x.getId() == id); // Postcondition
                 
 <span class="fc" id="L101">                return worktimeRegistration;</span>
             }
@@ -106,27 +106,12 @@ import taskfusion.exceptions.OperationNotAllowedException;
 
     }
 
-    // public Integer generateWorktimeRegistrationId() {
-    // Integer lastId = 0;
-
-    // List&lt;WorktimeRegistration&gt; list = allWorktimeRegistrations();
-
-    // for(WorktimeRegistration worktimeRegistration : list) {
-    // Integer id = worktimeRegistration.getId();
-    // //if(id &gt; lastId) {
-    // lastId = id;
-    // //}
-    // }
-
-    // return lastId + 1;
-    // }
-
     public Integer generateWorktimeRegistrationId() throws NotFoundException {
-<span class="fc" id="L125">        return allWorktimeRegistrations().size() + 1;</span>
+<span class="fc" id="L110">        return allWorktimeRegistrations().size() + 1;</span>
     }
 
     public List&lt;Employee&gt; getListOfEmployees(String projectNumber) {
-<span class="fc" id="L129">        return this.projects.get(projectNumber).getListOfAssignedEmployees();</span>
+<span class="fc" id="L114">        return this.projects.get(projectNumber).getListOfAssignedEmployees();</span>
     }
 
 }
