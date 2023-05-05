@@ -17,7 +17,7 @@ import taskfusion.exceptions.OperationNotAllowedException;
 /**
  * Singleton instance, getInstance and resetInstance provided by ChatGPT v4
  */
-<span class="pc bpc" id="L20" title="1 of 2 branches missed.">public class ProjectRepository {</span>
+<span class="fc" id="L20">public class ProjectRepository {</span>
 
 <span class="fc" id="L22">    private Map&lt;String, Project&gt; projects = new HashMap&lt;&gt;();</span>
 
@@ -96,7 +96,7 @@ import taskfusion.exceptions.OperationNotAllowedException;
 
 <span class="fc bfc" id="L97" title="All 2 branches covered.">        for (WorktimeRegistration worktimeRegistration : list) {</span>
 <span class="fc bfc" id="L98" title="All 2 branches covered.">            if (worktimeRegistration.getId().equals(id)) {</span>
-<span class="pc bpc" id="L99" title="2 of 6 branches missed.">                assert list.stream().anyMatch(x -&gt; x.getId() == id); // Postcondition</span>
+<span class="pc bpc" id="L99" title="1 of 4 branches missed.">                assert list.stream().anyMatch(x -&gt; x.getId() == id); // Postcondition</span>
                 
 <span class="fc" id="L101">                return worktimeRegistration;</span>
             }
@@ -130,4 +130,4 @@ import taskfusion.exceptions.OperationNotAllowedException;
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

@@ -11,7 +11,7 @@ import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 import taskfusion.viewModels.EmployeeViewModel;
 
-<span class="pc bpc" id="L14" title="1 of 2 branches missed.">public class Employee implements ConvertibleToViewModelInterface {</span>
+<span class="fc" id="L14">public class Employee implements ConvertibleToViewModelInterface {</span>
 <span class="fc" id="L15">  private List&lt;RegularActivity&gt; regularActivities = new ArrayList&lt;RegularActivity&gt;();</span>
   private String firstName;
   private String lastName;
@@ -68,7 +68,7 @@ import taskfusion.viewModels.EmployeeViewModel;
 <span class="fc" id="L68">        init = init.toLowerCase();</span>
 <span class="fc bfc" id="L69" title="All 2 branches covered.">        if (!employeeRepo.initialsExist(init)) {</span>
 <span class="fc" id="L70">          this.initials = init;</span>
-<span class="pc bpc" id="L71" title="2 of 4 branches missed.">          assert this.initials == init;</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">          assert this.initials == init;</span>
 <span class="fc" id="L72">          return;</span>
         }
       }
@@ -155,4 +155,4 @@ import taskfusion.viewModels.EmployeeViewModel;
 
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

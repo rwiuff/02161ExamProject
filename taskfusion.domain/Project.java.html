@@ -15,7 +15,7 @@ import taskfusion.persistency.EmployeeRepository;
 import taskfusion.persistency.ProjectRepository;
 import taskfusion.viewModels.ProjectViewModel;
 
-<span class="pc bpc" id="L18" title="1 of 2 branches missed.">public class Project implements ConvertibleToViewModelInterface {</span>
+<span class="fc" id="L18">public class Project implements ConvertibleToViewModelInterface {</span>
   private String projectNumber;
   private String projectTitle;
   private String customer;
@@ -61,7 +61,7 @@ import taskfusion.viewModels.ProjectViewModel;
    * For loop to identify highest last number, by ChatGPT v3.5
    */
   public static String generateProjectNumber(Calendar date) {
-<span class="pc bpc" id="L64" title="2 of 4 branches missed.">    assert date != null;</span>
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">    assert date != null;</span>
 <span class="fc" id="L65">    int year = DateHelper.twoDigitYearFromDate(date);</span>
 <span class="fc" id="L66">    int num = 0;</span>
 
@@ -74,7 +74,7 @@ import taskfusion.viewModels.ProjectViewModel;
 
 <span class="fc" id="L75">    int previousProjectNumber = year * 1000 + num;</span>
 <span class="fc" id="L76">    int nextProjectNumber = (year * 1000) + num + 1;</span>
-<span class="pc bpc" id="L77" title="2 of 4 branches missed.">    assert nextProjectNumber == previousProjectNumber + 1;</span>
+<span class="pc bpc" id="L77" title="1 of 2 branches missed.">    assert nextProjectNumber == previousProjectNumber + 1;</span>
 
 <span class="fc bfc" id="L79" title="All 2 branches covered.">    if (nextProjectNumber &lt; 10000) {</span>
 <span class="fc" id="L80">      return &quot;0&quot; + nextProjectNumber;</span>
@@ -223,4 +223,4 @@ import taskfusion.viewModels.ProjectViewModel;
 <span class="fc" id="L223">  }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

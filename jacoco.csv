@@ -1,8 +1,8 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-TaskFusion,taskfusion.domain,Project,10,337,5,43,0,78,5,44,0,25
+TaskFusion,taskfusion.domain,Project,8,330,2,40,0,78,2,44,0,25
 TaskFusion,taskfusion.domain,ActivityWithWorktimeRegistrations,0,161,0,12,0,35,0,17,0,11
 TaskFusion,taskfusion.domain,RegularActivity,0,19,0,0,0,5,0,3,0,3
-TaskFusion,taskfusion.domain,Employee,6,244,3,29,0,55,3,29,0,16
+TaskFusion,taskfusion.domain,Employee,4,238,1,27,0,55,1,29,0,16
 TaskFusion,taskfusion.domain,Activity,0,103,0,16,0,21,0,12,0,4
 TaskFusion,taskfusion.domain,ProjectActivity,0,11,0,0,0,3,0,2,0,2
 TaskFusion,taskfusion.domain,WorktimeRegistration,0,37,0,0,0,13,0,7,0,7
@@ -22,7 +22,7 @@ TaskFusion,taskfusion.viewModels,ProjectViewModel,0,92,0,6,0,22,0,6,0,3
 TaskFusion,taskfusion.viewModels,WorktimeRegistrationViewModel,0,46,0,2,0,12,0,3,0,2
 TaskFusion,taskfusion.persistency,Seeder,0,241,0,4,0,45,0,9,0,7
 TaskFusion,taskfusion.persistency,EmployeeRepository,0,126,0,10,0,35,0,15,0,10
-TaskFusion,taskfusion.persistency,ProjectRepository,6,159,3,17,0,35,3,19,0,12
+TaskFusion,taskfusion.persistency,ProjectRepository,4,153,1,15,0,35,1,19,0,12
 TaskFusion,taskfusion.exceptions,NotFoundException,0,4,0,0,0,2,0,1,0,1
 TaskFusion,taskfusion.exceptions,AlreadyExistsException,0,4,0,0,0,2,0,1,0,1
 TaskFusion,taskfusion.exceptions,InvalidPropertyException,0,4,0,0,0,2,0,1,0,1
