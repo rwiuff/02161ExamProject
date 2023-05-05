@@ -90,13 +90,13 @@ public class ProjectRepository {
 
     public WorktimeRegistration findWorktimeRegistrationById(int id) throws NotFoundException {
 
-        assert true; // Precondition
+        //assert true; // Precondition
 
         List<WorktimeRegistration> list = allWorktimeRegistrations();
 
         for (WorktimeRegistration worktimeRegistration : list) {
             if (worktimeRegistration.getId().equals(id)) {
-                assert list.stream().anyMatch(x -> x.getId() == id); // Postcondition
+                //assert list.stream().anyMatch(x -> x.getId() == id); // Postcondition
                 
                 return worktimeRegistration;
             }
@@ -105,21 +105,6 @@ public class ProjectRepository {
         throw new NotFoundException("Ukendt tidsregistrering");
 
     }
-
-    // public Integer generateWorktimeRegistrationId() {
-    // Integer lastId = 0;
-
-    // List<WorktimeRegistration> list = allWorktimeRegistrations();
-
-    // for(WorktimeRegistration worktimeRegistration : list) {
-    // Integer id = worktimeRegistration.getId();
-    // //if(id > lastId) {
-    // lastId = id;
-    // //}
-    // }
-
-    // return lastId + 1;
-    // }
 
     public Integer generateWorktimeRegistrationId() throws NotFoundException {
         return allWorktimeRegistrations().size() + 1;

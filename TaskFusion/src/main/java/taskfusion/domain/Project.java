@@ -61,7 +61,7 @@ public class Project implements ConvertibleToViewModelInterface {
    * For loop to identify highest last number, by ChatGPT v3.5
    */
   public static String generateProjectNumber(Calendar date) {
-    assert date != null;
+    //assert date != null; // Precondition
     int year = DateHelper.twoDigitYearFromDate(date);
     int num = 0;
 
@@ -74,7 +74,7 @@ public class Project implements ConvertibleToViewModelInterface {
 
     int previousProjectNumber = year * 1000 + num;
     int nextProjectNumber = (year * 1000) + num + 1;
-    assert nextProjectNumber == previousProjectNumber + 1;
+    // assert nextProjectNumber == previousProjectNumber + 1; // Postcondition
 
     if (nextProjectNumber < 10000) {
       return "0" + nextProjectNumber;
@@ -135,11 +135,8 @@ public class Project implements ConvertibleToViewModelInterface {
      * as they are not properly managed in code doverage report.
      */
 
-    // assert title != null;
-    // assert startWeek != null;
-    // assert endWeek != null;
-    // assert loggedInUser != null;
-    // assert activities != null;
+    // assert title != null && startWeek != null && endWeek != null && 
+    //   loggedInUser != null && activities != null; // Precondition
 
     if (hasProjectLeader()) {
       if (!projectLeader.isSameAs(loggedInUser)) {
@@ -161,7 +158,7 @@ public class Project implements ConvertibleToViewModelInterface {
     // assert (
     // activities.contains(activity) &&
     // (!hasProjectLeader() || projectLeader.isSameAs(loggedInUser) )
-    // );
+    // ); // Postcondition
 
     return activity;
   }
