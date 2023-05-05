@@ -47,7 +47,7 @@ public class TaskFusion implements AuthentificationInterface, ProjectFacadeInter
   }
 
   public void login(String initials) throws NotFoundException {
-<span class="fc" id="L50">    loggedInUser = employeeFacade.findEmployeeByInitials(initials);</span>
+<span class="fc" id="L50">    loggedInUser = findEmployeeByInitials(initials);</span>
 <span class="fc" id="L51">  }</span>
 
   public boolean isLoggedIn() {
@@ -109,7 +109,7 @@ public class TaskFusion implements AuthentificationInterface, ProjectFacadeInter
 
   @Override
   public EmployeeViewModel findEmployeeByInitials(String initials) throws NotFoundException {
-<span class="nc" id="L112">    return employeeFacade.findEmployeeByInitials(initials);</span>
+<span class="fc" id="L112">    return employeeFacade.findEmployeeByInitials(initials);</span>
   }
 
   /**
