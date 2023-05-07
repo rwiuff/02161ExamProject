@@ -9,38 +9,38 @@ participant "ProjectFacade" as projectfacade << (C,#ADD1B2) >>
 participant "ProjectRepository" as projectrepo << (C,#ADD1B2) >>
 participant "Project" as project << (C,#ADD1B2) >>
 participant "ProjectActivity" as projectactivity << (C,#ADD1B2) >>
-collections "List<WorktimeRegistrations> worktimes" as wts << (L, DarkCyan) >>
+collections "List<Registration> worktimes" as wts << (L, DarkCyan) >>
 participant "WorktimeRegistration" as wt << (C,#ADD1B2) >>
-collections "List<WorktimeRegistrations> userWorktimes" as empwts << (L, DarkCyan) >>
-employee -> app++: View worktime registrations
-app -> projectfacade--++: getUserWorktimeRegistrations(\nactivityTitle, projectNumber)
+collections "List<Registration> userWorktimes" as empwts << (L, DarkCyan) >>
+employee -> app++: View\nworktime\nregistrations
+app -> projectfacade--++: getUserWorktime\nRegistrations(\nactivityTitle,\nprojectNumber)
 projectfacade -> projectfacade: requireLogin()
 projectfacade -> app--++: isLoggedIn()
 alt loggedInUser == null
     app -> projectfacade++: false
-    projectfacade --> app--: OperationNotAllowedException
+    projectfacade --> app--: OperationNotAllowed\nException
     app --> employee: "Login krævet"
 else
     app -> projectfacade--++: true
-    projectfacade -> projectrepo++: findByProjectNumuber(\nprojectNumber)
+    projectfacade -> projectrepo++: findByProjectNumber(\nprojectNumber)
     projectrepo --> projectfacade--: Project
     projectfacade -> project++: findProjectActivity(activityTitle)
     project --> projectfacade--: ProjectActivity
     projectfacade -> projectactivity--++: getWorktimeRegistrationsForEmployee(initials)
     projectactivity -> empwts**: <<create>>
-    loop registrations in WorktimeRegistrations
+    loop registration in worktimes
         projectactivity -> wts++: getInitials()
         wts -> wt++: getInitials()
         wt --> wts--: initials
         wts --> projectactivity--: initials
         alt if initials == loggedInUserInitials
-            projectactivity -> empwts++: add(worktimeRegistration)
+            projectactivity -> empwts++: add(registration)
             deactivate empwts
         end
     end
-    projectactivity --> projectfacade--++: List<userWorktimeRegistrations>
-    projectfacade --> app--++: List<userWorktimeRegistrations>
-    app --> employee --: List of worktime registrations
+    projectactivity --> projectfacade--++: List userWorkTimes
+    projectfacade --> app--++: List userWorkTimes
+    app --> employee --: List of\nworktime\nregistrations
 end
 
 @enduml

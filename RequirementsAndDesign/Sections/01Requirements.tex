@@ -1,7 +1,7 @@
 % !TeX root = ..\..\rapport_13_1.tex
 \section{Kravspecifikation}
 \subsection{Indledning}
-Denne del af rapporten dokumenterer de usecases og begreber som med udgangspunkt i projektoplægget, danner kravspecifikationerne for projektet. Use cases udvikles til Cucumber scenarier som igennem Behavior- og Test Driven Development bliver til den implementation som findes i anden rapport.
+Denne del af rapporten dokumenterer de usecases og begreber som med udgangspunkt i projektoplægget, danner kravspecifikationerne for projektet. Use cases udvikles til Cucumber scenarier som igennem Behavior- og Test Driven Development bliver til den implementering som findes i anden rapport.
 \subsection{Ordliste}
 \begin{table}[H]
     \centering
@@ -78,117 +78,117 @@ Som beskrevet i \cref{fig:AlleActorsPaaEnGang} har vi tre roller: Medarbejder (\
 \begin{listing}[H]
     \centering
     \caption{Cucumber feature: Opret medarbejder}\label{lst:usecaseRegisterEmployee}
-    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/employees/register_employee.feature}
+    \inputminted[breaklines]{cucumber}{TaskFusion/features/employees/register_employee.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Login}\label{lst:usecaseLogin}
-    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/employees/login.feature}
+    \inputminted[breaklines]{cucumber}{TaskFusion/features/employees/login.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Logout}\label{lst:usecaseLogout}
-    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/employees/logout.feature}
+    \inputminted[breaklines]{cucumber}{TaskFusion/features/employees/logout.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Opret projekt (fortsætter på \cref{lst:usecaseCreateProject2})}\label{lst:usecaseCreateProject1}
-    \inputminted[linenos, breaklines, lastline=36]{cucumber}{TaskFusion/features/projects/create_project.feature}
+    \inputminted[breaklines, lastline=36]{cucumber}{TaskFusion/features/projects/create_project.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Opret projekt (fortsat fra \cref{lst:usecaseCreateProject1})}\label{lst:usecaseCreateProject2}
-    \inputminted[linenos, breaklines, firstline=37]{cucumber}{TaskFusion/features/projects/create_project.feature}
+    \inputminted[breaklines, firstline=37]{cucumber}{TaskFusion/features/projects/create_project.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucumber feature: Påtag projektlederrolle}\label{lst:usecaseTakePLRole}
-    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/projects/assign_project_leader_to_project.feature}
+    \inputminted[breaklines]{cucumber}{TaskFusion/features/projects/assign_project_leader_to_project.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Tildel medarbejder til projekt}\label{lst:usecaseAssignEmployee}
-    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/projects/assign_employee_to_project.feature}
+    \inputminted[breaklines]{cucumber}{TaskFusion/features/projects/assign_employee_to_project.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucumber feature: Se medarbejdere tilknyttet et projekt}\label{lst:usecaseViewAssignedEmployee}
-    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/projects/get_list_participating_employees.feature}
+    \inputminted[breaklines]{cucumber}{TaskFusion/features/projects/get_list_participating_employees.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Opret projektaktivitet som projektleder}\label{lst:usecaseCreateProjectActivityPL}
-    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/activities/create_project_activity_with_leader.feature}
+    \inputminted[breaklines]{cucumber}{TaskFusion/features/activities/create_project_activity_with_leader.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Opret projektaktivitet som medarbejder (fortsætter på \cref{lst:usecaseCreateProjectActivityEmployee2})}\label{lst:usecaseCreateProjectActivityEmployee1}
-    \inputminted[linenos, breaklines, lastline=46]{cucumber}{TaskFusion/features/activities/create_project_activity_without_leader.feature}
+    \inputminted[breaklines, lastline=46]{cucumber}{TaskFusion/features/activities/create_project_activity_without_leader.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Opret projektaktivitet som medarbejder (fortsat fra \cref{lst:usecaseCreateProjectActivityEmployee1})}\label{lst:usecaseCreateProjectActivityEmployee2}
-    \inputminted[linenos, breaklines, firstline=47]{cucumber}{TaskFusion/features/activities/create_project_activity_without_leader.feature}
+    \inputminted[breaklines, firstline=47]{cucumber}{TaskFusion/features/activities/create_project_activity_without_leader.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Anfør tidsbudget på projektaktivitet}\label{lst:usecaseSetTimeBudget}
-    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/activities/activity_work_time_budget.feature}
+    \inputminted[breaklines]{cucumber}{TaskFusion/features/activities/activity_work_time_budget.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Opret fast aktivitet (fortsætter på \cref{lst:usecaseCreateRegularActivity2})}\label{lst:usecaseCreateRegularActivity1}
-    \inputminted[linenos, breaklines, lastline=16]{cucumber}{TaskFusion/features/regular_activities/create_regular_activity.feature}
+    \inputminted[breaklines, lastline=16]{cucumber}{TaskFusion/features/regular_activities/create_regular_activity.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Opret fast aktivitet (fortsat fra \cref{lst:usecaseCreateRegularActivity1})}\label{lst:usecaseCreateRegularActivity2}
-    \inputminted[linenos, breaklines, firstline=17]{cucumber}{TaskFusion/features/regular_activities/create_regular_activity.feature}
+    \inputminted[breaklines, firstline=17]{cucumber}{TaskFusion/features/regular_activities/create_regular_activity.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucumber feature: Se fast aktivitet}\label{lst:usecaseViewRegularActivity}
-    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/regular_activities/view_regular_activity.feature}
+    \inputminted[breaklines]{cucumber}{TaskFusion/features/regular_activities/view_regular_activity.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Registrer arbejdstid (fortsætter på \cref{lst:usecaseRegisterWorktime2})}\label{lst:usecaseRegisterWorktime1}
-    \inputminted[linenos, breaklines, lastline=33]{cucumber}{TaskFusion/features/activities/register_activity_work_time.feature}
+    \inputminted[breaklines, lastline=33]{cucumber}{TaskFusion/features/activities/register_activity_work_time.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucmber feature: Registrer arbejdstid (fortsat fra \cref{lst:usecaseRegisterWorktime1})}\label{lst:usecaseRegisterWorktime2}
-    \inputminted[linenos, breaklines, firstline=34]{cucumber}{TaskFusion/features/activities/register_activity_work_time.feature}
+    \inputminted[breaklines, firstline=34]{cucumber}{TaskFusion/features/activities/register_activity_work_time.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucumber feature: Se resterende arbejdstid}\label{lst:RemainingWork}
-    \inputminted[linenos, breaklines]{cucumber}{TaskFusion/features/activities/activity_remaining_work.feature}
+    \inputminted[breaklines]{cucumber}{TaskFusion/features/activities/activity_remaining_work.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucumber feature: Se registreret arbejdstid på projektaktivitet (fortsætter på \cref{lst:usecaseViewWorktime2})}\label{lst:usecaseViewWorktime1}
-    \inputminted[linenos, breaklines, lastline=44]{cucumber}{TaskFusion/features/activities/overview_work_time.feature}
+    \inputminted[breaklines, lastline=44]{cucumber}{TaskFusion/features/activities/overview_work_time.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
     \caption{Cucumber feature: Se registreret arbejdstid på projektaktivitet (fortsat fra \cref{lst:usecaseViewWorktime1})}\label{lst:usecaseViewWorktime2}
-    \inputminted[linenos, breaklines, firstline=45]{cucumber}{TaskFusion/features/activities/overview_work_time.feature}
+    \inputminted[breaklines, firstline=45]{cucumber}{TaskFusion/features/activities/overview_work_time.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
-    \caption{Cucmber feature: Generér projektrapport (fortsætter på \cref{lst:usecaseGenerateProjectReport2})}\label{lst:usecaseGenerateProjectReport1}
-    \inputminted[linenos, breaklines, lastline=32]{cucumber}{TaskFusion/features/reports/create_report.feature}
+    \caption{Cucmber feature: Generer projektrapport (fortsætter på \cref{lst:usecaseGenerateProjectReport2})}\label{lst:usecaseGenerateProjectReport1}
+    \inputminted[breaklines, lastline=32]{cucumber}{TaskFusion/features/reports/create_report.feature}
 \end{listing}
 \begin{listing}[H]
     \centering
-    \caption{Cucmber feature: Generér projektrapport (fortsat fra \cref{lst:usecaseGenerateProjectReport1})}\label{lst:usecaseGenerateProjectReport2}
-    \inputminted[linenos, breaklines, firstline=33]{cucumber}{TaskFusion/features/reports/create_report.feature}
-\end{listing}
+    \caption{Cucmber feature: Generer projektrapport (fortsat fra \cref{lst:usecaseGenerateProjectReport1})}\label{lst:usecaseGenerateProjectReport2}
+    \inputminted[breaklines, firstline=33]{cucumber}{TaskFusion/features/reports/create_report.feature}
+\end{listing}\newpage
 \section{Diskussion: Kravspecifikation}
 \subsection{Oplægsmæssige overvejelser og afgrænsninger}
 \subsubsection{En admin rolle}
-Oplægget nævner som udgangspunkt ikke et krav om en administrator rolle, men derimod at det er et internt system og at der ikke er behov for et sikkerhedslag. Ofte er det oplagt at have en admin entitet, og i dette projekt kunne det som eksempel give mening til oprettelse af medarbejdere. Men i forbindelse med en kortlægning af projektet samt afgrænsning af funktioner, ser vi større værdi for kunden i at fokusere på de ønskede funktioner i stedet for at \textit{gætte} på at de vil have en admin. Desuden kan en sådan rolle laves senere, hvis nødvendigt. At en gæst kan oprette en medarbejder er dermed et eksempel på brugen af K.I.S.S. \footnote{(Keep it Short and simple, some also refer to it as Keep It Simple Stupid)} ved at anskue denne funktionalitet som en mock admin-klasse, der eksisterer udelukkende i forbindelse med udviklingen af arbejdstidsregistrering og projekthåndtering, de centrale ønsker.
+Oplægget nævner som udgangspunkt ikke et krav om en administrator rolle, men derimod at det er et internt system og at der ikke er behov for et sikkerhedslag. Ofte er det oplagt at have en admin entitet, og i dette projekt kunne det som eksempel give mening til oprettelse af medarbejdere. Men i forbindelse med en kortlægning af projektet samt afgrænsning af funktioner, ser vi større værdi for kunden i at fokusere på de ønskede funktioner i stedet for at \textit{gætte} på at de vil have en admin. Desuden kan en sådan rolle laves senere, hvis nødvendigt. At en gæst kan oprette en medarbejder er dermed et eksempel på brugen af K.I.S.S. \footnote{(\textbf{K}eep \textbf{I}t \textbf{S}hort and \textbf{S}imple, some also refer to it as \textbf{K}eep \textbf{I}t \textbf{S}imple, \textbf{S}tupid)} ved at anskue denne funktionalitet som en mock admin-klasse, der eksisterer udelukkende i forbindelse med udviklingen af arbejdstidsregistrering og projekthåndtering, de centrale ønsker.
 \subsubsection{UI og fokus på business logik}
 Oplægget kræver en brugerflade, men giver frit lejde til hvorvidt denne skal være en GUI eller CLI. Vi ønsker at levere noget brugbart til kunden hurtigt, og have K.I.S.S. i fokus for vores beslutninger og afgrænsning. Fra tidlige leverancer kan vi bruge kundens feedback til at videreudvikle på softwareløsningen iterativt, og bedre kunne prioritere udvikling af funktioner løbende. Derfor har vi i første ikke noget grafisk bruger interface, men derimod et program der køres i et CLI. På et senere stadie, i samtale med kunden, kan en grafisk brugerflade implementeres.
 \subsubsection{Medarbejdere med samme navn}
@@ -199,4 +199,4 @@ Disse to begreber bliver kun brugt i abstrakt forstand, da man i Java ikke har d
 \subsubsection{Persistence}
 For at gøre det muligt at gemme data i objekter og være sikker på at kun disse objekter konstrueres vil singletons blive brugt som indgang til gemt information. Dette kan optimeres ved at gemme data på filer, men dette har vi valgt ikke at fokusere på, for at få tid til funktionalitet.
 \subsubsection{Adskillelse af UI fra business logik}
-UI'en er som nævnt tekstbaseret. Hele UI-laget er separeret fra business logikken igennem \textit{Facades}, og vil kunne se objekter som \textit{ModelView}-klasser der ikke kan ændre på underliggende data men blot læse disse.
+UI'en er som nævnt tekstbaseret. Hele UI-laget er separeret fra business logikken igennem \textit{Facades}, og vil kunne se objekter som \textit{ModelView}-klasser der ikke kan ændre på underliggende data men blot læse disse.\newpage

@@ -12,7 +12,7 @@ TaskFusionCLI opretter et TaskFusion objekt som opretter ProjectFacade og Employ
     \item ProjectRepository
     \item EmployeeRepository
 \end{itemize}
-Metodekaldene opretter og ændrer felter i domain laget, som ses på \cref{fig:domainLayer}.
+Metodekaldene opretter og ændrer felter i \textit{domain}-laget, som ses på \cref{fig:domainLayer}.
 \begin{figure}
     \centering
     \caption{TaskFusion klasser i domain laget}\label{fig:domainLayer}
@@ -88,9 +88,9 @@ Skal data bruges i CLI'en hentes en \textit{ModelViewModel} af et objekt, som CL
 \end{figure}
 \begin{figure}[H]
     \centering
-    \caption{Sekvensdiagram: Generér projektrapport}\label{fig:sequenceGenerateProjectReport}
+    \caption{Sekvensdiagram: Generer projektrapport}\label{fig:sequenceGenerateProjectReport}
     \includegraphics[width=\textwidth]{RequirementsAndDesign/SequenceDiagrams/seqGenerateProjectReport.eps}
-\end{figure}
+\end{figure}\newpage
 \section{Diskussion: Programdesign}
 I dette afsnit bearbejdes to ting kort:
 \begin{enumerate}
@@ -99,4 +99,4 @@ I dette afsnit bearbejdes to ting kort:
 \end{enumerate}
 \subsection{Datastrukturer} I valg af datastrukturer er det vigtigt hvorledes vi henter og gemmer data. I programmet bliver medarbejdere og aktiviteter defineret med en unik streng, mens projekter bliver defineret med et løbenummer. Hvis man for nemheds skyld konverterer løbenummeret til en streng, er der mulighed for, at alle tre objekter kan gemmes i Map strukturer. Dette gør det nemt at hente objekter med \mintinline{java}|.get(key)|, udføre operationer på objekterne og overskrive objekterne i Map'et med \mintinline{java}|.put(key, Object)|. Er det nødvendigt at iterere over et Map, kan man også nemt bruge Java's \mintinline{java}|.stream()| metode. Ønsker man at gemme brugt arbejdstid på en aktivitet, er det derimod nemmest at gemme denne i en List, da arbejdstiden kun akkumuleres.
 \subsection{Klassestrukturer} 
-Programmet skal holdes simpelt og objekter skal nødvendigvis eje hinanden på en simpel måde. Desuden vil der være fokus på at adskille præsentationslag, businesslag og persistency så meget som muligt, således at lav kobling såvel som en overskuelig programstruktur opnås. Selve UI'en vil være en CLI (\textit{command-line-interface}) hvor en struktur bestående af \textit{view}-klasser haves. Yderligere benyttes \textit{facades} til at samle business-lagets funktioner, hvilket gør det let at hente processeret data. Persistency er delt op i to større kategorier: Employees (\textit{EmployeeRepository.java}) og alt vedr. projekter og deres aktiviteter (\textit{ProjectRepository.java}).
+Programmet skal holdes simpelt og objekter skal nødvendigvis eje hinanden på en simpel måde. Desuden vil der være fokus på at adskille præsentationslag, businesslag og persistency så meget som muligt, således at lav kobling såvel som en overskuelig programstruktur opnås. Selve UI'en vil være en CLI (\textit{command-line-interface}) hvor en struktur bestående af \textit{view}-klasser haves. Yderligere benyttes \textit{facades} til at samle business-lagets funktioner, hvilket gør det let at hente bearbejdet data. Persistency er delt op i to større kategorier: Employees (\textit{EmployeeRepository.java}) og alt vedr. projekter og deres aktiviteter (\textit{ProjectRepository.java}).

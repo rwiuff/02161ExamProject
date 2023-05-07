@@ -39,17 +39,17 @@ else
     projectactivity -> projectactivity: hasRegularActivities()
     alt hasRegularActivities == true
         projectactivity --> app++: OperationNotAllowed\nException
-        app --> employee--: "Medarbejderen er optaget af en fast aktivitet"
+        app --> employee--: "Medarbejderen\ner optaget af en\nfast aktivitet"
     else
         projectactivity -> wt**: <<create>>
         deactivate projectactivity
         activate wt
         wt -> projectrepo++: generateWorktimeRegistrationID()
         projectrepo --> wt--: id
-        deactivate wt
-        projectactivity -> projectactivity++: worktimeRegistrations.add(\nWorktimeRegistration)
+        wt --> projectactivity--++: WorktimeRegistration
+        projectactivity -> projectactivity: worktimeRegistrations.add(\nWorktimeRegistration)
         projectactivity --> app--++:
-        app --> employee--: "Tidsregistrering oprettet"
+        app --> employee--: "Tidsregistrering\noprettet"
     end
 end
     @enduml

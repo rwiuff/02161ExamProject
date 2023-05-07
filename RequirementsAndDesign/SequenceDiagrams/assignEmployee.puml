@@ -22,7 +22,7 @@ projrepo --> projfacade--++: Project
 projfacade -> app++: getLoggedInUser
 app --> projfacade--: Employee
 projfacade -> project --++: assignEmployee(\ninitials, Employee)
-project -> project: allowAssignEmployeeToProject
+project -> project: allowAssignEmployee\nToProject()
 alt projectLeader != null OR loggedInUser != projectLeader
     project --> app++: OperationNotAllowedException
     app --> pl--: "Kun projektleder kan tildele\nmedarbejdere til projektet"
