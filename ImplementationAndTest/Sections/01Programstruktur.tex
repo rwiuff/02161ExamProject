@@ -4,12 +4,10 @@
 \subsubsection{Eclipse}
 \subsubsection{IntelliJ}
 \subsubsection{VS Code}
-
 \subsection{Start af programmet}
-For at køre TaskFusion skal følgende fil køres: \texttt{TaskFusion/src/main/taskFusion/cli/TaskFusionCLI.java}
+For at køre TaskFusion skal følgende fil køres:\texttt{TaskFusion/src/main/taskFusion/cli/TaskFusionCLI.java}
 Ingen kodeord er nødvendige for at køre programmet.
 Programmet kommer med demo-data installeret. Du kan derfor logge ind med følgende initialer; \texttt{kasy}, \texttt{rawi}, \texttt{mach}, \texttt{mash}. En jar-fil kan også oprettes med mvn package, der derefter kan køres. På UNIX-systemer skal den producerede jar-fil gøres eksekverbar med chmod +x [filnavn], såfremt brugeren har de rette privilegier, så den anses som en eksekverbar fil inden forsøg på kørsel.
-
 \subsection{Mappe struktur}
 \cref{fig:tree} viser mappestrukturen i Java projektet.
 \begin{figure}[H]
@@ -31,8 +29,8 @@ Programmet kommer med demo-data installeret. Du kan derfor logge ind med følgen
         .6 cli \ldots{} \begin{minipage}[t]{5cm} CLI brugergrænse-lag \end{minipage}.
         .7 controllers \ldots{} \begin{minipage}[t]{5cm} Menu controllere \end{minipage}.
         .7 views \ldots{} \begin{minipage}[t]{5cm} Indholdssider \end{minipage}.
-        .7 components \ldots{} \begin{minipage}[t]{5cm} Genbrugelige CLI komponenter \end{minipage}.
-        .7 TaskFusionCLI.java \ldots{} \begin{minipage}[t]{5cm} Hovedprogram ved brug af CLI brugergrænsefladen \end{minipage}.
+        .7 components \ldots{} \begin{minipage}[t]{10cm} Genbrugelige CLI komponenter \end{minipage}.
+        .7 TaskFusionCLI.java \ldots{} \begin{minipage}[t]{10cm} CLI-hovedklasse \end{minipage}.
         .3 test.
         .4 java.
         .5 taskfusion.

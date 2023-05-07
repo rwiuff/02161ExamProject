@@ -5,96 +5,121 @@ Følgende tabeller er dannet fra coverage-programmets output.
     \centering
     \caption{Coverage for applikationslaget}\label{tbl:cov_app}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
-    \hline
-        Element & Cov (instructions) & Cov (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
-        TaskFusion & 100\% & 100\% & 0 & 10 & 0 & 16 & 0 & 9 & 0 & 1 \\ 
-        DateServer & 100\% & n/a & 0 & 2 & 0 & 5 & 0 & 2 & 0 & 1 \\ 
-        Total & 100\% & 100\% & 0 & 12 & 0 & 21 & 0 & 11 & 0 & 2 \\ \hline
-    \end{tabular}}
+            \toprule
+            Element    & Cov (instructions) & Cov (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\
+            \midrule
+            TaskFusion & 100\%              & 100\%          & 0      & 10   & 0      & 16    & 0      & 9       & 0      & 1       \\
+            DateServer & 100\%              & n/a            & 0      & 2    & 0      & 5     & 0      & 2       & 0      & 1       \\
+            Total      & 100\%              & 100\%          & 0      & 12   & 0      & 21    & 0      & 11      & 0      & 2       \\
+            \bottomrule
+        \end{tabular}}
 \end{table}
 \begin{table}[!ht]
     \centering
     \caption{Coverage for domænelaget}\label{tbl:cov_domain}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
-    \hline
-        Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
-        ReportPDFGenerator & 100\% & 0 & 14 & 0 & 164 & 0 & 5 & 0 & 1 & ~ \\ 
-        Project & 100\% & 100\% & 0 & 43 & 0 & 74 & 0 & 24 & 0 & 1 \\ 
-        Employee & 100\% & 100\% & 0 & 28 & 0 & 53 & 0 & 15 & 0 & 1 \\ 
-        ProjectActivity & 100\% & 100\% & 0 & 18 & 0 & 36 & 0 & 12 & 0 & 1 \\ 
-        Activity & 100\% & 100\% & 0 & 12 & 0 & 21 & 0 & 4 & 0 & 1 \\ 
-        Report & 100\% & 100\% & 0 & 14 & 0 & 27 & 0 & 12 & 0 & 1 \\ 
-        WorktimeRegistration & 100\% & n/a & 0 & 7 & 0 & 13 & 0 & 7 & 0 & 1 \\ 
-        RegularActivity & 100\% & n/a & 0 & 3 & 0 & 5 & 0 & 3 & 0 & 1 \\ 
-        Total & 100\% & 100\% & 0 & 139 & 0 & 393 & 0 & 82 & 0 & 8 \\ \hline
-    \end{tabular}}
+            \toprule
+            Element              & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\
+            \midrule
+            ReportPDFGenerator   & 100\%                   & 0                   & 14     & 0    & 164    & 0     & 5      & 0       & 1      & ~       \\
+            Project              & 100\%                   & 100\%               & 0      & 43   & 0      & 74    & 0      & 24      & 0      & 1       \\
+            Employee             & 100\%                   & 100\%               & 0      & 28   & 0      & 53    & 0      & 15      & 0      & 1       \\
+            ProjectActivity      & 100\%                   & 100\%               & 0      & 18   & 0      & 36    & 0      & 12      & 0      & 1       \\
+            Activity             & 100\%                   & 100\%               & 0      & 12   & 0      & 21    & 0      & 4       & 0      & 1       \\
+            Report               & 100\%                   & 100\%               & 0      & 14   & 0      & 27    & 0      & 12      & 0      & 1       \\
+            WorktimeRegistration & 100\%                   & n/a                 & 0      & 7    & 0      & 13    & 0      & 7       & 0      & 1       \\
+            RegularActivity      & 100\%                   & n/a                 & 0      & 3    & 0      & 5     & 0      & 3       & 0      & 1       \\
+            Total                & 100\%                   & 100\%               & 0      & 139  & 0      & 393   & 0      & 82      & 0      & 8       \\
+            \bottomrule
+        \end{tabular}}
 \end{table}
 \begin{table}[!ht]
     \centering
     \caption{Coverage for exceptions}\label{tbl:cov_exceptions}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
-    \hline
-        Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
-        NotFoundException & 100\% & n/a & 0 & 1 & 0 & 2 & 0 & 1 & 0 & 1 \\ 
-        AlreadExistsException & 100\% & n/a & 0 & 1 & 0 & 2 & 0 & 1 & 0 & 1 \\ 
-        InvalidProeeduEzcgption & 100\% & n/a & 0 & 1 & 0 & 2 & 0 & 1 & 0 & 1 \\ 
-        OperationNotAllowedException & 100\% & n/a & 0 & 1 & 0 & 2 & 0 & 1 & 0 & 1 \\ 
-        ExhaustedOptionsException & 100\% & n/a & 0 & 1 & 0 & 2 & 0 & 1 & 0 & 1 \\ 
-        Total & 100\% & n/a & 0 & 5 & 0 & 10 & 0 & 5 & 0 & 5 \\ \hline
-    \end{tabular}}
+            \toprule
+            Element                      & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\
+            \midrule
+            NotFoundException            & 100\%                   & n/a                 & 0      & 1    & 0      & 2     & 0      & 1       & 0      & 1       \\
+            AlreadExistsException        & 100\%                   & n/a                 & 0      & 1    & 0      & 2     & 0      & 1       & 0      & 1       \\
+            InvalidProeeduEzcgption      & 100\%                   & n/a                 & 0      & 1    & 0      & 2     & 0      & 1       & 0      & 1       \\
+            OperationNotAllowedException & 100\%                   & n/a                 & 0      & 1    & 0      & 2     & 0      & 1       & 0      & 1       \\
+            ExhaustedOptionsException    & 100\%                   & n/a                 & 0      & 1    & 0      & 2     & 0      & 1       & 0      & 1       \\
+            Total                        & 100\%                   & n/a                 & 0      & 5    & 0      & 10    & 0      & 5       & 0      & 5       \\
+            \bottomrule
+        \end{tabular}}
 \end{table}
 \begin{table}[!ht]
     \centering
     \caption{Coverage for facader}\label{tbl:cov_facade}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
-    \hline
-        Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
-        ProjectFacade & 100\% & 100\% & 0 & 24 & 0 & 71 & 0 & 21 & 0 & 1 \\ 
-        EmployeeFacade & 100\% & 100\% & 0 & 11 & 0 & 23 & 0 & 9 & 0 & 1 \\ 
-        Total & 100\% & 100\% & 0 & 35 & 0 & 94 & 0 & 30 & 0 & 2 \\ \hline
-    \end{tabular}}
+            \toprule
+            Element        & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\
+            \midrule
+            ProjectFacade  & 100\%                   & 100\%               & 0      & 24   & 0      & 71    & 0      & 21      & 0      & 1       \\
+            EmployeeFacade & 100\%                   & 100\%               & 0      & 11   & 0      & 23    & 0      & 9       & 0      & 1       \\
+            Total          & 100\%                   & 100\%               & 0      & 35   & 0      & 94    & 0      & 30      & 0      & 2       \\
+            \bottomrule
+        \end{tabular}}
 \end{table}
 \begin{table}[!ht]
     \centering
     \caption{Coverage for hjælperklasser}\label{tbl:cov_helpers}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
-    \hline
-        Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
-        PrintHelper & 100\% & 100\% & 0 & 7 & 0 & 13 & 0 & 4 & 0 & 1 \\ 
-        DateHelper & 100\% & 100\% & 0 & 6 & 0 & 10 & 0 & 4 & 0 & 1 \\ 
-        Total & 100\% & 100\% & 0 & 13 & 0 & 23 & 0 & 8 & 0 & 2 \\ \hline
-    \end{tabular}}
+            \toprule
+            Element     & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\
+            \midrule
+            PrintHelper & 100\%                   & 100\%               & 0      & 7    & 0      & 13    & 0      & 4       & 0      & 1       \\
+            DateHelper  & 100\%                   & 100\%               & 0      & 6    & 0      & 10    & 0      & 4       & 0      & 1       \\
+            Total       & 100\%                   & 100\%               & 0      & 13   & 0      & 23    & 0      & 8       & 0      & 2       \\
+            \bottomrule
+        \end{tabular}}
 \end{table}
 \begin{table}[!ht]
     \centering
     \caption{Coverage for persistency-laget}\label{tbl:cov_persist}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
-    \hline
-        Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed Lines & Missed & Methods & Missed & Classes & ~ \\ \hline
-        Seeder & 100\% & 100\% & 0 & 9 & 0 & 45 & 0 & 7 & 0 & 1 \\ 
-        ProjectRepository & 100\% & 100\% & 0 & 16 & 0 & 33 & 0 & 10 & 0 & 1 \\ 
-        EmployeeRepository & 100\% & 100\% & 0 & 15 & 0 & 35 & 0 & 10 & 0 & 1 \\ 
-        Total & 100\% & 100\% & 0 & 40 & 0 & 113 & 0 & 27 & 0 & 3 \\ \hline
-    \end{tabular}}
+            \toprule
+            Element            & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed Lines & Missed & Methods & Missed & Classes & ~ \\
+            \midrule
+            Seeder             & 100\%                   & 100\%               & 0      & 9    & 0            & 45     & 0       & 7      & 0       & 1 \\
+            ProjectRepository  & 100\%                   & 100\%               & 0      & 16   & 0            & 33     & 0       & 10     & 0       & 1 \\
+            EmployeeRepository & 100\%                   & 100\%               & 0      & 15   & 0            & 35     & 0       & 10     & 0       & 1 \\
+            Total              & 100\%                   & 100\%               & 0      & 40   & 0            & 113    & 0       & 27     & 0       & 3 \\
+            \bottomrule
+        \end{tabular}}
 \end{table}
 \begin{table}[!ht]
     \centering
     \caption{Coverage for ViewModels}\label{tbl:cov_viewmodels}
     \resizebox{\textwidth}{!}{\begin{tabular}{ccccccccccc}
-    \hline
-        Element & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\ \hline
-        ProjectViewModel & 100\% & 100\% & 0 & 6 & 0 & 22 & 0 & 3 & 0 & 1 \\ 
-        ReportViewModel & 100\% & 100\% & 0 & 3 & 0 & 17 & 0 & 1 & 0 & 1 \\ 
-        ActivityViewModel & 100\% & 100\% & 0 & 3 & 0 & 13 & 0 & 2 & 0 & 1 \\ 
-        WorktimeRegistrationViewModel & 100\% & 100\% & 0 & 3 & 0 & 12 & 0 & 2 & 0 & 1 \\ 
-        RegularActivityViewModel & 100\% & 100\% & 0 & 3 & 0 & 11 & 0 & 2 & 0 & 1 \\ 
-        EmployeeViewModel & 100\% & 100\% & 0 & 3 & 0 & 11 & 0 & 2 & 0 & 1 \\ 
-        ViewModel & 100\% & n/a & 0 & 1 & 0 & 1 & 0 & 1 & 0 & 1 \\ 
-        Total & 100\% & 100\% & 0 & 22 & 0 & 87 & 0 & 13 & 0 & 7 \\ \hline
-    \end{tabular}}
+            \toprule
+            Element                       & Coverage (instructions) & Coverage (branches) & Missed & Cxty & Missed & Lines & Missed & Methods & Missed & Classes \\
+            \midrule
+            ProjectViewModel              & 100\%                   & 100\%               & 0      & 6    & 0      & 22    & 0      & 3       & 0      & 1       \\
+            ReportViewModel               & 100\%                   & 100\%               & 0      & 3    & 0      & 17    & 0      & 1       & 0      & 1       \\
+            ActivityViewModel             & 100\%                   & 100\%               & 0      & 3    & 0      & 13    & 0      & 2       & 0      & 1       \\
+            WorktimeRegistrationViewModel & 100\%                   & 100\%               & 0      & 3    & 0      & 12    & 0      & 2       & 0      & 1       \\
+            RegularActivityViewModel      & 100\%                   & 100\%               & 0      & 3    & 0      & 11    & 0      & 2       & 0      & 1       \\
+            EmployeeViewModel             & 100\%                   & 100\%               & 0      & 3    & 0      & 11    & 0      & 2       & 0      & 1       \\
+            ViewModel                     & 100\%                   & n/a                 & 0      & 1    & 0      & 1     & 0      & 1       & 0      & 1       \\
+            Total                         & 100\%                   & 100\%               & 0      & 22   & 0      & 87    & 0      & 13      & 0      & 7       \\
+            \bottomrule
+        \end{tabular}}
 \end{table}
 
-\noindent
-Som det fremgår af \cref{tbl:cov_app,tbl:cov_domain,tbl:cov_exceptions,tbl:cov_facade,tbl:cov_helpers,tbl:cov_persist,tbl:cov_viewmodels}, er vores coverage på 100 procent, som det forventes ved god praksis af TDD. Målet var først en kende lavere (omtrent 91 procent), hovedsageligt på grund af komplekse if-udtryk, hvor en eller flere delbranches ikke var dækket af de cucumber-features, vi havde skrevet. F.eks. giver if (jegErSulten() \&\& jegHarSpist()) fire mulige delbranches: sand (begge er sande), falsk (den første er sand, anden ikke), falsk (omvendt af tidligere), og falsk (ingen af dem er sande). Af den mængde var vi interesseret i færre tilfælde end dem alle, hvorfor coverage faldt fra 100 procent. Dette blev løst i nogle tilfælde ved refactoring (særligt ved grelle if-udtryk) eller ved tilføjelse af nye scenarier, hvis man havde overset et relevant scenarie. De fleste blev løst ved tilføjelser af cucumber-scenarier.\\[4mm] En sidste nævneværdig årsag er future-proofing, særligt i generateProjectNumber, hvor lastNum sattes til num, hvis num var større end lastNum. Dette var gjort i starten af projektet med henblik på at gøre koden mindre afhængig af den samling, der eventuelt skulle indeholde alle projekter. I sidste ende blev projekter lagret i et Map, der tilfældigvis hasher projektnumrene, så de eksisterer i mappens keySet i stigende rækkefølge indenfor samme år, hvorfor tjekket til sidst blev fjernet. 
-
+Som det fremgår af \cref{tbl:cov_app,tbl:cov_domain,tbl:cov_exceptions,tbl:cov_facade,tbl:cov_helpers,tbl:cov_persist,tbl:cov_viewmodels}, er vores coverage på 100 procent, som det forventes ved god praksis af TDD. Målet var først en kende lavere (omtrent 91 procent), hovedsageligt på grund af komplekse if-udtryk, hvor en eller flere delbranches ikke var dækket af de cucumber-features, vi havde skrevet. F.eks. giver \mintinline{java}|if (jegErSulten() && jegHarSpist())| fire mulige delbranches som det fremgår af sandhedstabellen, \cref{tbl:truthtable}.
+\begin{table}[H]
+    \centering
+    \caption{Sandhedstabel for logisk konjunktion}\label{tbl:truthtable}
+    \begin{tblr}{cc|c}
+        \(p\)   & \(q\)   & \(p\land q\) \\
+        \hline
+        \ttt{T} & \ttt{T} & \ttt{T}      \\
+        \ttt{T} & \ttt{F} & \ttt{F}      \\
+        \ttt{F} & \ttt{T} & \ttt{F}      \\
+        \ttt{F} & \ttt{F} & \ttt{F}      \\
+    \end{tblr}
+\end{table}
+I praksis var mange af disse if-udtryk sat ind som safeguards hvor der i virkeligheden ikke var interesse i alle branches, hvorfor coverage faldt fra 100 procent. Dette blev løst i nogle tilfælde ved refactoring (særligt ved grelle if-udtryk) eller ved tilføjelse af nye scenarier, hvis man havde overset et relevant scenarie. De fleste blev løst ved tilføjelser af cucumber-scenarier.\\[4mm] En sidste nævneværdig årsag er future-proofing, særligt i generateProjectNumber, hvor lastNum sattes til num, hvis num var større end lastNum. Dette var gjort i starten af projektet med henblik på at gøre koden mindre afhængig af den samling, der eventuelt skulle indeholde alle projekter. I sidste ende blev projekter lagret i et Map, der tilfældigvis hasher projektnumrene, så de eksisterer i mappens keySet i stigende rækkefølge indenfor samme år, hvorfor tjekket til sidst blev fjernet.
 Hele præsentations-laget er ikke udviklet test-drevent, derfor er hele \textit{cli} mappen ikke inkluderet i code-coverage rapporten. Ved at ekskludere hele laget fra code-coverage rapporten har det været muligt at have bedre styr på validiteten af business-laget, og netop kunne opnå 100\% dækning.
