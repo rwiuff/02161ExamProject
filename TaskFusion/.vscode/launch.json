@@ -6,30 +6,9 @@
     "configurations": [
       {
         "type": "java",
-        "name": "CellWidths",
-        "request": "launch",
-        "mainClass": "taskfusion.CellWidths",
-        "projectName": "TaskFusion"
-      },
-      {
-        "type": "java",
-        "name": "TaskFusionDriver",
-        "request": "launch",
-        "mainClass": "taskfusion.app.TaskFusionDriver",
-        "projectName": "TaskFusion"
-      },
-      {
-        "type": "java",
         "name": "TaskFusionCLI",
         "request": "launch",
         "mainClass": "taskfusion.cli.TaskFusionCLI",
-        "projectName": "TaskFusion"
-      },
-      {
-        "type": "java",
-        "name": "ViewerController",
-        "request": "launch",
-        "mainClass": "taskfusion.ViewerController",
         "projectName": "TaskFusion"
       },
       {

@@ -226,6 +226,8 @@ separate-uncertainty-units = single ,
 \maketitle
 
 \pagenumbering{arabic}
+\thispagestyle{empty}
+\setcounter{page}{0}
 \newpage
 \tableofcontents
 \addtocontents{toc}{~\hfill\textbf{Side}\par}
@@ -235,7 +237,7 @@ separate-uncertainty-units = single ,
 \setcounter{page}{1}
 \input{ImplementationAndTest/Sections/00Forfatterskab.tex}
 \input{ImplementationAndTest/Sections/01Programstruktur.tex}
-\input{ImplementationAndTest/Sections/02WhiteBoxTest.tex}
+\input{ImplementationAndTest/Sections/02WhiteBoxTest.tex}\newpage
 \input{ImplementationAndTest/Sections/03CodeCoverage.tex}
 \input{ImplementationAndTest/Sections/04DesignByContract.tex}
 \input{ImplementationAndTest/Sections/05Design.tex}

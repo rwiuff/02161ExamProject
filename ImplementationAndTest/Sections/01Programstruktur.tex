@@ -2,24 +2,41 @@
 \section{Programstruktur}\label{sec:struct}
 \subsection{Import af program som projekt}
 \subsubsection{Eclipse}
+Via ``File' \(\rightarrow\) ``Import'' vælges ``Existing Maven Projects''. Rodmappen er ``TaskFusion''.
 \subsubsection{IntelliJ}
-\subsubsection{VS Code}
+Fra startskærmen vælges ``Open''. Naviger til ``TaskFusion'' og vælg at importere som et Maven projekt.
+\subsubsection{Visual Studio Code}
+Åben ``TaskFusion'' mappen med VS Code. Resten sker automatisk.
 \subsection{Start af programmet}
-For at køre TaskFusion skal følgende fil køres:\texttt{TaskFusion/src/main/taskFusion/cli/TaskFusionCLI.java}
+\subsubsection{Fra ens yndlings IDE}
+For at køre TaskFusion skal følgende fil køres i ens IDE:\newline
+\texttt{TaskFusion/src/main/taskFusion/cli/TaskFusionCLI.java}\newline
 Ingen kodeord er nødvendige for at køre programmet.
-Programmet kommer med demo-data installeret. Du kan derfor logge ind med følgende initialer; \texttt{kasy}, \texttt{rawi}, \texttt{mach}, \texttt{mash}. En jar-fil kan også oprettes med mvn package, der derefter kan køres. På UNIX-systemer skal den producerede jar-fil gøres eksekverbar med chmod +x [filnavn], såfremt brugeren har de rette privilegier, så den anses som en eksekverbar fil inden forsøg på kørsel.
+\subsubsection{Fra terminalen}
+Første skridt er at åbne rodmappen i ens terminal vindue. Herefter benyttes Maven. Mavens metoder sikrer at programmet kører med de rigtige afhængigheder og efter hensigsmæssig afvikling af kompilering og pakning. Desuden kørers alle tests før et jar-arkiv genereres. Via Maven er der to måder at kører TaskFusion:
+\begin{enumerate}
+    \item Direkte fra terminalen: \mintinline{bash}|mvn compile exec:java|
+    \item Som en eksekverbar jar-fil: \mintinline{bash}|mvn package| \ og \newline \mintinline{bash}|java -jar target/TaskFusion-1.0.0-jar-with-dependencies.jar|
+\end{enumerate}
+
+Kommandoen \mintinline{bash}|mvn compile exec:java| kompilerer klasserne og kører TaskFusionCLI i terminal vinduet.\newline
+Kommandoen \mintinline{bash}|mvn package| kompilerer klasserne, kører alle test og generere et eksekverbart jar-arkiv med nødvendige afhængigheder for at kører programmet (inklusiv pdf-generering til at gemme rapporter).\newline
+\mintinline{bash}|java -jar target/TaskFusion-1.0.0-jar-with-dependencies.jar| kører den pakkede jar-fil i UNIX systemer. På UNIX-systemer skal den producerede jar-fil gøres eksekverbar med kommandoen \mintinline{bash}|chmod +x [filnavn]|, såfremt brugeren har de rette privilegier, så den anses som en eksekverbar fil inden forsøg på kørsel. På en Windows computer benyttes kommandoen \mintinline{bash}|java -jar '.\target\TaskFusion-1.0.0-jar-with-dependencies.jar'|.
+\subsubsection{Demo mode}
+Programmet kommer med demo-data installeret. Du kan derfor logge ind med følgende initialer; \texttt{kasy}, \texttt{rawi}, \texttt{mach}, \texttt{mash}. Hvis man ønsker at bruge programmet uden demo-data skal man åbne \ttt{TaskFusionCLI} og ændre linje 14:\newline
+\mintinline{java}|private boolean seedDemoData = true;| til \mintinline{java}|private boolean seedDemoData = false;|.
 \subsection{Mappe struktur}
 \cref{fig:tree} viser mappestrukturen i Java projektet.
 \begin{figure}[H]
     \caption{Mappestrukturen i Java projektet TaskFusion}\label{fig:tree}
     \dirtree{%
-        .1 TaskFusion \ldots{} \begin{minipage}[t]{10cm} Rodmappe til filer som \emph{pom.xml}, \emph{.project} and \emph{.classpath} \end{minipage}.
+        .1 TaskFusion \ldots{} \begin{minipage}[t]{12cm} Rodmappe til filer som \emph{pom.xml}, \emph{.project} and \emph{.classpath} \end{minipage}.
         .2 features \ldots{} \begin{minipage}[t]{5cm} Cucomber feature filer \end{minipage}.
         .2 src.
         .3 main.
         .4 java.
-        .5 taskfusion \ldots{} \begin{minipage}[t]{5cm} \mintinline{java}|.java| filer \end{minipage}.
-        .6 app.
+        .5 taskfusion.
+        .6 app \ldots{} \begin{minipage}[t]{5cm} TaskFusion-hovedklasse \end{minipage}.
         .6 domain \ldots{} \begin{minipage}[t]{5cm} Domæne-lag \end{minipage}.
         .6 exceptions \ldots{} \begin{minipage}[t]{5cm} Exception klasser \end{minipage}.
         .6 helpers \ldots{} \begin{minipage}[t]{5cm} Diverse hjælper klasser \end{minipage}.
@@ -29,8 +46,9 @@ Programmet kommer med demo-data installeret. Du kan derfor logge ind med følgen
         .6 cli \ldots{} \begin{minipage}[t]{5cm} CLI brugergrænse-lag \end{minipage}.
         .7 controllers \ldots{} \begin{minipage}[t]{5cm} Menu controllere \end{minipage}.
         .7 views \ldots{} \begin{minipage}[t]{5cm} Indholdssider \end{minipage}.
-        .7 components \ldots{} \begin{minipage}[t]{10cm} Genbrugelige CLI komponenter \end{minipage}.
-        .7 TaskFusionCLI.java \ldots{} \begin{minipage}[t]{10cm} CLI-hovedklasse \end{minipage}.
+        .7 components \ldots{} \begin{minipage}[t]{8cm} Genbrugelige CLI komponenter \end{minipage}.
+        .7 TaskFusionCLI.java \ldots{} \begin{minipage}[t]{8cm} CLI-hovedklasse \end{minipage}.
+        .4 resources \ldots{} \begin{minipage}[t]{10cm} Skrifttyper og logo til projektrapporter \end{minipage}.
         .3 test.
         .4 java.
         .5 taskfusion.
