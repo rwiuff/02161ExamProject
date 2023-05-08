@@ -1,3 +1,4 @@
+@AssignProjectLeaderToProject
 Feature: Take on the role of project leader
 Description: An employee can, when no project leader is assigned to a project, appoint themselves as project leader.
 Actors: Employees

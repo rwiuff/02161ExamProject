@@ -1,3 +1,4 @@
+@Login
 Feature: Employees can login
 Description: An employee logs in to the application
 Actors: employee

@@ -1,3 +1,4 @@
+@RegisterEmployee
 Feature: Register employee
 Description: A new employee is added to the application
 Actors: Guest

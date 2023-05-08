@@ -1,3 +1,4 @@
+@GetList
 Feature: Get a list of participating employees from a project
 Description: An employee can get a list of employees assigned to a project.
 Actors: Employees

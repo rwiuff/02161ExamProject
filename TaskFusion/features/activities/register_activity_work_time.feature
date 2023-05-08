@@ -1,3 +1,4 @@
+@RegisterActivityWorktime
 Feature: Register work time on a project activity
 Description: An employee registers their work time on a project activity.
 Actors: employee

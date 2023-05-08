@@ -1,3 +1,4 @@
+@CreateProject
 Feature: Creating a project
 Description: An employee creates a project in the application
 Actors: employee

@@ -1,3 +1,4 @@
+@OverviewWorktime
 Feature: View summary of registered work time pr. activity
 Description: A project leader can view a summary of registered work time per activity
 Actors: Project leader and employee

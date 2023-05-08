@@ -1,3 +1,4 @@
+@CreateProjectActivitiyWithoutLeader
 Feature: Creating a project activity for a project without a project leader
   Description: An employee creates a project activity for a project without a project leader
   Actors: employee

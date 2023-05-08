@@ -1,3 +1,4 @@
+@CreateProjectActivityWithLeader
 Feature: Creating a project activity for a project with assigned project leader
 Description: A project leader creates a project activity for a project
 Actors: employee, projectleader
