@@ -23,8 +23,7 @@ Kommandoen \mintinline{bash}|mvn compile exec:java| kompilerer klasserne og kør
 Kommandoen \mintinline{bash}|mvn package| kompilerer klasserne, kører alle test og generere et eksekverbart jar-arkiv med nødvendige afhængigheder for at kører programmet (inklusiv pdf-generering til at gemme rapporter).\newline
 \mintinline{bash}|java -jar target/TaskFusion-1.0.0-jar-with-dependencies.jar| kører den pakkede jar-fil i UNIX systemer. På UNIX-systemer skal den producerede jar-fil gøres eksekverbar med kommandoen \mintinline{bash}|chmod +x [filnavn]|, såfremt brugeren har de rette privilegier, så den anses som en eksekverbar fil inden forsøg på kørsel. På en Windows computer benyttes kommandoen \mintinline{bash}|java -jar '.\target\TaskFusion-1.0.0-jar-with-dependencies.jar'|.
 \subsubsection{Demo mode}
-Programmet kommer med demo-data installeret. Du kan derfor logge ind med følgende initialer; \texttt{kasy}, \texttt{rawi}, \texttt{mach}, \texttt{mash}. Hvis man ønsker at bruge programmet uden demo-data skal man åbne \ttt{TaskFusionCLI} og ændre linje 14:\newline
-\mintinline{java}|private boolean seedDemoData = true;| til \mintinline{java}|private boolean seedDemoData = false;|.
+Programmet kommer med demo-data installeret. Man kan derfor fra velkomstmenuen vælge punkt 3 og indlæse demosættet for hurtigt at teste avancerede funktioner. Er TaskFusion i demo mode kan man logge ind med følgende initialer; \texttt{kasy}, \texttt{rawi}, \texttt{mach}, \texttt{mash}.
 \subsection{Mappe struktur}
 \cref{fig:tree} viser mappestrukturen i Java projektet.
 \begin{figure}[H]

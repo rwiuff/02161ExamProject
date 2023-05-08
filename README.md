@@ -2,8 +2,6 @@
 # 02161 Exam Project [![Java CI with Maven](https://github.com/rwiuff/02161ExamProject/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/rwiuff/02161ExamProject/actions/workflows/maven.yml) [![Test Coverage](https://github.com/rwiuff/02161ExamProject/raw/gh-pages/badges/jacoco.svg?raw=true)](https://rwiuff.github.io/02161ExamProject/)
 Exam Project for DTU course 02161 Software Engineering 1
 ## Running TaskFusion
-### Demo mode:
-As a default TaskFusion is in a demo mode, meaning there is being seeded employees, projects and activities. To disable this go to *TaskFusion/src/main/java/taskfusion/cli/TaskFusionCLI.java* and change line 14 to ```private boolean seedDemoData = false;```
 ### Compile and run
 Open the root directory [02161ExamProject/TaskFusion](TaskFusion) in the terminal of your choice. There are two ways of running TaskFusion:
 ### Option 1: Directly in the terminal:
@@ -24,6 +22,8 @@ java -jar '.\target\TaskFusion-1.0.0-jar-with-dependencies.jar'
 ```
 java -jar target/TaskFusion-1.0.0-jar-with-dependencies.jar
 ```
+### Demo mode:
+TaskFusion comes with a demo mode, that can load employees, projects and activities. To enable the demo mode, choose option 3 on the welcome screen.
 
 If the demo mode is on, one can log in using the initials: **kasy**, **rawi**, **mach** or **mash**.
 
