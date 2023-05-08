@@ -7,14 +7,14 @@ Programmets domæne lag består af instantierbare objektklasser og er ansvarlig 
 \begin{figure}[H]
     \centering
     \caption{Klassediagram over program-lag}
-    \includegraphics[width = \textwidth]{TaskFusion/out/assets/diagrams/class_persistency_layer/ClassDiagram_layer.png}
+    \includegraphics[width = \textwidth]{ImplementationAndTest/Diagrams/ClassDiagrams/ClassDiagram_layer.eps}
     \label{fig:class_persistency_layer}
 \end{figure}
 Vi ønsker desuden aldrig at eksponere programmets klasser udenfor program-laget. Derfor implementere alle instantierbare klasser i domæne-laget \textit{ConvertibleToViewModel}-interfacet, vist herunder i \cref{fig:class_persistency_domain}. Dette interface kræver at klasserne kan eksporteres til en tilsvarende visningsklasse til brug i præsentations-lag. På den måde kan vi undgå at brugere kan kalde metoder fra domæne-laget, og dermed sikre de forudsætninger de enkelte metoder måtte have.
 \begin{figure}[H]
     \centering
     \caption{Domæne-laget}
-    \includegraphics[width = \textwidth]{TaskFusion/out/assets/diagrams/class_persistency_domain/ClassDiagram_domain.png}
+    \includegraphics[width = \textwidth]{ImplementationAndTest/Diagrams/ClassDiagrams/ClassDiagram_domain.eps}
     \label{fig:class_persistency_domain}
 \end{figure}
 Et andet design mønster der er taget i brug, er singleton design mønstret. F.eks. haves et opbevaringssted for alle medarbejdere kaldet \textit{EmployeeRepository}. Der ønskes kun én instans af dette objekt, da idéen er at tilgå og opbevare medarbejderne via. ét objekt. Hvis flere instanser af dette objekt skulle forekomme, er det ikke sikret, at brugeren kan tilgå alle medarbejderne fra den ene instans, da medarbejdere kan eksistere i de andre instanser, hvorfor objektet skal være en singleton. Af samme grunde som EmployeeRepository er en singleton, er ProjectRepository ligeså.
@@ -25,7 +25,7 @@ Som det blev nævnt i indledningen af dette kapitel, har der været fokus på ad
 \begin{figure}[H]
     \centering
     \caption{Klassediagram over præsentations-laget}
-    \includegraphics[width = 5cm]{TaskFusion/out/assets/diagrams/class_cli/TaskFusion-CLI.png}
+    \includegraphics[width = 5cm]{ImplementationAndTest/Diagrams/ClassDiagrams/TaskFusion-CLI.eps}
     \label{fig:class_cli}
 \end{figure}
 \subsubsection{CLI brugergrænsefladen}
@@ -33,6 +33,6 @@ Da CLI grænsefladen til TaskFusion er opbygget af \textit{MenuController}'re og
 \begin{figure}[H]
     \centering
     \caption{Flowdiagram over CLI brugergrænsefladen}
-    \includegraphics[width = \textwidth]{TaskFusion/out/assets/diagrams/flow_cli/flow_cli.png}
+    \includegraphics[width = \textwidth]{ImplementationAndTest/Diagrams/FlowCharts/flow_cli.eps}
     \label{fig:flow_cli}
 \end{figure}

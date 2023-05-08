@@ -1,4 +1,4 @@
-@startuml persistency_to_facade_example
+@startuml persistency_to_facade_example_improved
 
 skinparam linetype ortho
 

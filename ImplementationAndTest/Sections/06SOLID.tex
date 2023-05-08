@@ -30,7 +30,7 @@ Det lyder fra opgaveformuleringen, at der skal være mulighed for at opdele proj
 \begin{figure}[H]
   \centering
   \caption{Klassediagram af \textit{aktivity} klasserne}
-  \includegraphics[width = 12cm, keepaspectratio]{TaskFusion/out/assets/diagrams/class_liskov_model_example/liskov_model_example.png}
+  \includegraphics[width = 12cm]{ImplementationAndTest/Diagrams/ClassDiagrams/liskov_model_example.eps}
   \label{fig:class_activity_example}
 \end{figure}
 Vi skelner i programmet imellem en fast aktivitet og en projekt aktivitet, hendholdsvis \texttt{RegularActivity} og \texttt{ProjecActivity}. Begge typer har behov for egenskaberne \textit{title}, \textit{startWeek} og \textit{endWeek}. For at sikre at kunne overholde de forventninger der er til disse egenskaber, er disse i en abstrakt klasse \texttt{Activity}, som underklasserne nedarver fra. På den måde er \texttt{Activity} lukket for ændringer men åben for udvidelser.
@@ -42,21 +42,21 @@ Facade-laget bruges som mellemlag mellem præsentations- og program-lag, og på 
 \begin{figure}[H]
   \centering
   \caption{Klassediagram af facade-laget}
-  \includegraphics[width = \textwidth, keepaspectratio]{TaskFusion/out/assets/diagrams/class_facade_layer_simple/ClassDiagram_facade_simple.png}
+  \includegraphics[width = \textwidth]{ImplementationAndTest/Diagrams/ClassDiagrams/ClassDiagram_facade_simple.eps}
   \label{fig:class_facade_simple}
 \end{figure}
 Ser vi istedet på koblingen mellem \textit{facade}- og \textit{persistency}-laget, kan vi her forbedre programmet i forhold til \textit{Interface segragation principle}. Den nuværende implementation ser ud som vist herunder i \cref{fig:class_facade_persistency_current}
 \begin{figure}[H]
   \centering
   \caption{Klassediagram af nuværende forbindelse mellem facade- og persistency-laget}
-  \includegraphics[width = 12cm, keepaspectratio]{TaskFusion/out/assets/diagrams/class_persistency_to_facade/persistency_to_facade_example.png}
+  \includegraphics[width = 12cm]{ImplementationAndTest/Diagrams/ClassDiagrams/persistency_to_facade_example.eps}
   \label{fig:class_facade_persistency_current}
 \end{figure}
 Som programmet er nu, afhænger \texttt{EmployeeFacade} og \texttt{ProjectFacade} direkte af implemterede metoder i henholdsvis \texttt{EmployeeRepository} og \texttt{ProjectRepository}. Istedet kunne vi indføre et \texttt{EmployeeRepositoryInterface} og et \texttt{ProjectRepositoryInterface}, hvilke facade klasserne så kunne afhænge af. En sådan implementering vil så se ud som illustreret herunder i \cref{fig:class_facade_persistency_improved}
 \begin{figure}[H]
   \centering
   \caption{Klassediagram af forbindelse mellem facade- og persistency-laget ved brug af interfaces}
-  \includegraphics[width = 12cm, keepaspectratio]{TaskFusion/out/assets/diagrams/class_persistency_to_facade_improved/persistency_to_facade_example.png}
+  \includegraphics[width = 12cm]{ImplementationAndTest/Diagrams/ClassDiagrams/persistency_to_facade_example_improved.eps}
   \label{fig:class_facade_persistency_improved}
 \end{figure}
 \subsection{Dependency inversion principle} \label{sec:solid_d}
@@ -65,6 +65,6 @@ Vi kan også fremhæve et andet eksempel på opfyldelse af \textit{Dependency in
 \begin{figure}[H]
   \centering
   \caption{Klassediagram af \textit{ConvertibleToViewModelInterface} implementeringer}
-  \includegraphics[width = \textwidth, keepaspectratio]{TaskFusion/out/assets/diagrams/class_convertibleToViewModel_example/ConvertibleToViewModel_diagram.png}
+  \includegraphics[width = \textwidth]{ImplementationAndTest/Diagrams/ClassDiagrams/ConvertibleToViewModel_diagram.eps}
   \label{fig:class_convertible_example}
 \end{figure}

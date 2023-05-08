@@ -5,7 +5,7 @@ Programmets klasser inddeles i lag som ses på \cref{fig:classLayers}.
 \begin{figure}
     \centering
     \caption{TaskFusion klasser inddelt i lag}\label{fig:classLayers}
-    \includegraphics[width=\textwidth]{TaskFusion/out/assets/diagrams/class_persistency_layer/ClassDiagram_layer.eps}
+    \includegraphics[width=\textwidth]{ImplementationAndTest/Diagrams/ClassDiagrams/ClassDiagram_layer.eps}
 \end{figure}
 TaskFusionCLI opretter et TaskFusion objekt som opretter ProjectFacade og EmployeeFacade. Her kan TaskFusion sende metodekald til to singletons:
 \begin{itemize}
@@ -16,7 +16,7 @@ Metodekaldene opretter og ændrer felter i \textit{domain}-laget, som ses på \c
 \begin{figure}
     \centering
     \caption{TaskFusion klasser i domain laget}\label{fig:domainLayer}
-    \includegraphics[width=\textwidth]{TaskFusion/out/assets/diagrams/class_persistency_domain/ClassDiagram_domain.eps}
+    \includegraphics[width=\textwidth]{ImplementationAndTest/Diagrams/ClassDiagrams/ClassDiagram_domain.eps}
 \end{figure}
 Skal data bruges i CLI'en hentes en \textit{ModelViewModel} af et objekt, som CLI'en formaterer til brugerfladen.
 \newpage

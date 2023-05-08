@@ -1,4 +1,4 @@
-@startuml
+@startuml flow_cli
 left to right direction
 (*) --> "
 {{
