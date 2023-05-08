@@ -22,6 +22,8 @@ java -jar '.\target\TaskFusion-1.0.0-jar-with-dependencies.jar'
 ```
 java -jar target/TaskFusion-1.0.0-jar-with-dependencies.jar
 ```
+### From IDE
+Import the root folder *TaskFusion* as a Maven project in the IDE. The main class is: */TaskFusion/src/main/java/taskfusion/cli/TaskFusionCLI.java*
 ### Demo mode:
 TaskFusion comes with a demo mode, that can load employees, projects and activities. To enable the demo mode, choose option 3 on the welcome screen.
 
