@@ -1,3 +1,4 @@
+@ActivityRemainingWork
 Feature: Get reamining activity progress
 Description: Project leader gets remaining time on activity
 Actors: Project manager

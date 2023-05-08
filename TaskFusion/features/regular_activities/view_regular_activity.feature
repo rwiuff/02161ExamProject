@@ -1,3 +1,4 @@
+@ViewRegularActivity
 Feature: View regular activity
   Description: An employee wishes to view a regular activity
   Actors: employee

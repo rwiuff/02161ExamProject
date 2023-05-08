@@ -1,3 +1,4 @@
+@Logout
 Feature: Employees can log out
 Description: An employee logs out of the application
 Actors: employee

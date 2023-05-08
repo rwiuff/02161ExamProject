@@ -1,3 +1,4 @@
+@ManageActivityWorktime
 Feature: View and edit registered work time on a project activity
   Description: An employee wishes to view or edit registered work time on an activity
   Actors: employee and guest

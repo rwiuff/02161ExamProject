@@ -1,3 +1,4 @@
+@ActivityWorktimeBudget
 Feature: Set time budget for a regular activity
 Description: Project leader assigns the time bugdet for a given activity
 Actors: Project manager

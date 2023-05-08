@@ -1,3 +1,4 @@
+@AssignEmployeeToProject
 Feature: Assign employees onto project
 Description: Project leader assigns emplyees for a project
 Actors: Project leader

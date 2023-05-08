@@ -11,8 +11,6 @@ import taskfusion.persistency.Seeder;
 
 public class TaskFusionCLI {
 
-	private boolean seedDemoData = true;
-
 	private static TaskFusionCLI instance;
 
 	private TaskFusion taskFusion;
@@ -24,7 +22,6 @@ public class TaskFusionCLI {
 	 */
 
 	private TaskFusionCLI() {
-		seedDemoData();
 
 		taskFusion = new TaskFusion();
 		scanner = new Scanner(System.in);
@@ -41,21 +38,6 @@ public class TaskFusionCLI {
 		scanner.close();
 	}
 
-	/**
-	 * Seeding
-	 */
-	private void seedDemoData() {
-		if (seedDemoData) {
-			Seeder seeder = new Seeder();
-
-			try {
-				seeder.seedDemoData();
-			} catch (Exception e) {
-				Text.showExceptionError(e);
-				e.printStackTrace();
-			}
-		}
-	}
 
 	/**
 	 * Singleton methods
