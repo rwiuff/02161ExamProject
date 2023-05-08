@@ -30,7 +30,7 @@ public class CreateWorktimeRegistrationView implements ViewInterface {
             }
 
             try {
-                TaskFusionCLI.taskFusion().registerWorkTime(project.projectNumber, activity.title, Integer.parseInt(time));
+                TaskFusionCLI.taskFusion().registerWorkTime(project.projectNumber, activity.title, Double.parseDouble(time));
             } catch (Exception e) {
                 Text.showExceptionError(e);
                 Text.showInfo("Prøv igen");
