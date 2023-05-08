@@ -8,6 +8,7 @@ title GÆST MENU
 header GuestMenuController
 <&chevron-right> Login
 <&chevron-right> Opret medarbejder
+<&chevron-right> Seed demo data
 <&chevron-right> Luk
 }
 }}
