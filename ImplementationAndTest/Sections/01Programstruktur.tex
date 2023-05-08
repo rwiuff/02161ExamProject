@@ -13,7 +13,7 @@ For at køre TaskFusion skal følgende fil køres i ens IDE:\newline
 \texttt{TaskFusion/src/main/taskFusion/cli/TaskFusionCLI.java}\newline
 Ingen kodeord er nødvendige for at køre programmet.
 \subsubsection{Fra terminalen}
-Første skridt er at åbne rodmappen i ens terminal vindue. Herefter benyttes Maven. Mavens metoder sikrer at programmet kører med de rigtige afhængigheder og efter hensigsmæssig afvikling af kompilering og pakning. Desuden kørers alle tests før et jar-arkiv genereres. Via Maven er der to måder at kører TaskFusion:
+Første skridt er at åbne rodmappen i ens terminal vindue. Herefter benyttes Maven. Mavens metoder sikrer at programmet kører med de rigtige afhængigheder og efter hensigtsmæssig afvikling af kompilering og pakning. Desuden kørers alle tests før et jar-arkiv genereres. Via Maven er der to måder at kører TaskFusion:
 \begin{enumerate}
     \item Direkte fra terminalen: \mintinline{bash}|mvn compile exec:java|
     \item Som en eksekverbar jar-fil: \mintinline{bash}|mvn package| \ og \newline \mintinline{bash}|java -jar target/TaskFusion-1.0.0-jar-with-dependencies.jar|
@@ -30,7 +30,7 @@ Programmet kommer med demo-data installeret. Man kan derfor fra velkomstmenuen v
     \caption{Mappestrukturen i Java projektet TaskFusion}\label{fig:tree}
     \dirtree{%
         .1 TaskFusion \ldots{} \begin{minipage}[t]{12cm} Rodmappe til filer som \emph{pom.xml}, \emph{.project} and \emph{.classpath} \end{minipage}.
-        .2 features \ldots{} \begin{minipage}[t]{5cm} Cucomber feature filer \end{minipage}.
+        .2 features \ldots{} \begin{minipage}[t]{5cm} Cucumber feature filer \end{minipage}.
         .2 src.
         .3 main.
         .4 java.
